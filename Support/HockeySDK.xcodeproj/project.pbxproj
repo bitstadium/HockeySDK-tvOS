@@ -1676,12 +1676,9 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "../Resources/HockeySDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[arch=arm64]" = 7.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = appletvos;
 			};
 			name = Debug;
 		};
@@ -1709,11 +1706,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "../Resources/HockeySDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[arch=arm64]" = 7.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = appletvos;
 				VALIDATE_PRODUCT = NO;
 			};
 			name = Release;
