@@ -74,7 +74,6 @@
 		1E80405C1BDE322F007F8794 /* BITHockeyAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E40E0B0B17DA1AFF005E38C1 /* BITHockeyAppClient.m */; };
 		1E8040611BDE322F007F8794 /* BITCrashMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA8F50192B6954006B9416 /* BITCrashMetaData.m */; };
 		1E8040621BDE322F007F8794 /* BITHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4933E7F17B66CDA00B11ACC /* BITHTTPOperation.m */; };
-		1E8040641BDE322F007F8794 /* BITCrashAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED570C618BF878C00AB3350 /* BITCrashAttachment.m */; };
 		1E8040681BDE322F007F8794 /* BITHockeyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E49A4A6161222B900463151 /* BITHockeyHelper.m */; };
 		1E80406C1BDE322F007F8794 /* BITHockeyBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E49A4A1161222B900463151 /* BITHockeyBaseManager.m */; };
 		1E8040731BDE322F007F8794 /* BITCrashDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E90FD7218EDB86400CF0417 /* BITCrashDetails.m */; };
@@ -93,7 +92,6 @@
 		1E80408A1BDE322F007F8794 /* BITHockeyManagerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E5955FA15B7877A00A03429 /* BITHockeyManagerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E80408C1BDE322F007F8794 /* BITCrashManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E754E561621FBB70070AB92 /* BITCrashManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E80408D1BDE322F007F8794 /* BITCrashManagerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E754E581621FBB70070AB92 /* BITCrashManagerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E80408E1BDE322F007F8794 /* BITCrashAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED570C518BF878C00AB3350 /* BITCrashAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E80408F1BDE322F007F8794 /* BITCrashMetaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECA8F4F192B6954006B9416 /* BITCrashMetaData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E8040901BDE322F007F8794 /* BITCrashDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E90FD7118EDB86400CF0417 /* BITCrashDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E8040931BDE322F007F8794 /* BITCrashCXXExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 846A901D1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h */; };
@@ -146,8 +144,6 @@
 		1EB6177A1B0A310F0035A986 /* BITCrashDetailsPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECA8F4B192B5BD8006B9416 /* BITCrashDetailsPrivate.h */; };
 		1EB6177B1B0A31120035A986 /* BITCrashMetaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ECA8F4F192B6954006B9416 /* BITCrashMetaData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EB6177C1B0A31170035A986 /* BITCrashMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA8F50192B6954006B9416 /* BITCrashMetaData.m */; };
-		1EB6177D1B0A311A0035A986 /* BITCrashAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED570C518BF878C00AB3350 /* BITCrashAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EB6177E1B0A31200035A986 /* BITCrashAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED570C618BF878C00AB3350 /* BITCrashAttachment.m */; };
 		1EB6177F1B0A31230035A986 /* BITCrashReportTextFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E754E5B1621FBB70070AB92 /* BITCrashReportTextFormatter.m */; };
 		1EB617801B0A31260035A986 /* BITCrashReportTextFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E754E5A1621FBB70070AB92 /* BITCrashReportTextFormatter.h */; };
 		1EB617951B0A31510035A986 /* BITHockeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E41EB466148D7BF50015DEDC /* BITHockeyManager.m */; };
@@ -330,8 +326,6 @@
 		1ECA8F4B192B5BD8006B9416 /* BITCrashDetailsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashDetailsPrivate.h; sourceTree = "<group>"; };
 		1ECA8F4F192B6954006B9416 /* BITCrashMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashMetaData.h; sourceTree = "<group>"; };
 		1ECA8F50192B6954006B9416 /* BITCrashMetaData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCrashMetaData.m; sourceTree = "<group>"; };
-		1ED570C518BF878C00AB3350 /* BITCrashAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashAttachment.h; sourceTree = "<group>"; };
-		1ED570C618BF878C00AB3350 /* BITCrashAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCrashAttachment.m; sourceTree = "<group>"; };
 		1EDA60CF15C2C1450032D10B /* HockeySDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HockeySDK-Info.plist"; sourceTree = "<group>"; };
 		1EFF03D717F20F8300A5F13C /* BITCrashManagerPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BITCrashManagerPrivate.h; sourceTree = "<group>"; };
 		1EFF03E417F2485500A5F13C /* BITCrashManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCrashManagerTests.m; sourceTree = "<group>"; };
@@ -540,8 +534,6 @@
 				1ECA8F4B192B5BD8006B9416 /* BITCrashDetailsPrivate.h */,
 				1ECA8F4F192B6954006B9416 /* BITCrashMetaData.h */,
 				1ECA8F50192B6954006B9416 /* BITCrashMetaData.m */,
-				1ED570C518BF878C00AB3350 /* BITCrashAttachment.h */,
-				1ED570C618BF878C00AB3350 /* BITCrashAttachment.m */,
 				1E754E5A1621FBB70070AB92 /* BITCrashReportTextFormatter.h */,
 				1E754E5B1621FBB70070AB92 /* BITCrashReportTextFormatter.m */,
 				846A901D1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h */,
@@ -721,7 +713,6 @@
 				1E80408A1BDE322F007F8794 /* BITHockeyManagerDelegate.h in Headers */,
 				1E80408C1BDE322F007F8794 /* BITCrashManager.h in Headers */,
 				1E80408D1BDE322F007F8794 /* BITCrashManagerDelegate.h in Headers */,
-				1E80408E1BDE322F007F8794 /* BITCrashAttachment.h in Headers */,
 				1E80408F1BDE322F007F8794 /* BITCrashMetaData.h in Headers */,
 				1E8040901BDE322F007F8794 /* BITCrashDetails.h in Headers */,
 				1E8040931BDE322F007F8794 /* BITCrashCXXExceptionHandler.h in Headers */,
@@ -757,7 +748,6 @@
 				1EB6175C1B0A30920035A986 /* HockeySDKPrivate.h in Headers */,
 				1EB617781B0A31060035A986 /* BITCrashDetails.h in Headers */,
 				1EB617601B0A30A20035A986 /* BITHockeyBaseManagerPrivate.h in Headers */,
-				1EB6177D1B0A311A0035A986 /* BITCrashAttachment.h in Headers */,
 				1EB617CD1B0A34440035A986 /* BITHTTPOperation.h in Headers */,
 				1EB6177B1B0A31120035A986 /* BITCrashMetaData.h in Headers */,
 				1EB6176F1B0A30D20035A986 /* BITHockeyAttachment.h in Headers */,
@@ -1069,7 +1059,6 @@
 				1E80405C1BDE322F007F8794 /* BITHockeyAppClient.m in Sources */,
 				1E8040611BDE322F007F8794 /* BITCrashMetaData.m in Sources */,
 				1E8040621BDE322F007F8794 /* BITHTTPOperation.m in Sources */,
-				1E8040641BDE322F007F8794 /* BITCrashAttachment.m in Sources */,
 				1E8040681BDE322F007F8794 /* BITHockeyHelper.m in Sources */,
 				1E80406C1BDE322F007F8794 /* BITHockeyBaseManager.m in Sources */,
 				1E8040731BDE322F007F8794 /* BITCrashDetails.m in Sources */,
@@ -1094,7 +1083,6 @@
 				1EB617641B0A30B10035A986 /* BITHockeyHelper.m in Sources */,
 				1EB617791B0A310C0035A986 /* BITCrashDetails.m in Sources */,
 				1EB6177C1B0A31170035A986 /* BITCrashMetaData.m in Sources */,
-				1EB6177E1B0A31200035A986 /* BITCrashAttachment.m in Sources */,
 				1EB617661B0A30B60035A986 /* BITKeychainUtils.m in Sources */,
 				1EB617CE1B0A34470035A986 /* BITHTTPOperation.m in Sources */,
 				846A90221B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm in Sources */,
@@ -1178,6 +1166,7 @@
 			buildSettings = {
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.ios;
 				PRODUCT_NAME = HockeySDK.framework;
+				SDKROOT = appletvos;
 			};
 			name = Debug;
 		};
@@ -1186,6 +1175,7 @@
 			buildSettings = {
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.ios;
 				PRODUCT_NAME = HockeySDK.framework;
+				SDKROOT = appletvos;
 			};
 			name = Release;
 		};
@@ -1391,6 +1381,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
 			};
 			name = Debug;
 		};
@@ -1400,6 +1391,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
 			};
 			name = Release;
 		};

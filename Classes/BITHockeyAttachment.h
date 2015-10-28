@@ -29,11 +29,9 @@
 #import <Foundation/Foundation.h>
 
 /**
- Provides support to add binary attachments to crash reports and feedback messages
+ Provides support to add binary attachments to crash reports
  
  This is used by `[BITCrashManagerDelegate attachmentForCrashManager:]`,
- `[BITFeedbackComposeViewController prepareWithItems:]` and
- `[BITFeedbackManager showFeedbackComposeViewWithPreparedItems:]`
  */
 @interface BITHockeyAttachment : NSObject<NSCoding>
 

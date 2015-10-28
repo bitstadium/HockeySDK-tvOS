@@ -42,41 +42,13 @@
 #import "BITHockeyManager.h"
 #import "BITHockeyManagerDelegate.h"
 
-#if HOCKEYSDK_FEATURE_CRASH_REPORTER || HOCKEYSDK_FEATURE_FEEDBACK
-#import "BITHockeyAttachment.h"
-#endif
-
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
+#import "BITHockeyAttachment.h"
 #import "BITCrashManager.h"
-#import "BITCrashAttachment.h"
 #import "BITCrashManagerDelegate.h"
 #import "BITCrashDetails.h"
 #import "BITCrashMetaData.h"
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
-
-#if HOCKEYSDK_FEATURE_UPDATES
-#import "BITUpdateManager.h"
-#import "BITUpdateManagerDelegate.h"
-#import "BITUpdateViewController.h"
-#endif /* HOCKEYSDK_FEATURE_UPDATES */
-
-#if HOCKEYSDK_FEATURE_STORE_UPDATES
-#import "BITStoreUpdateManager.h"
-#import "BITStoreUpdateManagerDelegate.h"
-#endif /* HOCKEYSDK_FEATURE_STORE_UPDATES */
-
-#if HOCKEYSDK_FEATURE_FEEDBACK
-#import "BITFeedbackManager.h"
-#import "BITFeedbackManagerDelegate.h"
-#import "BITFeedbackActivity.h"
-#import "BITFeedbackComposeViewController.h"
-#import "BITFeedbackComposeViewControllerDelegate.h"
-#import "BITFeedbackListViewController.h"
-#endif /* HOCKEYSDK_FEATURE_FEEDBACK */
-
-#if HOCKEYSDK_FEATURE_AUTHENTICATOR
-#import "BITAuthenticator.h"
-#endif
 
 // Notification message which HockeyManager is listening to, to retry requesting updated from the server.
 // This can be used by app developers to trigger additional points where the HockeySDK can try sending

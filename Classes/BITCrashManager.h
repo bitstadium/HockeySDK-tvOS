@@ -333,7 +333,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  @see BITCrashManagerUserInput
  @see BITCrashMetaData
  */
-- (BOOL)handleUserInput:(BITCrashManagerUserInput)userInput withUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData;
+- (BOOL)handleUserInput:(BITCrashManagerUserInput)userInput withUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData __TVOS_PROHIBITED;
 
 /**
  Lets you set a custom block which handles showing a custom UI and asking the user
@@ -355,7 +355,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  
  @warning This needs to be set before calling `[BITHockeyManager startManager]`!
  */
-- (void)setAlertViewHandler:(BITCustomAlertViewHandler)alertViewHandler;
+- (void)setAlertViewHandler:(BITCustomAlertViewHandler)alertViewHandler __TVOS_PROHIBITED;
 
 /**
  * Provides details about the crash that occurred in the last app session
@@ -434,11 +434,5 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  * If the SDK detects an App Store environment, it will _NOT_ cause the app to crash!
  */
 - (void)generateTestCrash;
-
-///-----------------------------------------------------------------------------
-/// @name Deprecated
-///-----------------------------------------------------------------------------
-
-@property (nonatomic, readonly) NSTimeInterval timeintervalCrashInLastSessionOccured DEPRECATED_MSG_ATTRIBUTE("Use the properly spelled property `timeIntervalCrashInLastSessionOccurred` instead.");
 
 @end

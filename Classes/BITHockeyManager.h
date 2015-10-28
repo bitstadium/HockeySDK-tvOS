@@ -39,18 +39,6 @@
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
 @class BITCrashManager;
 #endif
-#if HOCKEYSDK_FEATURE_UPDATES
-@class BITUpdateManager;
-#endif
-#if HOCKEYSDK_FEATURE_STORE_UPDATES
-@class BITStoreUpdateManager;
-#endif
-#if HOCKEYSDK_FEATURE_FEEDBACK
-@class BITFeedbackManager;
-#endif
-#if HOCKEYSDK_FEATURE_AUTHENTICATOR
-@class BITAuthenticator;
-#endif
 
 /** 
  The HockeySDK manager. Responsible for setup and management of all components
@@ -130,8 +118,6 @@
  @see startManager
  @see BITHockeyManagerDelegate
  @see BITCrashManagerDelegate
- @see BITUpdateManagerDelegate
- @see BITFeedbackManagerDelegate
  @param appIdentifier The app identifier that should be used.
  @param delegate `nil` or the class implementing the option protocols
  */
@@ -166,8 +152,6 @@
  @see startManager
  @see BITHockeyManagerDelegate
  @see BITCrashManagerDelegate
- @see BITUpdateManagerDelegate
- @see BITFeedbackManagerDelegate
  @param betaIdentifier The app identifier for the _non_ app store (beta) configurations
  @param liveIdentifier The app identifier for the app store configurations.
  @param delegate `nil` or the class implementing the optional protocols
@@ -205,8 +189,6 @@
  
  @see BITHockeyManagerDelegate
  @see BITCrashManagerDelegate
- @see BITUpdateManagerDelegate
- @see BITFeedbackManagerDelegate
  */
 @property (nonatomic, weak) id<BITHockeyManagerDelegate> delegate;
 
@@ -255,122 +237,6 @@
 
 #endif
 
-
-#if HOCKEYSDK_FEATURE_UPDATES
-
-/**
- Reference to the initialized BITUpdateManager module
- 
- Returns the BITUpdateManager instance initialized by BITHockeyManager
- 
- @see configureWithIdentifier:delegate:
- @see configureWithBetaIdentifier:liveIdentifier:delegate:
- @see startManager
- @see disableUpdateManager
- */
-@property (nonatomic, strong, readonly) BITUpdateManager *updateManager;
-
-
-/**
- Flag the determines whether the Update Manager should be disabled
- 
- If this flag is enabled, then checking for updates and submitting beta usage
- analytics will be turned off!
- 
- Please note that the Update Manager instance will be initialized anyway!
- 
- @warning This property needs to be set before calling `startManager`
-
- *Default*: _NO_
- @see updateManager
- */
-@property (nonatomic, getter = isUpdateManagerDisabled) BOOL disableUpdateManager;
-
-#endif
-
-
-#if HOCKEYSDK_FEATURE_STORE_UPDATES
-
-/**
- Reference to the initialized BITStoreUpdateManager module
- 
- Returns the BITStoreUpdateManager instance initialized by BITHockeyManager
- 
- @see configureWithIdentifier:delegate:
- @see configureWithBetaIdentifier:liveIdentifier:delegate:
- @see startManager
- @see enableStoreUpdateManager
- */
-@property (nonatomic, strong, readonly) BITStoreUpdateManager *storeUpdateManager;
-
-
-/**
- Flag the determines whether the App Store Update Manager should be enabled
- 
- If this flag is enabled, then checking for updates when the app runs from the
- app store will be turned on!
- 
- Please note that the Store Update Manager instance will be initialized anyway!
-
- @warning This property needs to be set before calling `startManager`
-
- *Default*: _NO_
- @see storeUpdateManager
- */
-@property (nonatomic, getter = isStoreUpdateManagerEnabled) BOOL enableStoreUpdateManager;
-
-#endif
-
-
-#if HOCKEYSDK_FEATURE_FEEDBACK
-
-/**
- Reference to the initialized BITFeedbackManager module
- 
- Returns the BITFeedbackManager instance initialized by BITHockeyManager
- 
- @see configureWithIdentifier:delegate:
- @see configureWithBetaIdentifier:liveIdentifier:delegate:
- @see startManager
- @see disableFeedbackManager
- */
-@property (nonatomic, strong, readonly) BITFeedbackManager *feedbackManager;
-
-
-/**
- Flag the determines whether the Feedback Manager should be disabled
- 
- If this flag is enabled, then letting the user give feedback and
- get responses will be turned off!
- 
- Please note that the Feedback Manager instance will be initialized anyway!
-
- @warning This property needs to be set before calling `startManager`
-
- *Default*: _NO_
- @see feedbackManager
- */
-@property (nonatomic, getter = isFeedbackManagerDisabled) BOOL disableFeedbackManager;
-
-#endif
-
-
-#if HOCKEYSDK_FEATURE_AUTHENTICATOR
-
-/**
- Reference to the initialized BITAuthenticator module
- 
- Returns the BITAuthenticator instance initialized by BITHockeyManager
- 
- @see configureWithIdentifier:delegate:
- @see configureWithBetaIdentifier:liveIdentifier:delegate:
- @see startManager
- */
-@property (nonatomic, strong, readonly) BITAuthenticator *authenticator;
-
-#endif
-
-
 ///-----------------------------------------------------------------------------
 /// @name Environment
 ///-----------------------------------------------------------------------------
@@ -391,18 +257,6 @@
  @see `BITEnvironment`
  */
 @property (nonatomic, readonly) BITEnvironment appEnvironment;
-
-
-/**
- Flag that determines whether the application is installed and running
- from an App Store installation.
- 
- Returns _YES_ if the app is installed and running from the App Store
- Returns _NO_ if the app is installed via debug, ad-hoc or enterprise distribution
- 
- @deprecated Please use `appEnvironment` instead!
- */
-@property (nonatomic, readonly, getter=isAppStoreEnvironment) BOOL appStoreEnvironment DEPRECATED_ATTRIBUTE;
 
 
 /**

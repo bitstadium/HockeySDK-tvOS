@@ -52,19 +52,3 @@ BOOL bit_hasEmbeddedMobileProvision(void);
 BOOL bit_isRunningInTestFlightEnvironment(void);
 BOOL bit_isRunningInAppStoreEnvironment(void);
 BOOL bit_isRunningInAppExtension(void);
-
-#if !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnly) && !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnlyExtensions)
-NSString *bit_validAppIconStringFromIcons(NSBundle *resourceBundle, NSArray *icons);
-NSString *bit_validAppIconFilename(NSBundle *bundle, NSBundle *resourceBundle);
-
-/* UIImage helpers */
-UIImage *bit_roundedCornerImage(UIImage *inputImage, NSInteger cornerSize, NSInteger borderSize);
-UIImage *bit_imageToFitSize(UIImage *inputImage, CGSize fitSize, BOOL honorScaleFactor);
-UIImage *bit_reflectedImageWithHeight(UIImage *inputImage, NSUInteger height, float fromAlpha, float toAlpha);
-
-UIImage *bit_newWithContentsOfResolutionIndependentFile(NSString * path);
-UIImage *bit_imageWithContentsOfResolutionIndependentFile(NSString * path);
-UIImage *bit_imageNamed(NSString *imageName, NSString *bundleName);
-UIImage *bit_screenshot(void);
-UIImage *bit_appIcon(void);
-#endif

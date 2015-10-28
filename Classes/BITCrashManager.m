@@ -39,7 +39,6 @@
 #import "BITHockeyHelper.h"
 #import "BITHockeyAppClient.h"
 
-#import "BITCrashAttachment.h"
 #import "BITHockeyBaseManagerPrivate.h"
 #import "BITCrashManagerPrivate.h"
 #import "BITCrashReportTextFormatter.h"
@@ -218,10 +217,12 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
       NSError *error = nil;
       [_fileManager removeItemAtPath:_analyzerInProgressFile error:&error];
     }
-    
+#if !TARGET_OS_TV
     if (!BITHockeyBundle() && !bit_isRunningInAppExtension()) {
       NSLog(@"[HockeySDK] WARNING: %@ is missing, will send reports automatically!", BITHOCKEYSDK_BUNDLE);
     }
+#endif
+    NSLog(@"[HockeySDK] Crash reports will be sent automatically!");
   }
   return self;
 }
@@ -584,16 +585,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  */
 - (NSString *)userIDForCrashReport {
   NSString *userID;
-#if HOCKEYSDK_FEATURE_AUTHENTICATOR
-  // if we have an identification from BITAuthenticator, use this as a default.
-  if ((
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeAnonymous ||
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeDevice
-       ) &&
-      self.installationIdentification) {
-    userID = self.installationIdentification;
-  }
-#endif
   
   // first check the global keychain storage
   NSString *userIdFromKeychain = [self stringValueFromKeychainForKey:kBITHockeyMetaUserID];
@@ -619,12 +610,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   // first check the global keychain storage
   NSString *username = [self stringValueFromKeychainForKey:kBITHockeyMetaUserName] ?: @"";
   
-  if ([self.delegate respondsToSelector:@selector(userNameForCrashManager:)]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    username = [self.delegate userNameForCrashManager:self] ?: @"";
-#pragma clang diagnostic pop
-  }
   if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(userNameForHockeyManager:componentManager:)]) {
     username = [[BITHockeyManager sharedHockeyManager].delegate
                 userNameForHockeyManager:[BITHockeyManager sharedHockeyManager]
@@ -643,24 +628,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   // first check the global keychain storage
   NSString *useremail = [self stringValueFromKeychainForKey:kBITHockeyMetaUserEmail] ?: @"";
   
-#if HOCKEYSDK_FEATURE_AUTHENTICATOR
-  // if we have an identification from BITAuthenticator, use this as a default.
-  if ((
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppEmail ||
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppUser ||
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeWebAuth
-       ) &&
-      self.installationIdentification) {
-    useremail = self.installationIdentification;
-  }
-#endif
-  
-  if ([self.delegate respondsToSelector:@selector(userEmailForCrashManager:)]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    useremail = [self.delegate userEmailForCrashManager:self] ?: @"";
-#pragma clang diagnostic pop
-  }
   if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(userEmailForHockeyManager:componentManager:)]) {
     useremail = [[BITHockeyManager sharedHockeyManager].delegate
                  userEmailForHockeyManager:[BITHockeyManager sharedHockeyManager]
@@ -992,12 +959,10 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  * - Send pending approved crash reports
  */
 - (void)invokeDelayedProcessing {
-#if !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnlyExtensions)
   if (!bit_isRunningInAppExtension() &&
       [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
     return;
   }
-#endif
   
   BITHockeyLog(@"INFO: Start delayed CrashManager processing");
   
@@ -1022,111 +987,27 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
     if (notApprovedReportFilename && !_lastCrashFilename) {
       _lastCrashFilename = [notApprovedReportFilename lastPathComponent];
     }
-
+#if !TARGET_OS_TV
     if (!BITHockeyBundle() || bit_isRunningInAppExtension()) {
       [self approveLatestCrashReport];
       [self sendNextCrashReport];
       
-#if !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnlyExtensions)
-
     } else if (_crashManagerStatus != BITCrashManagerStatusAutoSend && notApprovedReportFilename) {
       
-#if TARGET_OS_TV
       if (_alertViewHandler) {
         _alertViewHandler();
       } else {
         [self approveLatestCrashReport];
         [self sendNextCrashReport];
       }
-#else
-      if ([self.delegate respondsToSelector:@selector(crashManagerWillShowSubmitCrashReportAlert:)]) {
-        [self.delegate crashManagerWillShowSubmitCrashReportAlert:self];
-      }
-      
-      NSString *appName = bit_appName(BITHockeyLocalizedString(@"HockeyAppNamePlaceholder"));
-      NSString *alertDescription = [NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundAnonymousDescription"), appName];
-      
-      // the crash report is not anonymous any more if username or useremail are not nil
-      NSString *userid = [self userIDForCrashReport];
-      NSString *username = [self userNameForCrashReport];
-      NSString *useremail = [self userEmailForCrashReport];
-            
-      if ((userid && [userid length] > 0) ||
-          (username && [username length] > 0) ||
-          (useremail && [useremail length] > 0)) {
-        alertDescription = [NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundDescription"), appName];
-      }
-      
-      if (_alertViewHandler) {
-        _alertViewHandler();
-      } else {
-        /* We won't use this for now until we have a more robust solution for displaying UIAlertController
-        // requires iOS 8
-        id uialertcontrollerClass = NSClassFromString(@"UIAlertController");
-        if (uialertcontrollerClass) {
-          __weak typeof(self) weakSelf = self;
-          
-          UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundTitle"), appName]
-                                                                                   message:alertDescription
-                                                                            preferredStyle:UIAlertControllerStyleAlert];
-          
-          
-          UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"CrashDontSendReport")
-                                                                 style:UIAlertActionStyleCancel
-                                                               handler:^(UIAlertAction * action) {
-                                                                 typeof(self) strongSelf = weakSelf;
-                                                                 
-                                                                 [strongSelf handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
-                                                               }];
-          
-          [alertController addAction:cancelAction];
-          
-          UIAlertAction *sendAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"CrashSendReport")
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) {
-                                                               typeof(self) strongSelf = weakSelf;
-                                                               [strongSelf handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:nil];
-                                                             }];
-          
-          [alertController addAction:sendAction];
-          
-          if (self.shouldShowAlwaysButton) {
-            UIAlertAction *alwaysSendAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"CrashSendReportAlways")
-                                                                       style:UIAlertActionStyleDefault
-                                                                     handler:^(UIAlertAction * action) {
-                                                                       typeof(self) strongSelf = weakSelf;
-                                                                       [strongSelf handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:nil];
-                                                                     }];
-            
-            [alertController addAction:alwaysSendAction];
-          }
-          
-          [self showAlertController:alertController];
-        } else {
-         */
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundTitle"), appName]
-                                                              message:alertDescription
-                                                             delegate:self
-                                                    cancelButtonTitle:BITHockeyLocalizedString(@"CrashDontSendReport")
-                                                    otherButtonTitles:BITHockeyLocalizedString(@"CrashSendReport"), nil];
-          
-          if (self.shouldShowAlwaysButton) {
-            [alertView addButtonWithTitle:BITHockeyLocalizedString(@"CrashSendReportAlways")];
-          }
-          
-          [alertView show];
-#pragma clang diagnostic pop
-        /*}*/
-      }
-#endif
-#endif /* !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnlyExtensions) */
       
     } else {
+#endif
       [self approveLatestCrashReport];
       [self sendNextCrashReport];
+#if !TARGET_OS_TV
     }
+#endif
   }
 }
 
@@ -1146,11 +1027,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
       /* Configure our reporter */
         
       PLCrashReporterSignalHandlerType signalHandlerType = PLCrashReporterSignalHandlerTypeBSD;
-#if !TARGET_OS_TV
-      if (self.isMachExceptionHandlerEnabled) {
-        signalHandlerType = PLCrashReporterSignalHandlerTypeMach;
-      }
-#endif
       
       PLCrashReporterSymbolicationStrategy symbolicationStrategy = PLCrashReporterSymbolicationStrategyNone;
       if (self.isOnDeviceSymbolicationEnabled) {
@@ -1252,13 +1128,9 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
     }
   }
   
-#if !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnlyExtensions)
   if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
     [self appEnteredForeground];
   }
-#else
-  [self appEnteredForeground];
-#endif
   
   [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kBITAppDidReceiveLowMemoryNotification];
   [[NSUserDefaults standardUserDefaults] synchronize];
@@ -1520,32 +1392,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   }
 }
 
-#if !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnlyExtensions)
-
-#pragma mark - UIAlertView Delegate
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#if !TARGET_OS_TV
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-  switch (buttonIndex) {
-    case 0:
-      [self handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
-      break;
-    case 1:
-      [self handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:nil];
-      break;
-    case 2:
-      [self handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:nil];
-      break;
-  }
-}
-#endif
-#pragma clang diagnostic pop
-
-#endif /* !defined (HOCKEYSDK_CONFIGURATION_ReleaseCrashOnlyExtensions) */
-
-
 #pragma mark - Networking
 
 - (NSData *)postBodyWithXML:(NSString *)xml attachment:(BITHockeyAttachment *)attachment boundary:(NSString *)boundary {
@@ -1723,10 +1569,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   }
   
   BITHockeyLog(@"INFO: Sending crash reports started.");
-}
-
-- (NSTimeInterval)timeintervalCrashInLastSessionOccured {
-  return self.timeIntervalCrashInLastSessionOccurred;
 }
 
 @end
