@@ -1,6 +1,6 @@
 #include "buildnumber.xcconfig"
 
-OTHER_CFLAGS[sdk=appletvos*] = -Wshorten-64-to-32 -Wall -fembed-bitcode
-OTHER_CFLAGS[sdk=appletvsimulator*] = -Wshorten-64-to-32 -Wall
+OTHER_CFLAGS[sdk=appletvos*] = $(HOCKEYSDK_WARNING_FLAGS) -fembed-bitcode
+OTHER_CFLAGS[sdk=appletvsimulator*] = $(HOCKEYSDK_WARNING_FLAGS)
 
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) HOCKEYSDK_CONFIGURATION_$(CONFIGURATION) HOCKEYSDK_FEATURE_CRASH_REPORTER=1 BITHOCKEY_VERSION="@\""$(VERSION_STRING)"\"" BITHOCKEY_BUILD="@\""$(BUILD_NUMBER)"\"" BITHOCKEY_C_VERSION="\""$(VERSION_STRING)"\"" BITHOCKEY_C_BUILD="\""$(BUILD_NUMBER)"\""
