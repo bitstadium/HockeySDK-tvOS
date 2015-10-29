@@ -1,3 +1,3 @@
 ## Version 1.0.0-alpha.1
 
-- [NEW]
+- [NEW] `BITCrashManager`: Added tvOS support
