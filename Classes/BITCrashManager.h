@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
    */
   BITCrashManagerUserInputAlwaysSend = 2
   
-};
+} __TVOS_PROHIBITED;
 
 
 @protocol BITCrashManagerDelegate;
@@ -180,10 +180,12 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  have to make sure the new value is stored in the UserDefaults with the key
  `BITCrashManagerStatus`.
  
+ @warning For tvOS, this is currently always `BITCrashManagerStatusAutoSend`!
+ 
  @see BITCrashManagerStatus
  @see showAlwaysButton
  */
-@property (nonatomic, assign) BITCrashManagerStatus crashManagerStatus;
+@property (nonatomic, assign, readonly) BITCrashManagerStatus crashManagerStatus;
 
 /**
  *  Trap fatal signals via a Mach exception server.
