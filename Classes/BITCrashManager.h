@@ -301,7 +301,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  
  @see crashManagerStatus
  */
-@property (nonatomic, assign, getter=shouldShowAlwaysButton) BOOL showAlwaysButton;
+@property (nonatomic, assign, getter=shouldShowAlwaysButton) BOOL showAlwaysButton __TVOS_PROHIBITED;
 
 
 ///-----------------------------------------------------------------------------
