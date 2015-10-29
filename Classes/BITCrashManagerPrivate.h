@@ -66,7 +66,7 @@
 
 @property (nonatomic) NSString *lastCrashFilename;
 
-@property (nonatomic, copy, setter = setAlertViewHandler:) BITCustomAlertViewHandler alertViewHandler;
+@property (nonatomic, copy, setter = setAlertViewHandler:) BITCustomAlertViewHandler alertViewHandler __TVOS_PROHIBITED;
 
 @property (nonatomic, strong) NSString *crashesDir;
 
