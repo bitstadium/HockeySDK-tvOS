@@ -1,7 +1,7 @@
 /*
  * Author: Andreas Linde <mail@andreaslinde.de>
  *
- * Copyright (c) 2013-2014 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2014 HockeyApp, Bit Stadium GmbH.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -26,26 +26,23 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef HockeySDK_HockeySDKFeatureConfig_h
-#define HockeySDK_HockeySDKFeatureConfig_h
+#import "HockeySDK.h"
 
+#if HOCKEYSDK_FEATURE_CRASH_REPORTER
 
-/**
- * If true, include support for handling crash reports
- *
- * _Default_: Enabled
- */
-#ifndef HOCKEYSDK_FEATURE_CRASH_REPORTER
-#    define HOCKEYSDK_FEATURE_CRASH_REPORTER 1
-#endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+#import "BITCrashAttachment.h"
 
-/**
- * If true, include support for handling in-app updates for Ad-Hoc and Enterprise builds
- *
- * _Default_: Enabled
- */
-#ifndef HOCKEYSDK_FEATURE_UPDATES
-#    define HOCKEYSDK_FEATURE_UPDATES 1
-#endif /* HOCKEYSDK_FEATURE_UPDATES */
+@implementation BITCrashAttachment
 
-#endif /* HockeySDK_HockeySDKFeatureConfig_h */
+- (instancetype)initWithFilename:(NSString *)filename
+             crashAttachmentData:(NSData *)crashAttachmentData
+                     contentType:(NSString *)contentType
+{
+  self = [super initWithFilename:filename hockeyAttachmentData:crashAttachmentData contentType:contentType];
+  
+  return self;
+}
+
+@end
+
+#endif

@@ -1,7 +1,9 @@
 /*
- * Author: Andreas Linde <mail@andreaslinde.de>
+ * Author: Peter Steinberger
+ *         Andreas Linde
  *
  * Copyright (c) 2012-2014 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2011 Andreas Linde, Peter Steinberger.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -27,32 +29,30 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
-/* NSString helpers */
-NSString *bit_URLEncodedString(NSString *inputString);
-NSString *bit_base64String(NSData * data, unsigned long length);
+@interface BITAppVersionMetaInfo : NSObject {
+}
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *version;
+@property (nonatomic, copy) NSString *shortVersion;
+@property (nonatomic, copy) NSString *minOSVersion;
+@property (nonatomic, copy) NSString *notes;
+@property (nonatomic, copy) NSDate *date;
+@property (nonatomic, copy) NSNumber *size;
+@property (nonatomic, copy) NSNumber *mandatory;
+@property (nonatomic, copy) NSNumber *versionID;
+@property (nonatomic, copy) NSDictionary *uuids;
 
-NSString *bit_settingsDir(void);
+- (NSString *)nameAndVersionString;
+- (NSString *)versionString;
+- (NSString *)dateString;
+- (NSString *)sizeInMB;
+- (NSString *)notesOrEmptyString;
+- (void)setDateWithTimestamp:(NSTimeInterval)timestamp;
+- (BOOL)isValid;
+- (BOOL)hasUUID:(NSString *)uuid;
+- (BOOL)isEqualToAppVersionMetaInfo:(BITAppVersionMetaInfo *)anAppVersionMetaInfo;
 
-BOOL bit_validateEmail(NSString *email);
-NSString *bit_keychainHockeySDKServiceName(void);
++ (BITAppVersionMetaInfo *)appVersionMetaInfoFromDict:(NSDictionary *)dict;
 
-NSComparisonResult bit_versionCompare(NSString *stringA, NSString *stringB);
-NSString *bit_mainBundleIdentifier(void);
-NSString *bit_encodeAppIdentifier(NSString *inputString);
-NSString *bit_appName(NSString *placeHolderString);
-NSString *bit_UUIDPreiOS6(void);
-NSString *bit_UUID(void);
-NSString *bit_appAnonID(BOOL forceNewAnonID);
-BOOL bit_isPreiOS7Environment(void);
-BOOL bit_isPreiOS8Environment(void);
-BOOL bit_isAppStoreReceiptSandbox(void);
-BOOL bit_hasEmbeddedMobileProvision(void);
-BOOL bit_isRunningInTestFlightEnvironment(void);
-BOOL bit_isRunningInAppStoreEnvironment(void);
-BOOL bit_isRunningInAppExtension(void);
-
-UIImage *bit_newWithContentsOfResolutionIndependentFile(NSString * path);
-UIImage *bit_imageWithContentsOfResolutionIndependentFile(NSString * path);
-UIImage *bit_imageNamed(NSString *imageName, NSString *bundleName);
+@end

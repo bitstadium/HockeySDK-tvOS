@@ -1,7 +1,9 @@
 /*
  * Author: Andreas Linde <mail@andreaslinde.de>
+ *         Peter Steinberger
  *
- * Copyright (c) 2013-2014 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2012-2014 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2011-2012 Peter Steinberger.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -26,26 +28,33 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef HockeySDK_HockeySDKFeatureConfig_h
-#define HockeySDK_HockeySDKFeatureConfig_h
+
+#import <UIKit/UIKit.h>
+
+#ifndef __IPHONE_6_1
+#define __IPHONE_6_1     60100
+#endif
 
 
 /**
- * If true, include support for handling crash reports
- *
- * _Default_: Enabled
+ * Header style depending on the iOS version
  */
-#ifndef HOCKEYSDK_FEATURE_CRASH_REPORTER
-#    define HOCKEYSDK_FEATURE_CRASH_REPORTER 1
-#endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+typedef NS_ENUM(NSUInteger, BITAppStoreHeaderStyle) {
+  /**
+   * Default is iOS 6 style
+   */
+  BITAppStoreHeaderStyleDefault = 0,
+  /**
+   * Draw header in the iOS 7 style
+   */
+  BITAppStoreHeaderStyleOS7 = 1
+};
 
-/**
- * If true, include support for handling in-app updates for Ad-Hoc and Enterprise builds
- *
- * _Default_: Enabled
- */
-#ifndef HOCKEYSDK_FEATURE_UPDATES
-#    define HOCKEYSDK_FEATURE_UPDATES 1
-#endif /* HOCKEYSDK_FEATURE_UPDATES */
+@interface BITAppStoreHeader : UIView
 
-#endif /* HockeySDK_HockeySDKFeatureConfig_h */
+@property (nonatomic, copy) NSString *headerText;
+@property (nonatomic, copy) NSString *subHeaderText;
+@property (nonatomic, strong) UIImage *iconImage;
+@property (nonatomic, assign) BITAppStoreHeaderStyle style;
+
+@end

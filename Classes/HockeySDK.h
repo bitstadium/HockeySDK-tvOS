@@ -43,12 +43,17 @@
 #import "BITHockeyManagerDelegate.h"
 
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
-#import "BITHockeyAttachment.h"
 #import "BITCrashManager.h"
+#import "BITCrashAttachment.h"
 #import "BITCrashManagerDelegate.h"
 #import "BITCrashDetails.h"
 #import "BITCrashMetaData.h"
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+
+#if HOCKEYSDK_FEATURE_UPDATES
+#import "BITUpdateManager.h"
+#import "BITUpdateManagerDelegate.h"
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
 
 // Notification message which HockeyManager is listening to, to retry requesting updated from the server.
 // This can be used by app developers to trigger additional points where the HockeySDK can try sending

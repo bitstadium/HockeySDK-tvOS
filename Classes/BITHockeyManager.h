@@ -38,6 +38,9 @@
 @class BITHockeyBaseManager;
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
 @class BITCrashManager;
+#if HOCKEYSDK_FEATURE_UPDATES
+@class BITUpdateManager;
+#endif
 #endif
 
 /** 
@@ -234,6 +237,38 @@
  @see crashManager
  */
 @property (nonatomic, getter = isCrashManagerDisabled) BOOL disableCrashManager;
+
+#endif
+
+#if HOCKEYSDK_FEATURE_UPDATES
+
+/**
+ Reference to the initialized BITUpdateManager module
+ 
+ Returns the BITUpdateManager instance initialized by BITHockeyManager
+ 
+ @see configureWithIdentifier:delegate:
+ @see configureWithBetaIdentifier:liveIdentifier:delegate:
+ @see startManager
+ @see disableUpdateManager
+ */
+@property (nonatomic, strong, readonly) BITUpdateManager *updateManager;
+
+
+/**
+ Flag the determines whether the Update Manager should be disabled
+ 
+ If this flag is enabled, then checking for updates and submitting beta usage
+ analytics will be turned off!
+ 
+ Please note that the Update Manager instance will be initialized anyway!
+ 
+ @warning This property needs to be set before calling `startManager`
+ 
+ *Default*: _NO_
+ @see updateManager
+ */
+@property (nonatomic, getter = isUpdateManagerDisabled) BOOL disableUpdateManager;
 
 #endif
 

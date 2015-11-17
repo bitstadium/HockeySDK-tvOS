@@ -67,6 +67,19 @@
 - (NSString *)getDevicePlatform;
 - (NSString *)executableUUID;
 
+// UI helpers
+- (UIWindow *)findVisibleWindow;
+
+/**
+ *  Present an UIAlertController on the visible root UIViewController.
+ *
+ *  Uses `visibleWindowRootViewController` to find a controller on which to present the UIAlertController on.
+ *  This method is always dispatched on the main queue.
+ *
+ *  @param alertController The UIAlertController to be presented.
+ */
+ - (void)showAlertController:(UIViewController *)alertController;
+
 // Date helpers
 - (NSDate *)parseRFC3339Date:(NSString *)dateString;
 

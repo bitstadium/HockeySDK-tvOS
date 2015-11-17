@@ -317,3 +317,29 @@ BOOL bit_isRunningInAppExtension(void) {
   
   return isRunningInAppExtension;
 }
+
+UIImage *bit_imageNamed(NSString *imageName, NSString *bundleName) {
+  NSString *resourcePath = [[NSBundle bundleForClass:[BITHockeyManager class]] resourcePath];
+  NSString *bundlePath = [resourcePath stringByAppendingPathComponent:bundleName];
+  NSString *imagePath = [bundlePath stringByAppendingPathComponent:imageName];
+  return bit_imageWithContentsOfResolutionIndependentFile(imagePath);
+}
+
+UIImage *bit_imageWithContentsOfResolutionIndependentFile(NSString *path) {
+  return bit_newWithContentsOfResolutionIndependentFile(path);
+}
+
+UIImage *bit_newWithContentsOfResolutionIndependentFile(NSString * path) {
+  if ([UIScreen instancesRespondToSelector:@selector(scale)] && (int)[[UIScreen mainScreen] scale] == 2.0) {
+    NSString *path2x = [[path stringByDeletingLastPathComponent]
+                        stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.%@",
+                                                        [[path lastPathComponent] stringByDeletingPathExtension],
+                                                        [path pathExtension]]];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path2x]) {
+      return [[UIImage alloc] initWithContentsOfFile:path2x];
+    }
+  }
+  
+  return [[UIImage alloc] initWithContentsOfFile:path];
+}
