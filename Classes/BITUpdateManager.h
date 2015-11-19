@@ -155,21 +155,6 @@ typedef NS_ENUM (NSUInteger, BITUpdateSetting) {
  */
 @property (nonatomic, assign) BOOL alwaysShowUpdateReminder;
 
-
-/**
- Flag that determines if the update alert should show a direct install option
- 
- If enabled the update alert shows an additional option which allows to invoke the update
- installation process directly instead of viewing the update UI first.
- By default the alert only shows a `Show` and `Ignore` option.
- 
- When running the app from the App Store, this setting is ignored.
-
- *Default*: _NO_
- */
-@property (nonatomic, assign, getter=isShowingDirectInstallOption) BOOL showDirectInstallOption;
-
-
 ///-----------------------------------------------------------------------------
 /// @name Expiry
 ///-----------------------------------------------------------------------------
@@ -211,29 +196,5 @@ typedef NS_ENUM (NSUInteger, BITUpdateSetting) {
  @warning This only works when using Ad-Hoc provisioning profiles!
 */
 @property (nonatomic) BOOL disableUpdateCheckOptionWhenExpired;
-
-
-///-----------------------------------------------------------------------------
-/// @name User Interface
-///-----------------------------------------------------------------------------
-
-
-/**
- Present the modal update user interface.
- 
- @warning Make sure to call this method from the main thread!
- */
-- (void)showUpdateView;
-
-
-/**
- Create an update view
-
- @param modal Return a view which is ready for modal presentation with an integrated navigation bar
- @return BITUpdateViewController The update user interface view controller,
- e.g. to push it onto a navigation stack.
- */
-- (BITUpdateViewController *)hockeyViewController:(BOOL)modal;
-
 
 @end

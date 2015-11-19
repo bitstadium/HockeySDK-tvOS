@@ -89,9 +89,6 @@
 // checks for update, informs the user (error, no update found, etc)
 - (void)checkForUpdateShowFeedback:(BOOL)feedback;
 
-// initiates app-download call. displays an system UIAlertView
-- (BOOL)initiateAppDownload;
-
 // get/set current active hockey view controller
 @property (nonatomic, strong) BITUpdateViewController *currentHockeyViewController;
 

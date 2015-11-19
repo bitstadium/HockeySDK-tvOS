@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   NSString *_currentAppVersion;
   
   BITUpdateViewController *_currentHockeyViewController;
-  
+
   BOOL _dataFound;
   BOOL _showFeedback;
   BOOL _updateAlertShowing;
@@ -449,7 +449,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     _currentAppVersionUsageTime = @0;
     
     // set defaults
-    self.showDirectInstallOption = NO;
     self.alwaysShowUpdateReminder = YES;
     self.checkForUpdateOnLaunch = YES;
     self.updateSetting = BITUpdateCheckStartup;
@@ -502,48 +501,15 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   if (!_updateAlertShowing) {
     NSString *title = BITHockeyLocalizedString(@"UpdateAvailable");
-    NSString *message = [NSString stringWithFormat:BITHockeyLocalizedString(@"UpdateAlertMandatoryTextWithAppVersion"), [self.newestAppVersion nameAndVersionString]];
-    if ([self hasNewerMandatoryVersion]) {
-      __weak typeof(self) weakSelf = self;
-      UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+    NSString *messageKey = ([self hasNewerMandatoryVersion]) ? @"UpdateAlertMandatoryTextWithAppVersion" : @"UpdateAlertTextWithAppVersion";
+    NSString *message = [NSString stringWithFormat:BITHockeyLocalizedString(messageKey), [self.newestAppVersion nameAndVersionString]];
+  
+    __weak typeof(self) weakSelf = self;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                                message:message
                                                                         preferredStyle:UIAlertControllerStyleAlert];
-      
-      
-      UIAlertAction *showAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateShow")
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) {
-                                                           typeof(self) strongSelf = weakSelf;
-                                                           _updateAlertShowing = NO;
-                                                           if (strongSelf.blockingView) {
-                                                             [strongSelf.blockingView removeFromSuperview];
-                                                           }
-                                                           [strongSelf showUpdateView];
-                                                         }];
-      
-      [alertController addAction:showAction];
-      
-      UIAlertAction *installAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateInstall")
-                                                              style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction * action) {
-                                                              typeof(self) strongSelf = weakSelf;
-                                                              _updateAlertShowing = NO;
-                                                              (void)[strongSelf initiateAppDownload];
-                                                            }];
-      
-      [alertController addAction:installAction];
-      
-      [self showAlertController:alertController];
-      _updateAlertShowing = YES;
-    } else {
-      message = [NSString stringWithFormat:BITHockeyLocalizedString(@"UpdateAlertTextWithAppVersion"), [self.newestAppVersion nameAndVersionString]];
-      __weak typeof(self) weakSelf = self;
-      UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                               message:message
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
-      
-      
-      UIAlertAction *ignoreAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateIgnore")
+    
+    UIAlertAction *ignoreAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateIgnore")
                                                              style:UIAlertActionStyleCancel
                                                            handler:^(UIAlertAction * action) {
                                                              typeof(self) strongSelf = weakSelf;
@@ -553,36 +519,10 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
                                                              }
                                                            }];
       
-      [alertController addAction:ignoreAction];
+    [alertController addAction:ignoreAction];
       
-      UIAlertAction *showAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateShow")
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) {
-                                                           typeof(self) strongSelf = weakSelf;
-                                                           _updateAlertShowing = NO;
-                                                           if (strongSelf.blockingView) {
-                                                             [strongSelf.blockingView removeFromSuperview];
-                                                           }
-                                                           [strongSelf showUpdateView];
-                                                         }];
-      
-      [alertController addAction:showAction];
-      
-      if (self.isShowingDirectInstallOption) {
-        UIAlertAction *installAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateInstall")
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                typeof(self) strongSelf = weakSelf;
-                                                                _updateAlertShowing = NO;
-                                                                (void)[strongSelf initiateAppDownload];
-                                                              }];
-        
-        [alertController addAction:installAction];
-      }
-      
-      [self showAlertController:alertController ];
-      _updateAlertShowing = YES;
-    }
+    [self showAlertController:alertController ];
+    _updateAlertShowing = YES;
   }
 }
 
@@ -713,8 +653,9 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 - (void)checkForUpdate {
   if ((self.appEnvironment == BITEnvironmentOther) && ![self isUpdateManagerDisabled]) {
     if ([self expiryDateReached]) return;
-    if (![self installationIdentified]) return;
-    
+    // TODO: Identify auth
+    //    if (![self installationIdentified]) return;
+    [self showCheckForUpdateAlert];
     if (self.isUpdateAvailable && [self hasNewerMandatoryVersion]) {
       [self showCheckForUpdateAlert];
     }
@@ -799,40 +740,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     }
   }
 }
-
-- (BOOL)initiateAppDownload {
-  if (self.appEnvironment != BITEnvironmentOther) return NO;
-  
-  if (!self.isUpdateAvailable) {
-    BITHockeyLog(@"WARNING: No update available. Aborting.");
-    return NO;
-  }
-  
-  NSString *extraParameter = [NSString string];
-  if (_sendUsageData && self.installationIdentification && self.installationIdentificationType) {
-    extraParameter = [NSString stringWithFormat:@"&%@=%@",
-                      bit_URLEncodedString(self.installationIdentificationType),
-                      bit_URLEncodedString(self.installationIdentification)
-                      ];
-  }
-  
-  NSString *hockeyAPIURL = [NSString stringWithFormat:@"%@api/2/apps/%@/app_versions/%@?format=plist%@", self.serverURL, [self encodedAppIdentifier], [self.newestAppVersion.versionID stringValue], extraParameter];
-  NSString *iOSUpdateURL = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@", bit_URLEncodedString(hockeyAPIURL)];
-  
-  // Notify delegate of update intent before placing the call
-  if ([self.delegate respondsToSelector:@selector(willStartDownloadAndUpdate:)]) {
-    [self.delegate willStartDownloadAndUpdate:self];
-  }
-  
-  BITHockeyLog(@"INFO: API Server Call: %@, calling iOS with %@", hockeyAPIURL, iOSUpdateURL);
-  BOOL success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iOSUpdateURL]];
-  BITHockeyLog(@"INFO: System returned: %d", success);
-  
-  _didStartUpdateProcess = success;
-  
-  return success;
-}
-
 
 // begin the startup process
 - (void)startManager {
@@ -994,47 +901,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   }
 }
 
-#pragma mark - NSURLRequest
-
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
-  NSURLRequest *newRequest = request;
-  if (redirectResponse) {
-    newRequest = nil;
-  }
-  return newRequest;
-}
-
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-  if ([response respondsToSelector:@selector(statusCode)]) {
-    NSInteger statusCode = [((NSHTTPURLResponse *)response) statusCode];
-    if (statusCode == 404) {
-      [connection cancel];  // stop connecting; no more delegate messages
-      NSString *errorStr = [NSString stringWithFormat:@"Hockey API received HTTP Status Code %ld", (long)statusCode];
-      [self reportError:[NSError errorWithDomain:kBITUpdateErrorDomain
-                                            code:BITUpdateAPIServerReturnedInvalidStatus
-                                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorStr, NSLocalizedDescriptionKey, nil]]];
-      return;
-    }
-  }
-  
-  self.receivedData = [NSMutableData data];
-  [_receivedData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-  [_receivedData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-  [self handleError:error];
-}
-
-// api call returned, parsing
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-  [self finishLoading];
-}
-
 #pragma mark - NSURLSession
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
@@ -1128,6 +994,47 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
       defaultApp.name = bit_appName(BITHockeyLocalizedString(@"HockeyAppNamePlaceholder"));
       defaultApp.version = _currentAppVersion;
       defaultApp.shortVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+#pragma mark - NSURLRequest
+
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
+  NSURLRequest *newRequest = request;
+  if (redirectResponse) {
+    newRequest = nil;
+  }
+  return newRequest;
+}
+
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+  if ([response respondsToSelector:@selector(statusCode)]) {
+    NSInteger statusCode = [((NSHTTPURLResponse *)response) statusCode];
+    if (statusCode == 404) {
+      [connection cancel];  // stop connecting; no more delegate messages
+      NSString *errorStr = [NSString stringWithFormat:@"Hockey API received HTTP Status Code %ld", (long)statusCode];
+      [self reportError:[NSError errorWithDomain:kBITUpdateErrorDomain
+                                            code:BITUpdateAPIServerReturnedInvalidStatus
+                                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorStr, NSLocalizedDescriptionKey, nil]]];
+      return;
+    }
+  }
+  
+  self.receivedData = [NSMutableData data];
+  [_receivedData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+  [_receivedData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+  [self handleError:error];
+}
+
+// api call returned, parsing
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+  [self finishLoading];
+}
+
       _appVersions = [NSArray arrayWithObject:defaultApp];
     } else {
       _appVersions = [anAppVersions copy];
