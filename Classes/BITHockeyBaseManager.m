@@ -83,10 +83,6 @@
   return bit_encodeAppIdentifier(_appIdentifier);
 }
 
-- (BOOL)isPreiOS7Environment {
-  return bit_isPreiOS7Environment();
-}
-
 - (NSString *)getDevicePlatform {
   size_t size;
   sysctlbyname("hw.machine", NULL, &size, NULL, 0);

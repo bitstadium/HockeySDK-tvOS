@@ -119,9 +119,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   if (_didStartUpdateProcess) {
     _didStartUpdateProcess = NO;
     
-    // we only care about iOS 8 or later
-    if (bit_isPreiOS8Environment()) return;
-    
     if ([self.delegate respondsToSelector:@selector(updateManagerWillExitApp:)]) {
       [self.delegate updateManagerWillExitApp:self];
     }

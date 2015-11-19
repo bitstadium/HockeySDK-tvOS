@@ -45,8 +45,6 @@ NSString *bit_appName(NSString *placeHolderString);
 NSString *bit_UUIDPreiOS6(void);
 NSString *bit_UUID(void);
 NSString *bit_appAnonID(BOOL forceNewAnonID);
-BOOL bit_isPreiOS7Environment(void);
-BOOL bit_isPreiOS8Environment(void);
 BOOL bit_isAppStoreReceiptSandbox(void);
 BOOL bit_hasEmbeddedMobileProvision(void);
 BOOL bit_isRunningInTestFlightEnvironment(void);
