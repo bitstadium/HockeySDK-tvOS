@@ -117,7 +117,7 @@
     [containerView addSubview:button];
     [button addTarget:self
                action:@selector(handleWebLoginButton:)
-     forControlEvents:UIControlEventTouchUpInside];
+     forControlEvents:UIControlEventPrimaryActionTriggered];
     self.tableView.tableFooterView = containerView;
   } else {
     self.tableView.tableFooterView = nil;
@@ -197,11 +197,8 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
     
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(130, 11, self.view.frame.size.width - 130 - 25, 24)];
-    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-      textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    }
-    textField.adjustsFontSizeToFitWidth = YES;
+    UITextField *textField = [[UITextField alloc] init];
+
     textField.textColor = [UIColor blackColor];
     textField.backgroundColor = [UIColor lightGrayColor];
     
@@ -222,7 +219,7 @@
       textField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerPasswordPlaceholder");
       textField.text = self.password;
       
-      textField.keyboardType = UIKeyboardTypeDefault;
+      textField.keyboardType = UIKeyboardTypeAlphabet;
       textField.returnKeyType = UIReturnKeyDone;
       textField.secureTextEntry = YES;
       [textField addTarget:self action:@selector(userPasswordEntered:) forControlEvents:UIControlEventEditingChanged];
@@ -239,6 +236,16 @@
     [textField setEnabled: YES];
     
     [cell addSubview:textField];
+    [cell addConstraint:[NSLayoutConstraint constraintWithItem:cell.textLabel
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:textField
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                multiplier:1.0
+                                                                  constant:0.0]];
+    NSDictionary *views = @{@"textLabel": cell.textLabel, @"textField": textField};
+    NSArray *horizontalConstraints =[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textLabel]-20-[textField]-20-|" options:0 metrics:nil views:views];
+    [cell addConstraints:horizontalConstraints];
   }
   
   if (0 == [indexPath row]) {
@@ -246,7 +253,9 @@
   } else {
     cell.textLabel.text = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerPasswordDescription");
   }
+
   
+
   return cell;
 }
 
@@ -279,6 +288,10 @@
       [self saveAction:nil];
     }
   }
+  return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath {
   return NO;
 }
 
