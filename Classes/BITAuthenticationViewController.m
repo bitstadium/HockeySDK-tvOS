@@ -61,7 +61,7 @@
   [super viewDidLoad];
   
   [self.tableView setScrollEnabled:NO];
-  
+  [self blockMenuButton];
   [self updateWebLoginButton];
 }
 
@@ -69,12 +69,10 @@
   [super viewWillAppear:animated];
   
   [self updateBarButtons];
-  
   self.navigationItem.rightBarButtonItem.enabled = [self allRequiredFieldsEntered];
 }
 
 #pragma mark - Property overrides
-
 - (void) updateBarButtons {
   if(self.showsLoginViaWebButton) {
     self.navigationItem.rightBarButtonItem = nil;
@@ -85,7 +83,15 @@
   }
 }
 
-- (void)setShowsLoginViaWebButton:(BOOL)showsLoginViaWebButton {
+- (void) blockMenuButton {
+  UITapGestureRecognizer *tapGestureRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonTapped:)];
+  tapGestureRec.allowedPressTypes = @[@(UIPressTypeMenu)];
+  [self.view addGestureRecognizer:tapGestureRec];
+}
+  }
+}
+
+- (void) setShowsLoginViaWebButton:(BOOL)showsLoginViaWebButton {
   if(_showsLoginViaWebButton != showsLoginViaWebButton) {
     _showsLoginViaWebButton = showsLoginViaWebButton;
     if(self.isViewLoaded) {
