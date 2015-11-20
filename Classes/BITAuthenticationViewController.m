@@ -88,6 +88,19 @@
   tapGestureRec.allowedPressTypes = @[@(UIPressTypeMenu)];
   [self.view addGestureRecognizer:tapGestureRec];
 }
+- (void) menuButtonTapped:(id)sender {
+  if ([self allRequiredFieldsEntered]) {
+    [self saveAction:sender];
+  } else {
+    NSString *message = NSLocalizedString(@"HockeyAuthenticationAuthFieldsMissing", "");
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"OK")
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:^(UIAlertAction * action) {}];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
   }
 }
 
