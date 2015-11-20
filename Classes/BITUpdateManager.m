@@ -650,8 +650,8 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 - (void)checkForUpdate {
   if ((self.appEnvironment == BITEnvironmentOther) && ![self isUpdateManagerDisabled]) {
     if ([self expiryDateReached]) return;
-    // TODO: Identify auth
-    //    if (![self installationIdentified]) return;
+
+    if (![self installationIdentified]) return;
     [self showCheckForUpdateAlert];
     if (self.isUpdateAvailable && [self hasNewerMandatoryVersion]) {
       [self showCheckForUpdateAlert];
