@@ -77,6 +77,8 @@
  */
  - (void)showAlertController:(UIViewController *)alertController;
 
+ - (void)showView:(UIViewController *)viewController;
+
 // Date helpers
 - (NSDate *)parseRFC3339Date:(NSString *)dateString;
 

@@ -580,6 +580,16 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  */
 - (NSString *)userIDForCrashReport {
   NSString *userID;
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+  // if we have an identification from BITAuthenticator, use this as a default.
+  if ((
+       self.installationIdentificationType == BITAuthenticatorIdentificationTypeAnonymous ||
+       self.installationIdentificationType == BITAuthenticatorIdentificationTypeDevice
+       ) &&
+      self.installationIdentification) {
+    userID = self.installationIdentification;
+  }
+#endif
   
   // first check the global keychain storage
   NSString *userIdFromKeychain = [self stringValueFromKeychainForKey:kBITHockeyMetaUserID];
@@ -622,6 +632,18 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
 - (NSString *)userEmailForCrashReport {
   // first check the global keychain storage
   NSString *useremail = [self stringValueFromKeychainForKey:kBITHockeyMetaUserEmail] ?: @"";
+  
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+  // if we have an identification from BITAuthenticator, use this as a default.
+  if ((
+       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppEmail ||
+       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppUser ||
+       self.installationIdentificationType == BITAuthenticatorIdentificationTypeWebAuth
+       ) &&
+      self.installationIdentification) {
+    useremail = self.installationIdentification;
+  }
+#endif
   
   if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(userEmailForHockeyManager:componentManager:)]) {
     useremail = [[BITHockeyManager sharedHockeyManager].delegate

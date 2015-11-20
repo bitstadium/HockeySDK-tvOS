@@ -38,9 +38,12 @@
 @class BITHockeyBaseManager;
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
 @class BITCrashManager;
+#endif
 #if HOCKEYSDK_FEATURE_UPDATES
 @class BITUpdateManager;
 #endif
+#if HOCKEYSDK_FEATURE_UPDATES
+@class BITAuthenticator;
 #endif
 
 /** 
@@ -269,6 +272,21 @@
  @see updateManager
  */
 @property (nonatomic, getter = isUpdateManagerDisabled) BOOL disableUpdateManager;
+
+#endif
+
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+
+/**
+ Reference to the initialized BITAuthenticator module
+ 
+ Returns the BITAuthenticator instance initialized by BITHockeyManager
+ 
+ @see configureWithIdentifier:delegate:
+ @see configureWithBetaIdentifier:liveIdentifier:delegate:
+ @see startManager
+ */
+@property (nonatomic, strong, readonly) BITAuthenticator *authenticator;
 
 #endif
 

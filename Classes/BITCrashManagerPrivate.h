@@ -70,6 +70,19 @@
 
 @property (nonatomic, strong) NSString *crashesDir;
 
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+
+// Only set via BITAuthenticator
+@property (nonatomic, strong) NSString *installationIdentification;
+
+// Only set via BITAuthenticator
+@property (nonatomic) BITAuthenticatorIdentificationType installationIdentificationType;
+
+// Only set via BITAuthenticator
+@property (nonatomic) BOOL installationIdentified;
+
+#endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
+
 - (void)cleanCrashReports;
 
 - (NSString *)userIDForCrashReport;

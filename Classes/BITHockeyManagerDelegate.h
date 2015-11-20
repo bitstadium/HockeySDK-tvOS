@@ -33,6 +33,14 @@
 #import "BITCrashManagerDelegate.h"
 #endif
 
+#if HOCKEYSDK_FEATURE_UPDATES
+#import "BITUpdateManagerDelegate.h"
+#endif
+
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+#import "BITAuthenticator.h"
+#endif
+
 @class BITHockeyManager;
 @class BITHockeyBaseManager;
 
@@ -40,15 +48,19 @@
  The `BITHockeyManagerDelegate` formal protocol defines methods further configuring
   the behaviour of `BITHockeyManager`, as well as the delegate of the modules it manages.
  */
-
 @protocol BITHockeyManagerDelegate <NSObject
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
-  , BITCrashManagerDelegate
+, BITCrashManagerDelegate
 #endif
-  >
+#if HOCKEYSDK_FEATURE_UPDATES
+, BITUpdateManagerDelegate
+#endif
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+, BITAuthenticatorDelegate
+#endif
+>
 
 @optional
-
 
 ///-----------------------------------------------------------------------------
 /// @name App Identifier usage
