@@ -84,11 +84,12 @@
 }
 
 - (void) blockMenuButton {
-  UITapGestureRecognizer *tapGestureRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonTapped:)];
+  UITapGestureRecognizer *tapGestureRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signInButtonTapped:)];
   tapGestureRec.allowedPressTypes = @[@(UIPressTypeMenu)];
   [self.view addGestureRecognizer:tapGestureRec];
 }
-- (void) menuButtonTapped:(id)sender {
+
+- (void) signInButtonTapped:(id)sender {
   if ([self allRequiredFieldsEntered]) {
     [self saveAction:sender];
   } else {
