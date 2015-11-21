@@ -50,7 +50,6 @@
 - (instancetype) initWithDelegate:(id<BITAuthenticationViewControllerDelegate>)delegate {
   self = [super init];
   if (self) {
-    self.title = BITHockeyLocalizedString(@"HockeyAuthenticatorViewControllerTitle");
     _delegate = delegate;
   }
   return self;
@@ -112,9 +111,10 @@
   }
 }
 
-- (void)setTableViewTitle:(NSString *)viewDescription {
-  _tableViewTitle = [viewDescription copy];
+- (void)setViewTitle:(NSString *)viewDescription {
+  _viewTitle = [viewDescription copy];
 }
+
 #pragma mark - UIViewController Rotation
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
@@ -164,6 +164,7 @@
 }
 
 #pragma mark - Actions
+
 - (void)saveAction:(id)sender {
   [self setLoginUIEnabled:NO];
   

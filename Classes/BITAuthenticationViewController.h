@@ -51,7 +51,7 @@
  *  Description shown on top of view. Should tell why this view 
  *  was presented and what's next.
  */
-@property (nonatomic, copy) NSString* tableViewTitle;
+@property (nonatomic, copy) NSString* viewTitle;
 
 /**
  *	can be set to YES to also require the users password

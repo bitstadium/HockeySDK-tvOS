@@ -209,19 +209,19 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
     case BITAuthenticatorIdentificationTypeHockeyAppUser:
       viewController = [[BITAuthenticationViewController alloc] initWithDelegate:self];
       viewController.requirePassword = YES;
-      viewController.tableViewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerDataEmailAndPasswordDescription");
+      viewController.viewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerDataEmailAndPasswordDescription");
       break;
     case BITAuthenticatorIdentificationTypeDevice:
       viewController = [[BITAuthenticationViewController alloc] initWithDelegate:self];
       viewController.requirePassword = NO;
       viewController.showsLoginViaWebButton = YES;
-      viewController.tableViewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerWebUDIDLoginDescription");
+      viewController.viewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerWebUDIDLoginDescription");
       break;
     case BITAuthenticatorIdentificationTypeWebAuth:
       viewController = [[BITAuthenticationViewController alloc] initWithDelegate:self];
       viewController.requirePassword = NO;
       viewController.showsLoginViaWebButton = YES;
-      viewController.tableViewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerWebAuthLoginDescription");
+      viewController.viewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerWebAuthLoginDescription");
       break;
     case BITAuthenticatorIdentificationTypeHockeyAppEmail:
       if(nil == self.authenticationSecret) {
@@ -233,7 +233,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       }
       viewController = [[BITAuthenticationViewController alloc] initWithDelegate:self];
       viewController.requirePassword = NO;
-      viewController.tableViewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerDataEmailDescription");
+      viewController.viewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerDataEmailDescription");
       break;
   }
   
