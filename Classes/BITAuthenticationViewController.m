@@ -61,6 +61,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self setupView];
+  [self setupConstraints];
   [self blockMenuButton];
   [self updateWebLoginButton];
 }
@@ -278,6 +279,71 @@
   [self.containerView addSubview:self.signInButton];
   
   [self.view addSubview:self.containerView];
+}
+
+- (void)setupConstraints {
+  
+  // Preparing views for Auto Layout
+  [self.emailTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [self.passwordTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [self.signInButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [self.containerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+  
+  NSMutableDictionary *views = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.emailTextField, @"email", self.signInButton, @"button", nil];
+  if (self.requirePassword && self.passwordTextField) {
+    [views addEntriesFromDictionary:@{@"password": self.passwordTextField}];
+  }
+  
+  NSLayoutConstraint *centerVerticallyConstraint = [NSLayoutConstraint
+                                                    constraintWithItem:self.containerView
+                                                    attribute:NSLayoutAttributeCenterY
+                                                    relatedBy:NSLayoutRelationEqual
+                                                    toItem:self.view
+                                                    attribute:NSLayoutAttributeCenterY
+                                                    multiplier:1.0
+                                                    constant:0];
+  [self.view addConstraint:centerVerticallyConstraint];
+  
+  // Vertical Constraints
+  NSString *verticalFormat = nil;
+  if (self.requirePassword) {
+    verticalFormat = @"V:|[email]-[password]-[button]|";
+  } else {
+    verticalFormat = @"V:|[email]-[button]|";
+  }
+  [self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verticalFormat options:0 metrics:nil views:views]];
+  
+  // Horizonatal Constraints
+  NSString *horizontalFormat = @"H:|[email(500)]|";
+  [self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalFormat options:0 metrics:nil views:views]];
+  
+  if (self.requirePassword) {
+    horizontalFormat = @"H:|[password(500)]|";
+    [self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalFormat options:0 metrics:nil views:views]];
+  }
+  
+  horizontalFormat = @"H:[button(260)]";
+  [self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalFormat options:0 metrics:nil views:views]];
+  
+  NSLayoutConstraint *centerXButtonConstraints = [NSLayoutConstraint
+                                                      constraintWithItem:self.signInButton
+                                                      attribute:NSLayoutAttributeCenterX
+                                                      relatedBy:NSLayoutRelationEqual
+                                                      toItem:self.containerView
+                                                      attribute:NSLayoutAttributeCenterX
+                                                      multiplier:1.0
+                                                      constant:0];
+  [self.containerView addConstraint:centerXButtonConstraints];
+  
+  NSLayoutConstraint *centerHorizontallyConstraint = [NSLayoutConstraint
+                                                      constraintWithItem:self.containerView
+                                                      attribute:NSLayoutAttributeCenterX
+                                                      relatedBy:NSLayoutRelationEqual
+                                                      toItem:self.view
+                                                      attribute:NSLayoutAttributeCenterX
+                                                      multiplier:1.0
+                                                      constant:0];
+  [self.view addConstraint:centerHorizontallyConstraint];
 }
 
 @end
