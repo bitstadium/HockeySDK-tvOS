@@ -34,7 +34,7 @@
 /**
  *  View controller handling user interaction for `BITAuthenticator`
  */
-@interface BITAuthenticationViewController : UITableViewController
+@interface BITAuthenticationViewController : UIViewController
 
 - (instancetype) initWithDelegate:(id<BITAuthenticationViewControllerDelegate>) delegate;
 

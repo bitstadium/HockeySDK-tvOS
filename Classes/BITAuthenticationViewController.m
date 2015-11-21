@@ -47,7 +47,7 @@
 @implementation BITAuthenticationViewController
 
 - (instancetype) initWithDelegate:(id<BITAuthenticationViewControllerDelegate>)delegate {
-  self = [super initWithStyle:UITableViewStyleGrouped];
+  self = [super init];
   if (self) {
     self.title = BITHockeyLocalizedString(@"HockeyAuthenticatorViewControllerTitle");
     _delegate = delegate;
@@ -59,8 +59,6 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  [self.tableView setScrollEnabled:NO];
   [self blockMenuButton];
   [self updateWebLoginButton];
 }
@@ -108,7 +106,6 @@
   if(_showsLoginViaWebButton != showsLoginViaWebButton) {
     _showsLoginViaWebButton = showsLoginViaWebButton;
     if(self.isViewLoaded) {
-      [self.tableView reloadData];
       [self updateBarButtons];
       [self updateWebLoginButton];
     }
@@ -137,9 +134,6 @@
     [button addTarget:self
                action:@selector(handleWebLoginButton:)
      forControlEvents:UIControlEventPrimaryActionTriggered];
-    self.tableView.tableFooterView = containerView;
-  } else {
-    self.tableView.tableFooterView = nil;
   }
 }
 
@@ -156,9 +150,6 @@
 
 - (void)setTableViewTitle:(NSString *)viewDescription {
   _tableViewTitle = [viewDescription copy];
-  if(self.isViewLoaded) {
-    [self.tableView reloadData];
-  }
 }
 #pragma mark - UIViewController Rotation
 
@@ -176,108 +167,6 @@
   
   return YES;
 }
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 2;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  if (section == 0) return 0;
-  
-  if(self.showsLoginViaWebButton) {
-    return 0;
-  } else {
-    NSInteger rows = 1;
-    
-    if ([self requirePassword]) rows ++;
-    
-    return rows;
-  }
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-  if (section == 0) {
-    return self.tableViewTitle;
-  }
-  
-  return nil;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"InputCell";
-  
-  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    UITextField *textField = [[UITextField alloc] init];
-
-    textField.textColor = [UIColor blackColor];
-    textField.backgroundColor = [UIColor lightGrayColor];
-    
-    if (0 == [indexPath row]) {
-      textField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerEmailPlaceholder");
-      textField.text = self.email;
-      _emailField = textField;
-      
-      textField.keyboardType = UIKeyboardTypeEmailAddress;
-      if ([self requirePassword])
-        textField.returnKeyType = UIReturnKeyNext;
-      else
-        textField.returnKeyType = UIReturnKeyDone;
-      
-      [textField addTarget:self action:@selector(userEmailEntered:) forControlEvents:UIControlEventEditingChanged];
-      [textField becomeFirstResponder];
-    } else {
-      textField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerPasswordPlaceholder");
-      textField.text = self.password;
-      
-      textField.keyboardType = UIKeyboardTypeAlphabet;
-      textField.returnKeyType = UIReturnKeyDone;
-      textField.secureTextEntry = YES;
-      [textField addTarget:self action:@selector(userPasswordEntered:) forControlEvents:UIControlEventEditingChanged];
-    }
-    
-    textField.backgroundColor = [UIColor whiteColor];
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.delegate = self;
-    textField.tag = indexPath.row;
-    
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [textField setEnabled: YES];
-    
-    [cell addSubview:textField];
-    [cell addConstraint:[NSLayoutConstraint constraintWithItem:cell.textLabel
-                                                                 attribute:NSLayoutAttributeCenterY
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:textField
-                                                                 attribute:NSLayoutAttributeCenterY
-                                                                multiplier:1.0
-                                                                  constant:0.0]];
-    NSDictionary *views = @{@"textLabel": cell.textLabel, @"textField": textField};
-    NSArray *horizontalConstraints =[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textLabel]-20-[textField]-20-|" options:0 metrics:nil views:views];
-    [cell addConstraints:horizontalConstraints];
-  }
-  
-  if (0 == [indexPath row]) {
-    cell.textLabel.text = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerEmailDescription");
-  } else {
-    cell.textLabel.text = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerPasswordDescription");
-  }
-
-  
-
-  return cell;
-}
-
 
 - (void)userEmailEntered:(id)sender {
   self.email = [(UITextField *)sender text];
@@ -307,10 +196,6 @@
       [self saveAction:nil];
     }
   }
-  return NO;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath {
   return NO;
 }
 
@@ -347,7 +232,6 @@
 
 - (void) setLoginUIEnabled:(BOOL) enabled {
   self.navigationItem.rightBarButtonItem.enabled = enabled;
-  self.tableView.userInteractionEnabled = enabled;
 }
 
 @end
