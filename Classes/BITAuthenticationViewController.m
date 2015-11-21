@@ -63,7 +63,6 @@
   [self setupView];
   [self setupConstraints];
   [self blockMenuButton];
-  [self updateWebLoginButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,45 +102,6 @@
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
   }
-}
-
-- (void) setShowsLoginViaWebButton:(BOOL)showsLoginViaWebButton {
-  if(_showsLoginViaWebButton != showsLoginViaWebButton) {
-    _showsLoginViaWebButton = showsLoginViaWebButton;
-    if(self.isViewLoaded) {
-      [self updateBarButtons];
-      [self updateWebLoginButton];
-    }
-  }
-}
-
-- (void) updateWebLoginButton {
-  if(self.showsLoginViaWebButton) {
-    static const CGFloat kFooterHeight = 60.f;
-    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                                     CGRectGetWidth(self.tableView.bounds),
-                                                                     kFooterHeight)];
-    UIButton *button = [UIButton buttonWithType:kBITButtonTypeSystem];
-    [button setTitle:BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerWebLoginButtonTitle") forState:UIControlStateNormal];
-    CGSize buttonSize = [button sizeThatFits:CGSizeMake(CGRectGetWidth(self.tableView.bounds),
-                                                        kFooterHeight)];
-    button.frame = CGRectMake(floorf((CGRectGetWidth(containerView.bounds) - buttonSize.width) / 2.f),
-                              floorf((kFooterHeight - buttonSize.height) / 2.f),
-                              buttonSize.width,
-                              buttonSize.height);
-    button.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    if ([UIButton instancesRespondToSelector:(NSSelectorFromString(@"setTintColor:"))]) {
-      [button setTitleColor:BIT_RGBCOLOR(0, 122, 255) forState:UIControlStateNormal];
-    }
-    [containerView addSubview:button];
-    [button addTarget:self
-               action:@selector(handleWebLoginButton:)
-     forControlEvents:UIControlEventPrimaryActionTriggered];
-  }
-}
-
-- (IBAction) handleWebLoginButton:(id)sender {
-  [self.delegate authenticationViewControllerDidTapWebButton:self];
 }
 
 - (void)setEmail:(NSString *)email {
