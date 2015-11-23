@@ -251,13 +251,6 @@
 /* View Controller Title*/
 "HockeyAuthenticatorViewControllerTitle" = "HockeyApp";
 
-/* BITAuthenticatorAuthTypeUDIDProvider */
-"HockeyAuthenticationViewControllerWebUDIDLoginDescription" = "デベロッパからこのデバイスのUDIDを要求されています。以下をタップしてHockeyAppウェブサイトを開き、アクセスを認証してください。";
-"HockeyAuthenticationViewControllerWebLoginButtonTitle" = "HockeyAppを開く";
-
-/* BITAuthenticatorIdentificationTypeWebAuth */
-"HockeyAuthenticationViewControllerWebAuthLoginDescription" = "デベロッパからHockeyAppアカウントのメールアドレスを要求されています。以下をタップしてHockeyAppウェブサイトを開き、アクセスを認証してください。";
-
 /* BITAuthenticatorAuthTypeEmail and BITAuthenticatorAuthTypeEmailAndPassword */
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "HockeyAppアカウントのメールアドレスとパスワードを入力し、このAppへのアクセスを認証してください。";
 "HockeyAuthenticationViewControllerDataEmailDescription" = "HockeyAppアカウントのメールアドレスを入力し、このAppへのアクセスを認証してください。";

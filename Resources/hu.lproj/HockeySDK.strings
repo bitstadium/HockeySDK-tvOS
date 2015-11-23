@@ -251,13 +251,6 @@
 /* View Controller Title*/
 "HockeyAuthenticatorViewControllerTitle" = "HockeyApp";
 
-/* BITAuthenticatorAuthTypeUDIDProvider */
-"HockeyAuthenticationViewControllerWebUDIDLoginDescription" = "A fejlesztő szeretné hozzáférni készüléke UDID azonosítójához. Kattintással nyissa meg a HockeyApp weblapot és engedélyezze a hozzáférést.";
-"HockeyAuthenticationViewControllerWebLoginButtonTitle" = "HockeyApp megnyitása";
-
-/* BITAuthenticatorIdentificationTypeWebAuth */
-"HockeyAuthenticationViewControllerWebAuthLoginDescription" = "A fejlesztő szeretné hozzáférni a HockeyApp fiókjának e-mail címéhez. Kattintással nyissa meg a HockeyApp weblapot és engedélyezze a hozzáférést.";
-
 /* BITAuthenticatorAuthTypeEmail and BITAuthenticatorAuthTypeEmailAndPassword */
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "Kérjük, adja meg HockeyApp fiókjához tartozó e-mail címét és jelszavát az alkalmazáshoz történő hozzáférés engedélyezéséhez.";
 "HockeyAuthenticationViewControllerDataEmailDescription" = "Kérjük, adja meg HockeyApp fiókjához tartozó e-mail címét az alkalmazáshoz történő hozzáférés engedélyezéséhez.";

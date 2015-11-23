@@ -251,13 +251,6 @@
 /* View Controller Title*/
 "HockeyAuthenticatorViewControllerTitle" = "HockeyApp";
 
-/* BITAuthenticatorAuthTypeUDIDProvider */
-"HockeyAuthenticationViewControllerWebUDIDLoginDescription" = "开发人员已经要求该设备的 UDID。点击下面来打开 HockeyApp 网站并授权访问。";
-"HockeyAuthenticationViewControllerWebLoginButtonTitle" = "打开 HockeyApp";
-
-/* BITAuthenticatorIdentificationTypeWebAuth */
-"HockeyAuthenticationViewControllerWebAuthLoginDescription" = "开发人员已经要求你的 HockeyApp 帐户的电子邮件。点击下面来打开 HockeyApp 网站并授权访问。";
-
 /* BITAuthenticatorAuthTypeEmail and BITAuthenticatorAuthTypeEmailAndPassword */
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "请输入你的 HockeyApp 帐户的电子邮件和密码来授权访问这个 app。";
 "HockeyAuthenticationViewControllerDataEmailDescription" = "请输入你的 HockeyApp 帐户的电子邮件来授权访问这个 app。";

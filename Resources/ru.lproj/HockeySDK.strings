@@ -251,13 +251,6 @@
 /* View Controller Title*/
 "HockeyAuthenticatorViewControllerTitle" = "HockeyApp";
 
-/* BITAuthenticatorAuthTypeUDIDProvider */
-"HockeyAuthenticationViewControllerWebUDIDLoginDescription" = "Разработчик запросил UDID этого устройства. Нажмите на ссылку ниже, чтобы открыть сайт HockeyApp и авторизовать доступ.";
-"HockeyAuthenticationViewControllerWebLoginButtonTitle" = "Открыть HockeyApp";
-
-/* BITAuthenticatorIdentificationTypeWebAuth */
-"HockeyAuthenticationViewControllerWebAuthLoginDescription" = "Разработчик запросил email аккаунта HockeyApp. Нажмите на ссылку внизу, чтобы попасть на сайт HockeyApp и авторизовать доступ.";
-
 /* BITAuthenticatorAuthTypeEmail and BITAuthenticatorAuthTypeEmailAndPassword */
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "Введите email и пароль аккаунта HockeyApp, чтобы авторизовать доступ к этому приложению.";
 "HockeyAuthenticationViewControllerDataEmailDescription" = "Введите email аккаунта HockeyApp, чтобы авторизовать доступ к этому приложению.";
