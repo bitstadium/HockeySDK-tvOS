@@ -267,17 +267,6 @@ BOOL bit_isRunningInAppStoreEnvironment(void) {
 #endif
 }
 
-BOOL bit_isRunningInAppExtension(void) {
-  static BOOL isRunningInAppExtension = NO;
-  static dispatch_once_t checkAppExtension;
-  
-  dispatch_once(&checkAppExtension, ^{
-    isRunningInAppExtension = ([[[NSBundle mainBundle] executablePath] rangeOfString:@".appex/"].location != NSNotFound);
-  });
-  
-  return isRunningInAppExtension;
-}
-
 UIImage *bit_imageNamed(NSString *imageName, NSString *bundleName) {
   NSString *resourcePath = [[NSBundle bundleForClass:[BITHockeyManager class]] resourcePath];
   NSString *bundlePath = [resourcePath stringByAppendingPathComponent:bundleName];

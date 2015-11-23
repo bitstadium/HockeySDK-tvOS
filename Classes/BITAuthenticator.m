@@ -304,12 +304,10 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
     return;
   }
   
-  id nsurlsessionClass = NSClassFromString(@"NSURLSessionUploadTask");
-  BOOL isSessionSupported = (nsurlsessionClass && !bit_isRunningInAppExtension());
-  [self validateWithCompletion:completion sessionSupported:isSessionSupported];
+  [self sendValidationRequestWithCompletion:completion];
 }
 
--(void)validateWithCompletion:(void (^)(BOOL validated, NSError *))completion sessionSupported:(BOOL)isSessionSupported {
+- (void)sendValidationRequestWithCompletion:(void (^)(BOOL validated, NSError *))completion {
   NSString *validationPath = [NSString stringWithFormat:@"api/3/apps/%@/identity/validate", self.encodedAppIdentifier];
   
   __weak typeof (self) weakSelf = self;
@@ -420,18 +418,13 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
   NSParameterAssert(email && email.length);
   NSParameterAssert(self.identificationType == BITAuthenticatorIdentificationTypeHockeyAppEmail || (password && password.length));
   NSURLRequest* request = [self requestForAuthenticationEmail:email password:password];
-  
-  
-  
-  id nsurlsessionClass = NSClassFromString(@"NSURLSessionUploadTask");
-  BOOL isURLSessionSupported = (nsurlsessionClass && !bit_isRunningInAppExtension());
-  [self authenticationViewController:viewController handleAuthenticationWithEmail:email request:request urlSessionSupported:isURLSessionSupported completion:completion];
+
+  [self authenticationViewController:viewController handleAuthenticationWithEmail:email request:request completion:completion];
 }
 
 - (void)authenticationViewController:(UIViewController *)viewController
        handleAuthenticationWithEmail:(NSString *)email
                              request:(NSURLRequest *)request
-                 urlSessionSupported:(BOOL)isURLSessionSupported
                           completion:(void (^)(BOOL, NSError *))completion {
   __weak typeof (self) weakSelf = self;
   NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];

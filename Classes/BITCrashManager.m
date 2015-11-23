@@ -970,8 +970,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  * - Send pending approved crash reports
  */
 - (void)invokeDelayedProcessing {
-  if (!bit_isRunningInAppExtension() &&
-      [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
+  if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
     return;
   }
   

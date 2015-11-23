@@ -49,7 +49,6 @@ BOOL bit_isAppStoreReceiptSandbox(void);
 BOOL bit_hasEmbeddedMobileProvision(void);
 BOOL bit_isRunningInTestFlightEnvironment(void);
 BOOL bit_isRunningInAppStoreEnvironment(void);
-BOOL bit_isRunningInAppExtension(void);
 
 UIImage *bit_newWithContentsOfResolutionIndependentFile(NSString * path);
 UIImage *bit_imageWithContentsOfResolutionIndependentFile(NSString * path);
