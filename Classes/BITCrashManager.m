@@ -1563,57 +1563,31 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  *	@param	xml	The XML data that needs to be send to the server
  */
 - (void)sendCrashReportWithFilename:(NSString *)filename xml:(NSString*)xml attachment:(BITHockeyAttachment *)attachment {
-  BOOL sendingWithURLSession = NO;
+  NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+  NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
   
-  id nsurlsessionClass = NSClassFromString(@"NSURLSessionUploadTask");
-  if (nsurlsessionClass && !bit_isRunningInAppExtension()) {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    
-    NSURLRequest *request = [self requestWithBoundary:kBITHockeyAppClientBoundary];
-    NSData *data = [self postBodyWithXML:xml attachment:attachment boundary:kBITHockeyAppClientBoundary];
-
-    if (request && data) {
-      __weak typeof (self) weakSelf = self;
-      NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
-                                                                 fromData:data
-                                                        completionHandler:^(NSData *responseData, NSURLResponse *response, NSError *error) {
-                                                          typeof (self) strongSelf = weakSelf;
-                                                          
-                                                          NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
-                                                          NSInteger statusCode = [httpResponse statusCode];
-                                                          [strongSelf processUploadResultWithFilename:filename responseData:responseData statusCode:statusCode error:error];
-                                                        }];
-      
-      [uploadTask resume];
-      sendingWithURLSession = YES;
-    }
-  }
+  NSURLRequest *request = [self requestWithBoundary:kBITHockeyAppClientBoundary];
+  NSData *data = [self postBodyWithXML:xml attachment:attachment boundary:kBITHockeyAppClientBoundary];
   
-  if (!sendingWithURLSession) {
-    NSMutableURLRequest *request = [self requestWithBoundary:kBITHockeyAppClientBoundary];
-    
-    NSData *postBody = [self postBodyWithXML:xml attachment:attachment boundary:kBITHockeyAppClientBoundary];
-    [request setHTTPBody:postBody];
-    
+  if (request && data) {
     __weak typeof (self) weakSelf = self;
-    BITHTTPOperation *operation = [self.hockeyAppClient
-                                   operationWithURLRequest:request
-                                   completion:^(BITHTTPOperation *operation, NSData* responseData, NSError *error) {
-                                     typeof (self) strongSelf = weakSelf;
-                                     
-                                     NSInteger statusCode = [operation.response statusCode];
-                                     [strongSelf processUploadResultWithFilename:filename responseData:responseData statusCode:statusCode error:error];
-                                   }];
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
+                                                               fromData:data
+                                                      completionHandler:^(NSData *responseData, NSURLResponse *response, NSError *error) {
+                                                        typeof (self) strongSelf = weakSelf;
+                                                        
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
+                                                        NSInteger statusCode = [httpResponse statusCode];
+                                                        [strongSelf processUploadResultWithFilename:filename responseData:responseData statusCode:statusCode error:error];
+                                                      }];
     
-    [self.hockeyAppClient enqeueHTTPOperation:operation];
+    [uploadTask resume];
+    
+    if ([self.delegate respondsToSelector:@selector(crashManagerWillSendCrashReport:)]) {
+      [self.delegate crashManagerWillSendCrashReport:self];
+    }
+    BITHockeyLog(@"INFO: Sending crash reports started.");
   }
-  
-  if ([self.delegate respondsToSelector:@selector(crashManagerWillSendCrashReport:)]) {
-    [self.delegate crashManagerWillSendCrashReport:self];
-  }
-  
-  BITHockeyLog(@"INFO: Sending crash reports started.");
 }
 
 @end

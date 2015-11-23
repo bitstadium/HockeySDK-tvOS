@@ -113,7 +113,6 @@
 		1E80405A1BDE322F007F8794 /* BITHockeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E41EB466148D7BF50015DEDC /* BITHockeyManager.m */; };
 		1E80405C1BDE322F007F8794 /* BITHockeyAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E40E0B0B17DA1AFF005E38C1 /* BITHockeyAppClient.m */; };
 		1E8040611BDE322F007F8794 /* BITCrashMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA8F50192B6954006B9416 /* BITCrashMetaData.m */; };
-		1E8040621BDE322F007F8794 /* BITHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4933E7F17B66CDA00B11ACC /* BITHTTPOperation.m */; };
 		1E8040681BDE322F007F8794 /* BITHockeyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E49A4A6161222B900463151 /* BITHockeyHelper.m */; };
 		1E80406C1BDE322F007F8794 /* BITHockeyBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E49A4A1161222B900463151 /* BITHockeyBaseManager.m */; };
 		1E8040731BDE322F007F8794 /* BITCrashDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E90FD7218EDB86400CF0417 /* BITCrashDetails.m */; };
@@ -138,7 +137,6 @@
 		1E8040A11BDE322F007F8794 /* BITHockeyAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EB92E711955C38C0093C8B6 /* BITHockeyAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E8040A21BDE322F007F8794 /* BITHockeyBaseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E49A4A0161222B900463151 /* BITHockeyBaseManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E8040AB1BDE322F007F8794 /* BITHockeyBaseManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E49A4A2161222B900463151 /* BITHockeyBaseManagerPrivate.h */; };
-		1E8040AD1BDE322F007F8794 /* BITHTTPOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = E4933E7E17B66CDA00B11ACC /* BITHTTPOperation.h */; };
 		1E8040AE1BDE322F007F8794 /* BITHockeyHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E49A4A5161222B900463151 /* BITHockeyHelper.h */; };
 		1E8040B21BDE322F007F8794 /* HockeySDKEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = 8077563F1BC6A44D0037C3DA /* HockeySDKEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E8040B61BDE322F007F8794 /* HockeySDKPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E49A4D4161222D400463151 /* HockeySDKPrivate.h */; };
@@ -206,8 +204,6 @@
 		1EB617C91B0A33140035A986 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB617C81B0A33140035A986 /* UIKit.framework */; };
 		1EB617CB1B0A34040035A986 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */; };
 		1EB617CC1B0A34040035A986 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */; };
-		1EB617CD1B0A34440035A986 /* BITHTTPOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = E4933E7E17B66CDA00B11ACC /* BITHTTPOperation.h */; };
-		1EB617CE1B0A34470035A986 /* BITHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4933E7F17B66CDA00B11ACC /* BITHTTPOperation.m */; };
 		1EB617CF1B0A344A0035A986 /* BITHockeyAppClient.h in Headers */ = {isa = PBXBuildFile; fileRef = E40E0B0A17DA1AFF005E38C1 /* BITHockeyAppClient.h */; };
 		1EB617D01B0A344D0035A986 /* BITHockeyAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E40E0B0B17DA1AFF005E38C1 /* BITHockeyAppClient.m */; };
 		1EB617D51B0A36AE0035A986 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E400561D148D79B500EB22B9 /* Foundation.framework */; };
@@ -412,8 +408,6 @@
 		E41EB466148D7BF50015DEDC /* BITHockeyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITHockeyManager.m; sourceTree = "<group>"; };
 		E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = ../Vendor/CrashReporter.framework; sourceTree = "<group>"; };
 		E4507E4217F0658F00171A0D /* BITKeychainUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITKeychainUtilsTests.m; sourceTree = "<group>"; };
-		E4933E7E17B66CDA00B11ACC /* BITHTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITHTTPOperation.h; sourceTree = "<group>"; };
-		E4933E7F17B66CDA00B11ACC /* BITHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITHTTPOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -783,8 +777,6 @@
 		E48A3DF017B408D800924C3D /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				E4933E7E17B66CDA00B11ACC /* BITHTTPOperation.h */,
-				E4933E7F17B66CDA00B11ACC /* BITHTTPOperation.m */,
 			);
 			name = Private;
 			sourceTree = "<group>";
@@ -817,7 +809,6 @@
 				1E8040A21BDE322F007F8794 /* BITHockeyBaseManager.h in Headers */,
 				1BA783771BFAB01C00535F7A /* BITUpdateManager.h in Headers */,
 				1E8040AB1BDE322F007F8794 /* BITHockeyBaseManagerPrivate.h in Headers */,
-				1E8040AD1BDE322F007F8794 /* BITHTTPOperation.h in Headers */,
 				1E8040AE1BDE322F007F8794 /* BITHockeyHelper.h in Headers */,
 				1E8040B21BDE322F007F8794 /* HockeySDKEnums.h in Headers */,
 				1B8B30701BFE940F002037E1 /* BITAuthenticator.h in Headers */,
@@ -854,7 +845,6 @@
 				1BA783951BFAB40A00535F7A /* BITStoreButton.h in Headers */,
 				1BA7837C1BFAB01C00535F7A /* BITUpdateManagerDelegate.h in Headers */,
 				1B3EAC751BFA8F5F00BE3CC7 /* BITAlertController.h in Headers */,
-				1EB617CD1B0A34440035A986 /* BITHTTPOperation.h in Headers */,
 				1BA783741BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */,
 				1EB6177B1B0A31120035A986 /* BITCrashMetaData.h in Headers */,
 				1EB6176F1B0A30D20035A986 /* BITHockeyAttachment.h in Headers */,
@@ -1170,7 +1160,6 @@
 				1E8040611BDE322F007F8794 /* BITCrashMetaData.m in Sources */,
 				1BA783961BFAB40A00535F7A /* BITStoreButton.m in Sources */,
 				1BA7839F1BFAC01E00535F7A /* BITHockeyBaseViewController.m in Sources */,
-				1E8040621BDE322F007F8794 /* BITHTTPOperation.m in Sources */,
 				1BA783901BFAB3FA00535F7A /* BITAppStoreHeader.m in Sources */,
 				1E8040681BDE322F007F8794 /* BITHockeyHelper.m in Sources */,
 				1BA783751BFAB01C00535F7A /* BITAppVersionMetaInfo.m in Sources */,
@@ -1211,7 +1200,6 @@
 				1BA7837A1BFAB01C00535F7A /* BITUpdateManager.m in Sources */,
 				1B8B306D1BFE940F002037E1 /* BITAuthenticationViewController.m in Sources */,
 				1EB617661B0A30B60035A986 /* BITKeychainUtils.m in Sources */,
-				1EB617CE1B0A34470035A986 /* BITHTTPOperation.m in Sources */,
 				1BA7839D1BFABA4000535F7A /* BITCrashAttachment.m in Sources */,
 				846A90221B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm in Sources */,
 				1EB617701B0A30D70035A986 /* BITHockeyAttachment.m in Sources */,

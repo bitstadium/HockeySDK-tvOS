@@ -466,25 +466,15 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
                            @"bundle_version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
                            };
   
-  id nsurlsessionClass = NSClassFromString(@"NSURLSessionUploadTask");
-  if (nsurlsessionClass && !bit_isRunningInAppExtension()) {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    NSURLRequest *request = [[self hockeyAppClient] requestWithMethod:@"POST" path:integrationPath parameters:params];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                            completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
-                                              [self logPingMessageForStatusCode:httpResponse.statusCode];
-                                            }];
-    [task resume];
-  }else{
-    [[self hockeyAppClient] postPath:integrationPath
-                          parameters:params
-                          completion:^(BITHTTPOperation *operation, NSData* responseData, NSError *error) {
-                            [self logPingMessageForStatusCode:operation.response.statusCode];
-                          }];
-  }
-  
+  NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+  NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+  NSURLRequest *request = [[self hockeyAppClient] requestWithMethod:@"POST" path:integrationPath parameters:params];
+  NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                          completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
+                                            [self logPingMessageForStatusCode:httpResponse.statusCode];
+                                          }];
+  [task resume];
 }
 
 - (void)logPingMessageForStatusCode:(NSInteger)statusCode {

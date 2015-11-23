@@ -10,7 +10,6 @@
 
 #import "HockeySDK.h"
 #import "BITHockeyAppClient.h"
-#import "BITHTTPOperation.h"
 #import "BITTestHelper.h"
 
 @interface BITHockeyAppClientTests : XCTestCase
@@ -68,14 +67,6 @@
   assertThat(request.HTTPMethod, equalTo(@"POST"));
 }
 
-- (void) testThatOperationHasURLRequestSet {
-  _sut.baseURL = [NSURL URLWithString:@"http://myserver.com"];
-  NSURLRequest *r = [_sut requestWithMethod:@"PUT" path:@"x" parameters:nil];
-  BITHTTPOperation *op = [_sut operationWithURLRequest:r
-                                            completion:nil];
-  assertThat(op.URLRequest, equalTo(r));
-}
-
 - (void) testThatURLRequestHasParametersInGetAppended {
   NSDictionary *parameters = @{
                                @"email" : @"peter@pan.de",
@@ -131,14 +122,6 @@
 }
 
 #pragma mark - HTTPOperation enqueuing / cancellation
-- (void) testThatOperationIsQueued {
-  assertThatUnsignedLong(_sut.operationQueue.operationCount, equalToUnsignedLong(0));
-  [_sut.operationQueue setSuspended:YES];
-  BITHTTPOperation *op = [BITHTTPOperation new];
-  [_sut enqeueHTTPOperation:op];
-  
-  assertThatUnsignedLong(_sut.operationQueue.operationCount, equalToUnsignedLong(1));
-}
 
 - (void) testThatOperationCancellingMatchesAllOperationsWithNilMethod {
   [_sut.operationQueue setSuspended:YES];
