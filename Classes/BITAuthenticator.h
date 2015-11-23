@@ -63,30 +63,6 @@ typedef NS_ENUM(NSUInteger, BITAuthenticatorIdentificationType) {
    * a member or tester of the app
    */
   BITAuthenticatorIdentificationTypeHockeyAppUser,
-  /**
-   * Identifies the current device
-   * <br/><br/>
-   * This will open the HockeyApp web page on the device in Safari and request the user
-   * to submit the device's unique identifier to the app. If the web page session is not aware
-   * of the current devices UDID, it will request the user to install the HockeyApp web clip
-   * which will provide the UDID to users session in the browser.
-   * <br/><br/>
-   * This requires the app to register an URL scheme. See the linked property and methods
-   * for further documentation on this.
-   */
-  BITAuthenticatorIdentificationTypeDevice,
-  /**
-   * Ask for the HockeyApp account email.
-   * <br/><br/>
-   * This will present a user interface requesting the user to start a Safari based
-   * flow to login to HockeyApp (if not already logged in) and to share the hockeyapp
-   * account's email.
-   * <br/><br/>
-   * If restrictApplicationUsage is enabled, the provided user account has to match a
-   * registered HockeyApp user who is a member or tester of the app.
-   * For identification purpose any HockeyApp user is allowed.
-   */
-  BITAuthenticatorIdentificationTypeWebAuth,
 };
 
 /**
@@ -150,7 +126,6 @@ typedef NS_ENUM(NSUInteger, BITAuthenticatorAppRestrictionEnforcementFrequency) 
  */
 @property (nonatomic, assign) BITAuthenticatorIdentificationType identificationType;
 
-
 /**
  * Enables or disables checking if the user is allowed to run this app
  *
@@ -198,80 +173,6 @@ typedef NS_ENUM(NSUInteger, BITAuthenticatorAppRestrictionEnforcementFrequency) 
  */
 @property (nonatomic, copy) NSString *authenticationSecret;
 
-
-#pragma mark - Device based identification
-
-///-----------------------------------------------------------------------------
-/// @name Device based identification
-///-----------------------------------------------------------------------------
-
-
-/**
- * The baseURL of the webpage the user is redirected to if `identificationType` is
- * set to `BITAuthenticatorIdentificationTypeDevice`; defaults to https://rink.hockeyapp.net.
- *
- * @see identificationType
- */
-@property (nonatomic, strong) NSURL *webpageURL;
-
-/**
- * URL to query the device's id via external webpage
- * Built with the baseURL set in `webpageURL`.
- */
-- (NSURL*) deviceAuthenticationURL;
-
-/**
- * The url-scheme used to identify via `BITAuthenticatorIdentificationTypeDevice`
- *
- * Please make sure that the URL scheme is unique and not shared with other apps.
- *
- * If set to nil, the default scheme is used which is `ha<APP_ID>`.
- *
- * @see identificationType
- * @see handleOpenURL:sourceApplication:annotation:
- */
-@property (nonatomic, strong) NSString *urlScheme;
-
-/**
- Should be used by the app-delegate to forward handle application:openURL:sourceApplication:annotation: calls.
- 
- This is required if `identificationType` is set to `BITAuthenticatorIdentificationTypeDevice`.
- Your app needs to implement the default `ha<APP_ID>` URL scheme or register its own scheme
- via `urlScheme`.
- BITAuthenticator checks if the given URL is actually meant to be parsed by it and will
- return NO if it doesn't think so. It does this by checking the 'host'-part of the URL to be 'authorize', as well
- as checking the protocol part.
- Please make sure that if you're using a custom URL scheme, it does _not_ conflict with BITAuthenticator's.
- If BITAuthenticator thinks the URL was meant to be an authorization URL, but could not find a valid token, it will
- reset the stored identification token and state.
- 
- Sample usage (in AppDelegate):
- 
-    - (BOOL)application:(UIApplication *)application
-                openURL:(NSURL *)url
-      sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-      if ([[BITHockeyManager sharedHockeyManager].authenticator handleOpenURL:url
-                                                            sourceApplication:sourceApplication
-                                                                   annotation:annotation]) {
-        return YES;
-      } else {
-        //do your own URL handling, return appropriate value
-      }
-      return NO;
-    }
- 
- @param url Param `url` that was passed to the app
- @param sourceApplication Param `sourceApplication` that was passed to the app
- @param annotation Param `annotation` that was passed to the app
- 
- @return YES if the URL request was handled, NO if the URL could not be handled/identified.
- 
- @see identificationType
- @see urlScheme
- */
-- (BOOL) handleOpenURL:(NSURL *) url
-     sourceApplication:(NSString *) sourceApplication
-            annotation:(id) annotation;
 
 #pragma mark - Authentication
 

@@ -66,21 +66,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  
-  [self updateBarButtons];
-  self.navigationItem.rightBarButtonItem.enabled = [self allRequiredFieldsEntered];
 }
 
 #pragma mark - Property overrides
-- (void) updateBarButtons {
-  if(self.showsLoginViaWebButton) {
-    self.navigationItem.rightBarButtonItem = nil;
-  } else {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                           target:self
-                                                                                           action:@selector(saveAction:)];
-  }
-}
 
 - (void) blockMenuButton {
   UITapGestureRecognizer *tapGestureRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(signInButtonTapped:)];
@@ -134,14 +122,10 @@
 
 - (void)userEmailEntered:(id)sender {
   self.email = [(UITextField *)sender text];
-  
-  self.navigationItem.rightBarButtonItem.enabled = [self allRequiredFieldsEntered];
 }
 
 - (void)userPasswordEntered:(id)sender {
   self.password = [(UITextField *)sender text];
-  
-  self.navigationItem.rightBarButtonItem.enabled = [self allRequiredFieldsEntered];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -217,7 +201,7 @@
   self.emailTextField.text = self.email;
   self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
   self.passwordTextField.delegate = self;
-  self.emailTextField.returnKeyType = [self requirePassword] ? UIReturnKeyNext : UIReturnKeyDone;
+  self.emailTextField.returnKeyType = UIReturnKeyDone;
   [self.emailTextField addTarget:self action:@selector(userEmailEntered:) forControlEvents:UIControlEventEditingChanged];
   [self.containerView addSubview:self.emailTextField];
   

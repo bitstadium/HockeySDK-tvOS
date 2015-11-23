@@ -39,15 +39,6 @@
 - (instancetype) initWithDelegate:(id<BITAuthenticationViewControllerDelegate>) delegate;
 
 /**
- *  can be set to YES to show an additional button + description text
- *  and allowing to login via external website/UDID.
- *  if this is set to yes, no further email/password options are shown
- *
- *  defaults to NO
- */
-@property (nonatomic, assign) BOOL showsLoginViaWebButton;
-
-/**
  *  Description shown on top of view. Should tell why this view 
  *  was presented and what's next.
  */
@@ -72,8 +63,6 @@
  *  BITAuthenticationViewController protocol
  */
 @protocol BITAuthenticationViewControllerDelegate<NSObject>
-
-- (void) authenticationViewControllerDidTapWebButton:(UIViewController*) viewController;
 
 /**
  *	called when the user wants to login

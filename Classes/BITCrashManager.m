@@ -582,10 +582,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   NSString *userID;
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
   // if we have an identification from BITAuthenticator, use this as a default.
-  if ((
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeAnonymous ||
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeDevice
-       ) &&
+  if ((self.installationIdentificationType == BITAuthenticatorIdentificationTypeAnonymous) &&
       self.installationIdentification) {
     userID = self.installationIdentification;
   }
@@ -635,11 +632,8 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
   // if we have an identification from BITAuthenticator, use this as a default.
-  if ((
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppEmail ||
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppUser ||
-       self.installationIdentificationType == BITAuthenticatorIdentificationTypeWebAuth
-       ) &&
+  if ((self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppEmail ||
+       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppUser) &&
       self.installationIdentification) {
     useremail = self.installationIdentification;
   }
