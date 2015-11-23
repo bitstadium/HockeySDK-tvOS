@@ -60,32 +60,11 @@
 
 "UpdateIgnore" = "Игнорировать";
 
-"UpdateShow" = "Показать";
-
-"UpdateInstall" = "Установить";
-
-"UpdateRemindMe" = "Напомнить";
-
-
 /* Update Details */
-
-"UpdateScreenTitle" = "Обновление";
 
 "UpdateButtonCheck" = "ПРОВЕРИТЬ";
 
-"UpdateButtonSearching" = "ПРОВЕРКА";
-
-"UpdateButtonUpdate" = "ОБНОВИТЬ";
-
-"UpdateButtonInstalling" = "УСТАНОВКА";
-
-"UpdateButtonOffline" = "ОФЛАЙН";
-
-"UpdateInstalled" = "УСТАНОВЛЕНО";
-
 "UpdateVersion" = "Версия";
-
-"UpdateShowPreviousVersions" = "Показать предыдущие версии...";
 
 "UpdateNoUpdateAvailableTitle" = "Нет обновлений";
 
@@ -93,158 +72,9 @@
 
 "UpdateError" = "Ошибка";
 
-"UpdateWarning" = "Предупреждение";
-
-"UpdateNoReleaseNotesAvailable" = "Нет комментариев по этой версии.";
-
-
-/* Update Authorization  */
-
-"UpdateAuthorizationProgress" = "Авторизация...";
-
-"UpdateAuthorizationOffline" = "Нужно подключить Интернет!";
-
-"UpdateAuthorizationDenied" = "Отказано в авторизации. Свяжитесь с разработчиком.";
-
-
 /* Update Expiry  */
 
 "UpdateExpired" = "Срок использования %@ истек, использование прекращено.";
-
-
-/* Update Simulator Warning */
-
-"UpdateSimulatorMessage" = "Hockey Update не работает в Simulator.\nСхема itms-services:// url применена, но не работает.";
-
-
-/* Feedback */
-
-
-/* New Message Alert */
-
-/* Alert Title */
-"HockeyFeedbackNewMessageTitle" = "Новый ответ на отклик";
-
-/* Alert Text */
-"HockeyFeedbackNewMessageText" = "Поступил новый ответ на ваш отклик. Просмотреть его?";
-
-/* Alert Ignore Button */
-"HockeyFeedbackIgnore" = "Игнорировать";
-
-/* Alert Show Button */
-"HockeyFeedbackShow" = "Показать";
-
-
-/* List View */
-
-/* Title */
-"HockeyFeedbackListTitle" = "Отклик";
-
-/* Last Updated */
-"HockeyFeedbackListLastUpdated" = "Последнее обновление: %@";
-
-/* Never Updated */
-"HockeyFeedbackListNeverUpdated" = "Не было";
-
-/* Provide Feedback Button Title */
-"HockeyFeedbackListButtonWriteFeedback" = "Написать отклик";
-
-/* Add a Response Button Title */
-"HockeyFeedbackListButtonWriteResponse" = "Добавить ответ";
-
-/* User Data Set Name Button Title */
-"HockeyFeedbackListButtonUserDataSetName" = "Ввести ваше имя";
-
-/* User Data Set Email Button Title */
-"HockeyFeedbackListButtonUserDataSetEmail" = "Ввести ваш email";
-
-/* User Data With Name Button Title */
-"HockeyFeedbackListButtonUserDataWithName" = "Имя: %@";
-
-/* User Data With Email Button Title */
-"HockeyFeedbackListButtonUserDataWithEmail" = "Email: %@";
-
-/* Button title for deleting all local messages*/
-"HockeyFeedbackListButtonDeleteAllMessages" = "Удалить все сообщения";
-
-/* Message pending to be send */
-"HockeyFeedbackListMessagePending" = "Ожидание";
-
-
-/* Delete All Messages Action Sheet / Alert View */
-
-/* Title for the Action Sheet */
-"HockeyFeedbackListDeleteAllTitle" = "Этим действием будут стерты все сообщения на этом устройстве.";
-
-/* Button Title to perform delete action */
-"HockeyFeedbackListDeleteAllDelete" = "Удалить";
-
-/* Button Title to cancel delete action */
-"HockeyFeedbackListDeleteAllCancel" = "Отменить";
-
-
-/* Open Link In Safari Action Sheet / Alert View */
-
-/* Button Title to cancel */
-"HockeyFeedbackListLinkActionCancel" = "Отменить";
-
-/* Button Title to Open the Link */
-"HockeyFeedbackListLinkActionOpen" = "Открыть";
-
-/* Button Title to Copy the Link */
-"HockeyFeedbackListLinkActionCopy" = "Копировать";
-
-
-/* UIActivity */
-
-/* Activity Sharing Button Title, App Name will be inserted */
-"HockeyFeedbackActivityButtonTitle" = "Отклик на %@";
-
-/* if there can no app name be found, use this instead for HockeyFeedbackActivityButtonTitle */
-"HockeyFeedbackActivityAppPlaceholder" = "Программа";
-
-
-/* Compose Message */
-
-/* Title */
-"HockeyFeedbackComposeTitle" = "Новый";
-
-/* Send button */
-"HockeyFeedbackComposeSend" = "Отправить";
-
-/* Add Image button for attachment actions */
-"HockeyFeedbackComposeAttachmentAddImage" = "Добавить фото";
-
-/* Edit button for attachment actions */
-"HockeyFeedbackComposeAttachmentEdit" = "Изменить фото";
-
-/* Delete button for attachment actions */
-"HockeyFeedbackComposeAttachmentDelete" = "Удалить фото";
-
-/* Cancel button for attachment actions */
-"HockeyFeedbackComposeAttachmentCancel" = "Отменить";
-
-
-/* Set User Data */
-
-/* Title */
-"HockeyFeedbackUserDataTitle" = "Мои данные";
-
-/* Description On What Should Be Entered */
-"HockeyFeedbackUserDataDescription" = "Перед отправкой отклика необходимо ввести ваши личные данные.";
-
-/* Name Field */
-"HockeyFeedbackUserDataName" = "Имя";
-
-/* Name Placeholder */
-"HockeyFeedbackUserDataNamePlaceHolder" = "Имя";
-
-/* Email Field */
-"HockeyFeedbackUserDataEmail" = "Email";
-
-/* Email Placeholder */
-"HockeyFeedbackUserDataEmailPlaceholder" = "email@example.com";
-
 
 /* Authenticator */
 

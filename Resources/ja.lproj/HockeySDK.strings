@@ -60,32 +60,11 @@
 
 "UpdateIgnore" = "無視";
 
-"UpdateShow" = "表示";
-
-"UpdateInstall" = "インストール";
-
-"UpdateRemindMe" = "後で通知";
-
-
 /* Update Details */
-
-"UpdateScreenTitle" = "アップデート";
 
 "UpdateButtonCheck" = "確認";
 
-"UpdateButtonSearching" = "確認中";
-
-"UpdateButtonUpdate" = "アップデート";
-
-"UpdateButtonInstalling" = "インストール中";
-
-"UpdateButtonOffline" = "オフライン";
-
-"UpdateInstalled" = "インストール済み";
-
 "UpdateVersion" = "バージョン";
-
-"UpdateShowPreviousVersions" = "前のバージョンを表示…";
 
 "UpdateNoUpdateAvailableTitle" = "アップデートなし";
 
@@ -93,158 +72,9 @@
 
 "UpdateError" = "エラー";
 
-"UpdateWarning" = "警告";
-
-"UpdateNoReleaseNotesAvailable" = "リリースノートがありません。";
-
-
-/* Update Authorization  */
-
-"UpdateAuthorizationProgress" = "認証中…";
-
-"UpdateAuthorizationOffline" = "インターネット接続が必要です！";
-
-"UpdateAuthorizationDenied" = "認証が拒否されました。デベロッパに連絡してください。";
-
-
 /* Update Expiry  */
 
 "UpdateExpired" = "%@の有効期限が切れたため、これ以上使用できません。";
-
-
-/* Update Simulator Warning */
-
-"UpdateSimulatorMessage" = "HockeyのアップデートはSimulatorでは作動しません。\nitms-services:// のURL方式は実装されていますが、機能しません。";
-
-
-/* Feedback */
-
-
-/* New Message Alert */
-
-/* Alert Title */
-"HockeyFeedbackNewMessageTitle" = "新規フィードバックの応答";
-
-/* Alert Text */
-"HockeyFeedbackNewMessageText" = "フィードバックに対する新しい応答があります。表示しますか。";
-
-/* Alert Ignore Button */
-"HockeyFeedbackIgnore" = "無視";
-
-/* Alert Show Button */
-"HockeyFeedbackShow" = "表示";
-
-
-/* List View */
-
-/* Title */
-"HockeyFeedbackListTitle" = "フィードバック";
-
-/* Last Updated */
-"HockeyFeedbackListLastUpdated" = "前回のアップデート：%@";
-
-/* Never Updated */
-"HockeyFeedbackListNeverUpdated" = "しない";
-
-/* Provide Feedback Button Title */
-"HockeyFeedbackListButtonWriteFeedback" = "フィードバックを送信";
-
-/* Add a Response Button Title */
-"HockeyFeedbackListButtonWriteResponse" = "応答を追加";
-
-/* User Data Set Name Button Title */
-"HockeyFeedbackListButtonUserDataSetName" = "名前を設定";
-
-/* User Data Set Email Button Title */
-"HockeyFeedbackListButtonUserDataSetEmail" = "メールを設定";
-
-/* User Data With Name Button Title */
-"HockeyFeedbackListButtonUserDataWithName" = "名前：%@";
-
-/* User Data With Email Button Title */
-"HockeyFeedbackListButtonUserDataWithEmail" = "メール：%@";
-
-/* Button title for deleting all local messages*/
-"HockeyFeedbackListButtonDeleteAllMessages" = "すべてのメッセージを削除";
-
-/* Message pending to be send */
-"HockeyFeedbackListMessagePending" = "保留中";
-
-
-/* Delete All Messages Action Sheet / Alert View */
-
-/* Title for the Action Sheet */
-"HockeyFeedbackListDeleteAllTitle" = "この操作はこのデバイスのメッセージすべてを削除します。";
-
-/* Button Title to perform delete action */
-"HockeyFeedbackListDeleteAllDelete" = "消去";
-
-/* Button Title to cancel delete action */
-"HockeyFeedbackListDeleteAllCancel" = "キャンセル";
-
-
-/* Open Link In Safari Action Sheet / Alert View */
-
-/* Button Title to cancel */
-"HockeyFeedbackListLinkActionCancel" = "キャンセル";
-
-/* Button Title to Open the Link */
-"HockeyFeedbackListLinkActionOpen" = "開く";
-
-/* Button Title to Copy the Link */
-"HockeyFeedbackListLinkActionCopy" = "コピー";
-
-
-/* UIActivity */
-
-/* Activity Sharing Button Title, App Name will be inserted */
-"HockeyFeedbackActivityButtonTitle" = "%@フィードバック";
-
-/* if there can no app name be found, use this instead for HockeyFeedbackActivityButtonTitle */
-"HockeyFeedbackActivityAppPlaceholder" = "App";
-
-
-/* Compose Message */
-
-/* Title */
-"HockeyFeedbackComposeTitle" = "新規フィードバック";
-
-/* Send button */
-"HockeyFeedbackComposeSend" = "送信";
-
-/* Add Image button for attachment actions */
-"HockeyFeedbackComposeAttachmentAddImage" = "イメージを追加";
-
-/* Edit button for attachment actions */
-"HockeyFeedbackComposeAttachmentEdit" = "イメージを編集";
-
-/* Delete button for attachment actions */
-"HockeyFeedbackComposeAttachmentDelete" = "イメージを削除";
-
-/* Cancel button for attachment actions */
-"HockeyFeedbackComposeAttachmentCancel" = "キャンセル";
-
-
-/* Set User Data */
-
-/* Title */
-"HockeyFeedbackUserDataTitle" = "自分の情報";
-
-/* Description On What Should Be Entered */
-"HockeyFeedbackUserDataDescription" = "フィードバックを記入する前に情報を入力してください。";
-
-/* Name Field */
-"HockeyFeedbackUserDataName" = "名前";
-
-/* Name Placeholder */
-"HockeyFeedbackUserDataNamePlaceHolder" = "Hiromi Sato";
-
-/* Email Field */
-"HockeyFeedbackUserDataEmail" = "メール";
-
-/* Email Placeholder */
-"HockeyFeedbackUserDataEmailPlaceholder" = "email@example.com";
-
 
 /* Authenticator */
 
