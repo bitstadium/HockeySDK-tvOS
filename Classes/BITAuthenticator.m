@@ -831,6 +831,8 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
     case BITAuthenticatorIdentificationTypeHockeyAppEmail:
     case BITAuthenticatorIdentificationTypeHockeyAppUser: return @"auid";
     case BITAuthenticatorIdentificationTypeAnonymous: return @"uuid";
+    default:
+      return nil;
   }
 }
 
@@ -839,6 +841,8 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
     case BITAuthenticatorIdentificationTypeHockeyAppEmail: return @"iuid";
     case BITAuthenticatorIdentificationTypeHockeyAppUser: return @"auid";
     case BITAuthenticatorIdentificationTypeAnonymous: return @"uuid";
+    default:
+      return nil;
   }
 }
 
@@ -857,6 +861,8 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       return [self stringValueFromKeychainForKey:kBITAuthenticatorUserEmailKey];
     case BITAuthenticatorIdentificationTypeAnonymous:
       return [self stringValueFromKeychainForKey:kBITAuthenticatorIdentifierKey];
+    default:
+      return nil;
   }
 }
 
