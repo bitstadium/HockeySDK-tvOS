@@ -53,7 +53,6 @@ typedef NS_ENUM (NSUInteger, BITUpdateSetting) {
 @protocol BITUpdateManagerDelegate;
 
 @class BITAppVersionMetaInfo;
-@class BITUpdateViewController;
 
 /**
  The update manager module.

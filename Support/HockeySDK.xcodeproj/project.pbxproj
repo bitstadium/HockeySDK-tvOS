@@ -37,6 +37,16 @@
 		1B3EAC741BFA8F4D00BE3CC7 /* BITAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EAC721BFA8F4D00BE3CC7 /* BITAlertController.m */; };
 		1B3EAC751BFA8F5F00BE3CC7 /* BITAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3EAC711BFA8F4D00BE3CC7 /* BITAlertController.h */; };
 		1B3EAC761BFA8F5F00BE3CC7 /* BITAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EAC721BFA8F4D00BE3CC7 /* BITAlertController.m */; };
+		1B8B306A1BFE940F002037E1 /* BITAuthenticationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */; };
+		1B8B306B1BFE940F002037E1 /* BITAuthenticationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */; };
+		1B8B306C1BFE940F002037E1 /* BITAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */; };
+		1B8B306D1BFE940F002037E1 /* BITAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */; };
+		1B8B306E1BFE940F002037E1 /* BITAuthenticator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */; };
+		1B8B306F1BFE940F002037E1 /* BITAuthenticator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */; };
+		1B8B30701BFE940F002037E1 /* BITAuthenticator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30681BFE940F002037E1 /* BITAuthenticator.h */; };
+		1B8B30711BFE940F002037E1 /* BITAuthenticator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30681BFE940F002037E1 /* BITAuthenticator.h */; };
+		1B8B30721BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
+		1B8B30731BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
 		1BA783731BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783741BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783751BFAB01C00535F7A /* BITAppVersionMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */; };
@@ -63,16 +73,6 @@
 		1BA7839D1BFABA4000535F7A /* BITCrashAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA783991BFABA4000535F7A /* BITCrashAttachment.m */; };
 		1BA7839F1BFAC01E00535F7A /* BITHockeyBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7839E1BFAC01E00535F7A /* BITHockeyBaseViewController.m */; };
 		1BA783A01BFAC01E00535F7A /* BITHockeyBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7839E1BFAC01E00535F7A /* BITHockeyBaseViewController.m */; };
-		1B8B306A1BFE940F002037E1 /* BITAuthenticationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */; };
-		1B8B306B1BFE940F002037E1 /* BITAuthenticationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */; };
-		1B8B306C1BFE940F002037E1 /* BITAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */; };
-		1B8B306D1BFE940F002037E1 /* BITAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */; };
-		1B8B306E1BFE940F002037E1 /* BITAuthenticator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */; };
-		1B8B306F1BFE940F002037E1 /* BITAuthenticator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */; };
-		1B8B30701BFE940F002037E1 /* BITAuthenticator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30681BFE940F002037E1 /* BITAuthenticator.h */; };
-		1B8B30711BFE940F002037E1 /* BITAuthenticator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30681BFE940F002037E1 /* BITAuthenticator.h */; };
-		1B8B30721BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
-		1B8B30731BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
 		1E1127C416580C87007067A2 /* buttonRoundedDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E1127BC16580C87007067A2 /* buttonRoundedDelete.png */; };
 		1E1127C516580C87007067A2 /* buttonRoundedDelete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E1127BD16580C87007067A2 /* buttonRoundedDelete@2x.png */; };
 		1E1127C616580C87007067A2 /* buttonRoundedDeleteHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E1127BE16580C87007067A2 /* buttonRoundedDeleteHighlighted.png */; };
@@ -265,6 +265,11 @@
 /* Begin PBXFileReference section */
 		1B3EAC711BFA8F4D00BE3CC7 /* BITAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAlertController.h; sourceTree = "<group>"; };
 		1B3EAC721BFA8F4D00BE3CC7 /* BITAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAlertController.m; sourceTree = "<group>"; };
+		1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticationViewController.h; sourceTree = "<group>"; };
+		1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAuthenticationViewController.m; sourceTree = "<group>"; };
+		1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator_Private.h; sourceTree = "<group>"; };
+		1B8B30681BFE940F002037E1 /* BITAuthenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator.h; sourceTree = "<group>"; };
+		1B8B30691BFE940F002037E1 /* BITAuthenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAuthenticator.m; sourceTree = "<group>"; };
 		1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAppVersionMetaInfo.h; sourceTree = "<group>"; };
 		1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAppVersionMetaInfo.m; sourceTree = "<group>"; };
 		1BA7836C1BFAB01C00535F7A /* BITUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITUpdateManager.h; sourceTree = "<group>"; };
@@ -278,11 +283,6 @@
 		1BA783981BFABA4000535F7A /* BITCrashAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashAttachment.h; sourceTree = "<group>"; };
 		1BA783991BFABA4000535F7A /* BITCrashAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCrashAttachment.m; sourceTree = "<group>"; };
 		1BA7839E1BFAC01E00535F7A /* BITHockeyBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITHockeyBaseViewController.m; sourceTree = "<group>"; };
-		1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticationViewController.h; sourceTree = "<group>"; };
-		1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAuthenticationViewController.m; sourceTree = "<group>"; };
-		1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator_Private.h; sourceTree = "<group>"; };
-		1B8B30681BFE940F002037E1 /* BITAuthenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator.h; sourceTree = "<group>"; };
-		1B8B30691BFE940F002037E1 /* BITAuthenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAuthenticator.m; sourceTree = "<group>"; };
 		1E0FEE26173BDB260061331F /* BITKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITKeychainUtils.h; sourceTree = "<group>"; };
 		1E0FEE27173BDB260061331F /* BITKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITKeychainUtils.m; sourceTree = "<group>"; };
 		1E1127BC16580C87007067A2 /* buttonRoundedDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonRoundedDelete.png; sourceTree = "<group>"; };
@@ -468,6 +468,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B8B30641BFE93FC002037E1 /* Authenticator */ = {
+			isa = PBXGroup;
+			children = (
+				1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */,
+				1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */,
+				1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */,
+				1B8B30681BFE940F002037E1 /* BITAuthenticator.h */,
+				1B8B30691BFE940F002037E1 /* BITAuthenticator.m */,
+			);
+			name = Authenticator;
+			sourceTree = "<group>";
+		};
 		1BA783691BFAB00F00535F7A /* Update */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,18 +491,6 @@
 				1BA7836F1BFAB01C00535F7A /* BITUpdateManagerPrivate.h */,
 			);
 			name = Update;
-			sourceTree = "<group>";
-		};
-		1B8B30641BFE93FC002037E1 /* Authenticator */ = {
-			isa = PBXGroup;
-			children = (
-				1B8B30651BFE940F002037E1 /* BITAuthenticationViewController.h */,
-				1B8B30661BFE940F002037E1 /* BITAuthenticationViewController.m */,
-				1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */,
-				1B8B30681BFE940F002037E1 /* BITAuthenticator.h */,
-				1B8B30691BFE940F002037E1 /* BITAuthenticator.m */,
-			);
-			name = Authenticator;
 			sourceTree = "<group>";
 		};
 		1E5955A415B71BDC00A03429 /* Images */ = {

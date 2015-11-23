@@ -53,8 +53,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 
 @implementation BITUpdateManager {
   NSString *_currentAppVersion;
-  
-  BITUpdateViewController *_currentHockeyViewController;
 
   BOOL _dataFound;
   BOOL _showFeedback;
@@ -669,7 +667,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   self.checkInProgress = YES;
   
   // do we need to update?
-  if (!_currentHockeyViewController && ![self shouldCheckForUpdates] && _updateSetting != BITUpdateCheckManually) {
+  if (![self shouldCheckForUpdates] && _updateSetting != BITUpdateCheckManually) {
     BITHockeyLog(@"INFO: Update not needed right now");
     self.checkInProgress = NO;
     return;
@@ -877,7 +875,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
         }
         
         if (self.isUpdateAvailable && (self.alwaysShowUpdateReminder || newVersionDiffersFromCachedVersion || [self hasNewerMandatoryVersion])) {
-          if (_updateAvailable && !_currentHockeyViewController) {
+          if (_updateAvailable) {
             [self showCheckForUpdateAlert];
           }
         }
@@ -960,13 +958,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 }
 
 #pragma mark - Properties
-
-- (void)setCurrentHockeyViewController:(BITUpdateViewController *)aCurrentHockeyViewController {
-  if (_currentHockeyViewController != aCurrentHockeyViewController) {
-    _currentHockeyViewController = aCurrentHockeyViewController;
-    //HockeySDKLog(@"active hockey view controller: %@", aCurrentHockeyViewController);
-  }
-}
 
 - (NSString *)currentAppVersion {
   return _currentAppVersion;
