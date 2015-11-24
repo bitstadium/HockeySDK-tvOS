@@ -156,10 +156,6 @@ NSString *bit_appName(NSString *placeHolderString) {
   return appName;
 }
 
-NSString *bit_UUIDPreiOS6(void) {
-  // Create a new UUID
-  CFUUIDRef uuidObj = CFUUIDCreate(nil);
-  
   // Get the string representation of the UUID
   NSString *resultUUID = (NSString*)CFBridgingRelease(CFUUIDCreateString(nil, uuidObj));
   CFRelease(uuidObj);
