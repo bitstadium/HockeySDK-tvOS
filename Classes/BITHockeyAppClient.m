@@ -30,9 +30,6 @@
 NSString * const kBITHockeyAppClientBoundary = @"----FOO";
 
 @implementation BITHockeyAppClient
-- (void)dealloc {
-  [self cancelOperationsWithPath:nil method:nil];
-}
 
 - (instancetype)initWithBaseURL:(NSURL *)baseURL {
   self = [super init];

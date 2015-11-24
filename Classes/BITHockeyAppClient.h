@@ -62,16 +62,6 @@ extern NSString * const kBITHockeyAppClientBoundary;
                                  parameters:(NSDictionary *) params;
 
 /**
- *	cancels the specified operations
- *
- *	@param	path	the path which operation should be cancelled. Can be nil to match all
- *	@param	method	the method which operations to cancel. Can be nil to match all
- *  @return number of operations cancelled
- */
-- (NSUInteger) cancelOperationsWithPath:(NSString*) path
-                                 method:(NSString*) method;
-
-/**
  *	Access to the internal operation queue
  */
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
