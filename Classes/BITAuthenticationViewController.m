@@ -197,7 +197,7 @@
   
   // E-Mail Input
   _emailTextField = [UITextField new];
-  self.emailTextField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerEmailPlaceholder");
+  self.emailTextField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerEmailDescription");
   self.emailTextField.text = self.email;
   self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
   self.passwordTextField.delegate = self;
@@ -208,7 +208,7 @@
   // Password Input
   if (self.requirePassword) {
     _passwordTextField = [UITextField new];
-    self.passwordTextField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerPasswordPlaceholder");
+    self.passwordTextField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerPasswordDescription");
     self.passwordTextField.text = self.password;
     self.passwordTextField.keyboardType = UIKeyboardTypeAlphabet;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
