@@ -34,7 +34,7 @@
 /**
  *  View controller handling user interaction for `BITAuthenticator`
  */
-@interface BITAuthenticationViewController : UIViewController
+@interface BITAuthenticationViewController : UIViewController <UITextFieldDelegate>
 
 - (instancetype) initWithDelegate:(id<BITAuthenticationViewControllerDelegate>) delegate;
 

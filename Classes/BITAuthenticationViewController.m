@@ -36,7 +36,7 @@
 #import "BITHockeyHelper.h"
 #import "BITHockeyAppClient.h"
 
-@interface BITAuthenticationViewController ()<UITextFieldDelegate>
+@interface BITAuthenticationViewController ()
 @property (nonatomic, strong) UITextField *emailTextField;
 @property (nonatomic, strong) UITextField *passwordTextField;
 @property (nonatomic, strong) UIButton *signInButton;
@@ -131,18 +131,8 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-  NSInteger nextTag = textField.tag + 1;
-  
-  UIResponder* nextResponder = [self.view viewWithTag:nextTag];
-  if (nextResponder) {
-    [nextResponder becomeFirstResponder];
-  } else {
-    if ([self allRequiredFieldsEntered]) {
-      if ([textField isFirstResponder])
-        [textField resignFirstResponder];
-      
-      [self saveAction:nil];
-    }
+  if((textField == self.emailTextField) || (textField == self.passwordTextField)) {
+    return YES;
   }
   return NO;
 }
@@ -200,7 +190,7 @@
   self.emailTextField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerEmailDescription");
   self.emailTextField.text = self.email;
   self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
-  self.passwordTextField.delegate = self;
+  self.emailTextField.delegate = self;
   self.emailTextField.returnKeyType = UIReturnKeyDone;
   [self.emailTextField addTarget:self action:@selector(userEmailEntered:) forControlEvents:UIControlEventEditingChanged];
   [self.containerView addSubview:self.emailTextField];
