@@ -103,12 +103,6 @@
   _viewTitle = [viewDescription copy];
 }
 
-#pragma mark - UIViewController Rotation
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
-  return YES;
-}
-
 #pragma mark - Private methods
 - (BOOL)allRequiredFieldsEntered {
   if (self.requirePassword && [self.password length] == 0)
