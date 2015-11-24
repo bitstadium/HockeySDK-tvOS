@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  @see BITCrashManagerStatus
  @see showAlwaysButton
  */
-@property (nonatomic, assign, readonly) BITCrashManagerStatus crashManagerStatus;
+@property (nonatomic, assign) BITCrashManagerStatus crashManagerStatus;
 
 /**
  *  Trap fatal signals via a Mach exception server.
