@@ -128,31 +128,6 @@
   return @"";
 }
 
-- (UIWindow *)findVisibleWindow {
-  UIWindow *visibleWindow = [UIApplication sharedApplication].keyWindow;
-  
-  if (!(visibleWindow.hidden)) {
-    return visibleWindow;
-  }
-  
-  // if the rootViewController property (available >= iOS 4.0) of the main window is set, we present the modal view controller on top of the rootViewController
-  NSArray *windows = [[UIApplication sharedApplication] windows];
-  for (UIWindow *window in windows) {
-    if (!window.hidden && !visibleWindow) {
-      visibleWindow = window;
-    }
-    if ([UIWindow instancesRespondToSelector:@selector(rootViewController)]) {
-      if (!(window.hidden) && ([window rootViewController])) {
-        visibleWindow = window;
-        BITHockeyLog(@"INFO: UIWindow with rootViewController found: %@", visibleWindow);
-        break;
-      }
-    }
-  }
-  
-  return visibleWindow;
-}
-
 - (UIViewController *)visibleWindowRootViewController {
   UIViewController *parentViewController = nil;
   
