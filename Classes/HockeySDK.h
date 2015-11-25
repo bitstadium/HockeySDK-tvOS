@@ -30,8 +30,8 @@
 #import <Foundation/Foundation.h>
 
 
-#if !defined (TARGET_OS_IOS) // Defined starting in iOS 9
-#define TARGET_OS_IOS 1
+#if !defined (TARGET_OS_TV) // Defined starting in iOS 9
+#define TARGET_OS_TV 1
 #endif
 
 
