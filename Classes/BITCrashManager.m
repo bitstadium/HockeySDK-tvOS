@@ -1022,8 +1022,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
       } else {
         __weak typeof(self) weakSelf = self;
         
-        BITAlertController *alertController = [BITAlertController alertControllerWithTitle:[NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundTitle"), appName]
-                                                                                   message:alertDescription];
+        BITAlertController *alertController = [BITAlertController alertControllerWithTitle:[NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundTitle"), appName] message:alertDescription];
         
         [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"CrashDontSendReport")
                                           handler:^(UIAlertAction * action) {
@@ -1047,7 +1046,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
         }
         [alertController show];
       }
-      
     } else {
       [self approveLatestCrashReport];
       [self sendNextCrashReport];

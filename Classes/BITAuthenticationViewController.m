@@ -35,6 +35,7 @@
 #import "HockeySDKPrivate.h"
 #import "BITHockeyHelper.h"
 #import "BITHockeyAppClient.h"
+#import "BITAlertController.h"
 
 @interface BITAuthenticationViewController ()
 @property (nonatomic, strong) UITextField *emailTextField;
@@ -81,14 +82,13 @@
     [self saveAction:sender];
   } else {
     NSString *message = NSLocalizedString(@"HockeyAuthenticationAuthFieldsMissing", "");
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"OK")
-                                                       style:UIAlertActionStyleCancel
-                                                     handler:^(UIAlertAction * action) {}];
-    [alertController addAction:okAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+    
+    BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:message];
+    
+    [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"OK")
+                                      handler:^(UIAlertAction * action) {
+                                      }];
+    [alertController show];
   }
 }
 
@@ -135,8 +135,6 @@
 
 - (void)saveAction:(id)sender {
   [self setLoginUIEnabled:NO];
-  
-  __weak typeof(self) weakSelf = self;
   [self.delegate authenticationViewController:self
                 handleAuthenticationWithEmail:self.email
                                      password:self.password
@@ -146,18 +144,14 @@
                                      } else {
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                          
-                                          UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
-                                          message:error.localizedDescription
-                                          preferredStyle:UIAlertControllerStyleAlert];
-                                          
-                                          
-                                          UIAlertAction *okAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"OK")
-                                          style:UIAlertActionStyleCancel
-                                          handler:^(UIAlertAction * action) {}];
-                                          
-                                          [alertController addAction:okAction];
-                                          
-                                          [weakSelf presentViewController:alertController animated:YES completion:nil];
+                                         BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil
+                                                                                                                    message:error.localizedDescription];
+                                         
+                                         [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"OK")
+                                                                           handler:^(UIAlertAction * action) {
+                                                                           }];
+                                         [alertController show];
+                                         
                                        });
                                      }
                                    }];
@@ -175,7 +169,7 @@
   
   // Title Text
   self.title = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerSignInButtonTitle");
-
+  
   // Container View
   _containerView = [UIView new];
   
@@ -201,7 +195,7 @@
     [self.passwordTextField addTarget:self action:@selector(userPasswordEntered:) forControlEvents:UIControlEventEditingChanged];
     [self.containerView addSubview:self.passwordTextField];
   }
-
+  
   // Sign Button
   _signInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [self.signInButton setTitle:BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerSignInButtonTitle") forState:UIControlStateNormal];
@@ -256,13 +250,13 @@
   [self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horizontalFormat options:0 metrics:nil views:views]];
   
   NSLayoutConstraint *centerXButtonConstraints = [NSLayoutConstraint
-                                                      constraintWithItem:self.signInButton
-                                                      attribute:NSLayoutAttributeCenterX
-                                                      relatedBy:NSLayoutRelationEqual
-                                                      toItem:self.containerView
-                                                      attribute:NSLayoutAttributeCenterX
-                                                      multiplier:1.0
-                                                      constant:0];
+                                                  constraintWithItem:self.signInButton
+                                                  attribute:NSLayoutAttributeCenterX
+                                                  relatedBy:NSLayoutRelationEqual
+                                                  toItem:self.containerView
+                                                  attribute:NSLayoutAttributeCenterX
+                                                  multiplier:1.0
+                                                  constant:0];
   [self.containerView addConstraint:centerXButtonConstraints];
   
   NSLayoutConstraint *centerHorizontallyConstraint = [NSLayoutConstraint

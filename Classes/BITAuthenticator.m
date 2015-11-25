@@ -37,6 +37,7 @@
 #import "BITHockeyAppClient.h"
 #import "BITHockeyHelper.h"
 #import "BITHockeyBaseManagerPrivate.h"
+#import "BITAlertController.h"
 
 #include <sys/stat.h>
 
@@ -247,22 +248,14 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
         BITHockeyLog(@"Validation failed with error: %@", error);
         
          __weak typeof(self) weakSelf = self;
-         
-         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
-         message:error.localizedDescription
-         preferredStyle:UIAlertControllerStyleAlert];
-         
-         
-         UIAlertAction *okAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
-         style:UIAlertActionStyleDefault
-         handler:^(UIAlertAction * action) {
-         typeof(self) strongSelf = weakSelf;
-         [strongSelf validate];
-         }];
-         
-         [alertController addAction:okAction];
-         
-         [self showAlertController:alertController];
+        BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:error.localizedDescription];
+        
+        [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
+                                          handler:^(UIAlertAction * action) {
+                                            typeof(self) strongSelf = weakSelf;
+                                            [strongSelf validate];
+                                          }];
+        [alertController show];
       }
     });
   }];
