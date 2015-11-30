@@ -991,8 +991,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   }
 }
 
-#pragma clang diagnostic pop
-
 @end
 
 #endif /* HOCKEYSDK_FEATURE_UPDATES */
