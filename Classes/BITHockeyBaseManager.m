@@ -34,6 +34,10 @@
 #import "BITHockeyBaseManager.h"
 #import "BITHockeyBaseManagerPrivate.h"
 
+#if HOCKEYSDK_FEATURE_UPDATES
+#import "BITHockeyBaseViewController.h"
+#endif
+
 #import "BITKeychainUtils.h"
 
 #import <sys/sysctl.h>
@@ -77,10 +81,6 @@
 
 - (NSString *)encodedAppIdentifier {
   return bit_encodeAppIdentifier(_appIdentifier);
-}
-
-- (BOOL)isPreiOS7Environment {
-  return bit_isPreiOS7Environment();
 }
 
 - (NSString *)getDevicePlatform {
@@ -128,9 +128,86 @@
   return @"";
 }
 
+- (UIWindow *)findVisibleWindow {
+  UIWindow *visibleWindow = [UIApplication sharedApplication].keyWindow;
+  
+  if (!(visibleWindow.hidden)) {
+    return visibleWindow;
+  }
+  
+  // if the rootViewController property (available >= iOS 4.0) of the main window is set, we present the modal view controller on top of the rootViewController
+  NSArray *windows = [[UIApplication sharedApplication] windows];
+  for (UIWindow *window in windows) {
+    if (!window.hidden && !visibleWindow) {
+      visibleWindow = window;
+    }
+    if ([UIWindow instancesRespondToSelector:@selector(rootViewController)]) {
+      if (!(window.hidden) && ([window rootViewController])) {
+        visibleWindow = window;
+        BITHockeyLog(@"INFO: UIWindow with rootViewController found: %@", visibleWindow);
+        break;
+      }
+    }
+  }
+  
+  return visibleWindow;
+}
+
+- (UIViewController *)visibleWindowRootViewController {
+  UIViewController *parentViewController = nil;
+  
+  if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(viewControllerForHockeyManager:componentManager:)]) {
+    parentViewController = [[BITHockeyManager sharedHockeyManager].delegate viewControllerForHockeyManager:[BITHockeyManager sharedHockeyManager] componentManager:self];
+  }
+  
+  UIWindow *visibleWindow = [self findVisibleWindow];
+  
+  if (parentViewController == nil) {
+    parentViewController = [visibleWindow rootViewController];
+  }
+  
+  // use topmost modal view
+  while (parentViewController.presentedViewController) {
+    parentViewController = parentViewController.presentedViewController;
+  }
+  
+  // special addition to get rootViewController from three20 which has it's own controller handling
+  if (NSClassFromString(@"TTNavigator")) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    UIViewController *ttParentViewController = nil;
+    ttParentViewController = [[NSClassFromString(@"TTNavigator") performSelector:(NSSelectorFromString(@"navigator"))] visibleViewController];
+    if (ttParentViewController)
+      parentViewController = ttParentViewController;
+#pragma clang diagnostic pop
+  }
+  
+  return parentViewController;
+}
+
+- (void)showAlertController:(UIViewController *)alertController {
+  
+  // always execute this on the main thread
+  dispatch_async(dispatch_get_main_queue(), ^{
+    UIViewController *parentViewController = [self visibleWindowRootViewController];
+    
+    // as per documentation this only works if called from within viewWillAppear: or viewDidAppear:
+    // in tests this also worked fine on iOS 6 and 7 but not on iOS 5 so we are still trying this
+    if ([parentViewController isKindOfClass:NSClassFromString(@"UIAlertController")] || [parentViewController isBeingPresented]) {
+      BITHockeyLog(@"WARNING: There is already a view controller being presented onto the parentViewController. Delaying presenting the new view controller by 0.5s.");
+      [self performSelector:@selector(showAlertController:) withObject:alertController afterDelay:0.5];
+      return;
+    }
+    
+    if (parentViewController) {
+      [parentViewController presentViewController:alertController animated:YES completion:nil];
+    }
+  });
+}
+
 - (BOOL)addStringValueToKeychain:(NSString *)stringValue forKey:(NSString *)key {
-	if (!key || !stringValue)
-		return NO;
+  if (!key || !stringValue)
+    return NO;
   
   NSError *error = nil;
   return [BITKeychainUtils storeUsername:key
@@ -141,8 +218,8 @@
 }
 
 - (BOOL)addStringValueToKeychainForThisDeviceOnly:(NSString *)stringValue forKey:(NSString *)key {
-	if (!key || !stringValue)
-		return NO;
+  if (!key || !stringValue)
+    return NO;
   
   NSError *error = nil;
   return [BITKeychainUtils storeUsername:key
@@ -154,8 +231,8 @@
 }
 
 - (NSString *)stringValueFromKeychainForKey:(NSString *)key {
-	if (!key)
-		return nil;
+  if (!key)
+    return nil;
   
   NSError *error = nil;
   return [BITKeychainUtils getPasswordForUsername:key
@@ -180,7 +257,7 @@
 
 - (NSDate *)parseRFC3339Date:(NSString *)dateString {
   NSDate *date = nil;
-  NSError *error = nil; 
+  NSError *error = nil;
   if (![_rfc3339Formatter getObjectValue:&date forString:dateString range:nil error:&error]) {
     BITHockeyLog(@"INFO: Invalid date '%@' string: %@", dateString, error);
   }

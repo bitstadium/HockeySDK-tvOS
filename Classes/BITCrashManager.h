@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
    */
   BITCrashManagerUserInputAlwaysSend = 2
   
-} __TVOS_PROHIBITED;
+};
 
 
 @protocol BITCrashManagerDelegate;
@@ -303,7 +303,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  
  @see crashManagerStatus
  */
-@property (nonatomic, assign, getter=shouldShowAlwaysButton) BOOL showAlwaysButton __TVOS_PROHIBITED;
+@property (nonatomic, assign, getter=shouldShowAlwaysButton) BOOL showAlwaysButton;
 
 
 ///-----------------------------------------------------------------------------
@@ -335,7 +335,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  @see BITCrashManagerUserInput
  @see BITCrashMetaData
  */
-- (BOOL)handleUserInput:(BITCrashManagerUserInput)userInput withUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData __TVOS_PROHIBITED;
+- (BOOL)handleUserInput:(BITCrashManagerUserInput)userInput withUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData;
 
 /**
  Lets you set a custom block which handles showing a custom UI and asking the user

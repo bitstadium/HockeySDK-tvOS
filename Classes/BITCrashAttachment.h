@@ -1,7 +1,7 @@
 /*
  * Author: Andreas Linde <mail@andreaslinde.de>
  *
- * Copyright (c) 2013-2014 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2014 HockeyApp, Bit Stadium GmbH.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -26,26 +26,34 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef HockeySDK_HockeySDKFeatureConfig_h
-#define HockeySDK_HockeySDKFeatureConfig_h
-
+#import "BITHockeyAttachment.h"
 
 /**
- * If true, include support for handling crash reports
- *
- * _Default_: Enabled
+ Deprecated: Provides support to add binary attachments to crash reports
+ 
+ This class is not needed any longer and exists for compatibility purposes with
+ HockeySDK-iOS 3.5.5.
+ 
+ It is a subclass of `BITHockeyAttachment` which only provides an initializer
+ that is compatible with the one of HockeySDK-iOS 3.5.5.
+ 
+ This is used by `[BITCrashManagerDelegate attachmentForCrashManager:]`
+ 
+ @see BITHockeyAttachment
  */
-#ifndef HOCKEYSDK_FEATURE_CRASH_REPORTER
-#    define HOCKEYSDK_FEATURE_CRASH_REPORTER 1
-#endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+@interface BITCrashAttachment : BITHockeyAttachment
 
 /**
- * If true, include support for handling in-app updates for Ad-Hoc and Enterprise builds
- *
- * _Default_: Enabled
+ Create an BITCrashAttachment instance with a given filename and NSData object
+ 
+ @param filename            The filename the attachment should get
+ @param crashAttachmentData The attachment data as NSData
+ @param contentType         The content type of your data as MIME type
+ 
+ @return An instance of BITCrashAttachment
  */
-#ifndef HOCKEYSDK_FEATURE_UPDATES
-#    define HOCKEYSDK_FEATURE_UPDATES 1
-#endif /* HOCKEYSDK_FEATURE_UPDATES */
+- (instancetype)initWithFilename:(NSString *)filename
+             crashAttachmentData:(NSData *)crashAttachmentData
+                     contentType:(NSString *)contentType;
 
-#endif /* HockeySDK_HockeySDKFeatureConfig_h */
+@end

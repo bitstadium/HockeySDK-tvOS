@@ -30,10 +30,9 @@
 #import "HockeySDK.h"
 #import "HockeySDKPrivate.h"
 
-#if HOCKEYSDK_FEATURE_CRASH_REPORTER
+#if HOCKEYSDK_FEATURE_CRASH_REPORTER || HOCKEYSDK_FEATURE_UPDATES
 #import "BITHockeyBaseManagerPrivate.h"
-#import "BITCrashManagerPrivate.h"
-#endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+#endif
 
 #import "BITHockeyHelper.h"
 #import "BITHockeyAppClient.h"
@@ -52,6 +51,14 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   .hockey_version = BITHOCKEY_C_VERSION,
   .hockey_build = BITHOCKEY_C_BUILD
 };
+
+#if HOCKEYSDK_FEATURE_CRASH_REPORTER || HOCKEYSDK_FEATURE_UPDATES
+#import "BITCrashManagerPrivate.h"
+#endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+
+#if HOCKEYSDK_FEATURE_UPDATES
+#import "BITUpdateManagerPrivate.h"
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
 
 @interface BITHockeyManager ()
 
@@ -124,6 +131,9 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
     _disableCrashManager = NO;
+#endif
+#if HOCKEYSDK_FEATURE_UPDATES
+    _disableUpdateManager = NO;
 #endif
     _appEnvironment = BITEnvironmentOther;
     _startManagerIsInvoked = NO;
@@ -212,11 +222,27 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   }
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
   
-  // App Extensions can only use BITCrashManager, so ignore all others automatically
-  if (bit_isRunningInAppExtension()) {
-    return;
+#if HOCKEYSDK_FEATURE_UPDATES
+  
+  // TODO: Identify first
+  //BOOL isIdentified = NO;
+  BOOL isIdentified = YES;
+  
+  // Setup UpdateManager
+  if (![self isUpdateManagerDisabled] && isIdentified) {
+    [self invokeStartUpdateManager];
   }
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
 }
+
+#if HOCKEYSDK_FEATURE_UPDATES
+- (void)setDisableUpdateManager:(BOOL)disableUpdateManager {
+  if (_updateManager) {
+    [_updateManager setDisableUpdateManager:disableUpdateManager];
+  }
+  _disableUpdateManager = disableUpdateManager;
+}
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
 
 
 - (void)setServerURL:(NSString *)aServerURL {
@@ -250,6 +276,12 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
       _crashManager.delegate = _delegate;
     }
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+
+#if HOCKEYSDK_FEATURE_UPDATES
+    if (_updateManager) {
+      _updateManager.delegate = _delegate;
+    }
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
   }
 }
 
@@ -325,6 +357,22 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 - (NSString *)build {
   return [NSString stringWithUTF8String:bitstadium_library_info.hockey_build];
 }
+
+#pragma mark - KVO
+
+#if HOCKEYSDK_FEATURE_UPDATES
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  if ([keyPath isEqualToString:@"identified"] &&
+      [object valueForKey:@"isIdentified"] ) {
+    if (self.appEnvironment != BITEnvironmentAppStore) {
+      BOOL identified = [(NSNumber *)[object valueForKey:@"isIdentified"] boolValue];
+      if (identified && ![self isUpdateManagerDisabled]) {
+        [self invokeStartUpdateManager];
+      }
+    }
+  }
+}
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
 
 
 #pragma mark - Private Instance Methods
@@ -424,6 +472,20 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   }
 }
 
+#if HOCKEYSDK_FEATURE_UPDATES
+- (void)invokeStartUpdateManager {
+  if (_startUpdateManagerIsInvoked) return;
+  
+  _startUpdateManagerIsInvoked = YES;
+  BITHockeyLog(@"INFO: Start UpdateManager");
+  if (_serverURL) {
+    [_updateManager setServerURL:_serverURL];
+  }
+  [_updateManager performSelector:@selector(startManager) withObject:nil afterDelay:0.5f];
+}
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
+
+
 - (BOOL)isSetUpOnMainThread {
   NSString *errorString = @"ERROR: HockeySDK has to be setup on the main thread!";
   
@@ -469,6 +531,12 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     _crashManager.hockeyAppClient = [self hockeyAppClient];
     _crashManager.delegate = _delegate;
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
+    
+#if HOCKEYSDK_FEATURE_UPDATES
+    BITHockeyLog(@"INFO: Setup UpdateManager");
+    _updateManager = [[BITUpdateManager alloc] initWithAppIdentifier:_appIdentifier appEnvironment:_appEnvironment];
+    _updateManager.delegate = _delegate;
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
 
     if (self.appEnvironment != BITEnvironmentAppStore) {
       NSString *integrationFlowTime = [self integrationFlowTimeString];

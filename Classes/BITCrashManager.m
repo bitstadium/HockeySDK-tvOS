@@ -44,6 +44,7 @@
 #import "BITCrashReportTextFormatter.h"
 #import "BITCrashDetailsPrivate.h"
 #import "BITCrashCXXExceptionHandler.h"
+#import "BITAlertController.h"
 
 #include <sys/sysctl.h>
 
@@ -195,7 +196,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
     _fileManager = [[NSFileManager alloc] init];
     _crashFiles = [[NSMutableArray alloc] init];
     
-#if TARGET_TV_OS
     _crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
     
     NSString *testValue = [[NSUserDefaults standardUserDefaults] stringForKey:kBITCrashManagerStatus];
@@ -209,9 +209,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
       }
       [[NSUserDefaults standardUserDefaults] setInteger:_crashManagerStatus forKey:kBITCrashManagerStatus];
     }
-#else
-    _crashManagerStatus = BITCrashManagerStatusAutoSend;
-#endif
     _crashesDir = bit_settingsDir();
     _settingsFile = [_crashesDir stringByAppendingPathComponent:BITHOCKEY_CRASH_SETTINGS];
     _analyzerInProgressFile = [_crashesDir stringByAppendingPathComponent:BITHOCKEY_CRASH_ANALYZER];
@@ -220,11 +217,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
       NSError *error = nil;
       [_fileManager removeItemAtPath:_analyzerInProgressFile error:&error];
     }
-#if !TARGET_OS_TV
-    if (!BITHockeyBundle() && !bit_isRunningInAppExtension()) {
-      NSLog(@"[HockeySDK] WARNING: %@ is missing, will send reports automatically!", BITHOCKEYSDK_BUNDLE);
-    }
-#endif
     NSLog(@"[HockeySDK] Crash reports will be sent automatically!");
   }
   return self;
@@ -990,27 +982,61 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
     if (notApprovedReportFilename && !_lastCrashFilename) {
       _lastCrashFilename = [notApprovedReportFilename lastPathComponent];
     }
-#if !TARGET_OS_TV
-    if (!BITHockeyBundle() || bit_isRunningInAppExtension()) {
-      [self approveLatestCrashReport];
-      [self sendNextCrashReport];
+    if (_crashManagerStatus != BITCrashManagerStatusAutoSend && notApprovedReportFilename) {
       
-    } else if (_crashManagerStatus != BITCrashManagerStatusAutoSend && notApprovedReportFilename) {
+      if ([self.delegate respondsToSelector:@selector(crashManagerWillShowSubmitCrashReportAlert:)]) {
+        [self.delegate crashManagerWillShowSubmitCrashReportAlert:self];
+      }
+      
+      NSString *appName = bit_appName(BITHockeyLocalizedString(@"HockeyAppNamePlaceholder"));
+      NSString *alertDescription = [NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundAnonymousDescription"), appName];
+      
+      // the crash report is not anonymous any more if username or useremail are not nil
+      NSString *userid = [self userIDForCrashReport];
+      NSString *username = [self userNameForCrashReport];
+      NSString *useremail = [self userEmailForCrashReport];
+      
+      if ((userid && [userid length] > 0) ||
+          (username && [username length] > 0) ||
+          (useremail && [useremail length] > 0)) {
+        alertDescription = [NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundDescription"), appName];
+      }
       
       if (_alertViewHandler) {
         _alertViewHandler();
       } else {
-        [self approveLatestCrashReport];
-        [self sendNextCrashReport];
+        __weak typeof(self) weakSelf = self;
+        
+        BITAlertController *alertController = [BITAlertController alertControllerWithTitle:[NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundTitle"), appName]
+                                                                                   message:alertDescription];
+        
+        [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"CrashDontSendReport")
+                                          handler:^(UIAlertAction * action) {
+                                            typeof(self) strongSelf = weakSelf;
+                                            
+                                            [strongSelf handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
+                                          }];
+        
+        [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"CrashSendReport")
+                                           handler:^(UIAlertAction * action) {
+                                             typeof(self) strongSelf = weakSelf;
+                                             [strongSelf handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:nil];
+                                           }];
+        
+        if (self.shouldShowAlwaysButton) {
+          [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"CrashSendReportAlways")
+                                             handler:^(UIAlertAction * action) {
+                                               typeof(self) strongSelf = weakSelf;
+                                               [strongSelf handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:nil];
+                                             }];
+        }
+        [alertController show];
       }
       
     } else {
-#endif
       [self approveLatestCrashReport];
       [self sendNextCrashReport];
-#if !TARGET_OS_TV
     }
-#endif
   }
 }
 

@@ -55,16 +55,6 @@
 /// @name User Interface
 ///-----------------------------------------------------------------------------
 
-#if !TARGET_OS_TV
-/**
- The UIBarStyle of the update user interface navigation bar.
- 
- Default is UIBarStyleBlackOpaque
- @see navigationBarTintColor
- */
-@property (nonatomic, assign) UIBarStyle barStyle;
-#endif
-
 /**
  The navigationbar tint color of the update user interface navigation bar.
  
