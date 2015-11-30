@@ -86,8 +86,7 @@
     BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:message];
     
     [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"OK")
-                                      handler:^(UIAlertAction * action) {
-                                      }];
+                                      handler:nil];
     [alertController show];
   }
 }
@@ -148,8 +147,7 @@
                                                                                                                     message:error.localizedDescription];
                                          
                                          [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"OK")
-                                                                           handler:^(UIAlertAction * action) {
-                                                                           }];
+                                                                           handler:nil];
                                          [alertController show];
                                          
                                        });
