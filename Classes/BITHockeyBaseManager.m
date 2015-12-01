@@ -34,7 +34,7 @@
 #import "BITHockeyBaseManager.h"
 #import "BITHockeyBaseManagerPrivate.h"
 
-#if HOCKEYSDK_FEATURE_UPDATES
+#if HOCKEYSDK_FEATURE_UPDATES || HOCKEYSDK_FEATURE_AUTHENTICATOR
 #import "BITHockeyBaseViewController.h"
 #endif
 
@@ -128,31 +128,6 @@
   return @"";
 }
 
-- (UIWindow *)findVisibleWindow {
-  UIWindow *visibleWindow = [UIApplication sharedApplication].keyWindow;
-  
-  if (!(visibleWindow.hidden)) {
-    return visibleWindow;
-  }
-  
-  // if the rootViewController property (available >= iOS 4.0) of the main window is set, we present the modal view controller on top of the rootViewController
-  NSArray *windows = [[UIApplication sharedApplication] windows];
-  for (UIWindow *window in windows) {
-    if (!window.hidden && !visibleWindow) {
-      visibleWindow = window;
-    }
-    if ([UIWindow instancesRespondToSelector:@selector(rootViewController)]) {
-      if (!(window.hidden) && ([window rootViewController])) {
-        visibleWindow = window;
-        BITHockeyLog(@"INFO: UIWindow with rootViewController found: %@", visibleWindow);
-        break;
-      }
-    }
-  }
-  
-  return visibleWindow;
-}
-
 - (UIViewController *)visibleWindowRootViewController {
   UIViewController *parentViewController = nil;
   
@@ -185,24 +160,86 @@
   return parentViewController;
 }
 
-- (void)showAlertController:(UIViewController *)alertController {
+/**
+ * Provide a custom UINavigationController with customized appearance settings
+ *
+ * @param viewController The root viewController
+ * @param modalPresentationStyle The modal presentation style
+ *
+ * @return A UINavigationController
+ */
+- (UINavigationController *)customNavigationControllerWithRootViewController:(UIViewController *)viewController presentationStyle:(UIModalPresentationStyle)modalPresentationStyle {
+  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+  if (self.navigationBarTintColor) {
+    navController.navigationBar.tintColor = self.navigationBarTintColor;
+  }
+  navController.modalPresentationStyle = self.modalPresentationStyle;
   
-  // always execute this on the main thread
-  dispatch_async(dispatch_get_main_queue(), ^{
-    UIViewController *parentViewController = [self visibleWindowRootViewController];
-    
-    // as per documentation this only works if called from within viewWillAppear: or viewDidAppear:
-    // in tests this also worked fine on iOS 6 and 7 but not on iOS 5 so we are still trying this
-    if ([parentViewController isKindOfClass:NSClassFromString(@"UIAlertController")] || [parentViewController isBeingPresented]) {
-      BITHockeyLog(@"WARNING: There is already a view controller being presented onto the parentViewController. Delaying presenting the new view controller by 0.5s.");
-      [self performSelector:@selector(showAlertController:) withObject:alertController afterDelay:0.5];
-      return;
+  return navController;
+}
+
+- (UIWindow *)findVisibleWindow {
+  UIWindow *visibleWindow = [UIApplication sharedApplication].keyWindow;
+  
+  if (!(visibleWindow.hidden)) {
+    return visibleWindow;
+  }
+  
+  // if the rootViewController property (available >= iOS 4.0) of the main window is set, we present the modal view controller on top of the rootViewController
+  NSArray *windows = [[UIApplication sharedApplication] windows];
+  for (UIWindow *window in windows) {
+    if (!window.hidden && !visibleWindow) {
+      visibleWindow = window;
     }
-    
-    if (parentViewController) {
-      [parentViewController presentViewController:alertController animated:YES completion:nil];
+    if ([UIWindow instancesRespondToSelector:@selector(rootViewController)]) {
+      if (!(window.hidden) && ([window rootViewController])) {
+        visibleWindow = window;
+        BITHockeyLog(@"INFO: UIWindow with rootViewController found: %@", visibleWindow);
+        break;
+      }
     }
-  });
+  }
+  
+  return visibleWindow;
+}
+
+
+- (void)showView:(UIViewController *)viewController {
+  // if we compile Crash only, then BITHockeyBaseViewController is not included
+  // in the headers and will cause a warning with the modulemap file
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+  UIViewController *parentViewController = [self visibleWindowRootViewController];
+  
+  // as per documentation this only works if called from within viewWillAppear: or viewDidAppear:
+  // in tests this also worked fine on iOS 6 and 7 but not on iOS 5 so we are still trying this
+  if ([parentViewController isBeingPresented]) {
+    BITHockeyLog(@"WARNING: There is already a view controller being presented onto the parentViewController. Delaying presenting the new view controller by 0.5s.");
+    [self performSelector:@selector(showView:) withObject:viewController afterDelay:0.5];
+    return;
+  }
+  
+  if (_navController != nil) _navController = nil;
+  
+  _navController = [self customNavigationControllerWithRootViewController:viewController presentationStyle:_modalPresentationStyle];
+  
+  if (parentViewController) {
+    _navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    
+    if ([viewController isKindOfClass:[BITHockeyBaseViewController class]])
+      [(BITHockeyBaseViewController *)viewController setModalAnimated:YES];
+    
+    [parentViewController presentViewController:_navController animated:YES completion:nil];
+  } else {
+    // if not, we add a subview to the window. A bit hacky but should work in most circumstances.
+    // Also, we don't get a nice animation for free, but hey, this is for beta not production users ;)
+    UIWindow *visibleWindow = [self findVisibleWindow];
+    
+    BITHockeyLog(@"INFO: No rootViewController found, using UIWindow-approach: %@", visibleWindow);
+    if ([viewController isKindOfClass:[BITHockeyBaseViewController class]])
+      [(BITHockeyBaseViewController *)viewController setModalAnimated:NO];
+    [visibleWindow addSubview:_navController.view];
+  }
+#endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 }
 
 - (BOOL)addStringValueToKeychain:(NSString *)stringValue forKey:(NSString *)key {

@@ -87,27 +87,9 @@
   }
 }
 
-
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  BOOL shouldAutorotate;
-  
-  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-    shouldAutorotate = (interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-                        interfaceOrientation == UIInterfaceOrientationLandscapeRight ||
-                        interfaceOrientation == UIInterfaceOrientationPortrait);
-  } else {
-    shouldAutorotate = YES;
-  }
-  
-  return shouldAutorotate;
-}
-
-
 #pragma mark - Modal presentation
 
 
 @end
 
-#endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR || HOCKEYSDK_FEATURE_UPDATES || HOCKEYSDK_FEATURE_FEEDBACK */
+#endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR || HOCKEYSDK_FEATURE_UPDATES */

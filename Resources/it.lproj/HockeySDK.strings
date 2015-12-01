@@ -60,32 +60,11 @@
 
 "UpdateIgnore" = "Ignora";
 
-"UpdateShow" = "Visualizza";
-
-"UpdateInstall" = "Installa";
-
-"UpdateRemindMe" = "Ricordamelo";
-
-
 /* Update Details */
-
-"UpdateScreenTitle" = "Aggiornamento";
 
 "UpdateButtonCheck" = "VERIFICA";
 
-"UpdateButtonSearching" = "VERIFICO";
-
-"UpdateButtonUpdate" = "AGGIORNA";
-
-"UpdateButtonInstalling" = "INSTALLO";
-
-"UpdateButtonOffline" = "OFFLINE";
-
-"UpdateInstalled" = "INSTALLATO";
-
 "UpdateVersion" = "Versione";
-
-"UpdateShowPreviousVersions" = "Visualizzo versioni precedenti...";
 
 "UpdateNoUpdateAvailableTitle" = "Non sono disponibili aggiornamenti";
 
@@ -93,170 +72,14 @@
 
 "UpdateError" = "Errore";
 
-"UpdateWarning" = "Avviso";
-
-"UpdateNoReleaseNotesAvailable" = "Non sono disponibili note sulla release.";
-
-
-/* Update Authorization  */
-
-"UpdateAuthorizationProgress" = "Autorizzazione...";
-
-"UpdateAuthorizationOffline" = "È necessario un collegamento a Internet!";
-
-"UpdateAuthorizationDenied" = "Autorizzazione negata. Contattare lo sviluppatore.";
-
-
 /* Update Expiry  */
 
 "UpdateExpired" = "%@ è scaduta e non può più essere utilizzata.";
-
-
-/* Update Simulator Warning */
-
-"UpdateSimulatorMessage" = "L'aggiornamento di Hockey non funziona nel Simulator.\nLo schema url tms-services:// è implementato ma non è funzionante.";
-
-
-/* Feedback */
-
-
-/* New Message Alert */
-
-/* Alert Title */
-"HockeyFeedbackNewMessageTitle" = "Nuova risposta a un commento";
-
-/* Alert Text */
-"HockeyFeedbackNewMessageText" = "C'è una nuova risposta al tuo commento. Vuoi visualizzarla?";
-
-/* Alert Ignore Button */
-"HockeyFeedbackIgnore" = "Ignora";
-
-/* Alert Show Button */
-"HockeyFeedbackShow" = "Visualizza";
-
-
-/* List View */
-
-/* Title */
-"HockeyFeedbackListTitle" = "Commento";
-
-/* Last Updated */
-"HockeyFeedbackListLastUpdated" = "Ultimo aggiornamento: %@";
-
-/* Never Updated */
-"HockeyFeedbackListNeverUpdated" = "Mai";
-
-/* Provide Feedback Button Title */
-"HockeyFeedbackListButtonWriteFeedback" = "Commenta";
-
-/* Add a Response Button Title */
-"HockeyFeedbackListButtonWriteResponse" = "Aggiungi una risposta";
-
-/* User Data Set Name Button Title */
-"HockeyFeedbackListButtonUserDataSetName" = "Imposta il tuo nome";
-
-/* User Data Set Email Button Title */
-"HockeyFeedbackListButtonUserDataSetEmail" = "Imposta la tua e-mail";
-
-/* User Data With Name Button Title */
-"HockeyFeedbackListButtonUserDataWithName" = "Nome: %@";
-
-/* User Data With Email Button Title */
-"HockeyFeedbackListButtonUserDataWithEmail" = "E-mail: %@";
-
-/* Button title for deleting all local messages*/
-"HockeyFeedbackListButtonDeleteAllMessages" = "Cancella tutti i messagi";
-
-/* Message pending to be send */
-"HockeyFeedbackListMessagePending" = "In attesa";
-
-
-/* Delete All Messages Action Sheet / Alert View */
-
-/* Title for the Action Sheet */
-"HockeyFeedbackListDeleteAllTitle" = "Tutti i messaggi presenti sul dispositivo saranno cancellati.";
-
-/* Button Title to perform delete action */
-"HockeyFeedbackListDeleteAllDelete" = "Cancella";
-
-/* Button Title to cancel delete action */
-"HockeyFeedbackListDeleteAllCancel" = "Annulla";
-
-
-/* Open Link In Safari Action Sheet / Alert View */
-
-/* Button Title to cancel */
-"HockeyFeedbackListLinkActionCancel" = "Annulla";
-
-/* Button Title to Open the Link */
-"HockeyFeedbackListLinkActionOpen" = "Apri";
-
-/* Button Title to Copy the Link */
-"HockeyFeedbackListLinkActionCopy" = "Copia";
-
-
-/* UIActivity */
-
-/* Activity Sharing Button Title, App Name will be inserted */
-"HockeyFeedbackActivityButtonTitle" = "Commento su %@ ";
-
-/* if there can no app name be found, use this instead for HockeyFeedbackActivityButtonTitle */
-"HockeyFeedbackActivityAppPlaceholder" = "App";
-
-
-/* Compose Message */
-
-/* Title */
-"HockeyFeedbackComposeTitle" = "Nuovo commento";
-
-/* Send button */
-"HockeyFeedbackComposeSend" = "Invia";
-
-/* Add Image button for attachment actions */
-"HockeyFeedbackComposeAttachmentAddImage" = "Aggiungi immagine";
-
-/* Edit button for attachment actions */
-"HockeyFeedbackComposeAttachmentEdit" = "Modifica immagine";
-
-/* Delete button for attachment actions */
-"HockeyFeedbackComposeAttachmentDelete" = "Elimina immagine";
-
-/* Cancel button for attachment actions */
-"HockeyFeedbackComposeAttachmentCancel" = "Annulla";
-
-
-/* Set User Data */
-
-/* Title */
-"HockeyFeedbackUserDataTitle" = "Le mie info";
-
-/* Description On What Should Be Entered */
-"HockeyFeedbackUserDataDescription" = "Prima di scrivere il commento inserisci i tuoi dati.";
-
-/* Name Field */
-"HockeyFeedbackUserDataName" = "Nome";
-
-/* Name Placeholder */
-"HockeyFeedbackUserDataNamePlaceHolder" = "Mario Rossi";
-
-/* Email Field */
-"HockeyFeedbackUserDataEmail" = "E-mail";
-
-/* Email Placeholder */
-"HockeyFeedbackUserDataEmailPlaceholder" = "email@esempio.com";
-
 
 /* Authenticator */
 
 /* View Controller Title*/
 "HockeyAuthenticatorViewControllerTitle" = "HockeyApp";
-
-/* BITAuthenticatorAuthTypeUDIDProvider */
-"HockeyAuthenticationViewControllerWebUDIDLoginDescription" = "Lo sviluppatore ha richiesto l'UDID di questo dispositivo. Tocca in basso per aprire il sito di HockeyApp e autorizza l'accesso.";
-"HockeyAuthenticationViewControllerWebLoginButtonTitle" = "Apri HockeyApp";
-
-/* BITAuthenticatorIdentificationTypeWebAuth */
-"HockeyAuthenticationViewControllerWebAuthLoginDescription" = "Lo sviluppatore ha richiesto l'indirizzo e-mail del tuo account HockeyApp. Tocca in basso per aprire il sito di HockeyApp e autorizza l'accesso.";
 
 /* BITAuthenticatorAuthTypeEmail and BITAuthenticatorAuthTypeEmailAndPassword */
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "Inserisci l'indirizzo e-mail e la password del tuo account HockeyApp per autorizzare l'accesso a questa app.";

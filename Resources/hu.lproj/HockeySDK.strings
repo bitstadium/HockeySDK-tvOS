@@ -60,32 +60,11 @@
 
 "UpdateIgnore" = "Most nem";
 
-"UpdateShow" = "Megjelenítés";
-
-"UpdateInstall" = "Telepítés";
-
-"UpdateRemindMe" = "Emlékeztessen később";
-
-
 /* Update Details */
-
-"UpdateScreenTitle" = "Frissítés";
 
 "UpdateButtonCheck" = "ELLENŐRZÉS";
 
-"UpdateButtonSearching" = "KERESÉS";
-
-"UpdateButtonUpdate" = "FRISSÍTÉS";
-
-"UpdateButtonInstalling" = "TELEPÍTÉS";
-
-"UpdateButtonOffline" = "NINCS KAPCSOLAT";
-
-"UpdateInstalled" = "TELEPÍTVE";
-
 "UpdateVersion" = "verzió";
-
-"UpdateShowPreviousVersions" = "Korábbi verziók megtekintése…";
 
 "UpdateNoUpdateAvailableTitle" = "Nincs elérhető frissítés";
 
@@ -93,170 +72,14 @@
 
 "UpdateError" = "Hiba";
 
-"UpdateWarning" = "Figyelmeztetés";
-
-"UpdateNoReleaseNotesAvailable" = "Nem elérhető a változások listája.";
-
-
-/* Update Authorization  */
-
-"UpdateAuthorizationProgress" = "Engedélyezés…";
-
-"UpdateAuthorizationOffline" = "Internetkapcsolat szükséges!";
-
-"UpdateAuthorizationDenied" = "Engedélyezés megtagadva. Lépjen kapcsolatba a fejlesztővel.";
-
-
 /* Update Expiry  */
 
 "UpdateExpired" = "%@ érvényessége lejárt, és már nem használható.";
-
-
-/* Update Simulator Warning */
-
-"UpdateSimulatorMessage" = "A Hockey Update nem használható a szimulátorban.\nAz itms-services:// URL séma elérhető, de nem működőképes.";
-
-
-/* Feedback */
-
-
-/* New Message Alert */
-
-/* Alert Title */
-"HockeyFeedbackNewMessageTitle" = "Új válasz";
-
-/* Alert Text */
-"HockeyFeedbackNewMessageText" = "Új válasz érkezett az Ön visszajelzésére. Kívánja most megtekinteni?";
-
-/* Alert Ignore Button */
-"HockeyFeedbackIgnore" = "Most nem";
-
-/* Alert Show Button */
-"HockeyFeedbackShow" = "Megtekintés";
-
-
-/* List View */
-
-/* Title */
-"HockeyFeedbackListTitle" = "Visszajelzés";
-
-/* Last Updated */
-"HockeyFeedbackListLastUpdated" = "Utolsó frissítés: %@";
-
-/* Never Updated */
-"HockeyFeedbackListNeverUpdated" = "Soha";
-
-/* Provide Feedback Button Title */
-"HockeyFeedbackListButtonWriteFeedback" = "Visszajelzés küldése";
-
-/* Add a Response Button Title */
-"HockeyFeedbackListButtonWriteResponse" = "Válasz küldése";
-
-/* User Data Set Name Button Title */
-"HockeyFeedbackListButtonUserDataSetName" = "Adja meg a nevét";
-
-/* User Data Set Email Button Title */
-"HockeyFeedbackListButtonUserDataSetEmail" = "Adja meg az e-mail címét";
-
-/* User Data With Name Button Title */
-"HockeyFeedbackListButtonUserDataWithName" = "Név: %@";
-
-/* User Data With Email Button Title */
-"HockeyFeedbackListButtonUserDataWithEmail" = "E-mail: %@";
-
-/* Button title for deleting all local messages*/
-"HockeyFeedbackListButtonDeleteAllMessages" = "Összes üzenet törlése";
-
-/* Message pending to be send */
-"HockeyFeedbackListMessagePending" = "Folyamatban";
-
-
-/* Delete All Messages Action Sheet / Alert View */
-
-/* Title for the Action Sheet */
-"HockeyFeedbackListDeleteAllTitle" = "Minden üzenet törlődni fog erről az eszközről.";
-
-/* Button Title to perform delete action */
-"HockeyFeedbackListDeleteAllDelete" = "Törlés";
-
-/* Button Title to cancel delete action */
-"HockeyFeedbackListDeleteAllCancel" = "Mégsem";
-
-
-/* Open Link In Safari Action Sheet / Alert View */
-
-/* Button Title to cancel */
-"HockeyFeedbackListLinkActionCancel" = "Mégsem";
-
-/* Button Title to Open the Link */
-"HockeyFeedbackListLinkActionOpen" = "Megnyitás";
-
-/* Button Title to Copy the Link */
-"HockeyFeedbackListLinkActionCopy" = "Másolás";
-
-
-/* UIActivity */
-
-/* Activity Sharing Button Title, App Name will be inserted */
-"HockeyFeedbackActivityButtonTitle" = "Visszajelzés: %@";
-
-/* if there can no app name be found, use this instead for HockeyFeedbackActivityButtonTitle */
-"HockeyFeedbackActivityAppPlaceholder" = "az alkalmazásról";
-
-
-/* Compose Message */
-
-/* Title */
-"HockeyFeedbackComposeTitle" = "Új visszajelzés";
-
-/* Send button */
-"HockeyFeedbackComposeSend" = "Küldés";
-
-/* Add Image button for attachment actions */
-"HockeyFeedbackComposeAttachmentAddImage" = "Fotó hozzáadása";
-
-/* Edit button for attachment actions */
-"HockeyFeedbackComposeAttachmentEdit" = "Fotó szerkesztése";
-
-/* Delete button for attachment actions */
-"HockeyFeedbackComposeAttachmentDelete" = "Fotó törlése";
-
-/* Cancel button for attachment actions */
-"HockeyFeedbackComposeAttachmentCancel" = "Mégsem";
-
-
-/* Set User Data */
-
-/* Title */
-"HockeyFeedbackUserDataTitle" = "Felhasználói adatok";
-
-/* Description On What Should Be Entered */
-"HockeyFeedbackUserDataDescription" = "Kérjük, adja meg néhány adatát, mielőtt megírja a visszajelzést.";
-
-/* Name Field */
-"HockeyFeedbackUserDataName" = "Név";
-
-/* Name Placeholder */
-"HockeyFeedbackUserDataNamePlaceHolder" = "Gipsz Jakab";
-
-/* Email Field */
-"HockeyFeedbackUserDataEmail" = "E-mail";
-
-/* Email Placeholder */
-"HockeyFeedbackUserDataEmailPlaceholder" = "email@example.com";
-
 
 /* Authenticator */
 
 /* View Controller Title*/
 "HockeyAuthenticatorViewControllerTitle" = "HockeyApp";
-
-/* BITAuthenticatorAuthTypeUDIDProvider */
-"HockeyAuthenticationViewControllerWebUDIDLoginDescription" = "A fejlesztő szeretné hozzáférni készüléke UDID azonosítójához. Kattintással nyissa meg a HockeyApp weblapot és engedélyezze a hozzáférést.";
-"HockeyAuthenticationViewControllerWebLoginButtonTitle" = "HockeyApp megnyitása";
-
-/* BITAuthenticatorIdentificationTypeWebAuth */
-"HockeyAuthenticationViewControllerWebAuthLoginDescription" = "A fejlesztő szeretné hozzáférni a HockeyApp fiókjának e-mail címéhez. Kattintással nyissa meg a HockeyApp weblapot és engedélyezze a hozzáférést.";
 
 /* BITAuthenticatorAuthTypeEmail and BITAuthenticatorAuthTypeEmailAndPassword */
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "Kérjük, adja meg HockeyApp fiókjához tartozó e-mail címét és jelszavát az alkalmazáshoz történő hozzáférés engedélyezéséhez.";

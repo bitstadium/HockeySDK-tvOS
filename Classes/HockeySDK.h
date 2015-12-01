@@ -55,6 +55,10 @@
 #import "BITUpdateManagerDelegate.h"
 #endif /* HOCKEYSDK_FEATURE_UPDATES */
 
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+#import "BITAuthenticator.h"
+#endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
+
 // Notification message which HockeyManager is listening to, to retry requesting updated from the server.
 // This can be used by app developers to trigger additional points where the HockeySDK can try sending
 // pending crash reports or feedback messages.

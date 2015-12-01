@@ -156,28 +156,8 @@ NSString *bit_appName(NSString *placeHolderString) {
   return appName;
 }
 
-NSString *bit_UUIDPreiOS6(void) {
-  // Create a new UUID
-  CFUUIDRef uuidObj = CFUUIDCreate(nil);
-  
-  // Get the string representation of the UUID
-  NSString *resultUUID = (NSString*)CFBridgingRelease(CFUUIDCreateString(nil, uuidObj));
-  CFRelease(uuidObj);
-  
-  return resultUUID;
-}
-
 NSString *bit_UUID(void) {
-  NSString *resultUUID = nil;
-  
-  id uuidClass = NSClassFromString(@"NSUUID");
-  if (uuidClass) {
-    resultUUID = [[NSUUID UUID] UUIDString];
-  } else {
-    resultUUID = bit_UUIDPreiOS6();
-  }
-  
-  return resultUUID;
+  return [[NSUUID UUID] UUIDString];
 }
 
 NSString *bit_appAnonID(BOOL forceNewAnonID) {
@@ -265,17 +245,6 @@ BOOL bit_isRunningInAppStoreEnvironment(void) {
   }
   return YES;
 #endif
-}
-
-BOOL bit_isRunningInAppExtension(void) {
-  static BOOL isRunningInAppExtension = NO;
-  static dispatch_once_t checkAppExtension;
-  
-  dispatch_once(&checkAppExtension, ^{
-    isRunningInAppExtension = ([[[NSBundle mainBundle] executablePath] rangeOfString:@".appex/"].location != NSNotFound);
-  });
-  
-  return isRunningInAppExtension;
 }
 
 UIImage *bit_imageNamed(NSString *imageName, NSString *bundleName) {

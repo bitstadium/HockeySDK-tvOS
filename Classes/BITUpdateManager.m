@@ -40,6 +40,7 @@
 #import "BITHockeyBaseManagerPrivate.h"
 #import "BITUpdateManagerPrivate.h"
 #import "BITAppVersionMetaInfo.h"
+#import "BITAlertController.h"
 
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
 #import "BITCrashManagerPrivate.h"
@@ -53,8 +54,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 
 @implementation BITUpdateManager {
   NSString *_currentAppVersion;
-  
-  BITUpdateViewController *_currentHockeyViewController;
 
   BOOL _dataFound;
   BOOL _showFeedback;
@@ -92,18 +91,14 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   // only show error if we enable that
   if (_showFeedback) {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:BITHockeyLocalizedString(@"UpdateError")
-                                                                             message:[error localizedDescription]
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
     
+    NSString * alertTitle = BITHockeyLocalizedString(@"UpdateError");
+    BITAlertController *alertController = [BITAlertController alertControllerWithTitle:alertTitle message:error.localizedDescription];
     
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * action) {}];
-    
-    [alertController addAction:okAction];
-    
-    [self showAlertController:alertController];
+    [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"OK")
+                                      handler:^(UIAlertAction * action) {
+                                      }];
+    [alertController show];
   }
 }
 
@@ -502,23 +497,17 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     NSString *message = [NSString stringWithFormat:BITHockeyLocalizedString(messageKey), [self.newestAppVersion nameAndVersionString]];
   
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                               message:message
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
+    BITAlertController *alertController = [BITAlertController alertControllerWithTitle:title message:message];
+    [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"UpdateIgnore")
+                                       handler:^(UIAlertAction * action) {
+                                         typeof(self) strongSelf = weakSelf;
+                                         _updateAlertShowing = NO;
+                                         if ([strongSelf expiryDateReached] && !strongSelf.blockingView) {
+                                           [strongSelf alertFallback:_blockingScreenMessage];
+                                         }
+                                       }];
+    [alertController show];
     
-    UIAlertAction *ignoreAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateIgnore")
-                                                             style:UIAlertActionStyleCancel
-                                                           handler:^(UIAlertAction * action) {
-                                                             typeof(self) strongSelf = weakSelf;
-                                                             _updateAlertShowing = NO;
-                                                             if ([strongSelf expiryDateReached] && !strongSelf.blockingView) {
-                                                               [strongSelf alertFallback:_blockingScreenMessage];
-                                                             }
-                                                           }];
-      
-    [alertController addAction:ignoreAction];
-      
-    [self showAlertController:alertController ];
     _updateAlertShowing = YES;
   }
 }
@@ -592,32 +581,24 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 // nag the user with neverending alerts if we cannot find out the window for presenting the covering sheet
 - (void)alertFallback:(NSString *)message {
   __weak typeof(self) weakSelf = self;
-  UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
-                                                                           message:message
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
   
-  
-  UIAlertAction *okAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
-                                                     style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction * action) {
-                                                     typeof(self) strongSelf = weakSelf;
-                                                     [strongSelf alertFallback:_blockingScreenMessage];
-                                                   }];
-  
-  [alertController addAction:okAction];
-  
+  BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:message];
+  [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
+                                    handler:^(UIAlertAction * action) {
+                                      typeof(self) strongSelf = weakSelf;
+                                      [strongSelf alertFallback:_blockingScreenMessage];
+                                    }];
+
   if (!self.disableUpdateCheckOptionWhenExpired && [message isEqualToString:_blockingScreenMessage]) {
-    UIAlertAction *checkAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"UpdateButtonCheck")
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * action) {
-                                                          typeof(self) strongSelf = weakSelf;
-                                                          [strongSelf checkForUpdateForExpiredVersion];
-                                                        }];
     
-    [alertController addAction:checkAction];
+    [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"UpdateButtonCheck")
+                                       handler:^(UIAlertAction * action) {
+                                         typeof(self) strongSelf = weakSelf;
+                                         [strongSelf checkForUpdateForExpiredVersion];
+                                       }];
   }
   
-  [self showAlertController:alertController];
+  [alertController show];
 }
 
 #pragma mark - RequestComments
@@ -650,8 +631,8 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 - (void)checkForUpdate {
   if ((self.appEnvironment == BITEnvironmentOther) && ![self isUpdateManagerDisabled]) {
     if ([self expiryDateReached]) return;
-    // TODO: Identify auth
-    //    if (![self installationIdentified]) return;
+
+    if (![self installationIdentified]) return;
     [self showCheckForUpdateAlert];
     if (self.isUpdateAvailable && [self hasNewerMandatoryVersion]) {
       [self showCheckForUpdateAlert];
@@ -669,7 +650,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   self.checkInProgress = YES;
   
   // do we need to update?
-  if (!_currentHockeyViewController && ![self shouldCheckForUpdates] && _updateSetting != BITUpdateCheckManually) {
+  if (![self shouldCheckForUpdates] && _updateSetting != BITUpdateCheckManually) {
     BITHockeyLog(@"INFO: Update not needed right now");
     self.checkInProgress = NO;
     return;
@@ -710,31 +691,17 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   [request setValue:@"Hockey/iOS" forHTTPHeaderField:@"User-Agent"];
   [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
   
-  id nsurlsessionClass = NSClassFromString(@"NSURLSessionDataTask");
-  if (nsurlsessionClass && !bit_isRunningInAppExtension()) {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id<NSURLSessionDelegate>)self delegateQueue:nil];
-    
-    NSURLSessionDataTask *sessionTask = [session dataTaskWithRequest:request];
-    if (!sessionTask) {
-      self.checkInProgress = NO;
-      [self reportError:[NSError errorWithDomain:kBITUpdateErrorDomain
-                                            code:BITUpdateAPIClientCannotCreateConnection
-                                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Url Connection could not be created.", NSLocalizedDescriptionKey, nil]]];
-    }else{
-      [sessionTask resume];
-    }
+  NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+  NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id<NSURLSessionDelegate>)self delegateQueue:nil];
+  
+  NSURLSessionDataTask *sessionTask = [session dataTaskWithRequest:request];
+  if (!sessionTask) {
+    self.checkInProgress = NO;
+    [self reportError:[NSError errorWithDomain:kBITUpdateErrorDomain
+                                          code:BITUpdateAPIClientCannotCreateConnection
+                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Url Connection could not be created.", NSLocalizedDescriptionKey, nil]]];
   }else{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-#pragma clang diagnostic pop
-    if (!self.urlConnection) {
-      self.checkInProgress = NO;
-      [self reportError:[NSError errorWithDomain:kBITUpdateErrorDomain
-                                            code:BITUpdateAPIClientCannotCreateConnection
-                                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Url Connection could not be created.", NSLocalizedDescriptionKey, nil]]];
-    }
+    [sessionTask resume];
   }
 }
 
@@ -855,29 +822,22 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
           NSString *currentVersionString = [NSString stringWithFormat:@"%@ %@ %@%@", self.newestAppVersion.name, BITHockeyLocalizedString(@"UpdateVersion"), shortVersionString, versionString];
           NSString *alertMsg = [NSString stringWithFormat:BITHockeyLocalizedString(@"UpdateNoUpdateAvailableMessage"), currentVersionString];
           
+          NSString *title = BITHockeyLocalizedString(@"UpdateNoUpdateAvailableTitle");
           __weak typeof(self) weakSelf = self;
-          UIAlertController *alertController = [UIAlertController alertControllerWithTitle:BITHockeyLocalizedString(@"UpdateNoUpdateAvailableTitle")
-                                                                                   message:alertMsg
-                                                                            preferredStyle:UIAlertControllerStyleAlert];
-          
-          
-          UIAlertAction *okAction = [UIAlertAction actionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * action) {
-                                                             typeof(self) strongSelf = weakSelf;
-                                                             _updateAlertShowing = NO;
-                                                             if ([strongSelf expiryDateReached] && !strongSelf.blockingView) {
-                                                               [strongSelf alertFallback:_blockingScreenMessage];
-                                                             }
-                                                           }];
-          
-          [alertController addAction:okAction];
-          
-          [self showAlertController:alertController];
+          BITAlertController *alertController = [BITAlertController alertControllerWithTitle:title message:alertMsg];
+          [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
+                                             handler:^(UIAlertAction * action) {
+                                               typeof(self) strongSelf = weakSelf;
+                                               _updateAlertShowing = NO;
+                                               if ([strongSelf expiryDateReached] && !strongSelf.blockingView) {
+                                                 [strongSelf alertFallback:_blockingScreenMessage];
+                                               }
+                                             }];
+          [alertController show];
         }
         
         if (self.isUpdateAvailable && (self.alwaysShowUpdateReminder || newVersionDiffersFromCachedVersion || [self hasNewerMandatoryVersion])) {
-          if (_updateAvailable && !_currentHockeyViewController) {
+          if (_updateAvailable) {
             [self showCheckForUpdateAlert];
           }
         }
@@ -961,13 +921,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 
 #pragma mark - Properties
 
-- (void)setCurrentHockeyViewController:(BITUpdateViewController *)aCurrentHockeyViewController {
-  if (_currentHockeyViewController != aCurrentHockeyViewController) {
-    _currentHockeyViewController = aCurrentHockeyViewController;
-    //HockeySDKLog(@"active hockey view controller: %@", aCurrentHockeyViewController);
-  }
-}
-
 - (NSString *)currentAppVersion {
   return _currentAppVersion;
 }
@@ -1037,8 +990,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     self.usageStartTimestamp = [NSDate date];
   }
 }
-
-#pragma clang diagnostic pop
 
 @end
 
