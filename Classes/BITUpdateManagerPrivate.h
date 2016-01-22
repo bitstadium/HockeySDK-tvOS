@@ -86,8 +86,8 @@
 // used by BITHockeyManager if disable status is changed
 @property (nonatomic, getter = isUpdateManagerDisabled) BOOL disableUpdateManager;
 
-// checks for update, informs the user (error, no update found, etc)
-- (void)checkForUpdateShowFeedback:(BOOL)feedback;
+// checks for update
+- (void)sendCheckForUpdateRequest;
 
 // convenience method to get current running version string
 - (NSString *)currentAppVersion;

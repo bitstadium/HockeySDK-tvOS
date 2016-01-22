@@ -56,7 +56,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   NSString *_currentAppVersion;
 
   BOOL _dataFound;
-  BOOL _showFeedback;
   BOOL _updateAlertShowing;
   BOOL _lastCheckFailed;
   BOOL _sendUsageData;
@@ -88,18 +87,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 - (void)reportError:(NSError *)error {
   BITHockeyLog(@"ERROR: %@", [error localizedDescription]);
   _lastCheckFailed = YES;
-  
-  // only show error if we enable that
-  if (_showFeedback) {
-    
-    NSString * alertTitle = BITHockeyLocalizedString(@"UpdateError");
-    BITAlertController *alertController = [BITAlertController alertControllerWithTitle:alertTitle message:error.localizedDescription];
-    
-    [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"OK")
-                                      handler:^(UIAlertAction * action) {
-                                      }];
-    [alertController show];
-  }
 }
 
 
@@ -573,7 +560,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     if (!_lastUpdateCheckFromBlockingScreen ||
         fabs([NSDate timeIntervalSinceReferenceDate] - [_lastUpdateCheckFromBlockingScreen timeIntervalSinceReferenceDate]) > 60) {
       _lastUpdateCheckFromBlockingScreen = [NSDate date];
-      [self checkForUpdateShowFeedback:NO];
+      [self sendCheckForUpdateRequest];
     }
   }
 }
@@ -637,16 +624,14 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     if (self.isUpdateAvailable && [self hasNewerMandatoryVersion]) {
       [self showCheckForUpdateAlert];
     }
-    
-    [self checkForUpdateShowFeedback:NO];
+    [self sendCheckForUpdateRequest];
   }
 }
 
-- (void)checkForUpdateShowFeedback:(BOOL)feedback {
+- (void)sendCheckForUpdateRequest {
   if (self.appEnvironment != BITEnvironmentOther) return;
   if (self.isCheckInProgress) return;
   
-  _showFeedback = feedback;
   self.checkInProgress = YES;
   
   // do we need to update?
@@ -812,36 +797,11 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
         [self checkUpdateAvailable];
         BOOL newVersionDiffersFromCachedVersion = ![self.newestAppVersion.version isEqualToString:currentAppCacheVersion];
         
-        // show alert if we are on the latest & greatest
-        if (_showFeedback && !self.isUpdateAvailable) {
-          // use currentVersionString, as version still may differ (e.g. server: 1.2, client: 1.3)
-          NSString *versionString = [self currentAppVersion];
-          NSString *shortVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-          shortVersionString = shortVersionString ? [NSString stringWithFormat:@"%@ ", shortVersionString] : @"";
-          versionString = [shortVersionString length] ? [NSString stringWithFormat:@"(%@)", versionString] : versionString;
-          NSString *currentVersionString = [NSString stringWithFormat:@"%@ %@ %@%@", self.newestAppVersion.name, BITHockeyLocalizedString(@"UpdateVersion"), shortVersionString, versionString];
-          NSString *alertMsg = [NSString stringWithFormat:BITHockeyLocalizedString(@"UpdateNoUpdateAvailableMessage"), currentVersionString];
-          
-          NSString *title = BITHockeyLocalizedString(@"UpdateNoUpdateAvailableTitle");
-          __weak typeof(self) weakSelf = self;
-          BITAlertController *alertController = [BITAlertController alertControllerWithTitle:title message:alertMsg];
-          [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
-                                             handler:^(UIAlertAction * action) {
-                                               typeof(self) strongSelf = weakSelf;
-                                               _updateAlertShowing = NO;
-                                               if ([strongSelf expiryDateReached] && !strongSelf.blockingView) {
-                                                 [strongSelf alertFallback:_blockingScreenMessage];
-                                               }
-                                             }];
-          [alertController show];
-        }
-        
         if (self.isUpdateAvailable && (self.alwaysShowUpdateReminder || newVersionDiffersFromCachedVersion || [self hasNewerMandatoryVersion])) {
           if (_updateAvailable) {
             [self showCheckForUpdateAlert];
           }
         }
-        _showFeedback = NO;
       }
     } else if (![self expiryDateReached]) {
       [self reportError:[NSError errorWithDomain:kBITUpdateErrorDomain

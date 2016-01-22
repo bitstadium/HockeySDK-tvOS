@@ -81,7 +81,7 @@
   if ([self allRequiredFieldsEntered]) {
     [self saveAction:sender];
   } else {
-    NSString *message = NSLocalizedString(@"HockeyAuthenticationAuthFieldsMissing", "");
+    NSString *message = BITHockeyLocalizedString(@"HockeyAuthenticationAuthFieldsMissing");
     
     BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:message];
     
@@ -145,11 +145,10 @@
                                          
                                          BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil
                                                                                                                     message:error.localizedDescription];
-                                         
                                          [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"OK")
                                                                            handler:nil];
                                          [alertController show];
-                                         
+                                         [self setLoginUIEnabled:YES];
                                        });
                                      }
                                    }];
@@ -158,9 +157,9 @@
 #pragma mark - UI Setup
 
 - (void) setLoginUIEnabled:(BOOL) enabled {
-  [self.emailTextField setEnabled:NO];
-  [self.passwordTextField setEnabled:NO];
-  [self.signInButton setEnabled:NO];
+  [self.emailTextField setEnabled:enabled];
+  [self.passwordTextField setEnabled:enabled];
+  [self.signInButton setEnabled:enabled];
 }
 
 - (void)setupView {
