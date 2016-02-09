@@ -97,17 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendRequest:(NSURLRequest *)request filePath:(NSString *)path;
 
 /**
- * Helper method that checks whether the current OS supports NSURLSession
- *
- * @returns YES if NSURLSession is available
- */
-- (BOOL)isURLSessionSupported;
-
-- (void)sendUsingURLSessionWithRequest:(NSURLRequest *)request filePath:(NSString *)filePath;
-
-- (void)sendUsingURLConnectionWithRequest:(NSURLRequest *)request filePath:(NSString *)filePath;
-
-/**
  *  Resumes the given NSURLSessionDataTask instance.
  *
  *  @param sessionDataTask the task which should be resumed

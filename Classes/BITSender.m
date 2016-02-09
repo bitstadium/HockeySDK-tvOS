@@ -5,7 +5,6 @@
 #import "BITPersistencePrivate.h"
 #import "BITGZIP.h"
 #import "HockeySDKPrivate.h"
-#import "BITHTTPOperation.h"
 #import "BITHockeyHelper.h"
 
 static char const *kBITSenderTasksQueueString = "net.hockeyapp.sender.tasksQueue";
@@ -81,38 +80,14 @@ static NSUInteger const defaultRequestLimit = 10;
 - (void)sendRequest:(nonnull NSURLRequest *) request filePath:(nonnull NSString *) path {
   if (!path || !request) {return;}
   
-  if ([self isURLSessionSupported]) {
-    [self sendUsingURLSessionWithRequest:request filePath:path];
-  } else {
-    [self sendUsingURLConnectionWithRequest:request filePath:path];
-  }
-}
-
-- (BOOL)isURLSessionSupported {
-  id nsurlsessionClass = NSClassFromString(@"NSURLSessionUploadTask");
-  BOOL isUrlSessionSupported = (nsurlsessionClass && !bit_isRunningInAppExtension());
-  return isUrlSessionSupported;
-}
-
-- (void)sendUsingURLConnectionWithRequest:(nonnull NSURLRequest *)request filePath:(nonnull NSString *)filePath {
-  BITHTTPOperation *operation = [BITHTTPOperation operationWithRequest:request];
-  [operation setCompletion:^(BITHTTPOperation *operation, NSData *responseData, NSError *error) {
-    NSInteger statusCode = [operation.response statusCode];
-    [self handleResponseWithStatusCode:statusCode responseData:responseData filePath:filePath error:error];
-  }];
-
-  [self.operationQueue addOperation:operation];
-}
-
-- (void)sendUsingURLSessionWithRequest:(nonnull NSURLRequest *)request filePath:(nonnull NSString *)filePath {
   NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
   NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-
+  
   NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                                             NSInteger statusCode = httpResponse.statusCode;
-                                            [self handleResponseWithStatusCode:statusCode responseData:data filePath:filePath error:error];
+                                            [self handleResponseWithStatusCode:statusCode responseData:data filePath:path error:error];
                                           }];
   [self resumeSessionDataTask:task];
 }
