@@ -203,7 +203,6 @@
 		1BA3FBBC1C6AA1BD0050F76F /* BITTelemetryContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAC51C6A959C0050F76F /* BITTelemetryContext.m */; };
 		1BA3FBBD1C6AA21D0050F76F /* BITCategoryContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */; };
 		1BA3FBBE1C6AA21E0050F76F /* BITCategoryContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */; };
-		1BA3FBC01C6AA23B0050F76F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA3FBBF1C6AA23B0050F76F /* libz.tbd */; };
 		1BA783731BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783741BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783751BFAB01C00535F7A /* BITAppVersionMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */; };
@@ -527,7 +526,6 @@
 		1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		1BA3FBAB1C6AA1AD0050F76F /* BITTelemetryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITTelemetryData.h; sourceTree = "<group>"; };
 		1BA3FBAC1C6AA1AD0050F76F /* BITTelemetryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTelemetryData.m; sourceTree = "<group>"; };
-		1BA3FBBF1C6AA23B0050F76F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAppVersionMetaInfo.h; sourceTree = "<group>"; };
 		1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAppVersionMetaInfo.m; sourceTree = "<group>"; };
 		1BA7836C1BFAB01C00535F7A /* BITUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITUpdateManager.h; sourceTree = "<group>"; };
@@ -602,7 +600,6 @@
 		1E754E581621FBB70070AB92 /* BITCrashManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashManagerDelegate.h; sourceTree = "<group>"; };
 		1E754E5A1621FBB70070AB92 /* BITCrashReportTextFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashReportTextFormatter.h; sourceTree = "<group>"; };
 		1E754E5B1621FBB70070AB92 /* BITCrashReportTextFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCrashReportTextFormatter.m; sourceTree = "<group>"; };
-		1E8040551BDE3224007F8794 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
 		1E8040C31BDE322F007F8794 /* libHockeySDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHockeySDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E84DB3317E0977C00AC83FD /* HockeySDKFeatureConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HockeySDKFeatureConfig.h; sourceTree = "<group>"; };
 		1E85C5601B3438E000CE2C0D /* live_report_exception_marketing.plcrash */ = {isa = PBXFileReference; lastKnownFileType = file; path = live_report_exception_marketing.plcrash; sourceTree = "<group>"; };
@@ -678,7 +675,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BA3FBC01C6AA23B0050F76F /* libz.tbd in Frameworks */,
 				97CC11FA1917C0390028768F /* MobileCoreServices.framework in Frameworks */,
 				1BFB8BDE1C04E89200AA655C /* OCHamcrestIOS.framework in Frameworks */,
 				1EA1170116F4D354001C015C /* CrashReporter.framework in Frameworks */,
@@ -959,15 +955,6 @@
 			name = CrashReports;
 			sourceTree = "<group>";
 		};
-		1E803EFB1BDE26D3007F8794 /* tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				1E8040551BDE3224007F8794 /* CrashReporter.framework */,
-			);
-			name = tvOS;
-			path = ../Vendor/tvOS;
-			sourceTree = "<group>";
-		};
 		1EA1170216F53B49001C015C /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1048,8 +1035,6 @@
 		E400561C148D79B500EB22B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1BA3FBBF1C6AA23B0050F76F /* libz.tbd */,
-				1E803EFB1BDE26D3007F8794 /* tvOS */,
 				1EB617C81B0A33140035A986 /* UIKit.framework */,
 				1EB617C61B0A330C0035A986 /* SystemConfiguration.framework */,
 				1EB617C41B0A33020035A986 /* Security.framework */,
