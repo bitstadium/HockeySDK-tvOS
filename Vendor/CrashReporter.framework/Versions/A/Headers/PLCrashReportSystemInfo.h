@@ -49,8 +49,8 @@ typedef enum {
     /** Unknown operating system */
     PLCrashReportOperatingSystemUnknown = 3,
   
-    /** iPhone OS */
-    PLCrashReportOperatingSystemtvOS = 4,
+    /** Apple tvOS */
+    PLCrashReportOperatingSystemAppleTVOS = 4,
   
 } PLCrashReportOperatingSystem;
 
