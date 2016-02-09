@@ -137,6 +137,8 @@
 		1BA3FB3C1C6A9C1B0050F76F /* BITUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FB211C6A9C1B0050F76F /* BITUser.h */; };
 		1BA3FB3D1C6A9C1B0050F76F /* BITUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FB221C6A9C1B0050F76F /* BITUser.m */; };
 		1BA3FB3E1C6A9C1B0050F76F /* BITUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FB221C6A9C1B0050F76F /* BITUser.m */; };
+		1BA3FB801C6A9FE80050F76F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */; };
+		1BA3FB811C6A9FE80050F76F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */; };
 		1BA783731BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783741BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783751BFAB01C00535F7A /* BITAppVersionMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */; };
@@ -446,6 +448,7 @@
 		1BA3FB211C6A9C1B0050F76F /* BITUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITUser.h; sourceTree = "<group>"; };
 		1BA3FB221C6A9C1B0050F76F /* BITUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITUser.m; sourceTree = "<group>"; };
 		1BA3FB471C6A9D000050F76F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAppVersionMetaInfo.h; sourceTree = "<group>"; };
 		1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAppVersionMetaInfo.m; sourceTree = "<group>"; };
 		1BA7836C1BFAB01C00535F7A /* BITUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITUpdateManager.h; sourceTree = "<group>"; };
@@ -600,6 +603,7 @@
 				1BFB8BDE1C04E89200AA655C /* OCHamcrestIOS.framework in Frameworks */,
 				1EA1170116F4D354001C015C /* CrashReporter.framework in Frameworks */,
 				1E5A459516F0DFC200B55C04 /* Foundation.framework in Frameworks */,
+				1BA3FB801C6A9FE80050F76F /* OCMock.framework in Frameworks */,
 				1BFB8BE01C04E89200AA655C /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,6 +642,7 @@
 				1EB6174A1B0A30480035A986 /* HockeySDK.framework in Frameworks */,
 				1EB617CC1B0A34040035A986 /* CrashReporter.framework in Frameworks */,
 				1BFB8BDF1C04E89200AA655C /* OCHamcrestIOS.framework in Frameworks */,
+				1BA3FB811C6A9FE80050F76F /* OCMock.framework in Frameworks */,
 				1BFB8BE11C04E89200AA655C /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -791,6 +796,7 @@
 		1E5A459716F0DFC200B55C04 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */,
 				1BFB8BE31C04E9A500AA655C /* HockeySDKTests-Prefix.pch */,
 				1BFB8BDC1C04E89200AA655C /* OCHamcrestIOS.framework */,
 				1BFB8BDD1C04E89200AA655C /* OCMockitoIOS.framework */,
