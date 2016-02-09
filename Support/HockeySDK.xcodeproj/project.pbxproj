@@ -47,6 +47,9 @@
 		1B8B30711BFE940F002037E1 /* BITAuthenticator.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30681BFE940F002037E1 /* BITAuthenticator.h */; };
 		1B8B30721BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
 		1B8B30731BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
+		1B956BA61C6AB08800644CBB /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B956BA51C6AB08800644CBB /* OCMock.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		1B956BA71C6AB08800644CBB /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B956BA51C6AB08800644CBB /* OCMock.framework */; };
+		1B956BAA1C6AB31D00644CBB /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B956BA81C6AB25A00644CBB /* OCMock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1BA3FAC81C6A959C0050F76F /* BITCategoryContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FAB71C6A959C0050F76F /* BITCategoryContainer.h */; };
 		1BA3FAC91C6A959C0050F76F /* BITCategoryContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */; };
 		1BA3FACA1C6A959C0050F76F /* BITChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FAB91C6A959C0050F76F /* BITChannel.h */; };
@@ -159,8 +162,6 @@
 		1BA3FB7A1C6A9E910050F76F /* BITUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FB601C6A9E910050F76F /* BITUserTests.m */; };
 		1BA3FB7D1C6A9EC30050F76F /* BITTestsDependencyInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FB7C1C6A9EC30050F76F /* BITTestsDependencyInjection.m */; };
 		1BA3FB7E1C6A9EC30050F76F /* BITTestsDependencyInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FB7C1C6A9EC30050F76F /* BITTestsDependencyInjection.m */; };
-		1BA3FB801C6A9FE80050F76F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */; };
-		1BA3FB811C6A9FE80050F76F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */; };
 		1BA3FB821C6AA14E0050F76F /* BITApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAEC1C6A9BEB0050F76F /* BITApplication.m */; };
 		1BA3FB831C6AA14F0050F76F /* BITApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAEC1C6A9BEB0050F76F /* BITApplication.m */; };
 		1BA3FB841C6AA1740050F76F /* BITBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAEE1C6A9BEB0050F76F /* BITBase.m */; };
@@ -203,6 +204,7 @@
 		1BA3FBBC1C6AA1BD0050F76F /* BITTelemetryContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAC51C6A959C0050F76F /* BITTelemetryContext.m */; };
 		1BA3FBBD1C6AA21D0050F76F /* BITCategoryContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */; };
 		1BA3FBBE1C6AA21E0050F76F /* BITCategoryContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */; };
+		1BA3FBC61C6AA9660050F76F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA3FBC51C6AA9660050F76F /* libz.tbd */; };
 		1BA783731BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783741BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */; };
 		1BA783751BFAB01C00535F7A /* BITAppVersionMetaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */; };
@@ -458,6 +460,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1BA3FBC71C6AAAD10050F76F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1B956BAA1C6AB31D00644CBB /* OCMock.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1B3EAC711BFA8F4D00BE3CC7 /* BITAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAlertController.h; sourceTree = "<group>"; };
 		1B3EAC721BFA8F4D00BE3CC7 /* BITAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAlertController.m; sourceTree = "<group>"; };
@@ -466,6 +481,8 @@
 		1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator_Private.h; sourceTree = "<group>"; };
 		1B8B30681BFE940F002037E1 /* BITAuthenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator.h; sourceTree = "<group>"; };
 		1B8B30691BFE940F002037E1 /* BITAuthenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAuthenticator.m; sourceTree = "<group>"; };
+		1B956BA51C6AB08800644CBB /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
+		1B956BA81C6AB25A00644CBB /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = HockeySDKTests/OCMock.framework; sourceTree = "<group>"; };
 		1BA3FAB71C6A959C0050F76F /* BITCategoryContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCategoryContainer.h; sourceTree = "<group>"; };
 		1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCategoryContainer.m; sourceTree = "<group>"; };
 		1BA3FAB91C6A959C0050F76F /* BITChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITChannel.h; sourceTree = "<group>"; };
@@ -523,9 +540,9 @@
 		1BA3FB601C6A9E910050F76F /* BITUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITUserTests.m; sourceTree = "<group>"; };
 		1BA3FB7B1C6A9EC30050F76F /* BITTestsDependencyInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITTestsDependencyInjection.h; sourceTree = "<group>"; };
 		1BA3FB7C1C6A9EC30050F76F /* BITTestsDependencyInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTestsDependencyInjection.m; sourceTree = "<group>"; };
-		1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		1BA3FBAB1C6AA1AD0050F76F /* BITTelemetryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITTelemetryData.h; sourceTree = "<group>"; };
 		1BA3FBAC1C6AA1AD0050F76F /* BITTelemetryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTelemetryData.m; sourceTree = "<group>"; };
+		1BA3FBC51C6AA9660050F76F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAppVersionMetaInfo.h; sourceTree = "<group>"; };
 		1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAppVersionMetaInfo.m; sourceTree = "<group>"; };
 		1BA7836C1BFAB01C00535F7A /* BITUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITUpdateManager.h; sourceTree = "<group>"; };
@@ -675,11 +692,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BA3FBC61C6AA9660050F76F /* libz.tbd in Frameworks */,
 				97CC11FA1917C0390028768F /* MobileCoreServices.framework in Frameworks */,
 				1BFB8BDE1C04E89200AA655C /* OCHamcrestIOS.framework in Frameworks */,
 				1EA1170116F4D354001C015C /* CrashReporter.framework in Frameworks */,
+				1B956BA61C6AB08800644CBB /* OCMock.framework in Frameworks */,
 				1E5A459516F0DFC200B55C04 /* Foundation.framework in Frameworks */,
-				1BA3FB801C6A9FE80050F76F /* OCMock.framework in Frameworks */,
 				1BFB8BE01C04E89200AA655C /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -718,7 +736,7 @@
 				1EB6174A1B0A30480035A986 /* HockeySDK.framework in Frameworks */,
 				1EB617CC1B0A34040035A986 /* CrashReporter.framework in Frameworks */,
 				1BFB8BDF1C04E89200AA655C /* OCHamcrestIOS.framework in Frameworks */,
-				1BA3FB811C6A9FE80050F76F /* OCMock.framework in Frameworks */,
+				1B956BA71C6AB08800644CBB /* OCMock.framework in Frameworks */,
 				1BFB8BE11C04E89200AA655C /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -884,13 +902,13 @@
 		1E5A459716F0DFC200B55C04 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1BA3FB7F1C6A9FE80050F76F /* OCMock.framework */,
 				1BA3FB7B1C6A9EC30050F76F /* BITTestsDependencyInjection.h */,
 				1BA3FB7C1C6A9EC30050F76F /* BITTestsDependencyInjection.m */,
 				1BFB8BE31C04E9A500AA655C /* HockeySDKTests-Prefix.pch */,
 				1BFB8BDC1C04E89200AA655C /* OCHamcrestIOS.framework */,
 				1BFB8BDD1C04E89200AA655C /* OCMockitoIOS.framework */,
 				1E5A459816F0DFC200B55C04 /* HockeySDKTests-Info.plist */,
+				1B956BA51C6AB08800644CBB /* OCMock.framework */,
 				1E5A459916F0DFC200B55C04 /* InfoPlist.strings */,
 				1EA1170516F53B91001C015C /* BITTestHelper.h */,
 				1EA1170616F53B91001C015C /* BITTestHelper.m */,
@@ -1006,6 +1024,7 @@
 		E400560F148D79B500EB22B9 = {
 			isa = PBXGroup;
 			children = (
+				1B956BA81C6AB25A00644CBB /* OCMock.framework */,
 				E41EB489148D7BF90015DEDC /* HockeySDK */,
 				1E5A459616F0DFC200B55C04 /* HockeySDKTests */,
 				1EB617401B0A30480035A986 /* HockeySDK Framework */,
@@ -1035,6 +1054,7 @@
 		E400561C148D79B500EB22B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BA3FBC51C6AA9660050F76F /* libz.tbd */,
 				1EB617C81B0A33140035A986 /* UIKit.framework */,
 				1EB617C61B0A330C0035A986 /* SystemConfiguration.framework */,
 				1EB617C41B0A33020035A986 /* Security.framework */,
@@ -1254,6 +1274,7 @@
 				1E5A458B16F0DFC200B55C04 /* Sources */,
 				1E5A458C16F0DFC200B55C04 /* Frameworks */,
 				1E5A458D16F0DFC200B55C04 /* Resources */,
+				1BA3FBC71C6AAAD10050F76F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1860,6 +1881,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/HockeySDKTests/";
 				INFOPLIST_FILE = "HockeySDKTests/HockeySDKTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @executable_path/Frameworks $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/HockeySDKTests\"",
@@ -1920,6 +1942,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/HockeySDKTests/";
 				INFOPLIST_FILE = "HockeySDKTests/HockeySDKTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @executable_path/Frameworks $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/HockeySDKTests\"",
@@ -2149,6 +2172,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Vendor",
+					"$(PROJECT_DIR)/../Support/HockeySDKTests",
 					"$(PROJECT_DIR)/HockeySDKTests",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2224,6 +2248,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Vendor",
+					"$(PROJECT_DIR)/../Support/HockeySDKTests",
 					"$(PROJECT_DIR)/HockeySDKTests",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
