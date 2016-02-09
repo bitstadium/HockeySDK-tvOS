@@ -217,7 +217,7 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
     case PLCrashReportOperatingSystemMacOSX:
       osName = @"Mac OS X";
       break;
-    case PLCrashReportOperatingSystemtvOS:
+    case PLCrashReportOperatingSystemAppleTVOS:
       osName = @"Apple TVOS";
       break;
     case PLCrashReportOperatingSystemiPhoneOS:
@@ -849,7 +849,7 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
     if ([symbolName rangeOfString: @"_"].location == 0 && [symbolName length] > 1) {
       switch (report.systemInfo.operatingSystem) {
         case PLCrashReportOperatingSystemMacOSX:
-        case PLCrashReportOperatingSystemtvOS:
+        case PLCrashReportOperatingSystemAppleTVOS:
         case PLCrashReportOperatingSystemiPhoneOS:
         case PLCrashReportOperatingSystemiPhoneSimulator:
           symbolName = [symbolName substringFromIndex: 1];
