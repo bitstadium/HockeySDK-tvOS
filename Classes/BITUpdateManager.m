@@ -485,7 +485,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
     __weak typeof(self) weakSelf = self;
     BITAlertController *alertController = [BITAlertController alertControllerWithTitle:title message:message];
-    [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"UpdateIgnore")
+    [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
                                        handler:^(UIAlertAction * action) {
                                          typeof(self) strongSelf = weakSelf;
                                          _updateAlertShowing = NO;
