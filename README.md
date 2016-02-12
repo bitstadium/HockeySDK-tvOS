@@ -99,10 +99,10 @@ Move the unzipped `HockeySDK-tvOS` folder into your project directory. In our ex
 3. In the method `application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:[NSObject: AnyObject]?) -> Bool`, add the following lines to initialize and start the HockeySDK:
     
     ```swift
-    BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER");
+    BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
     // Do additional configuration if needed here
-    BITHockeyManager.sharedHockeyManager().startManager();
-    BITHockeyManager.sharedHockeyManager().authenticator.authenticateInstallation(); // This line is obsolete in the crash only builds
+    BITHockeyManager.sharedHockeyManager().startManager()
+    BITHockeyManager.sharedHockeyManager().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
     ```
 
 *Note:* The SDK has been optimized to defer as much initialization as it can until needed,  while still making sure that crashes on startup can be caught. Each module executes other code with a delay of up to several seconds. This ensures that your startup method will execute as fast as possible and that the SDK will not block the launch process (which would be a poor user experience and potentially result in your app being killed by the system watchdog process).
@@ -151,9 +151,9 @@ This feature can be disabled with the following code:
 **Swift**
 
 ```swift
-BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER");
-BITHockeyManager.sharedHockeyManager().disableCrashManager = true;
-BITHockeyManager.sharedHockeyManager().startManager();
+BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
+BITHockeyManager.sharedHockeyManager().disableCrashManager = true
+BITHockeyManager.sharedHockeyManager().startManager()
 ```
 
 #### 3.2.2 How are crash reports sent to HockeyApp?
@@ -232,9 +232,9 @@ To check if data was sent properly to HockeyApp and also see some additional SDK
 **Swift**
 
 ```swift
-BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER");
-BITHockeyManager.sharedHockeyManager().debugLogEnabled = true;
-BITHockeyManager.sharedHockeyManager().startManager();
+BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
+BITHockeyManager.sharedHockeyManager().debugLogEnabled = true
+BITHockeyManager.sharedHockeyManager().startManager()
 ```
 
 <a id="documentation"></a>
