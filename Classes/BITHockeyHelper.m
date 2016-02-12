@@ -35,34 +35,11 @@
 #pragma mark NSString helpers
 
 NSString *bit_URLEncodedString(NSString *inputString) {
-  
-  // Requires iOS 7
-  if ([inputString respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)]) {
-    return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"].invertedSet];
-    
-  } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                     (__bridge CFStringRef)inputString,
-                                                                     NULL,
-                                                                     CFSTR("!*'();:@&=+$,/?%#[]"),
-                                                                     kCFStringEncodingUTF8)
-                             );
-#pragma clang diagnostic pop
-  }
+  return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"].invertedSet];
 }
 
 NSString *bit_base64String(NSData * data, unsigned long length) {
-  SEL base64EncodingSelector = NSSelectorFromString(@"base64EncodedStringWithOptions:");
-  if ([data respondsToSelector:base64EncodingSelector]) {
-    return [data base64EncodedStringWithOptions:0];
-  } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    return [data base64Encoding];
-#pragma clang diagnostic pop
-  }
+  return [data base64EncodedStringWithOptions:0];
 }
 
 NSString *bit_settingsDir(void) {

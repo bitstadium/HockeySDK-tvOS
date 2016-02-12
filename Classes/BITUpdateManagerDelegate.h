@@ -94,7 +94,7 @@
  
  Usage data contains the following information:
  - App Version
- - iOS Version
+ - tvOS Version
  - Device type
  - Language
  - Installation timestamp

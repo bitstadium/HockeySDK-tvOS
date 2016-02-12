@@ -696,7 +696,7 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
   
   NSRange appRange = [standardizedImagePath rangeOfString: @".app/"];
   
-  // Exclude iOS swift dylibs. These are provided as part of the app binary by Xcode for now, but we never get a dSYM for those.
+  // Exclude tvOS swift dylibs. These are provided as part of the app binary by Xcode for now, but we never get a dSYM for those.
   NSRange swiftLibRange = [standardizedImagePath rangeOfString:@"frameworks/libswift"];
   BOOL dylibSuffix = [standardizedImagePath hasSuffix:@".dylib"];
   
