@@ -29,12 +29,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-#if !defined (TARGET_OS_TV) // Defined starting in iOS 9
-#define TARGET_OS_TV 1
-#endif
-
-
 #import "HockeySDKFeatureConfig.h"
 #import "HockeySDKEnums.h"
 #import "HockeySDKNullability.h"
