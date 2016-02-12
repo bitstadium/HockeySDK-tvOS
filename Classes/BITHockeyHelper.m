@@ -31,7 +31,7 @@
 #import "BITKeychainUtils.h"
 #import "HockeySDK.h"
 #import "HockeySDKPrivate.h"
-
+#import <sys/sysctl.h>
 #pragma mark NSString helpers
 
 NSString *bit_URLEncodedString(NSString *inputString) {
@@ -327,15 +327,15 @@ NSString *bit_utcDateString(NSDate *date){
 
 NSString *bit_devicePlatform(void) {
   
-//  size_t size;
-//  sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-//  char *answer = (char*)malloc(size);
-//  if (answer == NULL)
-//    return @"";
-//  sysctlbyname("hw.machine", answer, &size, NULL, 0);
-//  NSString *platform = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
-//  free(answer);
-//  return platform;
+  size_t size;
+  sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+  char *answer = (char*)malloc(size);
+  if (answer == NULL)
+    return @"";
+  sysctlbyname("hw.machine", answer, &size, NULL, 0);
+  NSString *platform = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
+  free(answer);
+  return platform;
   return @"";
 }
 
@@ -352,46 +352,46 @@ NSString *bit_deviceType(void){
 }
 
 NSString *bit_osVersionBuild(void) {
-//  void *result = NULL;
-//  size_t result_len = 0;
-//  int ret;
-//  
-//  /* If our buffer is too small after allocation, loop until it succeeds -- the requested destination size
-//   * may change after each iteration. */
-//  do {
-//    /* Fetch the expected length */
-//    if ((ret = sysctlbyname("kern.osversion", NULL, &result_len, NULL, 0)) == -1) {
-//      break;
-//    }
-//    
-//    /* Allocate the destination buffer */
-//    if (result != NULL) {
-//      free(result);
-//    }
-//    result = malloc(result_len);
-//    
-//    /* Fetch the value */
-//    ret = sysctlbyname("kern.osversion", result, &result_len, NULL, 0);
-//  } while (ret == -1 && errno == ENOMEM);
-//  
-//  /* Handle failure */
-//  if (ret == -1) {
-//    int saved_errno = errno;
-//    
-//    if (result != NULL) {
-//      free(result);
-//    }
-//    
-//    errno = saved_errno;
-//    return NULL;
-//  }
-//  
-//  NSString *osBuild = [NSString stringWithCString:result encoding:NSUTF8StringEncoding];
-//  free(result);
-//  
-//  NSString *osVersion = [[UIDevice currentDevice] systemVersion];
-//  
-//  return [NSString stringWithFormat:@"%@ (%@)", osVersion, osBuild];
+  void *result = NULL;
+  size_t result_len = 0;
+  int ret;
+  
+  /* If our buffer is too small after allocation, loop until it succeeds -- the requested destination size
+   * may change after each iteration. */
+  do {
+    /* Fetch the expected length */
+    if ((ret = sysctlbyname("kern.osversion", NULL, &result_len, NULL, 0)) == -1) {
+      break;
+    }
+    
+    /* Allocate the destination buffer */
+    if (result != NULL) {
+      free(result);
+    }
+    result = malloc(result_len);
+    
+    /* Fetch the value */
+    ret = sysctlbyname("kern.osversion", result, &result_len, NULL, 0);
+  } while (ret == -1 && errno == ENOMEM);
+  
+  /* Handle failure */
+  if (ret == -1) {
+    int saved_errno = errno;
+    
+    if (result != NULL) {
+      free(result);
+    }
+    
+    errno = saved_errno;
+    return NULL;
+  }
+  
+  NSString *osBuild = [NSString stringWithCString:result encoding:NSUTF8StringEncoding];
+  free(result);
+  
+  NSString *osVersion = [[UIDevice currentDevice] systemVersion];
+  
+  return [NSString stringWithFormat:@"%@ (%@)", osVersion, osBuild];
   return @"";
 }
 
