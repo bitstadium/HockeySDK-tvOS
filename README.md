@@ -240,7 +240,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/ios/4.0-Alpha.1/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/ios/1.0.0-Beta.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
