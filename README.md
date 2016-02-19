@@ -74,36 +74,36 @@ Move the unzipped `HockeySDK-tvOS` folder into your project directory. In our ex
 1. Open the file containing your app delegate (`AppDelegate.m` in a default project).
 2. Add the following line below your own `import` statements:
 
-    ```objectivec
-    @import HockeySDK;
-    ```
+  ```objectivec
+  @import HockeySDK;
+  ```
 
 3. In the method `application:didFinishLaunchingWithOptions:`, add the following lines to initialize and start the HockeySDK:
 
-    ```objectivec
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
-    // Do additional configuration if needed here
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-    ```
+  ```objectivec
+  [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
+  // Do additional configuration if needed here
+  [[BITHockeyManager sharedHockeyManager] startManager];
+  [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+  ```
 
 **Swift**
 
 1. Open the file containing your app delegate (`AppDelegate.swift` in a default project).
 2. Add the following line below your own `import` statements:
-    
-    ```swift
-    import HockeySDK
-    ```
+
+  ```swift
+  import HockeySDK
+  ```
 
 3. In the method `application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:[NSObject: AnyObject]?) -> Bool`, add the following lines to initialize and start the HockeySDK:
-    
-    ```swift
-    BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
-    // Do additional configuration if needed here
-    BITHockeyManager.sharedHockeyManager().startManager()
-    BITHockeyManager.sharedHockeyManager().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
-    ```
+
+  ```swift
+  BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
+  // Do additional configuration if needed here
+  BITHockeyManager.sharedHockeyManager().startManager()
+  BITHockeyManager.sharedHockeyManager().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
+  ```
 
 *Note:* The SDK has been optimized to defer as much initialization as it can until needed,  while still making sure that crashes on startup can be caught. Each module executes other code with a delay of up to several seconds. This ensures that your startup method will execute as fast as possible and that the SDK will not block the launch process (which would be a poor user experience and potentially result in your app being killed by the system watchdog process).
 
@@ -247,16 +247,16 @@ Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos
 
 1. iTunes Connect rejection
 
-    Make sure none of the following files are copied into your app bundle. This can be checked by examining the `Copy Bundle Resources` item in the `Build Phases` tab of your app target in the Xcode project, or by looking within the final `.app` bundle after making your build:
+  Make sure none of the following files are copied into your app bundle. This can be checked by examining the `Copy Bundle Resources` item in the `Build Phases` tab of your app target in the Xcode project, or by looking within the final `.app` bundle after making your build:
 
-        - `HockeySDK.framework` (unless you've built your own version of the SDK as a dynamic framework - if you don't know what this means, you don't have to worry about it)
-        - `de.bitstadium.HockeySDK-tvOS-1.0-Beta.1.docset`
+  - `HockeySDK.framework` (unless you've built your own version of the SDK as a dynamic framework - if you don't know what this means, you don't have to worry about it)
+  - `de.bitstadium.HockeySDK-tvOS-1.0-Beta.1.docset`
 
 2. Features not working as expected
 
-    Enable debug output to the console to see additional information from the SDK as it initializes modules, sends and receives network requests, and more, by adding the following code before calling `startManager`:
+  Enable debug output to the console to see additional information from the SDK as it initializes modules, sends and receives network requests, and more, by adding the following code before calling `startManager`:
 
-        [[BITHockeyManager sharedHockeyManager] setDebugLogEnabled: YES];
+  `[[BITHockeyManager sharedHockeyManager] setDebugLogEnabled: YES];`
 
 <a id="contributing"></a>
 ## 6. Contributing
