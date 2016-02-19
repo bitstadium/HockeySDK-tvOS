@@ -20,20 +20,6 @@
                ReferencedContainer = "container:HockeySDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES"
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1E5A458F16F0DFC200B55C04"
-               BuildableName = "HockeySDKTests.xctest"
-               BlueprintName = "HockeySDKTests"
-               ReferencedContainer = "container:HockeySDK.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
