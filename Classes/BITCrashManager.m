@@ -682,6 +682,9 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  * @return `YES` if the debugger is attached to the current process, `NO` otherwise
  */
 - (BOOL)isDebuggerAttached {
+#if CI
+  return YES;
+#endif
   static BOOL debuggerIsAttached = NO;
   
   static dispatch_once_t debuggerPredicate;
