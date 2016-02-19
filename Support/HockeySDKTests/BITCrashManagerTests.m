@@ -8,6 +8,12 @@
 
 #import <XCTest/XCTest.h>
 
+#define HC_SHORTHAND
+#import <OCHamcrestIOS/OCHamcrestIOS.h>
+
+#define MOCKITO_SHORTHAND
+#import <OCMockitoIOS/OCMockitoIOS.h>
+
 #import "HockeySDK.h"
 #import "HockeySDKPrivate.h"
 #import "BITCrashManager.h"

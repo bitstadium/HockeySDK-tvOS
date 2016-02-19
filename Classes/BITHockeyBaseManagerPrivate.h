@@ -43,9 +43,6 @@
 
 - (void)startManager;
 
-/** Check if the device is running an iOS version previous to iOS 7 */
-- (BOOL)isPreiOS7Environment;
-
 /** 
  * by default, just logs the message
  *
@@ -66,6 +63,10 @@
 // device / application helpers
 - (NSString *)getDevicePlatform;
 - (NSString *)executableUUID;
+
+// UI helpers
+- (UIWindow *)findVisibleWindow;
+ - (void)showView:(UIViewController *)viewController;
 
 // Date helpers
 - (NSDate *)parseRFC3339Date:(NSString *)dateString;

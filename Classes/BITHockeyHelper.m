@@ -35,34 +35,11 @@
 #pragma mark NSString helpers
 
 NSString *bit_URLEncodedString(NSString *inputString) {
-  
-  // Requires iOS 7
-  if ([inputString respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)]) {
-    return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"].invertedSet];
-    
-  } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                     (__bridge CFStringRef)inputString,
-                                                                     NULL,
-                                                                     CFSTR("!*'();:@&=+$,/?%#[]"),
-                                                                     kCFStringEncodingUTF8)
-                             );
-#pragma clang diagnostic pop
-  }
+  return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"].invertedSet];
 }
 
 NSString *bit_base64String(NSData * data, unsigned long length) {
-  SEL base64EncodingSelector = NSSelectorFromString(@"base64EncodedStringWithOptions:");
-  if ([data respondsToSelector:base64EncodingSelector]) {
-    return [data base64EncodedStringWithOptions:0];
-  } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    return [data base64Encoding];
-#pragma clang diagnostic pop
-  }
+  return [data base64EncodedStringWithOptions:0];
 }
 
 NSString *bit_settingsDir(void) {
@@ -156,28 +133,8 @@ NSString *bit_appName(NSString *placeHolderString) {
   return appName;
 }
 
-NSString *bit_UUIDPreiOS6(void) {
-  // Create a new UUID
-  CFUUIDRef uuidObj = CFUUIDCreate(nil);
-  
-  // Get the string representation of the UUID
-  NSString *resultUUID = (NSString*)CFBridgingRelease(CFUUIDCreateString(nil, uuidObj));
-  CFRelease(uuidObj);
-  
-  return resultUUID;
-}
-
 NSString *bit_UUID(void) {
-  NSString *resultUUID = nil;
-  
-  id uuidClass = NSClassFromString(@"NSUUID");
-  if (uuidClass) {
-    resultUUID = [[NSUUID UUID] UUIDString];
-  } else {
-    resultUUID = bit_UUIDPreiOS6();
-  }
-  
-  return resultUUID;
+  return [[NSUUID UUID] UUIDString];
 }
 
 NSString *bit_appAnonID(BOOL forceNewAnonID) {
@@ -228,46 +185,6 @@ NSString *bit_appAnonID(BOOL forceNewAnonID) {
   return appAnonID;
 }
 
-BOOL bit_isPreiOS7Environment(void) {
-  static BOOL isPreiOS7Environment = YES;
-  static dispatch_once_t checkOS;
-  
-  dispatch_once(&checkOS, ^{
-    // NSFoundationVersionNumber_iOS_6_1 = 993.00
-    // We hardcode this, so compiling with iOS 6 is possible while still being able to detect the correct environment
-    
-    // runtime check according to
-    // https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/TransitionGuide/SupportingEarlieriOS.html
-    if (floor(NSFoundationVersionNumber) <= 993.00) {
-      isPreiOS7Environment = YES;
-    } else {
-      isPreiOS7Environment = NO;
-    }
-  });
-  
-  return isPreiOS7Environment;
-}
-
-BOOL bit_isPreiOS8Environment(void) {
-  static BOOL isPreiOS8Environment = YES;
-  static dispatch_once_t checkOS8;
-  
-  dispatch_once(&checkOS8, ^{
-    // NSFoundationVersionNumber_iOS_7_1 = 1047.25
-    // We hardcode this, so compiling with iOS 7 is possible while still being able to detect the correct environment
-
-    // runtime check according to
-    // https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/TransitionGuide/SupportingEarlieriOS.html
-    if (floor(NSFoundationVersionNumber) <= 1047.25) {
-      isPreiOS8Environment = YES;
-    } else {
-      isPreiOS8Environment = NO;
-    }
-  });
-  
-  return isPreiOS8Environment;
-}
-
 BOOL bit_isAppStoreReceiptSandbox(void) {
 #if TARGET_OS_SIMULATOR
   return NO;
@@ -307,13 +224,28 @@ BOOL bit_isRunningInAppStoreEnvironment(void) {
 #endif
 }
 
-BOOL bit_isRunningInAppExtension(void) {
-  static BOOL isRunningInAppExtension = NO;
-  static dispatch_once_t checkAppExtension;
+UIImage *bit_imageNamed(NSString *imageName, NSString *bundleName) {
+  NSString *resourcePath = [[NSBundle bundleForClass:[BITHockeyManager class]] resourcePath];
+  NSString *bundlePath = [resourcePath stringByAppendingPathComponent:bundleName];
+  NSString *imagePath = [bundlePath stringByAppendingPathComponent:imageName];
+  return bit_imageWithContentsOfResolutionIndependentFile(imagePath);
+}
+
+UIImage *bit_imageWithContentsOfResolutionIndependentFile(NSString *path) {
+  return bit_newWithContentsOfResolutionIndependentFile(path);
+}
+
+UIImage *bit_newWithContentsOfResolutionIndependentFile(NSString * path) {
+  if ([UIScreen instancesRespondToSelector:@selector(scale)] && (int)[[UIScreen mainScreen] scale] == 2.0) {
+    NSString *path2x = [[path stringByDeletingLastPathComponent]
+                        stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.%@",
+                                                        [[path lastPathComponent] stringByDeletingPathExtension],
+                                                        [path pathExtension]]];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path2x]) {
+      return [[UIImage alloc] initWithContentsOfFile:path2x];
+    }
+  }
   
-  dispatch_once(&checkAppExtension, ^{
-    isRunningInAppExtension = ([[[NSBundle mainBundle] executablePath] rangeOfString:@".appex/"].location != NSNotFound);
-  });
-  
-  return isRunningInAppExtension;
+  return [[UIImage alloc] initWithContentsOfFile:path];
 }

@@ -39,6 +39,13 @@
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
 @class BITCrashManager;
 #endif
+#if HOCKEYSDK_FEATURE_UPDATES
+@class BITUpdateManager;
+#endif
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+@class BITAuthenticator;
+#endif
+
 
 /** 
  The HockeySDK manager. Responsible for setup and management of all components
@@ -234,6 +241,85 @@
  @see crashManager
  */
 @property (nonatomic, getter = isCrashManagerDisabled) BOOL disableCrashManager;
+
+#endif
+
+#if HOCKEYSDK_FEATURE_UPDATES
+
+/**
+ Reference to the initialized BITUpdateManager module
+ 
+ Returns the BITUpdateManager instance initialized by BITHockeyManager
+ 
+ @see configureWithIdentifier:delegate:
+ @see configureWithBetaIdentifier:liveIdentifier:delegate:
+ @see startManager
+ @see disableUpdateManager
+ */
+@property (nonatomic, strong, readonly) BITUpdateManager *updateManager;
+
+
+/**
+ Flag the determines whether the Update Manager should be disabled
+ 
+ If this flag is enabled, then checking for updates and submitting beta usage
+ analytics will be turned off!
+ 
+ Please note that the Update Manager instance will be initialized anyway!
+ 
+ @warning This property needs to be set before calling `startManager`
+ 
+ *Default*: _NO_
+ @see updateManager
+ */
+@property (nonatomic, getter = isUpdateManagerDisabled) BOOL disableUpdateManager;
+
+#endif
+
+#if HOCKEYSDK_FEATURE_STORE_UPDATES
+
+/**
+ Reference to the initialized BITStoreUpdateManager module
+ 
+ Returns the BITStoreUpdateManager instance initialized by BITHockeyManager
+ 
+ @see configureWithIdentifier:delegate:
+ @see configureWithBetaIdentifier:liveIdentifier:delegate:
+ @see startManager
+ @see enableStoreUpdateManager
+ */
+@property (nonatomic, strong, readonly) BITStoreUpdateManager *storeUpdateManager;
+
+
+/**
+ Flag the determines whether the App Store Update Manager should be enabled
+ 
+ If this flag is enabled, then checking for updates when the app runs from the
+ app store will be turned on!
+ 
+ Please note that the Store Update Manager instance will be initialized anyway!
+ 
+ @warning This property needs to be set before calling `startManager`
+ 
+ *Default*: _NO_
+ @see storeUpdateManager
+ */
+@property (nonatomic, getter = isStoreUpdateManagerEnabled) BOOL enableStoreUpdateManager;
+
+#endif
+
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+
+/**
+ Reference to the initialized BITAuthenticator module
+ 
+ Returns the BITAuthenticator instance initialized by BITHockeyManager
+ 
+ @see configureWithIdentifier:delegate:
+ @see configureWithBetaIdentifier:liveIdentifier:delegate:
+ @see startManager
+ */
+@property (nonatomic, strong, readonly) BITAuthenticator *authenticator;
 
 #endif
 

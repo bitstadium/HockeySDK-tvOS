@@ -33,6 +33,14 @@
 #import "BITCrashManagerDelegate.h"
 #endif
 
+#if HOCKEYSDK_FEATURE_UPDATES
+#import "BITUpdateManagerDelegate.h"
+#endif
+
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+#import "BITAuthenticator.h"
+#endif
+
 @class BITHockeyManager;
 @class BITHockeyBaseManager;
 
@@ -40,15 +48,19 @@
  The `BITHockeyManagerDelegate` formal protocol defines methods further configuring
   the behaviour of `BITHockeyManager`, as well as the delegate of the modules it manages.
  */
-
 @protocol BITHockeyManagerDelegate <NSObject
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
-  , BITCrashManagerDelegate
+, BITCrashManagerDelegate
 #endif
-  >
+#if HOCKEYSDK_FEATURE_UPDATES
+, BITUpdateManagerDelegate
+#endif
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+, BITAuthenticatorDelegate
+#endif
+>
 
 @optional
-
 
 ///-----------------------------------------------------------------------------
 /// @name App Identifier usage
@@ -74,6 +86,23 @@
  */
 - (BOOL)shouldUseLiveIdentifierForHockeyManager:(BITHockeyManager *)hockeyManager;
 
+///-----------------------------------------------------------------------------
+/// @name UI presentation
+///-----------------------------------------------------------------------------
+
+
+// optional parent view controller for the feedback screen when invoked via the alert view, default is the root UIWindow instance
+/**
+ Return a custom parent view controller for presenting modal sheets
+ 
+ By default the SDK is using the root UIWindow instance to present any required
+ view controllers. Overwrite this if this doesn't result in a satisfying
+ behavior or if you want to define any other parent view controller.
+ 
+ @param hockeyManager The `BITHockeyManager` HockeyManager instance invoking this delegate
+ @param componentManager The `BITHockeyBaseManager` component instance invoking this delegate, can be `BITCrashManager` or `BITFeedbackManager`
+ */
+- (UIViewController *)viewControllerForHockeyManager:(BITHockeyManager *)hockeyManager componentManager:(BITHockeyBaseManager *)componentManager;
 
 ///-----------------------------------------------------------------------------
 /// @name Additional meta data

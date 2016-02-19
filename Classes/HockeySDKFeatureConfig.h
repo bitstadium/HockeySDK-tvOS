@@ -39,5 +39,22 @@
 #    define HOCKEYSDK_FEATURE_CRASH_REPORTER 1
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
 
+/**
+ * If true, include support for handling in-app updates for Ad-Hoc and Enterprise builds
+ *
+ * _Default_: Enabled
+ */
+#ifndef HOCKEYSDK_FEATURE_UPDATES
+#    define HOCKEYSDK_FEATURE_UPDATES 1
+#endif /* HOCKEYSDK_FEATURE_UPDATES */
+
+/**
+ * If true, include support for authentication installations for Ad-Hoc and Enterprise builds
+ *
+ * _Default_: Enabled
+ */
+#ifndef HOCKEYSDK_FEATURE_AUTHENTICATOR
+#    define HOCKEYSDK_FEATURE_AUTHENTICATOR 1
+#endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 
 #endif /* HockeySDK_HockeySDKFeatureConfig_h */

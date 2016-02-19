@@ -44,6 +44,7 @@
 #import "BITCrashReportTextFormatter.h"
 #import "BITCrashDetailsPrivate.h"
 #import "BITCrashCXXExceptionHandler.h"
+#import "BITAlertController.h"
 
 #include <sys/sysctl.h>
 
@@ -195,7 +196,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
     _fileManager = [[NSFileManager alloc] init];
     _crashFiles = [[NSMutableArray alloc] init];
     
-#if TARGET_TV_OS
     _crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
     
     NSString *testValue = [[NSUserDefaults standardUserDefaults] stringForKey:kBITCrashManagerStatus];
@@ -209,9 +209,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
       }
       [[NSUserDefaults standardUserDefaults] setInteger:_crashManagerStatus forKey:kBITCrashManagerStatus];
     }
-#else
-    _crashManagerStatus = BITCrashManagerStatusAutoSend;
-#endif
     _crashesDir = bit_settingsDir();
     _settingsFile = [_crashesDir stringByAppendingPathComponent:BITHOCKEY_CRASH_SETTINGS];
     _analyzerInProgressFile = [_crashesDir stringByAppendingPathComponent:BITHOCKEY_CRASH_ANALYZER];
@@ -220,11 +217,6 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
       NSError *error = nil;
       [_fileManager removeItemAtPath:_analyzerInProgressFile error:&error];
     }
-#if !TARGET_OS_TV
-    if (!BITHockeyBundle() && !bit_isRunningInAppExtension()) {
-      NSLog(@"[HockeySDK] WARNING: %@ is missing, will send reports automatically!", BITHOCKEYSDK_BUNDLE);
-    }
-#endif
     NSLog(@"[HockeySDK] Crash reports will be sent automatically!");
   }
   return self;
@@ -588,6 +580,13 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  */
 - (NSString *)userIDForCrashReport {
   NSString *userID;
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+  // if we have an identification from BITAuthenticator, use this as a default.
+  if ((self.installationIdentificationType == BITAuthenticatorIdentificationTypeAnonymous) &&
+      self.installationIdentification) {
+    userID = self.installationIdentification;
+  }
+#endif
   
   // first check the global keychain storage
   NSString *userIdFromKeychain = [self stringValueFromKeychainForKey:kBITHockeyMetaUserID];
@@ -630,6 +629,15 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
 - (NSString *)userEmailForCrashReport {
   // first check the global keychain storage
   NSString *useremail = [self stringValueFromKeychainForKey:kBITHockeyMetaUserEmail] ?: @"";
+  
+#if HOCKEYSDK_FEATURE_AUTHENTICATOR
+  // if we have an identification from BITAuthenticator, use this as a default.
+  if ((self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppEmail ||
+       self.installationIdentificationType == BITAuthenticatorIdentificationTypeHockeyAppUser) &&
+      self.installationIdentification) {
+    useremail = self.installationIdentification;
+  }
+#endif
   
   if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(userEmailForHockeyManager:componentManager:)]) {
     useremail = [[BITHockeyManager sharedHockeyManager].delegate
@@ -962,8 +970,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  * - Send pending approved crash reports
  */
 - (void)invokeDelayedProcessing {
-  if (!bit_isRunningInAppExtension() &&
-      [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
+  if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
     return;
   }
   
@@ -990,27 +997,59 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
     if (notApprovedReportFilename && !_lastCrashFilename) {
       _lastCrashFilename = [notApprovedReportFilename lastPathComponent];
     }
-#if !TARGET_OS_TV
-    if (!BITHockeyBundle() || bit_isRunningInAppExtension()) {
-      [self approveLatestCrashReport];
-      [self sendNextCrashReport];
+    if (_crashManagerStatus != BITCrashManagerStatusAutoSend && notApprovedReportFilename) {
       
-    } else if (_crashManagerStatus != BITCrashManagerStatusAutoSend && notApprovedReportFilename) {
+      if ([self.delegate respondsToSelector:@selector(crashManagerWillShowSubmitCrashReportAlert:)]) {
+        [self.delegate crashManagerWillShowSubmitCrashReportAlert:self];
+      }
+      
+      NSString *appName = bit_appName(BITHockeyLocalizedString(@"HockeyAppNamePlaceholder"));
+      NSString *alertDescription = [NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundAnonymousDescription"), appName];
+      
+      // the crash report is not anonymous any more if username or useremail are not nil
+      NSString *userid = [self userIDForCrashReport];
+      NSString *username = [self userNameForCrashReport];
+      NSString *useremail = [self userEmailForCrashReport];
+      
+      if ((userid && [userid length] > 0) ||
+          (username && [username length] > 0) ||
+          (useremail && [useremail length] > 0)) {
+        alertDescription = [NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundDescription"), appName];
+      }
       
       if (_alertViewHandler) {
         _alertViewHandler();
       } else {
-        [self approveLatestCrashReport];
-        [self sendNextCrashReport];
+        __weak typeof(self) weakSelf = self;
+        
+        BITAlertController *alertController = [BITAlertController alertControllerWithTitle:[NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundTitle"), appName] message:alertDescription];
+        
+        [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"CrashDontSendReport")
+                                          handler:^(UIAlertAction * action) {
+                                            typeof(self) strongSelf = weakSelf;
+                                            
+                                            [strongSelf handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
+                                          }];
+        
+        [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"CrashSendReport")
+                                           handler:^(UIAlertAction * action) {
+                                             typeof(self) strongSelf = weakSelf;
+                                             [strongSelf handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:nil];
+                                           }];
+        
+        if (self.shouldShowAlwaysButton) {
+          [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"CrashSendReportAlways")
+                                             handler:^(UIAlertAction * action) {
+                                               typeof(self) strongSelf = weakSelf;
+                                               [strongSelf handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:nil];
+                                             }];
+        }
+        [alertController show];
       }
-      
     } else {
-#endif
       [self approveLatestCrashReport];
       [self sendNextCrashReport];
-#if !TARGET_OS_TV
     }
-#endif
   }
 }
 
@@ -1444,7 +1483,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
                                                               parameters:nil];
   
   [request setCachePolicy: NSURLRequestReloadIgnoringLocalCacheData];
-  [request setValue:@"HockeySDK/iOS" forHTTPHeaderField:@"User-Agent"];
+  [request setValue:@"HockeySDK/tvOS" forHTTPHeaderField:@"User-Agent"];
   [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
   
   NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
@@ -1521,57 +1560,31 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  *	@param	xml	The XML data that needs to be send to the server
  */
 - (void)sendCrashReportWithFilename:(NSString *)filename xml:(NSString*)xml attachment:(BITHockeyAttachment *)attachment {
-  BOOL sendingWithURLSession = NO;
+  NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+  NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
   
-  id nsurlsessionClass = NSClassFromString(@"NSURLSessionUploadTask");
-  if (nsurlsessionClass && !bit_isRunningInAppExtension()) {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    
-    NSURLRequest *request = [self requestWithBoundary:kBITHockeyAppClientBoundary];
-    NSData *data = [self postBodyWithXML:xml attachment:attachment boundary:kBITHockeyAppClientBoundary];
-
-    if (request && data) {
-      __weak typeof (self) weakSelf = self;
-      NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
-                                                                 fromData:data
-                                                        completionHandler:^(NSData *responseData, NSURLResponse *response, NSError *error) {
-                                                          typeof (self) strongSelf = weakSelf;
-                                                          
-                                                          NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
-                                                          NSInteger statusCode = [httpResponse statusCode];
-                                                          [strongSelf processUploadResultWithFilename:filename responseData:responseData statusCode:statusCode error:error];
-                                                        }];
-      
-      [uploadTask resume];
-      sendingWithURLSession = YES;
-    }
-  }
+  NSURLRequest *request = [self requestWithBoundary:kBITHockeyAppClientBoundary];
+  NSData *data = [self postBodyWithXML:xml attachment:attachment boundary:kBITHockeyAppClientBoundary];
   
-  if (!sendingWithURLSession) {
-    NSMutableURLRequest *request = [self requestWithBoundary:kBITHockeyAppClientBoundary];
-    
-    NSData *postBody = [self postBodyWithXML:xml attachment:attachment boundary:kBITHockeyAppClientBoundary];
-    [request setHTTPBody:postBody];
-    
+  if (request && data) {
     __weak typeof (self) weakSelf = self;
-    BITHTTPOperation *operation = [self.hockeyAppClient
-                                   operationWithURLRequest:request
-                                   completion:^(BITHTTPOperation *operation, NSData* responseData, NSError *error) {
-                                     typeof (self) strongSelf = weakSelf;
-                                     
-                                     NSInteger statusCode = [operation.response statusCode];
-                                     [strongSelf processUploadResultWithFilename:filename responseData:responseData statusCode:statusCode error:error];
-                                   }];
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
+                                                               fromData:data
+                                                      completionHandler:^(NSData *responseData, NSURLResponse *response, NSError *error) {
+                                                        typeof (self) strongSelf = weakSelf;
+                                                        
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
+                                                        NSInteger statusCode = [httpResponse statusCode];
+                                                        [strongSelf processUploadResultWithFilename:filename responseData:responseData statusCode:statusCode error:error];
+                                                      }];
     
-    [self.hockeyAppClient enqeueHTTPOperation:operation];
+    [uploadTask resume];
+    
+    if ([self.delegate respondsToSelector:@selector(crashManagerWillSendCrashReport:)]) {
+      [self.delegate crashManagerWillSendCrashReport:self];
+    }
+    BITHockeyLog(@"INFO: Sending crash reports started.");
   }
-  
-  if ([self.delegate respondsToSelector:@selector(crashManagerWillSendCrashReport:)]) {
-    [self.delegate crashManagerWillSendCrashReport:self];
-  }
-  
-  BITHockeyLog(@"INFO: Sending crash reports started.");
 }
 
 @end

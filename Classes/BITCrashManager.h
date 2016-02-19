@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
    */
   BITCrashManagerUserInputAlwaysSend = 2
   
-} __TVOS_PROHIBITED;
+};
 
 
 @protocol BITCrashManagerDelegate;
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  do start the app again because most don't know what happened, and you will get by far most of the reports.
  
  Sending the reports on startup is done asynchronously (non-blocking). This is the only safe way to ensure
- that the app won't be possibly killed by the iOS watchdog process, because startup could take too long
+ that the app won't be possibly killed by the tvOS watchdog process, because startup could take too long
  and the app could not react to any user input when network conditions are bad or connectivity might be
  very slow.
  
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  @see BITCrashManagerStatus
  @see showAlwaysButton
  */
-@property (nonatomic, assign, readonly) BITCrashManagerStatus crashManagerStatus;
+@property (nonatomic, assign) BITCrashManagerStatus crashManagerStatus;
 
 /**
  *  Trap fatal signals via a Mach exception server.
@@ -229,7 +229,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  *  because of one of the following reasons:
  *  - The main thread was blocked for too long
  *  - The app took too long to start up
- *  - The app tried to allocate too much memory. If iOS did send a memory warning before killing the app because of this reason, `didReceiveMemoryWarningInLastSession` returns `YES`.
+ *  - The app tried to allocate too much memory. If tvOS did send a memory warning before killing the app because of this reason, `didReceiveMemoryWarningInLastSession` returns `YES`.
  *  - Permitted background duration if main thread is running in an endless loop
  *  - App failed to resume in time if main thread is running in an endless loop
  *  - If `enableMachExceptionHandler` is not activated, crashed due to stack overflow will also be reported
@@ -246,12 +246,12 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  *  The heuristic is implemented as follows:
  *  If the app never gets a `UIApplicationDidEnterBackgroundNotification` or `UIApplicationWillTerminateNotification`
  *  notification, PLCrashReporter doesn't detect a crash itself, and the app starts up again, it is assumed that
- *  the app got either killed by iOS while being in foreground or a crash occurred that couldn't be detected.
+ *  the app got either killed by tvOS while being in foreground or a crash occurred that couldn't be detected.
  *
  *  Default: _NO_
  *
  * @warning This is a heuristic and it _MAY_ report false positives! It has been tested with iOS 6.1 and iOS 7.
- * Depending on Apple changing notification events, new iOS version may cause more false positives!
+ * Depending on Apple changing notification events, new tvOS version may cause more false positives!
  *
  * @see lastSessionCrashDetails
  * @see didReceiveMemoryWarningInLastSession
@@ -303,7 +303,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  
  @see crashManagerStatus
  */
-@property (nonatomic, assign, getter=shouldShowAlwaysButton) BOOL showAlwaysButton __TVOS_PROHIBITED;
+@property (nonatomic, assign, getter=shouldShowAlwaysButton) BOOL showAlwaysButton;
 
 
 ///-----------------------------------------------------------------------------
@@ -335,7 +335,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
  @see BITCrashManagerUserInput
  @see BITCrashMetaData
  */
-- (BOOL)handleUserInput:(BITCrashManagerUserInput)userInput withUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData __TVOS_PROHIBITED;
+- (BOOL)handleUserInput:(BITCrashManagerUserInput)userInput withUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData;
 
 /**
  Lets you set a custom block which handles showing a custom UI and asking the user
@@ -368,7 +368,7 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerUserInput) {
 /**
  Indicates if the app did receive a low memory warning in the last session
  
- It may happen that low memory warning where send but couldn't be logged, since iOS
+ It may happen that low memory warning where send but couldn't be logged, since tvOS
  killed the app before updating the flag in the filesystem did complete.
  
  This property may be true in case of low memory kills, but it doesn't have to be! Apps

@@ -60,32 +60,11 @@
 
 "UpdateIgnore" = "Ignore";
 
-"UpdateShow" = "Show";
-
-"UpdateInstall" = "Install";
-
-"UpdateRemindMe" = "Remind me";
-
-
 /* Update Details */
-
-"UpdateScreenTitle" = "Update";
 
 "UpdateButtonCheck" = "CHECK";
 
-"UpdateButtonSearching" = "CHECKING";
-
-"UpdateButtonUpdate" = "UPDATE";
-
-"UpdateButtonInstalling" = "INSTALLING";
-
-"UpdateButtonOffline" = "OFFLINE";
-
-"UpdateInstalled" = "INSTALLED";
-
 "UpdateVersion" = "Version";
-
-"UpdateShowPreviousVersions" = "Show previous versions...";
 
 "UpdateNoUpdateAvailableTitle" = "No Update Available";
 
@@ -93,170 +72,14 @@
 
 "UpdateError" = "Error";
 
-"UpdateWarning" = "Warning";
-
-"UpdateNoReleaseNotesAvailable" = "No release notes available.";
-
-
-/* Update Authorization  */
-
-"UpdateAuthorizationProgress" = "Authorizing...";
-
-"UpdateAuthorizationOffline" = "Internet connection required!";
-
-"UpdateAuthorizationDenied" = "Authorizing denied. Please contact the developer.";
-
-
 /* Update Expiry  */
 
 "UpdateExpired" = "%@ is expired and can not be used any longer.";
-
-
-/* Update Simulator Warning */
-
-"UpdateSimulatorMessage" = "Hockey Update does not work in the Simulator.\nThe itms-services:// url scheme is implemented but nonfunctional.";
-
-
-/* Feedback */
-
-
-/* New Message Alert */
-
-/* Alert Title */
-"HockeyFeedbackNewMessageTitle" = "New Feedback Response";
-
-/* Alert Text */
-"HockeyFeedbackNewMessageText" = "A new response to your feedback is available. Would you like to view it?";
-
-/* Alert Ignore Button */
-"HockeyFeedbackIgnore" = "Ignore";
-
-/* Alert Show Button */
-"HockeyFeedbackShow" = "Show";
-
-
-/* List View */
-
-/* Title */
-"HockeyFeedbackListTitle" = "Feedback";
-
-/* Last Updated */
-"HockeyFeedbackListLastUpdated" = "Last Updated: %@";
-
-/* Never Updated */
-"HockeyFeedbackListNeverUpdated" = "Never";
-
-/* Provide Feedback Button Title */
-"HockeyFeedbackListButtonWriteFeedback" = "Provide Feedback";
-
-/* Add a Response Button Title */
-"HockeyFeedbackListButtonWriteResponse" = "Add a Response";
-
-/* User Data Set Name Button Title */
-"HockeyFeedbackListButtonUserDataSetName" = "Set Your Name";
-
-/* User Data Set Email Button Title */
-"HockeyFeedbackListButtonUserDataSetEmail" = "Set Your Email";
-
-/* User Data With Name Button Title */
-"HockeyFeedbackListButtonUserDataWithName" = "Name: %@";
-
-/* User Data With Email Button Title */
-"HockeyFeedbackListButtonUserDataWithEmail" = "Email: %@";
-
-/* Button title for deleting all local messages*/
-"HockeyFeedbackListButtonDeleteAllMessages" = "Delete All Messages";
-
-/* Message pending to be send */
-"HockeyFeedbackListMessagePending" = "Pending";
-
-
-/* Delete All Messages Action Sheet / Alert View */
-
-/* Title for the Action Sheet */
-"HockeyFeedbackListDeleteAllTitle" = "This will delete all messages on this device.";
-
-/* Button Title to perform delete action */
-"HockeyFeedbackListDeleteAllDelete" = "Delete";
-
-/* Button Title to cancel delete action */
-"HockeyFeedbackListDeleteAllCancel" = "Cancel";
-
-
-/* Open Link In Safari Action Sheet / Alert View */
-
-/* Button Title to cancel */
-"HockeyFeedbackListLinkActionCancel" = "Cancel";
-
-/* Button Title to Open the Link */
-"HockeyFeedbackListLinkActionOpen" = "Open";
-
-/* Button Title to Copy the Link */
-"HockeyFeedbackListLinkActionCopy" = "Copy";
-
-
-/* UIActivity */
-
-/* Activity Sharing Button Title, App Name will be inserted */
-"HockeyFeedbackActivityButtonTitle" = "%@ Feedback";
-
-/* if there can no app name be found, use this instead for HockeyFeedbackActivityButtonTitle */
-"HockeyFeedbackActivityAppPlaceholder" = "App";
-
-
-/* Compose Message */
-
-/* Title */
-"HockeyFeedbackComposeTitle" = "New Feedback";
-
-/* Send button */
-"HockeyFeedbackComposeSend" = "Send";
-
-/* Add Image button for attachment actions */
-"HockeyFeedbackComposeAttachmentAddImage" = "Add Image";
-
-/* Edit button for attachment actions */
-"HockeyFeedbackComposeAttachmentEdit" = "Edit Image";
-
-/* Delete button for attachment actions */
-"HockeyFeedbackComposeAttachmentDelete" = "Delete Image";
-
-/* Cancel button for attachment actions */
-"HockeyFeedbackComposeAttachmentCancel" = "Cancel";
-
-
-/* Set User Data */
-
-/* Title */
-"HockeyFeedbackUserDataTitle" = "My Info";
-
-/* Description On What Should Be Entered */
-"HockeyFeedbackUserDataDescription" = "Please provide your information before writing your feedback.";
-
-/* Name Field */
-"HockeyFeedbackUserDataName" = "Name";
-
-/* Name Placeholder */
-"HockeyFeedbackUserDataNamePlaceHolder" = "John Doe";
-
-/* Email Field */
-"HockeyFeedbackUserDataEmail" = "Email";
-
-/* Email Placeholder */
-"HockeyFeedbackUserDataEmailPlaceholder" = "email@example.com";
-
 
 /* Authenticator */
 
 /* View Controller Title*/
 "HockeyAuthenticatorViewControllerTitle" = "HockeyApp";
-
-/* BITAuthenticatorAuthTypeUDIDProvider */
-"HockeyAuthenticationViewControllerWebUDIDLoginDescription" = "The developer has requested this device's UDID. Tap below to open the HockeyApp website and authorize access.";
-"HockeyAuthenticationViewControllerWebLoginButtonTitle" = "Open HockeyApp";
-
-/* BITAuthenticatorIdentificationTypeWebAuth */
-"HockeyAuthenticationViewControllerWebAuthLoginDescription" = "The developer has requested your HockeyApp account's email address. Tap below to open the HockeyApp website and authorize access.";
 
 /* BITAuthenticatorAuthTypeEmail and BITAuthenticatorAuthTypeEmailAndPassword */
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "Please enter your HockeyApp account's email address and password to authorize access to this app.";

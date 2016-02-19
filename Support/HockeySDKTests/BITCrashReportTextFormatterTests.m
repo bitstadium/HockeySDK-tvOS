@@ -8,6 +8,12 @@
 
 #import <XCTest/XCTest.h>
 
+#define HC_SHORTHAND
+#import <OCHamcrestIOS/OCHamcrestIOS.h>
+
+#define MOCKITO_SHORTHAND
+#import <OCMockitoIOS/OCMockitoIOS.h>
+
 #import <CrashReporter/CrashReporter.h>
 #import "BITCrashReportTextFormatter.h"
 
@@ -61,14 +67,7 @@
   [self testiOSNonAppSpecificImagesForProcessPath:processPath];
   [self testAppBinaryWithImagePath:processPath processPath:processPath];
   [self testiOSAppFrameworkAtProcessPath:processPath appBundlePath:appBundlePath];
-
-  // Test with iOS App Extension
-  processPath = [appBundlePath stringByAppendingString:@"/Plugins/MyAppExtension.appex/MyAppExtension"];
-  [self testiOSNonAppSpecificImagesForProcessPath:processPath];
-  [self testAppBinaryWithImagePath:processPath processPath:processPath];
-  [self testiOSAppFrameworkAtProcessPath:processPath appBundlePath:appBundlePath];
 }
-
 
 #pragma mark - Test Helper
 
