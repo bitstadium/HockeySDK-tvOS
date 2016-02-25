@@ -415,7 +415,7 @@ NSString *bit_screenSize(void){
 }
 
 NSString *bit_sdkVersion(void){
-  return [NSString stringWithFormat:@"ios:%@", [NSString stringWithUTF8String:hockeyapp_library_info.bit_version]];
+  return [NSString stringWithFormat:@"tvOS:%@", [NSString stringWithUTF8String:hockeyapp_library_info.bit_version]];
 }
 
 NSString *bit_appVersion(void){
