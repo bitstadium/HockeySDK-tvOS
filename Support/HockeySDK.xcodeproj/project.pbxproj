@@ -56,7 +56,6 @@
 		1B956BAA1C6AB31D00644CBB /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B956BA81C6AB25A00644CBB /* OCMock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1BA3FAC81C6A959C0050F76F /* BITCategoryContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FAB71C6A959C0050F76F /* BITCategoryContainer.h */; };
 		1BA3FAC91C6A959C0050F76F /* BITCategoryContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */; };
-		1BA3FACB1C6A959C0050F76F /* BITChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FABA1C6A959C0050F76F /* BITChannel.m */; };
 		1BA3FACD1C6A959C0050F76F /* BITMetricsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FABC1C6A959C0050F76F /* BITMetricsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BA3FACE1C6A959C0050F76F /* BITMetricsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FABD1C6A959C0050F76F /* BITMetricsManager.m */; };
 		1BA3FACF1C6A959C0050F76F /* BITMetricsManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FABE1C6A959C0050F76F /* BITMetricsManagerPrivate.h */; };
@@ -1319,7 +1318,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0600;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 				TargetAttributes = {
 					1EB6173E1B0A30480035A986 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -1601,7 +1600,6 @@
 				1E80407B1BDE322F007F8794 /* BITCrashCXXExceptionHandler.mm in Sources */,
 				1BA3FB0F1C6A9BEB0050F76F /* BITDomain.m in Sources */,
 				1E80407F1BDE322F007F8794 /* BITKeychainUtils.m in Sources */,
-				1BA3FACB1C6A959C0050F76F /* BITChannel.m in Sources */,
 				1BA3FB391C6A9C1B0050F76F /* BITTelemetryObject.m in Sources */,
 				1BA3FB2D1C6A9C1B0050F76F /* BITSession.m in Sources */,
 				1BA3FB131C6A9BEB0050F76F /* BITEnvelope.m in Sources */,
@@ -1954,7 +1952,6 @@
 		1E8040BF1BDE322F007F8794 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(BIT_ARM_ARCHS)";
 				"ARCHS[sdk=appletvsimulator*]" = "$(BIT_SIM_ARCHS)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1977,7 +1974,6 @@
 		1E8040C01BDE322F007F8794 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(BIT_ARM_ARCHS)";
 				"ARCHS[sdk=appletvsimulator*]" = "$(BIT_SIM_ARCHS)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2302,6 +2298,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -2331,6 +2328,7 @@
 				INFOPLIST_FILE = "../Resources/HockeySDK-Info.plist";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = NO;
 			};
 			name = Release;
