@@ -168,8 +168,8 @@ NSUInteger const defaultFileCount = 50;
 #pragma mark - Private
 
 - (NSString *)fileURLForType:(BITPersistenceType)type {
-  NSArray<NSString *> *searchPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-  NSString *appSupportPath = searchPaths.lastObject;
+  NSArray<NSString *> *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+  NSString *appCachesPath = searchPaths.lastObject;
 
   NSString *fileName = nil;
   NSString *filePath;
@@ -177,13 +177,13 @@ NSUInteger const defaultFileCount = 50;
   switch (type) {
     case BITPersistenceTypeMetaData: {
       fileName = kFileBaseStringMeta;
-      filePath = [appSupportPath stringByAppendingPathComponent:kMetaDataDirectoryPath];
+      filePath = [appCachesPath stringByAppendingPathComponent:kMetaDataDirectoryPath];
       break;
     };
     default: {
       NSString *uuid = bit_UUID();
       fileName = [NSString stringWithFormat:@"%@%@", kFileBaseString, uuid];
-      filePath = [appSupportPath stringByAppendingPathComponent:kTelemetryDirectoryPath];
+      filePath = [appCachesPath stringByAppendingPathComponent:kTelemetryDirectoryPath];
       break;
     };
   }
@@ -197,13 +197,14 @@ NSUInteger const defaultFileCount = 50;
  * Create directory structure if necessary and exclude it from iCloud backup
  */
 - (void)createDirectoryStructureIfNeeded {
-  //Application Support Dir
+  //Caches Dir
+  
   NSFileManager *fileManager = [NSFileManager defaultManager];
-  NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
-  if (appSupportURL) {
+  NSURL *appCachesURL = [[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+  if (appCachesURL) {
     NSError *error = nil;
-    //App Support and Telemetry Directory
-    NSURL *folderURL = [appSupportURL URLByAppendingPathComponent:kTelemetryDirectoryPath];
+    //Caches and Telemetry Directory
+    NSURL *folderURL = [appCachesURL URLByAppendingPathComponent:kTelemetryDirectoryPath];
     //NOTE: createDirectoryAtURL:withIntermediateDirectories:attributes:error
     //will return YES if the directory already exists and won't override anything.
     //No need to check if the directory already exists.
@@ -213,7 +214,7 @@ NSUInteger const defaultFileCount = 50;
     }
 
     //MetaData Directory
-    folderURL = [appSupportURL URLByAppendingPathComponent:kMetaDataDirectoryPath];
+    folderURL = [appCachesURL URLByAppendingPathComponent:kMetaDataDirectoryPath];
     if (![fileManager createDirectoryAtURL:folderURL withIntermediateDirectories:NO attributes:nil error:&error]) {
       BITHockeyLog(@"%@", error.localizedDescription);
       return; //TODO we can't use persistence at all in this case, what do we want to do now? Notify the user?
@@ -222,13 +223,13 @@ NSUInteger const defaultFileCount = 50;
     _directorySetupComplete = YES;
 
     //Exclude from Backup
-    if (![appSupportURL setResourceValue:@YES
+    if (![appCachesURL setResourceValue:@YES
                                   forKey:NSURLIsExcludedFromBackupKey
                                    error:&error]) {
-      BITHockeyLog(@"Error excluding %@ from backup %@", appSupportURL.lastPathComponent, error.localizedDescription);
+      BITHockeyLog(@"Error excluding %@ from backup %@", appCachesURL.lastPathComponent, error.localizedDescription);
     }
     else {
-      BITHockeyLog(@"Exclude %@ from backup", appSupportURL);
+      BITHockeyLog(@"Exclude %@ from backup", appCachesURL);
     }
   }
 }
@@ -261,7 +262,7 @@ NSUInteger const defaultFileCount = 50;
 }
 
 - (NSString *)folderPathForType:(BITPersistenceType)type {
-  NSString *path = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+  NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
   NSString *subFolder = @"";
   switch (type) {
     case BITPersistenceTypeTelemetry: {
