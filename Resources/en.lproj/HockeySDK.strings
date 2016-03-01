@@ -88,7 +88,6 @@
 "HockeyAuthenticationViewControllerPasswordPlaceholder" = "Required";
 "HockeyAuthenticationViewControllerEmailDescription" = "Email";
 "HockeyAuthenticationViewControllerPasswordDescription" = "Password";
-"HockeyAuthenticationViewControllerSignInButtonTitle" = "Sign In";
 
 /* Error presented to the user if authentication failed because of networking issues */
 "HockeyAuthenticationViewControllerNetworkError" = "Failed to authorize because your device appears to be disconnected from the Internet. Please try again.";
@@ -98,4 +97,3 @@
 "HockeyAuthenticationContactDeveloper" = "Authorization error. Please contact the developer of this app.";
 "HockeyAuthenticationWrongEmailPassword" = "You have entered an invalid email or password. Please check your input and try again.";
 "HockeyAuthenticationAuthSecretMissing" = "The HockeySDK authorization secret has not been set. Please contact the developer of this app.";
-"HockeyAuthenticationAuthFieldsMissing" = "Please fill out all required fields in order to authenticate.";

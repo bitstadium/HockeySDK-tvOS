@@ -485,7 +485,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
     __weak typeof(self) weakSelf = self;
     BITAlertController *alertController = [BITAlertController alertControllerWithTitle:title message:message];
-    [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"UpdateIgnore")
+    [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
                                        handler:^(UIAlertAction * action) {
                                          typeof(self) strongSelf = weakSelf;
                                          _updateAlertShowing = NO;
@@ -618,9 +618,8 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 - (void)checkForUpdate {
   if ((self.appEnvironment == BITEnvironmentOther) && ![self isUpdateManagerDisabled]) {
     if ([self expiryDateReached]) return;
-
     if (![self installationIdentified]) return;
-    [self showCheckForUpdateAlert];
+    
     if (self.isUpdateAvailable && [self hasNewerMandatoryVersion]) {
       [self showCheckForUpdateAlert];
     }
@@ -657,7 +656,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   // add additional statistics if user didn't disable flag
   if (_sendUsageData) {
-    [parameter appendFormat:@"&app_version=%@&os=iOS&os_version=%@&device=%@&lang=%@&first_start_at=%@&usage_time=%@",
+    [parameter appendFormat:@"&app_version=%@&os=tvOS&os_version=%@&device=%@&lang=%@&first_start_at=%@&usage_time=%@",
      bit_URLEncodedString([[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]),
      bit_URLEncodedString([[UIDevice currentDevice] systemVersion]),
      bit_URLEncodedString([self getDevicePlatform]),
@@ -673,7 +672,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:1 timeoutInterval:10.0];
   [request setHTTPMethod:@"GET"];
-  [request setValue:@"Hockey/iOS" forHTTPHeaderField:@"User-Agent"];
+  [request setValue:@"Hockey/tvOS" forHTTPHeaderField:@"User-Agent"];
   [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
   
   NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];

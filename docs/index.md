@@ -4,7 +4,11 @@ HockeySDK-tvOS implements support for using HockeyApp in your tvOS applications.
 
 The following feature is currently supported:
 
-1. **Collect crash reports:** If you app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and live apps, i.e. those submitted to the App Store!
+1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and letive apps, i.e. those submitted to the App Store.
+
+2. **Update notifications:** The app will check with HockeyApp if a new version for your Ad-Hoc or Enterprise build is available. If yes, it will show an alert view with informations to the moste recent version.
+
+3. **Authenticate:** Identify and authenticate users of Ad-Hoc or Enterprise builds
 
 ## Prerequisites
 

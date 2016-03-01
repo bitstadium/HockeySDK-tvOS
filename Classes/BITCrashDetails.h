@@ -99,10 +99,10 @@
 @property (nonatomic, readonly, assign) NSUInteger appProcessIdentifier;
 
 /**
- Indicates if the app was killed while being in foreground from the iOS
+ Indicates if the app was killed while being in foreground from the tvOS
  
  If `[BITCrashManager enableAppNotTerminatingCleanlyDetection]` is enabled, use this on startup
- to check if the app starts the first time after it was killed by iOS in the previous session.
+ to check if the app starts the first time after it was killed by tvOS in the previous session.
  
  This can happen if it consumed too much memory or the watchdog killed the app because it
  took too long to startup or blocks the main thread for too long, or other reasons. See Apple

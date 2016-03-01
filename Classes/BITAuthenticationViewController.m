@@ -81,7 +81,7 @@
   if ([self allRequiredFieldsEntered]) {
     [self saveAction:sender];
   } else {
-    NSString *message = BITHockeyLocalizedString(@"HockeyAuthenticationAuthFieldsMissing");
+    NSString *message = BITHockeyLocalizedString(@"HockeyAuthenticationWrongEmailPassword");
     
     BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:message];
     
@@ -165,7 +165,7 @@
 - (void)setupView {
   
   // Title Text
-  self.title = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerSignInButtonTitle");
+  self.title = BITHockeyLocalizedString(@"HockeyAuthenticatorViewControllerTitle");
   
   // Container View
   _containerView = [UIView new];
@@ -195,7 +195,7 @@
   
   // Sign Button
   _signInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [self.signInButton setTitle:BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerSignInButtonTitle") forState:UIControlStateNormal];
+  [self.signInButton setTitle:BITHockeyLocalizedString(@"HockeyOK") forState:UIControlStateNormal];
   [self.signInButton addTarget:self action:@selector(signInButtonTapped:) forControlEvents:UIControlEventPrimaryActionTriggered];
   [self.containerView addSubview:self.signInButton];
   

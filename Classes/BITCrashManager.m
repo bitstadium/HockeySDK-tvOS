@@ -1483,7 +1483,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
                                                               parameters:nil];
   
   [request setCachePolicy: NSURLRequestReloadIgnoringLocalCacheData];
-  [request setValue:@"HockeySDK/iOS" forHTTPHeaderField:@"User-Agent"];
+  [request setValue:@"HockeySDK/tvOS" forHTTPHeaderField:@"User-Agent"];
   [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
   
   NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
