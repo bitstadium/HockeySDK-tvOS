@@ -1561,7 +1561,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  */
 - (void)sendCrashReportWithFilename:(NSString *)filename xml:(NSString*)xml attachment:(BITHockeyAttachment *)attachment {
   NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-  NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+  __block NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
   
   NSURLRequest *request = [self requestWithBoundary:kBITHockeyAppClientBoundary];
   NSData *data = [self postBodyWithXML:xml attachment:attachment boundary:kBITHockeyAppClientBoundary];
@@ -1572,6 +1572,8 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
                                                                fromData:data
                                                       completionHandler:^(NSData *responseData, NSURLResponse *response, NSError *error) {
                                                         typeof (self) strongSelf = weakSelf;
+                                                        
+                                                        [session finishTasksAndInvalidate];
                                                         
                                                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
                                                         NSInteger statusCode = [httpResponse statusCode];
