@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 
 @implementation BITUpdateManager {
   NSString *_currentAppVersion;
-
+  
   BOOL _dataFound;
   BOOL _updateAlertShowing;
   BOOL _lastCheckFailed;
@@ -481,17 +481,17 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     NSString *title = BITHockeyLocalizedString(@"UpdateAvailable");
     NSString *messageKey = ([self hasNewerMandatoryVersion]) ? @"UpdateAlertMandatoryTextWithAppVersion" : @"UpdateAlertTextWithAppVersion";
     NSString *message = [NSString stringWithFormat:BITHockeyLocalizedString(messageKey), [self.newestAppVersion nameAndVersionString]];
-  
+    
     __weak typeof(self) weakSelf = self;
     BITAlertController *alertController = [BITAlertController alertControllerWithTitle:title message:message];
     [alertController addCancelActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
-                                       handler:^(UIAlertAction * action) {
-                                         typeof(self) strongSelf = weakSelf;
-                                         _updateAlertShowing = NO;
-                                         if ([strongSelf expiryDateReached] && !strongSelf.blockingView) {
-                                           [strongSelf alertFallback:_blockingScreenMessage];
-                                         }
-                                       }];
+                                      handler:^(UIAlertAction * action) {
+                                        typeof(self) strongSelf = weakSelf;
+                                        _updateAlertShowing = NO;
+                                        if ([strongSelf expiryDateReached] && !strongSelf.blockingView) {
+                                          [strongSelf alertFallback:_blockingScreenMessage];
+                                        }
+                                      }];
     [alertController show];
     
     _updateAlertShowing = YES;
@@ -570,11 +570,11 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:message];
   [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"HockeyOK")
-                                    handler:^(UIAlertAction * action) {
-                                      typeof(self) strongSelf = weakSelf;
-                                      [strongSelf alertFallback:_blockingScreenMessage];
-                                    }];
-
+                                     handler:^(UIAlertAction * action) {
+                                       typeof(self) strongSelf = weakSelf;
+                                       [strongSelf alertFallback:_blockingScreenMessage];
+                                     }];
+  
   if (!self.disableUpdateCheckOptionWhenExpired && [message isEqualToString:_blockingScreenMessage]) {
     
     [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"UpdateButtonCheck")
@@ -638,9 +638,9 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     self.checkInProgress = NO;
     return;
   }
-    
+  
   NSURLRequest *request = [self requestForUpdateCheck];
-    
+  
   
   NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
   NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id<NSURLSessionDelegate>)self delegateQueue:nil];
@@ -657,44 +657,47 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 }
 
 - (NSURLRequest *)requestForUpdateCheck {
-    NSMutableString *parameter = [NSMutableString stringWithFormat:@"api/2/apps/%@?format=json&extended=true&sdk=%@&sdk_version=%@&uuid=%@",
-                                  bit_URLEncodedString([self encodedAppIdentifier]),
-                                  BITHOCKEY_NAME,
-                                  BITHOCKEY_VERSION,
-                                  _uuid];
-    
-    // add installationIdentificationType and installationIdentifier if available
-    if (self.installationIdentification && self.installationIdentificationType) {
-        [parameter appendFormat:@"&%@=%@",
-         bit_URLEncodedString(self.installationIdentificationType),
-         bit_URLEncodedString(self.installationIdentification)
-         ];
-    }
-    
-    // add additional statistics if user didn't disable flag
-    if (self.sendUsageData) {
-        [parameter appendFormat:@"&app_version=%@&os=iOS&os_version=%@&device=%@&lang=%@&first_start_at=%@&usage_time=%@",
-         bit_URLEncodedString([[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]),
-         bit_URLEncodedString([[UIDevice currentDevice] systemVersion]),
-         bit_URLEncodedString([self getDevicePlatform]),
-         bit_URLEncodedString([[NSBundle mainBundle] preferredLocalizations][0]),
-         bit_URLEncodedString([self installationDateString]),
-         bit_URLEncodedString([self currentUsageString])
-         ];
-    }
-    
-    // build request & send
-    NSString *url = [NSString stringWithFormat:@"%@%@", self.serverURL, parameter];
-    BITHockeyLog(@"INFO: Sending api request to %@", url);
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                       timeoutInterval:10.0];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"Hockey/iOS" forHTTPHeaderField:@"User-Agent"];
-    [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-    
-    return request;
+  NSString *path = [NSString stringWithFormat:@"api/2/apps/%@", self.appIdentifier];
+  NSString *urlEncodedPath = [path stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+  
+  NSMutableString *parameters = [NSMutableString stringWithFormat:@"?format=json&extended=true&sdk=%@&sdk_version=%@&uuid=%@",
+                                 BITHOCKEY_NAME,
+                                 BITHOCKEY_VERSION,
+                                 _uuid];
+  
+  // add installationIdentificationType and installationIdentifier if available
+  if (self.installationIdentification && self.installationIdentificationType) {
+    [parameters appendFormat:@"&%@=%@",
+     self.installationIdentificationType,
+     self.installationIdentification
+     ];
+  }
+  
+  // add additional statistics if user didn't disable flag
+  if (_sendUsageData) {
+    [parameters appendFormat:@"&app_version=%@&os=iOS&os_version=%@&device=%@&lang=%@&first_start_at=%@&usage_time=%@",
+     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
+     [[UIDevice currentDevice] systemVersion],
+     [self getDevicePlatform],
+     [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0],
+     [self installationDateString],
+     [self currentUsageString]
+     ];
+  }
+  NSString *urlEncodedParameters = [parameters stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+  
+  // build request & send
+  NSString *url = [NSString stringWithFormat:@"%@%@%@", self.serverURL, urlEncodedPath, urlEncodedParameters];
+  BITHockeyLog(@"INFO: Sending api request to %@", url);
+  
+  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                         cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                     timeoutInterval:10.0];
+  [request setHTTPMethod:@"GET"];
+  [request setValue:@"Hockey/iOS" forHTTPHeaderField:@"User-Agent"];
+  [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+  
+  return request;
 }
 
 // begin the startup process
