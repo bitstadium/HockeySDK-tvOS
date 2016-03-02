@@ -35,7 +35,7 @@
 #pragma mark NSString helpers
 
 NSString *bit_URLEncodedString(NSString *inputString) {
-  return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"].invertedSet];
+  return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[] {}"].invertedSet];
 }
 
 NSString *bit_base64String(NSData * data, unsigned long length) {
