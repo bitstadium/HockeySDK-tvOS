@@ -89,6 +89,8 @@
 // checks for update
 - (void)sendCheckForUpdateRequest;
 
+- (NSURLRequest *)requestForUpdateCheck;
+
 // convenience method to get current running version string
 - (NSString *)currentAppVersion;
 
