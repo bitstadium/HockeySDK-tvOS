@@ -58,7 +58,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   BOOL _dataFound;
   BOOL _updateAlertShowing;
   BOOL _lastCheckFailed;
-  BOOL _sendUsageData;
   
   NSFileManager  *_fileManager;
   NSString       *_updateDir;
@@ -673,7 +672,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     }
     
     // add additional statistics if user didn't disable flag
-    if (_sendUsageData) {
+    if (self.sendUsageData) {
         [parameter appendFormat:@"&app_version=%@&os=iOS&os_version=%@&device=%@&lang=%@&first_start_at=%@&usage_time=%@",
          bit_URLEncodedString([[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]),
          bit_URLEncodedString([[UIDevice currentDevice] systemVersion]),
@@ -706,7 +705,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     BITHockeyLog(@"INFO: Starting UpdateManager");
     
     if ([self.delegate respondsToSelector:@selector(updateManagerShouldSendUsageData:)]) {
-      _sendUsageData = [self.delegate updateManagerShouldSendUsageData:self];
+      self.sendUsageData = [self.delegate updateManagerShouldSendUsageData:self];
     }
     
     [self checkExpiryDateReached];
