@@ -6,15 +6,10 @@
 //
 //
 
-#import "BITCrashReportTextFormatterPrivate.h"
-
-#ifndef BITCrashReportTextFormatterPrivate_h
-#define BITCrashReportTextFormatterPrivate_h
+#import "BITCrashReportTextFormatter.h"
 
 @interface BITCrashReportTextFormatter ()
 
 + (NSString *)anonymizedProcessPathFromProcessPath:(NSString *)processPath;
 
 @end
-
-#endif /* BITCrashReportTextFormatterPrivate_h */

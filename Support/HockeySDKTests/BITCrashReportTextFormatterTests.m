@@ -7,15 +7,12 @@
 //
 
 #import <XCTest/XCTest.h>
-
-#define HC_SHORTHAND
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
+#import <Foundation/Foundation.h>
 
 #define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import <CrashReporter/CrashReporter.h>
-#import "BITCrashReportTextFormatter.h"
 
 #import "BITTestHelper.h"
 #import "BITCrashReportTextFormatterPrivate.h"
@@ -209,7 +206,6 @@
 
 - (void)testSignalReport {
   NSData *crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_signal"];
-  assertThat(crashData, notNilValue());
   XCTAssertNotNil(crashData);
   
   NSError *error = nil;
@@ -217,44 +213,45 @@
   
   NSString *crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
 
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
 
   crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_signal_marketing"];
-  assertThat(crashData, notNilValue());
+  
+  XCTAssertNotNil(crashData);
   
   report = [[BITPLCrashReport alloc] initWithData:crashData error:&error];
   
   crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
   
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
 }
 
 - (void)testExceptionReport {
   NSData *crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_exception"];
-  assertThat(crashData, notNilValue());
+  XCTAssertNotNil(crashData);
   
   NSError *error = nil;
   BITPLCrashReport *report = [[BITPLCrashReport alloc] initWithData:crashData error:&error];
   
   NSString *crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
   
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
 
   crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_exception_marketing"];
-  assertThat(crashData, notNilValue());
+  XCTAssertNotNil(crashData);
   
   report = [[BITPLCrashReport alloc] initWithData:crashData error:&error];
   
   crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
   
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
 }
 
 - (void)testAnonymizedProcessPathFromProcessPath {
   NSString *testProcessPath = @"/Users/sampleuser/Library/Developer/CoreSimulator/Devices/CDF13B63-8B8A-4191-A528-1A2FAFC9A915/data/Containers/Bundle/Application/FF127199-5B93-4E84-87AF-5C11F1E639DB/Test.app/Test";
   
   NSString *anonymizedProcessPath = [BITCrashReportTextFormatter anonymizedProcessPathFromProcessPath:testProcessPath];
-  
+
   XCTAssertFalse([anonymizedProcessPath containsString:@"sampleuser"]);
   XCTAssertTrue([anonymizedProcessPath hasPrefix:@"/Users/USER/"]);
 }
