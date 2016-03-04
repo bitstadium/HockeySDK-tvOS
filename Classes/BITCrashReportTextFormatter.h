@@ -64,8 +64,7 @@ typedef NS_ENUM (NSInteger, BITBinaryImageType) {
 };
 
 
-@interface BITCrashReportTextFormatter : NSObject {
-}
+@interface BITCrashReportTextFormatter : NSObject
 
 + (NSString *)stringValueForCrashReport:(PLCrashReport *)report crashReporterKey:(NSString *)crashReporterKey;
 + (NSArray *)arrayOfAppUUIDsForCrashReport:(PLCrashReport *)report;
