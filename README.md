@@ -1,8 +1,8 @@
 # HockeySDK-tvOS
 
-## Version 1.0.0-Beta.1
+## Version 1.0.0-Beta.2
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.0.0-beta.1/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.0.0-beta.2/docs/docs/Changelog.html)
 
 ## Introduction
 
@@ -240,7 +240,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.0.0-beta.1/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.0.0-beta.2/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
@@ -250,7 +250,7 @@ Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos
   Make sure none of the following files are copied into your app bundle. This can be checked by examining the `Copy Bundle Resources` item in the `Build Phases` tab of your app target in the Xcode project, or by looking within the final `.app` bundle after making your build:
 
   - `HockeySDK.framework` (unless you've built your own version of the SDK as a dynamic framework - if you don't know what this means, you don't have to worry about it)
-  - `de.bitstadium.HockeySDK-tvOS-1.0-Beta.1.docset`
+  - `de.bitstadium.HockeySDK-tvOS-1.0-Beta.2.docset`
 
 2. Features not working as expected
 

@@ -7,17 +7,15 @@
 //
 
 #import <XCTest/XCTest.h>
-
-#define HC_SHORTHAND
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
+#import <Foundation/Foundation.h>
 
 #define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import <CrashReporter/CrashReporter.h>
-#import "BITCrashReportTextFormatter.h"
 
 #import "BITTestHelper.h"
+#import "BITCrashReportTextFormatterPrivate.h"
 
 @interface BITCrashReportTextFormatterTests : XCTestCase
 
@@ -43,17 +41,23 @@
   // Test with default OS X app path
   processPath = [appBundlePath stringByAppendingString:@"/Contents/MacOS/MyApp"];
   [self testOSXNonAppSpecificImagesForProcessPath:processPath];
-  [self testAppBinaryWithImagePath:processPath processPath:processPath];
+  [self assertIsOtherWithImagePath:processPath processPath:nil];
+  [self assertIsOtherWithImagePath:nil processPath:processPath];
+  [self assertIsAppBinaryWithImagePath:processPath processPath:processPath];
   
   // Test with OS X LoginItems app helper path
   processPath = [appBundlePath stringByAppendingString:@"/Contents/Library/LoginItems/net.hockeyapp.helper.app/Contents/MacOS/Helper"];
   [self testOSXNonAppSpecificImagesForProcessPath:processPath];
-  [self testAppBinaryWithImagePath:processPath processPath:processPath];
+  [self assertIsOtherWithImagePath:processPath processPath:nil];
+  [self assertIsOtherWithImagePath:nil processPath:processPath];
+  [self assertIsAppBinaryWithImagePath:processPath processPath:processPath];
   
   // Test with OS X app in Resources folder
   processPath = @"/Applications/MyTestApp.App/Contents/Resources/Helper";
   [self testOSXNonAppSpecificImagesForProcessPath:processPath];
-  [self testAppBinaryWithImagePath:processPath processPath:processPath];
+  [self assertIsOtherWithImagePath:processPath processPath:nil];
+  [self assertIsOtherWithImagePath:nil processPath:processPath];
+  [self assertIsAppBinaryWithImagePath:processPath processPath:processPath];
 }
 
 - (void)testiOSImages {
@@ -65,31 +69,52 @@
   // Test with iOS App
   processPath = [appBundlePath stringByAppendingString:@"/MyApp"];
   [self testiOSNonAppSpecificImagesForProcessPath:processPath];
-  [self testAppBinaryWithImagePath:processPath processPath:processPath];
+  [self assertIsOtherWithImagePath:processPath processPath:nil];
+  [self assertIsOtherWithImagePath:nil processPath:processPath];
+  [self assertIsAppBinaryWithImagePath:processPath processPath:processPath];
+  [self testiOSAppFrameworkAtProcessPath:processPath appBundlePath:appBundlePath];
+
+  // Test with iOS App Extension
+  processPath = [appBundlePath stringByAppendingString:@"/Plugins/MyAppExtension.appex/MyAppExtension"];
+  [self testiOSNonAppSpecificImagesForProcessPath:processPath];
+  [self assertIsAppBinaryWithImagePath:processPath processPath:processPath];
   [self testiOSAppFrameworkAtProcessPath:processPath appBundlePath:appBundlePath];
 }
 
 #pragma mark - Test Helper
 
-- (void)testAppBinaryWithImagePath:(NSString *)imagePath processPath:(NSString *)processPath {
-  BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:imagePath
+- (void)assertIsAppFrameworkWithFrameworkPath:(NSString *)frameworkPath processPath:(NSString *)processPath {
+  BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:frameworkPath
                                                                             processPath:processPath];
-  XCTAssert((imageType == BITBinaryImageTypeAppBinary), @"Test app %@ with process %@", imagePath, processPath);
+  XCTAssertEqual(imageType, BITBinaryImageTypeAppFramework, @"Test framework %@ with process %@", frameworkPath, processPath);
 }
 
+- (void)assertIsAppBinaryWithImagePath:(NSString *)imagePath processPath:(NSString *)processPath {
+  BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:imagePath
+                                                                            processPath:processPath];
+  XCTAssertEqual(imageType, BITBinaryImageTypeAppBinary, @"Test app %@ with process %@", imagePath, processPath);
+}
+
+- (void)assertIsSwiftFrameworkWithFrameworkPath:(NSString *)swiftFrameworkPath processPath:(NSString *)processPath {
+  BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:swiftFrameworkPath
+                                                                            processPath:processPath];
+  XCTAssertEqual(imageType, BITBinaryImageTypeOther, @"Test swift image %@ with process %@", swiftFrameworkPath, processPath);
+}
+
+- (void)assertIsOtherWithImagePath:(NSString *)imagePath processPath:(NSString *)processPath {
+  BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:imagePath
+                                                                            processPath:processPath];
+  XCTAssertEqual(imageType, BITBinaryImageTypeOther, @"Test other image %@ with process %@", imagePath, processPath);
+}
 
 #pragma mark - OS X Test Helper
 
 - (void)testOSXAppFrameworkAtProcessPath:(NSString *)processPath appBundlePath:(NSString *)appBundlePath {
   NSString *frameworkPath = [appBundlePath stringByAppendingString:@"/Contents/Frameworks/MyFrameworkLib.framework/Versions/A/MyFrameworkLib"];
-  BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:frameworkPath
-                                                                            processPath:processPath];
-  XCTAssert((imageType == BITBinaryImageTypeAppFramework), @"Test framework %@ with process %@", frameworkPath, processPath);
+  [self assertIsAppFrameworkWithFrameworkPath:frameworkPath processPath:processPath];
 
   frameworkPath = [appBundlePath stringByAppendingString:@"/Contents/Frameworks/libSwiftMyLib.framework/Versions/A/libSwiftMyLib"];
-  imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:frameworkPath
-                                                         processPath:processPath];
-  XCTAssert((imageType == BITBinaryImageTypeAppFramework), @"Test framework %@ with process %@", frameworkPath, processPath);
+  [self assertIsAppFrameworkWithFrameworkPath:frameworkPath processPath:processPath];
 
   NSMutableArray *swiftFrameworkPaths = [NSMutableArray new];
   [swiftFrameworkPaths addObject:[appBundlePath stringByAppendingString:@"/Contents/Frameworks/libswiftCore.dylib"]];
@@ -100,10 +125,8 @@
   [swiftFrameworkPaths addObject:[appBundlePath stringByAppendingString:@"/Contents/Frameworks/libswiftSecurity.dylib"]];
   [swiftFrameworkPaths addObject:[appBundlePath stringByAppendingString:@"/Contents/Frameworks/libswiftCoreGraphics.dylib"]];
   
-  for (NSString *imagePath in swiftFrameworkPaths) {
-    BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:imagePath
-                                                                              processPath:processPath];
-    XCTAssert((imageType == BITBinaryImageTypeOther), @"Test swift image %@ with process %@", imagePath, processPath);
+  for (NSString *swiftFrameworkPath in swiftFrameworkPaths) {
+    [self assertIsSwiftFrameworkWithFrameworkPath:swiftFrameworkPath processPath:processPath];
   }
 }
 
@@ -122,9 +145,7 @@
   [nonAppSpecificImagePaths addObject:@"/usr/lib/libbsm.0.dylib"];
   
   for (NSString *imagePath in nonAppSpecificImagePaths) {
-    BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:imagePath
-                                                                              processPath:processPath];
-    XCTAssert((imageType == BITBinaryImageTypeOther), @"Test other image %@ with process %@", imagePath, processPath);
+    [self assertIsOtherWithImagePath:imagePath processPath:processPath];
   }
 }
 
@@ -133,14 +154,11 @@
 
 - (void)testiOSAppFrameworkAtProcessPath:(NSString *)processPath appBundlePath:(NSString *)appBundlePath {
   NSString *frameworkPath = [appBundlePath stringByAppendingString:@"/Frameworks/MyFrameworkLib.framework/MyFrameworkLib"];
-  BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:frameworkPath
-                                                                            processPath:processPath];
-  XCTAssert((imageType == BITBinaryImageTypeAppFramework), @"Test framework %@ with process %@", frameworkPath, processPath);
+  [self assertIsAppFrameworkWithFrameworkPath:frameworkPath processPath:processPath];
+
   
   frameworkPath = [appBundlePath stringByAppendingString:@"/Frameworks/libSwiftMyLib.framework/libSwiftMyLib"];
-  imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:frameworkPath
-                                                         processPath:processPath];
-  XCTAssert((imageType == BITBinaryImageTypeAppFramework), @"Test framework %@ with process %@", frameworkPath, processPath);
+  [self assertIsAppFrameworkWithFrameworkPath:frameworkPath processPath:processPath];
 
   NSMutableArray *swiftFrameworkPaths = [NSMutableArray new];
   [swiftFrameworkPaths addObject:[appBundlePath stringByAppendingString:@"/Frameworks/libswiftCore.dylib"]];
@@ -151,10 +169,8 @@
   [swiftFrameworkPaths addObject:[appBundlePath stringByAppendingString:@"/Frameworks/libswiftSecurity.dylib"]];
   [swiftFrameworkPaths addObject:[appBundlePath stringByAppendingString:@"/Frameworks/libswiftCoreGraphics.dylib"]];
   
-  for (NSString *imagePath in swiftFrameworkPaths) {
-    BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:imagePath
-                                                                              processPath:processPath];
-    XCTAssert((imageType == BITBinaryImageTypeOther), @"Test swift image %@ with process %@", imagePath, processPath);
+  for (NSString *swiftFrameworkPath in swiftFrameworkPaths) {
+    [self assertIsSwiftFrameworkWithFrameworkPath:swiftFrameworkPath processPath:processPath];
   }
 }
 
@@ -184,15 +200,12 @@
   [nonAppSpecificImagePaths addObject:@"/Library/MobileSubstrate/DynamicLibraries/WinterBoard.dylib"];
   
   for (NSString *imagePath in nonAppSpecificImagePaths) {
-    BITBinaryImageType imageType = [BITCrashReportTextFormatter bit_imageTypeForImagePath:imagePath
-                                                                              processPath:processPath];
-    XCTAssert((imageType == BITBinaryImageTypeOther), @"Test other image %@ with process %@", imagePath, processPath);
+    [self assertIsOtherWithImagePath:imagePath processPath:processPath];
   }
 }
 
 - (void)testSignalReport {
   NSData *crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_signal"];
-  assertThat(crashData, notNilValue());
   XCTAssertNotNil(crashData);
   
   NSError *error = nil;
@@ -200,37 +213,47 @@
   
   NSString *crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
 
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
 
   crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_signal_marketing"];
-  assertThat(crashData, notNilValue());
+  
+  XCTAssertNotNil(crashData);
   
   report = [[BITPLCrashReport alloc] initWithData:crashData error:&error];
   
   crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
   
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
 }
 
 - (void)testExceptionReport {
   NSData *crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_exception"];
-  assertThat(crashData, notNilValue());
+  XCTAssertNotNil(crashData);
   
   NSError *error = nil;
   BITPLCrashReport *report = [[BITPLCrashReport alloc] initWithData:crashData error:&error];
   
   NSString *crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
   
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
 
   crashData = [BITTestHelper dataOfFixtureCrashReportWithFileName:@"live_report_exception_marketing"];
-  assertThat(crashData, notNilValue());
+  XCTAssertNotNil(crashData);
   
   report = [[BITPLCrashReport alloc] initWithData:crashData error:&error];
   
   crashLogString = [BITCrashReportTextFormatter stringValueForCrashReport:report crashReporterKey:@""];
   
-  assertThat(crashLogString, notNilValue());
+  XCTAssertNotNil(crashLogString);
+}
+
+- (void)testAnonymizedProcessPathFromProcessPath {
+  NSString *testProcessPath = @"/Users/sampleuser/Library/Developer/CoreSimulator/Devices/CDF13B63-8B8A-4191-A528-1A2FAFC9A915/data/Containers/Bundle/Application/FF127199-5B93-4E84-87AF-5C11F1E639DB/Test.app/Test";
+  
+  NSString *anonymizedProcessPath = [BITCrashReportTextFormatter anonymizedProcessPathFromProcessPath:testProcessPath];
+
+  XCTAssertFalse([anonymizedProcessPath containsString:@"sampleuser"]);
+  XCTAssertTrue([anonymizedProcessPath hasPrefix:@"/Users/USER/"]);
 }
 
 @end

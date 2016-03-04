@@ -32,6 +32,7 @@
  */
 
 #import "HockeySDK.h"
+#import "HockeySDKPrivate.h"
 
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
 
@@ -49,7 +50,7 @@
 #define SEL_NAME_SECT "__cstring"
 #endif
 
-#import "BITCrashReportTextFormatter.h"
+#import "BITCrashReportTextFormatterPrivate.h"
 
 /*
  * XXX: The ARM64 CPU type, and ARM_V7S and ARM_V8 Mach-O CPU subtypes are not
@@ -352,10 +353,7 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
         
         /* Remove username from the path */
 #if TARGET_OS_SIMULATOR
-        if ([processPath length] > 0)
-          processPath = [processPath stringByAbbreviatingWithTildeInPath];
-        if ([processPath length] > 0 && [[processPath substringToIndex:1] isEqualToString:@"~"])
-          processPath = [NSString stringWithFormat:@"/Users/USER%@", [processPath substringFromIndex:1]];
+        processPath = [self anonymizedProcessPathFromProcessPath:processPath];
 #endif
       }
       
@@ -688,11 +686,14 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
 
 /* Determine if in binary image is the app executable or app specific framework */
 + (BITBinaryImageType)bit_imageTypeForImagePath:(NSString *)imagePath processPath:(NSString *)processPath {
+  if (!imagePath || !processPath) {
+    return BITBinaryImageTypeOther;
+  }
   BITBinaryImageType imageType = BITBinaryImageTypeOther;
   
   NSString *standardizedImagePath = [[imagePath stringByStandardizingPath] lowercaseString];
-  imagePath = [imagePath lowercaseString];
-  processPath = [processPath lowercaseString];
+  NSString *lowercaseImagePath = [imagePath lowercaseString];
+  NSString *lowercaseProcessPath = [processPath lowercaseString];
   
   NSRange appRange = [standardizedImagePath rangeOfString: @".app/"];
   
@@ -703,13 +704,13 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
   if (appRange.location != NSNotFound && !(swiftLibRange.location != NSNotFound && dylibSuffix)) {
     NSString *appBundleContentsPath = [standardizedImagePath substringToIndex:appRange.location + 5];
     
-    if ([standardizedImagePath isEqual: processPath] ||
+    if ([standardizedImagePath isEqual: lowercaseProcessPath] ||
         // Fix issue with iOS 8 `stringByStandardizingPath` removing leading `/private` path (when not running in the debugger or simulator only)
-        [imagePath hasPrefix:processPath]) {
+        [lowercaseImagePath hasPrefix:lowercaseProcessPath]) {
       imageType = BITBinaryImageTypeAppBinary;
     } else if ([standardizedImagePath hasPrefix:appBundleContentsPath] ||
                 // Fix issue with iOS 8 `stringByStandardizingPath` removing leading `/private` path (when not running in the debugger or simulator only)
-               [imagePath hasPrefix:appBundleContentsPath]) {
+               [lowercaseImagePath hasPrefix:appBundleContentsPath]) {
       imageType = BITBinaryImageTypeAppFramework;
     }
   }
@@ -876,6 +877,30 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
           (const uint16_t *)[imageName cStringUsingEncoding: NSUTF16StringEncoding],
           lp64 ? 16 : 8, frameInfo.instructionPointer,
           symbolString];
+}
+
+/**
+ *  Remove the user's name from a crash's process path.
+ *  This is only necessary when sending crashes from the simulator as the path
+ *  then contains the username of the Mac the simulator is running on.
+ *
+ *  @param processPath A string containing the username
+ *
+ *  @return An anonymized string where the real username is replaced by "USER"
+ */
++ (NSString *)anonymizedProcessPathFromProcessPath:(NSString *)processPath {
+  
+  NSString *anonymizedProcessPath = [NSString string];
+  
+  if (([processPath length] > 0) && [processPath hasPrefix:@"/Users/"]) {
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(/Users/[^/]+/)" options:0 error:&error];
+    anonymizedProcessPath = [regex stringByReplacingMatchesInString:processPath options:0 range:NSMakeRange(0, [processPath length]) withTemplate:@"/Users/USER/"];
+    if (error) {
+      BITHockeyLog("ERROR: String replacing failed - %@", error.localizedDescription);
+    }
+  }
+  return anonymizedProcessPath;
 }
 
 @end
