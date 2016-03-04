@@ -124,8 +124,8 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 **Podfile**
 
 ```ruby
-platform :tvOS, '9.0'
-pod "HockeySDK-tvOS"
+platform :tvos, '9.0'
+pod 'HockeySDK-tvOS', '~> 1.0.0-beta.2' 
 ```
 
 <a id="crashreporting"></a> 
