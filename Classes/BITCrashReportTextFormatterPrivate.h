@@ -6,7 +6,7 @@
 //
 //
 
-#import "BITCrashReporterTextFormatter.h"
+#import "BITCrashReportTextFormatter.h"
 
 #ifndef BITCrashReportTextFormatterPrivate_h
 #define BITCrashReportTextFormatterPrivate_h

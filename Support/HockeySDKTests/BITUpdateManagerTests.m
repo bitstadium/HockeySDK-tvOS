@@ -1,6 +1,7 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
+#import "BITUpdateManager.h"
 #import "BITUpdateManagerPrivate.h"
 #import "BITHockeyBaseManagerPrivate.h"
 
