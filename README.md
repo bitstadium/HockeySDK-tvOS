@@ -1,8 +1,8 @@
 # HockeySDK-tvOS
 
-## Version 1.0.0-Beta.2
+## Version 1.1.0-alpha.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.0.0-beta.2/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/docs/docs/Changelog.html)
 
 ## Introduction
 
@@ -128,7 +128,7 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 
 ```ruby
 platform :tvos, '9.0'
-pod 'HockeySDK-tvOS', '~> 1.0.0-beta.2' 
+pod 'HockeySDK-tvOS', '~> 1.1.0-alpha.1' 
 ```
 
 <a id="crashreporting"></a> 
@@ -256,7 +256,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.0.0-beta.2/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
