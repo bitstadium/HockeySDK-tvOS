@@ -118,7 +118,7 @@
 - (void)testDeviceType {
   NSString *resultString = bit_deviceType();
   assertThat(resultString, notNilValue());
-  NSArray *typesArray = @[@"Phone", @"Tablet", @"Unknown"];
+  NSArray *typesArray = @[@"Phone", @"Tablet", @"TV", @"Unknown"];
   assertThat(typesArray, hasItem(resultString));
 }
 
