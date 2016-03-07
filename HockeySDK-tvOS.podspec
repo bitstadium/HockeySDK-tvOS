@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.resource_bundle     = { 'HockeySDKResources' => ['HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDK.framework/Versions/A/Resources/HockeySDKResources.bundle/*.png', 'HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDK.framework/Versions/A/Resources/HockeySDKResources.bundle/*.lproj'] }
 
   s.frameworks          = 'Foundation', 'Security', 'SystemConfiguration', 'UIKit'
-  s.libraries           = 'c++'
+  s.libraries           = 'c++', 'z'
   s.vendored_frameworks = 'HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDK.framework'
 
 end
