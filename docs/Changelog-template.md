@@ -1,3 +1,10 @@
+## Version 1.0.0-beta.2
+
+- [FIX] Add userPath anonymization
+- [FIX] Remove unnecessary calls to -[NSUserDefaults synchronize]
+- [FIX] Fix NSURLSession memory leak
+- [FIX] Minor refactorings & bug fixes
+
 ## Version 1.0.0-beta.1
 
 - [NEW] Added support for beta update notifications

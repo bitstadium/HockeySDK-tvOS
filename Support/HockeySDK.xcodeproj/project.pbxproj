@@ -51,13 +51,8 @@
 		1B8B306F1BFE940F002037E1 /* BITAuthenticator_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */; };
 		1B8B30721BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
 		1B8B30731BFE940F002037E1 /* BITAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B30691BFE940F002037E1 /* BITAuthenticator.m */; };
-		1B94F4F11C8798D0007D2E82 /* BITCrashReporterTextFormatterPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B94F4F01C8798D0007D2E82 /* BITCrashReporterTextFormatterPrivate.h */; };
-		1B94F4F41C87991B007D2E82 /* BITUpdateManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B94F4F21C87991B007D2E82 /* BITUpdateManagerTests.m */; };
-		1B94F4F51C879949007D2E82 /* BITUpdateManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B94F4F21C87991B007D2E82 /* BITUpdateManagerTests.m */; };
-		1B956BA61C6AB08800644CBB /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B956BA51C6AB08800644CBB /* OCMock.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		1B956BA71C6AB08800644CBB /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B956BA51C6AB08800644CBB /* OCMock.framework */; };
-		1B956BAA1C6AB31D00644CBB /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B956BA81C6AB25A00644CBB /* OCMock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1BA3FAC81C6A959C0050F76F /* BITCategoryContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FAB71C6A959C0050F76F /* BITCategoryContainer.h */; };
+		1B94F4FB1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B94F4FA1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h */; };
+		1B94F4FC1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B94F4FA1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h */; };
 		1BA3FAC91C6A959C0050F76F /* BITCategoryContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */; };
 		1BA3FACD1C6A959C0050F76F /* BITMetricsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3FABC1C6A959C0050F76F /* BITMetricsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BA3FACE1C6A959C0050F76F /* BITMetricsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3FABD1C6A959C0050F76F /* BITMetricsManager.m */; };
@@ -468,70 +463,7 @@
 		1B8B30671BFE940F002037E1 /* BITAuthenticator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator_Private.h; sourceTree = "<group>"; };
 		1B8B30681BFE940F002037E1 /* BITAuthenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAuthenticator.h; sourceTree = "<group>"; };
 		1B8B30691BFE940F002037E1 /* BITAuthenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAuthenticator.m; sourceTree = "<group>"; };
-		1B94F4F01C8798D0007D2E82 /* BITCrashReporterTextFormatterPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashReporterTextFormatterPrivate.h; sourceTree = "<group>"; };
-		1B94F4F21C87991B007D2E82 /* BITUpdateManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITUpdateManagerTests.m; sourceTree = "<group>"; };
-		1B956BA51C6AB08800644CBB /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
-		1B956BA81C6AB25A00644CBB /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = HockeySDKTests/OCMock.framework; sourceTree = "<group>"; };
-		1BA3FAB71C6A959C0050F76F /* BITCategoryContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCategoryContainer.h; sourceTree = "<group>"; };
-		1BA3FAB81C6A959C0050F76F /* BITCategoryContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCategoryContainer.m; sourceTree = "<group>"; };
-		1BA3FAB91C6A959C0050F76F /* BITChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITChannel.h; sourceTree = "<group>"; };
-		1BA3FABA1C6A959C0050F76F /* BITChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITChannel.m; sourceTree = "<group>"; };
-		1BA3FABB1C6A959C0050F76F /* BITGZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITGZIP.h; sourceTree = "<group>"; };
-		1BA3FABC1C6A959C0050F76F /* BITMetricsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMetricsManager.h; sourceTree = "<group>"; };
-		1BA3FABD1C6A959C0050F76F /* BITMetricsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMetricsManager.m; sourceTree = "<group>"; };
-		1BA3FABE1C6A959C0050F76F /* BITMetricsManagerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMetricsManagerPrivate.h; sourceTree = "<group>"; };
-		1BA3FABF1C6A959C0050F76F /* BITPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITPersistence.h; sourceTree = "<group>"; };
-		1BA3FAC01C6A959C0050F76F /* BITPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITPersistence.m; sourceTree = "<group>"; };
-		1BA3FAC11C6A959C0050F76F /* BITPersistencePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITPersistencePrivate.h; sourceTree = "<group>"; };
-		1BA3FAC21C6A959C0050F76F /* BITSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITSender.h; sourceTree = "<group>"; };
-		1BA3FAC31C6A959C0050F76F /* BITSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITSender.m; sourceTree = "<group>"; };
-		1BA3FAC41C6A959C0050F76F /* BITTelemetryContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITTelemetryContext.h; sourceTree = "<group>"; };
-		1BA3FAC51C6A959C0050F76F /* BITTelemetryContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTelemetryContext.m; sourceTree = "<group>"; };
-		1BA3FAEB1C6A9BEB0050F76F /* BITApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITApplication.h; sourceTree = "<group>"; };
-		1BA3FAEC1C6A9BEB0050F76F /* BITApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITApplication.m; sourceTree = "<group>"; };
-		1BA3FAED1C6A9BEB0050F76F /* BITBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITBase.h; sourceTree = "<group>"; };
-		1BA3FAEE1C6A9BEB0050F76F /* BITBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITBase.m; sourceTree = "<group>"; };
-		1BA3FAEF1C6A9BEB0050F76F /* BITChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITChannel.h; sourceTree = "<group>"; };
-		1BA3FAF01C6A9BEB0050F76F /* BITChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITChannel.m; sourceTree = "<group>"; };
-		1BA3FAF11C6A9BEB0050F76F /* BITData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITData.h; sourceTree = "<group>"; };
-		1BA3FAF21C6A9BEB0050F76F /* BITData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITData.m; sourceTree = "<group>"; };
-		1BA3FAF31C6A9BEB0050F76F /* BITDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITDevice.h; sourceTree = "<group>"; };
-		1BA3FAF41C6A9BEB0050F76F /* BITDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITDevice.m; sourceTree = "<group>"; };
-		1BA3FAF51C6A9BEB0050F76F /* BITDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITDomain.h; sourceTree = "<group>"; };
-		1BA3FAF61C6A9BEB0050F76F /* BITDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITDomain.m; sourceTree = "<group>"; };
-		1BA3FAF71C6A9BEB0050F76F /* BITEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITEnvelope.h; sourceTree = "<group>"; };
-		1BA3FAF81C6A9BEB0050F76F /* BITEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITEnvelope.m; sourceTree = "<group>"; };
-		1BA3FB151C6A9C1B0050F76F /* BITInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITInternal.h; sourceTree = "<group>"; };
-		1BA3FB161C6A9C1B0050F76F /* BITInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITInternal.m; sourceTree = "<group>"; };
-		1BA3FB171C6A9C1B0050F76F /* BITOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITOrderedDictionary.h; sourceTree = "<group>"; };
-		1BA3FB181C6A9C1B0050F76F /* BITOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITOrderedDictionary.m; sourceTree = "<group>"; };
-		1BA3FB191C6A9C1B0050F76F /* BITSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITSession.h; sourceTree = "<group>"; };
-		1BA3FB1A1C6A9C1B0050F76F /* BITSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITSession.m; sourceTree = "<group>"; };
-		1BA3FB1B1C6A9C1B0050F76F /* BITSessionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITSessionState.h; sourceTree = "<group>"; };
-		1BA3FB1C1C6A9C1B0050F76F /* BITSessionStateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITSessionStateData.h; sourceTree = "<group>"; };
-		1BA3FB1D1C6A9C1B0050F76F /* BITSessionStateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITSessionStateData.m; sourceTree = "<group>"; };
-		1BA3FB1F1C6A9C1B0050F76F /* BITTelemetryObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITTelemetryObject.h; sourceTree = "<group>"; };
-		1BA3FB201C6A9C1B0050F76F /* BITTelemetryObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTelemetryObject.m; sourceTree = "<group>"; };
-		1BA3FB211C6A9C1B0050F76F /* BITUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITUser.h; sourceTree = "<group>"; };
-		1BA3FB221C6A9C1B0050F76F /* BITUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITUser.m; sourceTree = "<group>"; };
-		1BA3FB541C6A9E910050F76F /* BITApplicationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITApplicationTests.m; sourceTree = "<group>"; };
-		1BA3FB551C6A9E910050F76F /* BITBaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITBaseTests.m; sourceTree = "<group>"; };
-		1BA3FB561C6A9E910050F76F /* BITChannelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITChannelTests.m; sourceTree = "<group>"; };
-		1BA3FB571C6A9E910050F76F /* BITDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITDataTests.m; sourceTree = "<group>"; };
-		1BA3FB581C6A9E910050F76F /* BITDeviceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITDeviceTests.m; sourceTree = "<group>"; };
-		1BA3FB591C6A9E910050F76F /* BITDomainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITDomainTests.m; sourceTree = "<group>"; };
-		1BA3FB5A1C6A9E910050F76F /* BITInternalTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITInternalTests.m; sourceTree = "<group>"; };
-		1BA3FB5B1C6A9E910050F76F /* BITMetricsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMetricsManagerTests.m; sourceTree = "<group>"; };
-		1BA3FB5C1C6A9E910050F76F /* BITPersistenceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITPersistenceTests.m; sourceTree = "<group>"; };
-		1BA3FB5D1C6A9E910050F76F /* BITSenderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITSenderTests.m; sourceTree = "<group>"; };
-		1BA3FB5E1C6A9E910050F76F /* BITSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITSessionTests.m; sourceTree = "<group>"; };
-		1BA3FB5F1C6A9E910050F76F /* BITTelemetryContextTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTelemetryContextTests.m; sourceTree = "<group>"; };
-		1BA3FB601C6A9E910050F76F /* BITUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITUserTests.m; sourceTree = "<group>"; };
-		1BA3FB7B1C6A9EC30050F76F /* BITTestsDependencyInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITTestsDependencyInjection.h; sourceTree = "<group>"; };
-		1BA3FB7C1C6A9EC30050F76F /* BITTestsDependencyInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTestsDependencyInjection.m; sourceTree = "<group>"; };
-		1BA3FBAB1C6AA1AD0050F76F /* BITTelemetryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITTelemetryData.h; sourceTree = "<group>"; };
-		1BA3FBAC1C6AA1AD0050F76F /* BITTelemetryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITTelemetryData.m; sourceTree = "<group>"; };
-		1BA3FBC51C6AA9660050F76F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1B94F4FA1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashReportTextFormatterPrivate.h; sourceTree = "<group>"; };
 		1BA7836A1BFAB01C00535F7A /* BITAppVersionMetaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITAppVersionMetaInfo.h; sourceTree = "<group>"; };
 		1BA7836B1BFAB01C00535F7A /* BITAppVersionMetaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITAppVersionMetaInfo.m; sourceTree = "<group>"; };
 		1BA7836C1BFAB01C00535F7A /* BITUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITUpdateManager.h; sourceTree = "<group>"; };
@@ -884,7 +816,6 @@
 				E4507E4217F0658F00171A0D /* BITKeychainUtilsTests.m */,
 				1E70A23517F31B82001BB32D /* BITHockeyHelperTests.m */,
 				1E566D061A275C4C0070F514 /* BITCrashReportTextFormatterTests.m */,
-				1B94F4F21C87991B007D2E82 /* BITUpdateManagerTests.m */,
 			);
 			path = HockeySDKTests;
 			sourceTree = "<group>";
@@ -960,6 +891,7 @@
 				1E754E5B1621FBB70070AB92 /* BITCrashReportTextFormatter.m */,
 				846A901D1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h */,
 				846A901E1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm */,
+				1B94F4FA1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h */,
 			);
 			name = CrashReports;
 			sourceTree = "<group>";
@@ -1164,8 +1096,8 @@
 				1BA3FACF1C6A959C0050F76F /* BITMetricsManagerPrivate.h in Headers */,
 				1BA3FB091C6A9BEB0050F76F /* BITDevice.h in Headers */,
 				1E8040BA1BDE322F007F8794 /* HockeySDKNullability.h in Headers */,
-				1BA3FBAD1C6AA1AD0050F76F /* BITTelemetryData.h in Headers */,
 				1BA783731BFAB01C00535F7A /* BITAppVersionMetaInfo.h in Headers */,
+				1B94F4FB1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h in Headers */,
 				1E8040BB1BDE322F007F8794 /* BITKeychainUtils.h in Headers */,
 				1BA3FB371C6A9C1B0050F76F /* BITTelemetryObject.h in Headers */,
 			);
@@ -1218,7 +1150,7 @@
 				802C45B31BD9629B000D043C /* HockeySDKNullability.h in Headers */,
 				1EB617AD1B0A31BF0035A986 /* BITHockeyManagerDelegate.h in Headers */,
 				1EB617611B0A30A50035A986 /* BITHockeyBaseViewController.h in Headers */,
-				1BA3FAE11C6A95AA0050F76F /* BITPersistence.h in Headers */,
+				1B94F4FC1C87A06D007D2E82 /* BITCrashReportTextFormatterPrivate.h in Headers */,
 				1BA7837E1BFAB01C00535F7A /* BITUpdateManagerPrivate.h in Headers */,
 				1BA3FB281C6A9C1B0050F76F /* BITOrderedDictionary.h in Headers */,
 				1BA3FB241C6A9C1B0050F76F /* BITInternal.h in Headers */,
@@ -1521,9 +1453,6 @@
 				1BFB8BFB1C04EF2200AA655C /* BITHockeyAppClient.m in Sources */,
 				1BA3FBA21C6AA1760050F76F /* BITDomain.m in Sources */,
 				1BFB8C021C04EFA400AA655C /* BITCrashCXXExceptionHandler.mm in Sources */,
-				1B94F4F41C87991B007D2E82 /* BITUpdateManagerTests.m in Sources */,
-				1BA3FB611C6A9E910050F76F /* BITApplicationTests.m in Sources */,
-				1BA3FBA61C6AA1760050F76F /* BITSession.m in Sources */,
 				1BFB8BF01C04EE7A00AA655C /* BITCrashManager.m in Sources */,
 				1BA3FB9E1C6AA1760050F76F /* BITBase.m in Sources */,
 				1BA3FB821C6AA14E0050F76F /* BITApplication.m in Sources */,
@@ -1677,9 +1606,6 @@
 				1BFB8BFA1C04EF2200AA655C /* BITHockeyAppClient.m in Sources */,
 				1BA3FB881C6AA1740050F76F /* BITDomain.m in Sources */,
 				1BFB8C031C04EFA500AA655C /* BITCrashCXXExceptionHandler.mm in Sources */,
-				1B94F4F51C879949007D2E82 /* BITUpdateManagerTests.m in Sources */,
-				1BA3FB621C6A9E910050F76F /* BITApplicationTests.m in Sources */,
-				1BA3FB8C1C6AA1740050F76F /* BITSession.m in Sources */,
 				1BFB8BF11C04EE7B00AA655C /* BITCrashManager.m in Sources */,
 				1BA3FB841C6AA1740050F76F /* BITBase.m in Sources */,
 				1BA3FB831C6AA14F0050F76F /* BITApplication.m in Sources */,
