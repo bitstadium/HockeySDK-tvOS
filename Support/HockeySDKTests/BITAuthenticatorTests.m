@@ -8,10 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
-
-#define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import "HockeySDK.h"
@@ -100,9 +97,9 @@ static void *kInstallationIdentification = &kInstallationIdentification;
 
 #pragma mark - Initial defaults
 - (void) testDefaultValues {
-  assertThatBool(_sut.restrictApplicationUsage, equalToBool(NO));
-  assertThatBool(_sut.isIdentified, equalToBool(NO));
-  assertThatBool(_sut.isValidated, equalToBool(NO));
+  assertThatBool(_sut.restrictApplicationUsage, isFalse());
+  assertThatBool(_sut.isIdentified, isFalse());
+  assertThatBool(_sut.isValidated, isFalse());
   assertThat(_sut.authenticationSecret, equalTo(nil));
   assertThat(_sut.installationIdentifier, equalTo(nil));
   assertThat(_sut.installationIdentifierParameterString, equalTo(@"uuid"));
@@ -124,7 +121,7 @@ static void *kInstallationIdentification = &kInstallationIdentification;
 - (void) testThatChangingIdentificationTypeResetsIdentifiedFlag {
   _sut.identified = YES;
   _sut.identificationType = BITAuthenticatorIdentificationTypeHockeyAppUser;
-  assertThatBool(_sut.identified, equalToBool(NO));
+  assertThatBool(_sut.identified, isFalse());
 }
 
 - (void) testThatAfterChangingIdentificationTypeIdentificationIsRedone {
@@ -132,7 +129,7 @@ static void *kInstallationIdentification = &kInstallationIdentification;
   _sut.identified = YES;
   _sut.identificationType = BITAuthenticatorIdentificationTypeHockeyAppUser;
   [_sut identifyWithCompletion:nil];
-  assertThatBool(_sut.identified, equalToBool(NO));
+  assertThatBool(_sut.identified, isFalse());
   assertThat(_sut.installationIdentifier, nilValue());
 }
 
@@ -153,31 +150,31 @@ static void *kInstallationIdentification = &kInstallationIdentification;
 #pragma mark - Anonymous identification type
 - (void) testAnonymousIdentification {
   _sut.identificationType = BITAuthenticatorIdentificationTypeAnonymous;
-  assertThatBool(_sut.isIdentified, equalToBool(NO));
+  assertThatBool(_sut.isIdentified, isFalse());
   [_sut identifyWithCompletion:^(BOOL identified, NSError *error) {
-    assertThatBool(identified, equalToBool(YES));
+    assertThatBool(identified, isTrue());
     assertThat(error, equalTo(nil));
   }];
-  assertThatBool(_sut.isIdentified, equalToBool(YES));
+  assertThatBool(_sut.isIdentified, isTrue());
   assertThat(_sut.installationIdentifier, notNilValue());
 }
 
 //anoynmous users can't be validated
 - (void) testAnonymousValidation {
   _sut.identificationType = BITAuthenticatorIdentificationTypeAnonymous;
-  assertThatBool(_sut.isValidated, equalToBool(NO));
+  assertThatBool(_sut.isValidated, isFalse());
   [_sut validateWithCompletion:^(BOOL validated, NSError *error) {
-    assertThatBool(_sut.validated, equalToBool(NO));
+    assertThatBool(_sut.validated, isFalse());
     assertThat(error, notNilValue());
   }];
-  assertThatBool(_sut.isValidated, equalToBool(NO));
+  assertThatBool(_sut.isValidated, isFalse());
 }
 
 #pragma mark - Email identification type
 - (void) testEmailIdentificationFailsWithMissingSecret {
   _sut.identificationType = BITAuthenticatorIdentificationTypeHockeyAppEmail;
   [_sut identifyWithCompletion:^(BOOL identified, NSError *error) {
-    assertThatBool(identified, equalToBool(NO));
+    assertThatBool(identified, isFalse());
     assertThat(error, notNilValue());
   }];
 }
@@ -196,7 +193,7 @@ static void *kInstallationIdentification = &kInstallationIdentification;
 - (void) testEmailValidationFailsWithMissingSecret {
   _sut.identificationType = BITAuthenticatorIdentificationTypeHockeyAppEmail;
   [_sut validateWithCompletion:^(BOOL validated, NSError *error) {
-    assertThatBool(validated, equalToBool(NO));
+    assertThatBool(validated, isFalse());
     assertThat(error, notNilValue());
   }];
 }
@@ -218,7 +215,7 @@ static void *kInstallationIdentification = &kInstallationIdentification;
   _sut.identified = NO;
   _sut.identificationType = BITAuthenticatorIdentificationTypeHockeyAppUser;
   [_sut validateWithCompletion:^(BOOL validated, NSError *error) {
-    assertThatBool(validated, equalToBool(NO));
+    assertThatBool(validated, isFalse());
     assertThatLong(error.code, equalToLong(BITAuthenticatorNotIdentified));
   }];
 }
@@ -265,7 +262,7 @@ static void *kInstallationIdentification = &kInstallationIdentification;
   _sut.identificationType = BITAuthenticatorIdentificationTypeHockeyAppEmail;
   _sut.validated = YES;
   _sut.lastAuthenticatedVersion = @"111xxx";
-  assertThatBool(_sut.needsValidation, equalToBool(YES));
+  assertThatBool(_sut.needsValidation, isTrue());
 }
 
 - (void) testThatValidationDoesNotTriggerOnSameVersion {
@@ -273,7 +270,7 @@ static void *kInstallationIdentification = &kInstallationIdentification;
   _sut.restrictionEnforcementFrequency = BITAuthenticatorAppRestrictionEnforcementOnFirstLaunch;
   _sut.validated = YES;
   _sut.lastAuthenticatedVersion = _sut.executableUUID;
-  assertThatBool(_sut.needsValidation, equalToBool(NO));
+  assertThatBool(_sut.needsValidation, isFalse());
 }
 
 @end
