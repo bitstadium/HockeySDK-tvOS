@@ -5,7 +5,6 @@
 
 #import "BITMetricsManagerPrivate.h"
 #import "BITHockeyHelper.h"
-#import "BITOrderedDictionary.h"
 #import "BITPersistence.h"
 #import "BITPersistencePrivate.h"
 
@@ -27,7 +26,7 @@ static char *const BITContextOperationsQueue = "net.hockeyapp.telemetryContextQu
   }
   return self;
 }
-      
+
 - (instancetype)initWithAppIdentifier:(NSString *)appIdentifier persistence:(BITPersistence *)persistence {
   
   if ((self = [self init])) {
@@ -55,7 +54,7 @@ static char *const BITContextOperationsQueue = "net.hockeyapp.telemetryContextQu
       userContext = [self newUser];
       [self saveUser:userContext];
     }
-
+    
     BITSession *sessionContext = [BITSession new];
     
     _application = applicationContext;
@@ -355,8 +354,8 @@ static char *const BITContextOperationsQueue = "net.hockeyapp.telemetryContextQu
 #pragma mark - Custom getter
 #pragma mark - Helper
 
-- (BITOrderedDictionary *)contextDictionary {
-  BITOrderedDictionary *contextDictionary = [BITOrderedDictionary new];
+- (NSDictionary *)contextDictionary {
+  NSMutableDictionary *contextDictionary = [NSMutableDictionary new];
   [contextDictionary addEntriesFromDictionary:self.tags];
   [contextDictionary addEntriesFromDictionary:[self.session serializeToDictionary]];
   [contextDictionary addEntriesFromDictionary:[self.user serializeToDictionary]];
