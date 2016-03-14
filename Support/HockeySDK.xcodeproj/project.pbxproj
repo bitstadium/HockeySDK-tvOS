@@ -768,18 +768,6 @@
 			children = (
 				1EA1170216F53B49001C015C /* Fixtures */,
 				1E5A459716F0DFC200B55C04 /* Supporting Files */,
-			);
-			path = HockeySDKTests;
-			sourceTree = "<group>";
-		};
-		1E5A459716F0DFC200B55C04 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1BFB8BE31C04E9A500AA655C /* HockeySDKTests-Prefix.pch */,
-				1B30B3D11C97392D00F59C46 /* OCMock.framework */,
-				1BFB8BDC1C04E89200AA655C /* OCHamcrestIOS.framework */,
-				1BFB8BDD1C04E89200AA655C /* OCMockitoIOS.framework */,
-				1E5A459816F0DFC200B55C04 /* HockeySDKTests-Info.plist */,
 				1B30B3D41C973AC300F59C46 /* BITApplicationTests.m */,
 				1B30B3D51C973AC300F59C46 /* BITAuthenticatorTests.m */,
 				1B30B3D61C973AC300F59C46 /* BITBaseTests.m */,
@@ -799,9 +787,21 @@
 				1B30B3E41C973AC300F59C46 /* BITSenderTests.m */,
 				1B30B3E51C973AC300F59C46 /* BITSessionTests.m */,
 				1B30B3E61C973AC300F59C46 /* BITTelemetryContextTests.m */,
+				1B30B3E91C973AC300F59C46 /* BITUserTests.m */,
+			);
+			path = HockeySDKTests;
+			sourceTree = "<group>";
+		};
+		1E5A459716F0DFC200B55C04 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1BFB8BE31C04E9A500AA655C /* HockeySDKTests-Prefix.pch */,
+				1B30B3D11C97392D00F59C46 /* OCMock.framework */,
+				1BFB8BDC1C04E89200AA655C /* OCHamcrestIOS.framework */,
+				1BFB8BDD1C04E89200AA655C /* OCMockitoIOS.framework */,
+				1E5A459816F0DFC200B55C04 /* HockeySDKTests-Info.plist */,
 				1B30B3E71C973AC300F59C46 /* BITTestsDependencyInjection.h */,
 				1B30B3E81C973AC300F59C46 /* BITTestsDependencyInjection.m */,
-				1B30B3E91C973AC300F59C46 /* BITUserTests.m */,
 				1E5A459916F0DFC200B55C04 /* InfoPlist.strings */,
 				1EA1170516F53B91001C015C /* BITTestHelper.h */,
 				1EA1170616F53B91001C015C /* BITTestHelper.m */,
