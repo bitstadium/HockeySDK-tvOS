@@ -364,12 +364,13 @@ static char *const BITContextOperationsQueue = "net.hockeyapp.telemetryContextQu
   return contextDictionary;
 }
 
-- (BITOrderedDictionary *)tags {
+- (NSDictionary *)tags {
   if(!_tags){
-    _tags = [self.application serializeToDictionary];
-    [_tags addEntriesFromDictionary:[self.application serializeToDictionary]];
-    [_tags addEntriesFromDictionary:[self.internal serializeToDictionary]];
-    [_tags addEntriesFromDictionary:[self.device serializeToDictionary]];
+    NSMutableDictionary *tags = [self.application serializeToDictionary].mutableCopy;
+    [tags addEntriesFromDictionary:[self.application serializeToDictionary]];
+    [tags addEntriesFromDictionary:[self.internal serializeToDictionary]];
+    [tags addEntriesFromDictionary:[self.device serializeToDictionary]];
+    _tags = tags;
   }
   return _tags;
 }

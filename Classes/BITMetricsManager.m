@@ -8,6 +8,7 @@
 #import "BITHockeyHelper.h"
 #import "HockeySDKPrivate.h"
 #import "BITChannel.h"
+#import "BITEventData.h"
 #import "BITSession.h"
 #import "BITSessionState.h"
 #import "BITSessionStateData.h"
@@ -145,10 +146,38 @@ NSString *const BITMetricsEndpoint = @"https://gate.hockeyapp.net/v2/track";
 
 #pragma mark - Track telemetry
 
+#pragma mark Sessions
+
 - (void)trackSessionWithState:(BITSessionState) state {
   BITSessionStateData *sessionStateData = [BITSessionStateData new];
   sessionStateData.state = state;
   [self.channel enqueueTelemetryItem:sessionStateData];
+}
+
+#pragma mark Events
+
+- (void)trackEventWithName:(NSString *)eventName {
+  if (!eventName) { return; }
+  
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(self.metricsEventQueue, ^{
+    typeof(self) strongSelf = weakSelf;
+    BITEventData *eventData = [BITEventData new];
+    [eventData setName:eventName];
+    [strongSelf trackDataItem:eventData];
+  });
+}
+
+#pragma mark Track DataItem
+
+- (void)trackDataItem:(BITTelemetryData *)dataItem {
+  if([self.channel isQueueBusy]) {
+    [self.channel enqueueTelemetryItem:dataItem];
+  } else {
+    if (dataItem && dataItem.name) {
+      BITHockeyLog(@"The data pipeline is saturated right now and the data item named %@ was dropped.", dataItem.name);
+    }
+  }
 }
 
 #pragma mark - Custom getter

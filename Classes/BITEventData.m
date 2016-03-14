@@ -1,5 +1,4 @@
 #import "BITEventData.h"
-#import "BITOrderedDictionary.h"
 
 /// Data contract class for type EventData.
 @implementation BITEventData
