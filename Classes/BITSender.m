@@ -9,7 +9,8 @@
 
 static char const *kBITSenderTasksQueueString = "net.hockeyapp.sender.tasksQueue";
 static char const *kBITSenderRequestsCountQueueString = "net.hockeyapp.sender.requestsCount";
-static NSUInteger const defaultRequestLimit = 10;
+static NSUInteger const BITDefaultRequestLimit = 10;
+
 
 @implementation BITSender
 
@@ -22,7 +23,7 @@ static NSUInteger const defaultRequestLimit = 10;
   if ((self = [super init])) {
     _requestsCountQueue = dispatch_queue_create(kBITSenderRequestsCountQueueString, DISPATCH_QUEUE_CONCURRENT);
     _senderTasksQueue = dispatch_queue_create(kBITSenderTasksQueueString, DISPATCH_QUEUE_CONCURRENT);
-    _maxRequestCount = defaultRequestLimit;
+    _maxRequestCount = BITDefaultRequestLimit;
     _serverURL = serverURL;
     _persistence = persistence;
     [self registerObservers];
@@ -53,12 +54,12 @@ static NSUInteger const defaultRequestLimit = 10;
 }
 
 - (void)sendSavedData {
-    if (self.runningRequestsCount < _maxRequestCount) {
-        self.runningRequestsCount++;
-    } else {
-      return;
-    }
-
+  if (self.runningRequestsCount < _maxRequestCount) {
+    self.runningRequestsCount++;
+  } else {
+    return;
+  }
+  
   NSString *filePath = [self.persistence requestNextFilePath];
   NSData *data = [self.persistence dataAtFilePath:filePath];
   if (data) {
@@ -70,10 +71,10 @@ static NSUInteger const defaultRequestLimit = 10;
   if (data && data.length > 0) {
     NSData *gzippedData = [data gzippedData];
     NSURLRequest *request = [self requestForData:gzippedData];
-
+    
     [self sendRequest:request filePath:filePath];
   } else {
-      self.runningRequestsCount -= 1;
+    self.runningRequestsCount -= 1;
   }
 }
 
@@ -85,6 +86,7 @@ static NSUInteger const defaultRequestLimit = 10;
   
   NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            [session finishTasksAndInvalidate];
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                                             NSInteger statusCode = httpResponse.statusCode;
                                             [self handleResponseWithStatusCode:statusCode responseData:data filePath:path error:error];
@@ -98,7 +100,7 @@ static NSUInteger const defaultRequestLimit = 10;
 
 - (void)handleResponseWithStatusCode:(NSInteger)statusCode responseData:(nonnull NSData *)responseData filePath:(nonnull NSString *)filePath error:(nonnull NSError *)error {
   self.runningRequestsCount -= 1;
-
+  
   if (responseData && (responseData.length > 0) && [self shouldDeleteDataWithStatusCode:statusCode]) {
     //we delete data that was either sent successfully or if we have a non-recoverable error
     BITHockeyLog(@"Sent data with status code: %ld", (long) statusCode);
@@ -115,19 +117,19 @@ static NSUInteger const defaultRequestLimit = 10;
 #pragma mark - Helper
 
 - (NSURLRequest *)requestForData:(nonnull NSData *)data {
-
+  
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.serverURL];
   request.HTTPMethod = @"POST";
-
+  
   request.HTTPBody = data;
   request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-
+  
   NSDictionary<NSString *,NSString *> *headers = @{@"Charset" : @"UTF-8",
-      @"Content-Encoding" : @"gzip",
-      @"Content-Type" : @"application/x-json-stream",
-      @"Accept-Encoding" : @"gzip"};
+                                                   @"Content-Encoding" : @"gzip",
+                                                   @"Content-Type" : @"application/x-json-stream",
+                                                   @"Accept-Encoding" : @"gzip"};
   [request setAllHTTPHeaderFields:headers];
-
+  
   return request;
 }
 
@@ -135,7 +137,7 @@ static NSUInteger const defaultRequestLimit = 10;
 //we try sending again some point later
 - (BOOL)shouldDeleteDataWithStatusCode:(NSInteger)statusCode {
   NSArray<NSNumber *> *recoverableStatusCodes = @[@429, @408, @500, @503, @511];
-
+  
   return ![recoverableStatusCodes containsObject:@(statusCode)];
 }
 
@@ -144,7 +146,7 @@ static NSUInteger const defaultRequestLimit = 10;
 - (NSOperationQueue *)operationQueue {
   if (nil == _operationQueue) {
     _operationQueue = [[NSOperationQueue alloc] init];
-    _operationQueue.maxConcurrentOperationCount = defaultRequestLimit;
+    _operationQueue.maxConcurrentOperationCount = BITDefaultRequestLimit;
   }
   return _operationQueue;
 }
