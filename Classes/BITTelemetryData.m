@@ -32,5 +32,4 @@
   [coder encodeObject:self.properties forKey:@"self.properties"];
 }
 
-
 @end
