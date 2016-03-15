@@ -136,8 +136,8 @@
 		1B81AA1C1C97745200CD0346 /* BITUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B81A9E71C97745200CD0346 /* BITUser.h */; };
 		1B81AA1D1C97745200CD0346 /* BITUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B81A9E81C97745200CD0346 /* BITUser.m */; };
 		1B81AA1E1C97745200CD0346 /* BITUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B81A9E81C97745200CD0346 /* BITUser.m */; };
-		1B81AA211C9778CE00CD0346 /* BITHockeyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B81AA1F1C9778CE00CD0346 /* BITHockeyManager.h */; };
-		1B81AA221C9778CE00CD0346 /* BITHockeyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B81AA1F1C9778CE00CD0346 /* BITHockeyManager.h */; };
+		1B81AA211C9778CE00CD0346 /* BITHockeyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B81AA1F1C9778CE00CD0346 /* BITHockeyManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1B81AA221C9778CE00CD0346 /* BITHockeyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B81AA1F1C9778CE00CD0346 /* BITHockeyManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B81AA231C9778CE00CD0346 /* BITHockeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B81AA201C9778CE00CD0346 /* BITHockeyManager.m */; };
 		1B81AA241C9778CE00CD0346 /* BITHockeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B81AA201C9778CE00CD0346 /* BITHockeyManager.m */; };
 		1B871F4F1C85236F000DE6DB /* BITUpdateManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA7836C1BFAB01C00535F7A /* BITUpdateManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1047,6 +1047,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B81AA211C9778CE00CD0346 /* BITHockeyManager.h in Headers */,
 				8057C51B1C8DA9BB00DC7BEC /* BITGZIP.h in Headers */,
 				8057C50E1C8DA98100DC7BEC /* BITPersistencePrivate.h in Headers */,
 				1B81AA131C97745200CD0346 /* BITTelemetryData.h in Headers */,
@@ -1092,7 +1093,6 @@
 				1B81A9F51C97745200CD0346 /* BITDevice.h in Headers */,
 				8057C4EF1C8DA7F800DC7BEC /* BITTelemetryContext.h in Headers */,
 				1E8040B61BDE322F007F8794 /* HockeySDKPrivate.h in Headers */,
-				1B81AA211C9778CE00CD0346 /* BITHockeyManager.h in Headers */,
 				1E8040B71BDE322F007F8794 /* BITCrashReportTextFormatter.h in Headers */,
 				1BA7837D1BFAB01C00535F7A /* BITUpdateManagerPrivate.h in Headers */,
 				1E8040B81BDE322F007F8794 /* HockeySDKFeatureConfig.h in Headers */,
@@ -1110,6 +1110,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B81AA221C9778CE00CD0346 /* BITHockeyManager.h in Headers */,
 				8057C51C1C8DA9BB00DC7BEC /* BITGZIP.h in Headers */,
 				8057C50F1C8DA98100DC7BEC /* BITPersistencePrivate.h in Headers */,
 				1B81AA141C97745200CD0346 /* BITTelemetryData.h in Headers */,
@@ -1155,7 +1156,6 @@
 				8057C5031C8DA98100DC7BEC /* BITChannel.h in Headers */,
 				1B81A9F61C97745200CD0346 /* BITDevice.h in Headers */,
 				1EB6176F1B0A30D20035A986 /* BITHockeyAttachment.h in Headers */,
-				1B81AA221C9778CE00CD0346 /* BITHockeyManager.h in Headers */,
 				8057C49D1C8DA6BE00DC7BEC /* BITCrashManagerPrivate.h in Headers */,
 				807756411BC6B6050037C3DA /* HockeySDKEnums.h in Headers */,
 				1EB617631B0A30AE0035A986 /* BITHockeyHelper.h in Headers */,
