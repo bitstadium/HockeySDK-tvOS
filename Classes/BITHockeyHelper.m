@@ -258,6 +258,11 @@ BOOL bit_isAppStoreReceiptSandbox(void) {
 #endif
 }
 
+BOOL bit_hasEmbeddedMobileProvision(void) {
+  BOOL hasEmbeddedMobileProvision = !![[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"];
+  return hasEmbeddedMobileProvision;
+}
+
 BOOL bit_isRunningInTestFlightEnvironment(void) {
 #if TARGET_OS_SIMULATOR
   return NO;
