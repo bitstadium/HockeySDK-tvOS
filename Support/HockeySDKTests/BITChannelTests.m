@@ -19,7 +19,6 @@
 
 @end
 
-
 @implementation BITChannelTests {
   BITChannel *_sut;
   BITPersistence *_mockPersistence;

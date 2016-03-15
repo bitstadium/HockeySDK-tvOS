@@ -16,7 +16,6 @@
 
 #import "HockeySDK.h"
 #import "HockeySDKPrivate.h"
-#import "BITCrashManager.h"
 #import "BITCrashManagerPrivate.h"
 #import "BITHockeyBaseManagerPrivate.h"
 

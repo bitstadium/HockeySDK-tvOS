@@ -28,10 +28,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "BITHockeyManager.h"
 
-@class BITHockeyBaseManager;
 @class BITHockeyBaseViewController;
+@class BITHockeyBaseManager;
 
 @interface BITHockeyBaseManager()
 

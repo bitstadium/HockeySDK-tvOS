@@ -243,6 +243,21 @@ BOOL bit_isDebuggerAttached(void) {
   return debuggerIsAttached;
 }
 
+BOOL bit_isAppStoreReceiptSandbox(void) {
+#if TARGET_OS_SIMULATOR
+  return NO;
+#else
+  if (![NSBundle.mainBundle respondsToSelector:@selector(appStoreReceiptURL)]) {
+    return NO;
+  }
+  NSURL *appStoreReceiptURL = NSBundle.mainBundle.appStoreReceiptURL;
+  NSString *appStoreReceiptLastComponent = appStoreReceiptURL.lastPathComponent;
+  
+  BOOL isSandboxReceipt = [appStoreReceiptLastComponent isEqualToString:@"sandboxReceipt"];
+  return isSandboxReceipt;
+#endif
+}
+
 BOOL bit_isRunningInTestFlightEnvironment(void) {
 #if TARGET_OS_SIMULATOR
   return NO;
