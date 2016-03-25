@@ -16,38 +16,44 @@
 #import "BITHockeyBaseManagerPrivate.h"
 #import "BITSender.h"
 
-static char *const kBITMetricsEventQueue =
-"net.hockeyapp.telemetryEventQueue";
-
-NSString *const kBITSessionFileType = @"plist";
-NSString *const kBITApplicationDidEnterBackgroundTime = @"BITApplicationDidEnterBackgroundTime";
 NSString *const kBITApplicationWasLaunched = @"BITApplicationWasLaunched";
 
-NSString *const BITMetricsEndpoint = @"https://gate.hockeyapp.net/v2/track";
+static char *const kBITMetricsEventQueue = "net.hockeyapp.telemetryEventQueue";
 
-@implementation BITMetricsManager {
-  id _appWillEnterForegroundObserver;
-  id _appDidEnterBackgroundObserver;
-}
+static NSString *const kBITSessionFileType = @"plist";
+static NSString *const kBITApplicationDidEnterBackgroundTime = @"BITApplicationDidEnterBackgroundTime";
+
+static NSString *const BITMetricsBaseURLString = @"https://gate.hockeyapp.net/";
+static NSString *const BITMetricsURLPathString = @"v2/track";
+
+@interface BITMetricsManager ()
+
+@property (nonatomic, strong) id<NSObject> appWillEnterForegroundObserver;
+@property (nonatomic, strong) id<NSObject> appDidEnterBackgroundObserver;
+
+@end
+
+@implementation BITMetricsManager
 
 @synthesize channel = _channel;
 @synthesize telemetryContext = _telemetryContext;
 @synthesize persistence = _persistence;
+@synthesize serverURL = _serverURL;
 @synthesize userDefaults = _userDefaults;
 
 #pragma mark - Create & start instance
 
 - (instancetype)init {
-  if((self = [super init])) {
+  if ((self = [super init])) {
     _metricsEventQueue = dispatch_queue_create(kBITMetricsEventQueue, DISPATCH_QUEUE_CONCURRENT);
     _appBackgroundTimeBeforeSessionExpires = 20;
+    _serverURL = [NSString stringWithFormat:@"%@%@", BITMetricsBaseURLString, BITMetricsURLPathString];
   }
-  self.serverURL = nil;
   return self;
 }
 
 - (instancetype)initWithChannel:(BITChannel *)channel telemetryContext:(BITTelemetryContext *)telemetryContext persistence:(BITPersistence *)persistence userDefaults:(NSUserDefaults *)userDefaults {
-  if((self = [self init])) {
+  if ((self = [self init])) {
     _channel = channel;
     _telemetryContext = telemetryContext;
     _persistence = persistence;
@@ -57,13 +63,23 @@ NSString *const BITMetricsEndpoint = @"https://gate.hockeyapp.net/v2/track";
 }
 
 - (void)startManager {
-  if(!self.serverURL){
-    self.serverURL = BITMetricsEndpoint;
-  }
-  _sender = [[BITSender alloc] initWithPersistence:self.persistence serverURL:[NSURL URLWithString:self.serverURL]];
-  [_sender sendSavedDataAsync];
+  self.sender = [[BITSender alloc] initWithPersistence:self.persistence serverURL:[NSURL URLWithString:self.serverURL]];
+  [self.sender sendSavedDataAsync];
   [self startNewSessionWithId:bit_UUID()];
   [self registerObservers];
+}
+
+#pragma mark - Configuration
+
+- (void)setDisabled:(BOOL)disabled {
+  if (_disabled == disabled) { return; }
+  
+  if (disabled) {
+    [self unregisterObservers];
+  } else {
+    [self registerObservers];
+  }
+  _disabled = disabled;
 }
 
 #pragma mark - Sessions
