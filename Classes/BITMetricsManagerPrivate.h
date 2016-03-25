@@ -2,6 +2,7 @@
 
 #if HOCKEYSDK_FEATURE_METRICS
 
+#import "BITMetricsManager.h"
 #import "BITSessionState.h"
 
 @class BITChannel;
@@ -10,11 +11,15 @@
 @class BITPersistence;
 @class BITSender;
 
-@interface BITMetricsManager ()
+#import "HockeySDKNullability.h"
+NS_ASSUME_NONNULL_BEGIN
+
 FOUNDATION_EXPORT NSString *const kBITApplicationWasLaunched;
 
+@interface BITMetricsManager()
+
 /**
- *  Create a new BITMetricsManager instance by passing the channel, the telemetry context, and persistence instance to use 
+ *  Create a new BITMetricsManager instance by passing the channel, the telemetry context, and persistence instance to use
  for processing metrics. This method can be used for dependency injection.
  */
 - (instancetype)initWithChannel:(BITChannel *)channel
@@ -45,7 +50,7 @@ FOUNDATION_EXPORT NSString *const kBITApplicationWasLaunched;
 /**
  *  A concurrent queue which creates and processes telemetry items.
  */
-@property (nonatomic, strong, readonly)dispatch_queue_t metricsEventQueue;
+@property (nonatomic, strong, readonly) dispatch_queue_t metricsEventQueue;
 
 /**
  *  Sender instance to send out telemetry data.
@@ -59,7 +64,7 @@ FOUNDATION_EXPORT NSString *const kBITApplicationWasLaunched;
 /**
  *  The Interval an app has to be in the background until the current session gets renewed.
  */
-@property (nonatomic, assign)NSUInteger appBackgroundTimeBeforeSessionExpires;
+@property (nonatomic, assign) NSUInteger appBackgroundTimeBeforeSessionExpires;
 
 /**
  *  Registers manager for several notifications, which influence the session state.
@@ -111,8 +116,10 @@ FOUNDATION_EXPORT NSString *const kBITApplicationWasLaunched;
  *
  *  @param state value that determines whether the session started or ended
  */
-- (void)trackSessionWithState:(BITSessionState) state;
+- (void)trackSessionWithState:(BITSessionState)state;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif /* HOCKEYSDK_FEATURE_METRICS */
