@@ -2,6 +2,7 @@
 
 #if HOCKEYSDK_FEATURE_METRICS
 
+#import "BITChannelPrivate.h"
 #import "BITHockeyHelper.h"
 #import "HockeySDK.h"
 #import "BITTelemetryContext.h"

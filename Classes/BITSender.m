@@ -3,6 +3,7 @@
 #if HOCKEYSDK_FEATURE_METRICS
 
 #import "BITPersistencePrivate.h"
+#import "BITChannelPrivate.h"
 #import "BITGZIP.h"
 #import "HockeySDKPrivate.h"
 #import "BITHockeyHelper.h"
