@@ -171,13 +171,7 @@ NSString *const BITMetricsEndpoint = @"https://gate.hockeyapp.net/v2/track";
 #pragma mark Track DataItem
 
 - (void)trackDataItem:(BITTelemetryData *)dataItem {
-  if([self.channel isQueueBusy]) {
-    [self.channel enqueueTelemetryItem:dataItem];
-  } else {
-    if (dataItem && dataItem.name) {
-      BITHockeyLog(@"The data pipeline is saturated right now and the data item named %@ was dropped.", dataItem.name);
-    }
-  }
+  [self.channel enqueueTelemetryItem:dataItem];
 }
 
 #pragma mark - Custom getter
