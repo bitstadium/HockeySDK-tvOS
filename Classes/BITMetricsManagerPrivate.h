@@ -11,6 +11,7 @@
 @class BITSender;
 
 @interface BITMetricsManager ()
+FOUNDATION_EXPORT NSString *const kBITApplicationWasLaunched;
 
 /**
  *  Create a new BITMetricsManager instance by passing the channel, the telemetry context, and persistence instance to use 
