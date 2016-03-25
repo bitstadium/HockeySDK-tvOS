@@ -45,6 +45,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 
 - (instancetype)init {
   if ((self = [super init])) {
+    _disabled = NO;
     _metricsEventQueue = dispatch_queue_create(kBITMetricsEventQueue, DISPATCH_QUEUE_CONCURRENT);
     _appBackgroundTimeBeforeSessionExpires = 20;
     _serverURL = [NSString stringWithFormat:@"%@%@", BITMetricsBaseURLString, BITMetricsURLPathString];
@@ -164,7 +165,8 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 
 #pragma mark Sessions
 
-- (void)trackSessionWithState:(BITSessionState) state {
+- (void)trackSessionWithState:(BITSessionState)state {
+  if (self.disabled) { return; }
   BITSessionStateData *sessionStateData = [BITSessionStateData new];
   sessionStateData.state = state;
   [self.channel enqueueTelemetryItem:sessionStateData];
