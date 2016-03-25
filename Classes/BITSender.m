@@ -37,7 +37,16 @@ static NSUInteger const BITDefaultRequestLimit = 10;
 - (void)registerObservers {
   NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
   __weak typeof(self) weakSelf = self;
+  
   [center addObserverForName:BITPersistenceSuccessNotification
+                      object:nil
+                       queue:nil
+                  usingBlock:^(NSNotification *notification) {
+                    typeof(self) strongSelf = weakSelf;
+                    [strongSelf sendSavedDataAsync];
+                  }];
+  
+  [center addObserverForName:BITChannelBlockedNotification
                       object:nil
                        queue:nil
                   usingBlock:^(NSNotification *notification) {
