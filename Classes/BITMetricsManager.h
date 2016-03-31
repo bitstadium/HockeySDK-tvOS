@@ -9,6 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BITMetricsManager : BITHockeyBaseManager
 
+@property (nonatomic, assign) BOOL disabled;
+
 - (void)trackEventWithName:(NSString *)eventName;
 
 @end

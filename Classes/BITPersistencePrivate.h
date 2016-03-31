@@ -9,7 +9,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BITPersistence ()
 
-
 /**
  * The BITPersistenceType determines if we have a bundle of meta data or telemetry that we want to safe.
  */
@@ -23,7 +22,6 @@ typedef NS_ENUM(NSInteger, BITPersistenceType) {
  * This is typically used to trigger sending to the server.
  */
 FOUNDATION_EXPORT NSString *const BITPersistenceSuccessNotification;
-
 
 ///-----------------------------------------------------------------------------
 /// @name Save/delete bundle of data
@@ -79,17 +77,6 @@ FOUNDATION_EXPORT NSString *const BITPersistenceSuccessNotification;
 ///-----------------------------------------------------------------------------
 /// @name Get a bundle of saved data
 ///-----------------------------------------------------------------------------
-
-/**
- * Get a bundle of previously saved data from disk and deletes it using dispatch_sync.
- *
- * @warning Make sure nextBundle is not called from the main thread.
- *
- * It will return a bundle of Telemtry in arbitrary order.
- * Returns 'nil' if no bundle is available
- *
- * @return a bundle of data that's ready to be sent to the server
- */
 
 /**
  *  Returns the path for the next item to send. The requested path is reserved as long

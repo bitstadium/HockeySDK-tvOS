@@ -20,7 +20,6 @@ static char const *kBITPersistenceQueueString = "com.microsoft.HockeyApp.persist
 static NSUInteger const BITDefaultFileCount = 50;
 
 @implementation BITPersistence {
-  BOOL _maxFileCountReached;
   BOOL _directorySetupComplete;
 }
 
@@ -34,20 +33,9 @@ static NSUInteger const BITDefaultFileCount = 50;
     _maxFileCount = BITDefaultFileCount;
     
     // Evantually, there will be old files on disk, the flag will be updated before the first event gets created
-    
-    
-    _maxFileCountReached = YES;
     _directorySetupComplete = NO; //will be set to true in createDirectoryStructureIfNeeded
     
     [self createDirectoryStructureIfNeeded];
-    
-    NSString *directoryPath = [self folderPathForType:BITPersistenceTypeTelemetry];
-    NSError *error = nil;
-    NSArray<NSURL *> *fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:directoryPath]
-                                                                includingPropertiesForKeys:@[NSURLNameKey]
-                                                                                   options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                                     error:&error];
-    _maxFileCountReached = fileNames.count >= _maxFileCount;
   }
   return self;
 }
@@ -88,7 +76,8 @@ static NSUInteger const BITDefaultFileCount = 50;
 }
 
 - (BOOL)isFreeSpaceAvailable {
-  return !_maxFileCountReached;
+  NSArray *files = [self persistedFilesForType:BITPersistenceTypeTelemetry];
+  return files.count < _maxFileCount;
 }
 
 - (NSString *)requestNextFilePath {
@@ -239,18 +228,7 @@ static NSUInteger const BITDefaultFileCount = 50;
  * @returns the URL to the next file depending on the specified type. If there's no file, return nil.
  */
 - (NSString *)nextURLOfType:(BITPersistenceType)type {
-  NSString *directoryPath = [self folderPathForType:type];
-  NSError *error = nil;
-  NSArray<NSURL *> *fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:directoryPath]
-                                                              includingPropertiesForKeys:@[NSURLNameKey]
-                                                                                 options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                                   error:&error];
-  // each track method asks, if space is still available. Getting the file count for each event would be too expensive,
-  // so let's get it here
-  if (type == BITPersistenceTypeTelemetry) {
-    _maxFileCountReached = fileNames.count >= _maxFileCount;
-  }
-  
+  NSArray<NSURL *> *fileNames = [self persistedFilesForType:type];
   if (fileNames && fileNames.count > 0) {
     for (NSURL *filename in fileNames) {
       NSString *absolutePath = filename.path;
@@ -260,6 +238,16 @@ static NSUInteger const BITDefaultFileCount = 50;
     }
   }
   return nil;
+}
+
+- (NSArray *)persistedFilesForType: (BITPersistenceType)type {
+  NSString *directoryPath = [self folderPathForType:type];
+  NSError *error = nil;
+  NSArray<NSURL *> *fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:directoryPath]
+                                                              includingPropertiesForKeys:@[NSURLNameKey]
+                                                                                 options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                                   error:&error];
+  return fileNames;
 }
 
 - (NSString *)folderPathForType:(BITPersistenceType)type {

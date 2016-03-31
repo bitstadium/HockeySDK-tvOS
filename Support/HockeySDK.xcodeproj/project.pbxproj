@@ -282,6 +282,8 @@
 		1EB617CC1B0A34040035A986 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */; };
 		1EB617CF1B0A344A0035A986 /* BITHockeyAppClient.h in Headers */ = {isa = PBXBuildFile; fileRef = E40E0B0A17DA1AFF005E38C1 /* BITHockeyAppClient.h */; };
 		1EB617D01B0A344D0035A986 /* BITHockeyAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E40E0B0B17DA1AFF005E38C1 /* BITHockeyAppClient.m */; };
+		6EF990E81CA5AABA00E39909 /* BITChannelPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EF990E71CA5AABA00E39909 /* BITChannelPrivate.h */; };
+		6EF990E91CA5AABA00E39909 /* BITChannelPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EF990E71CA5AABA00E39909 /* BITChannelPrivate.h */; };
 		802C45B31BD9629B000D043C /* HockeySDKNullability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3A260E1B2B207900D59683 /* HockeySDKNullability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8057C49A1C8DA65100DC7BEC /* BITHockeyBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7839E1BFAC01E00535F7A /* BITHockeyBaseViewController.m */; };
 		8057C49D1C8DA6BE00DC7BEC /* BITCrashManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EFF03D717F20F8300A5F13C /* BITCrashManagerPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -562,6 +564,7 @@
 		1ECA8F50192B6954006B9416 /* BITCrashMetaData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITCrashMetaData.m; sourceTree = "<group>"; };
 		1EDA60CF15C2C1450032D10B /* HockeySDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HockeySDK-Info.plist"; sourceTree = "<group>"; };
 		1EFF03D717F20F8300A5F13C /* BITCrashManagerPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BITCrashManagerPrivate.h; sourceTree = "<group>"; };
+		6EF990E71CA5AABA00E39909 /* BITChannelPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITChannelPrivate.h; sourceTree = "<group>"; };
 		8057C4E41C8DA7F800DC7BEC /* BITMetricsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMetricsManager.h; sourceTree = "<group>"; };
 		8057C4E51C8DA7F800DC7BEC /* BITMetricsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMetricsManager.m; sourceTree = "<group>"; };
 		8057C4E61C8DA7F800DC7BEC /* BITMetricsManagerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMetricsManagerPrivate.h; sourceTree = "<group>"; };
@@ -684,6 +687,7 @@
 				8057C4F41C8DA96800DC7BEC /* BITCategoryContainer.m */,
 				8057C4F91C8DA98100DC7BEC /* BITChannel.h */,
 				8057C4FA1C8DA98100DC7BEC /* BITChannel.m */,
+				6EF990E71CA5AABA00E39909 /* BITChannelPrivate.h */,
 				8057C51A1C8DA9BB00DC7BEC /* BITGZIP.h */,
 				8057C4E41C8DA7F800DC7BEC /* BITMetricsManager.h */,
 				8057C4E51C8DA7F800DC7BEC /* BITMetricsManager.m */,
@@ -1052,6 +1056,7 @@
 				8057C50E1C8DA98100DC7BEC /* BITPersistencePrivate.h in Headers */,
 				1B81AA131C97745200CD0346 /* BITTelemetryData.h in Headers */,
 				1B871F551C8523D4000DE6DB /* BITAuthenticator.h in Headers */,
+				6EF990E81CA5AABA00E39909 /* BITChannelPrivate.h in Headers */,
 				1B81AA0D1C97745200CD0346 /* BITSessionState.h in Headers */,
 				8057C5061C8DA98100DC7BEC /* BITOrderedDictionary.h in Headers */,
 				1B871F4F1C85236F000DE6DB /* BITUpdateManager.h in Headers */,
@@ -1115,6 +1120,7 @@
 				8057C50F1C8DA98100DC7BEC /* BITPersistencePrivate.h in Headers */,
 				1B81AA141C97745200CD0346 /* BITTelemetryData.h in Headers */,
 				1B871F541C8523C7000DE6DB /* BITAuthenticator.h in Headers */,
+				6EF990E91CA5AABA00E39909 /* BITChannelPrivate.h in Headers */,
 				1B81AA0E1C97745200CD0346 /* BITSessionState.h in Headers */,
 				1B871F511C852389000DE6DB /* BITUpdateManager.h in Headers */,
 				8057C5071C8DA98100DC7BEC /* BITOrderedDictionary.h in Headers */,
