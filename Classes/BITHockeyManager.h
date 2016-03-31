@@ -45,7 +45,9 @@
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
 @class BITAuthenticator;
 #endif
-
+#if HOCKEYSDK_FEATURE_METRICS
+@class BITMetricsManager;
+#endif
 
 /** 
  The HockeySDK manager. Responsible for setup and management of all components
@@ -320,6 +322,32 @@
  @see startManager
  */
 @property (nonatomic, strong, readonly) BITAuthenticator *authenticator;
+
+#endif
+
+#if HOCKEYSDK_FEATURE_METRICS
+
+/**
+ Reference to the initialized BITMetricsManager module
+ 
+ Returns the BITMetricsManager instance initialized by BITHockeyManager
+ */
+@property (nonatomic, strong, readonly) BITMetricsManager *metricsManager;
+
+/**
+ Flag the determines whether the BITMetricsManager should be disabled
+ 
+ If this flag is enabled, then sending metrics data such as sessions and users
+ will be turned off!
+ 
+ Please note that the BITMetricsManager instance will be initialized anyway!
+ 
+ @warning This property needs to be set before calling `startManager`
+ 
+ *Default*: _NO_
+ @see metricsManager
+ */
+@property (nonatomic, getter = isMetricsManagerDisabled) BOOL disableMetricsManager;
 
 #endif
 
