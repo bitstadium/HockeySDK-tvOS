@@ -1,20 +1,8 @@
-# HockeySDK-tvOS
+## Version 1.2.0-alpha.1
 
-## Version 1.1.0-alpha.1
-
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.2.0-alpha.1/docs/docs/Changelog.html)
 
 ## Introduction
-
-HockeySDK-tvOS implements support for using HockeyApp in your tvOS applications.
-
-The following features are currently supported:
-
-1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and letive apps, i.e. those submitted to the App Store.
-
-2. **Update notifications:** The app will check with HockeyApp if a new version for your Ad-Hoc or Enterprise build is available. If yes, it will show an alert view with informations to the moste recent version.
-
-3. **Authenticate:** Identify and authenticate users of Ad-Hoc or Enterprise builds
 
 This document contains the following sections:
 
@@ -23,8 +11,9 @@ This document contains the following sections:
 3. [Advanced Setup](#advancedsetup)   
   1. [Setup with CocoaPods](#cocoapods)
   2. [Crash Reporting](#crashreporting)
-  3. [In-App-Updates (Beta & Enterprise only)](#betaupdates)
-  4. [Debug information](#debuginfo)
+  3. [Metrics](#metrics)
+  4. [In-App-Updates (Beta & Enterprise only)](#betaupdates)
+  5. [Debug information](#debuginfo)
 4. [Documentation](#documentation)  
 5. [Troubleshooting](#troubleshooting)
 6. [Contributing](#contributing)
@@ -74,36 +63,36 @@ Move the unzipped `HockeySDK-tvOS` folder into your project directory. In our ex
 1. Open the file containing your app delegate (`AppDelegate.m` in a default project).
 2. Add the following line below your own `import` statements:
 
-    ```objectivec
-    @import HockeySDK;
-    ```
+  ```objectivec
+  @import HockeySDK;
+  ```
 
 3. In the method `application:didFinishLaunchingWithOptions:`, add the following lines to initialize and start the HockeySDK:
 
-    ```objectivec
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
-    // Do additional configuration if needed here
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-    ```
+  ```objectivec
+  [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
+  // Do additional configuration if needed here
+  [[BITHockeyManager sharedHockeyManager] startManager];
+  [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+  ```
 
 **Swift**
 
 1. Open the file containing your app delegate (`AppDelegate.swift` in a default project).
 2. Add the following line below your own `import` statements:
-    
-    ```swift
-    import HockeySDK
-    ```
+
+  ```swift
+  import HockeySDK
+  ```
 
 3. In the method `application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:[NSObject: AnyObject]?) -> Bool`, add the following lines to initialize and start the HockeySDK:
-    
-    ```swift
-    BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
-    // Do additional configuration if needed here
-    BITHockeyManager.sharedHockeyManager().startManager()
-    BITHockeyManager.sharedHockeyManager().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
-    ```
+
+  ```swift
+  BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
+  // Do additional configuration if needed here
+  BITHockeyManager.sharedHockeyManager().startManager()
+  BITHockeyManager.sharedHockeyManager().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
+  ```
 
 *Note:* The SDK has been optimized to defer as much initialization as it can until needed,  while still making sure that crashes on startup can be caught. Each module executes other code with a delay of up to several seconds. This ensures that your startup method will execute as fast as possible and that the SDK will not block the launch process (which would be a poor user experience and potentially result in your app being killed by the system watchdog process).
 
@@ -124,8 +113,8 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 **Podfile**
 
 ```ruby
-platform :tvOS, '9.0'
-pod "HockeySDK-tvOS"
+platform :tvos, '9.0'
+pod 'HockeySDK-tvOS', :podspec => 'https://download.hockeyapp.net/preseason/sdk/tvos/HockeySDK-tvOS.podspec'
 ```
 
 <a id="crashreporting"></a> 
@@ -197,8 +186,52 @@ and set the delegate:
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
+<a name="metrics"></a>
+### 3.3 Metrics
+
+The metrics feature helps you understanding user behavior to improve your app. You can track usage through custom events or daily and monthly active users. Furthermore, the HockeyApp will monitor crash impacted users and customer engagement through session count.
+
+#### 3.3.1 User metrics
+
+HockeyApp automatically provides you with nice intelligible and informative metrics about how your app is used and by whom.
+
+Just in case you want to opt-out of this feature, there is a way to turn this functionality off:
+
+```objectivec
+[[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
+
+[BITHockeyManager sharedHockeyManager].disableMetricsManager = YES;
+
+[[BITHockeyManager sharedHockeyManager] startManager];
+```
+
+#### 3.3.2 Custom metrics
+
+By tracking custom events, you can now get insights about how your customers use your app, understand their behavior and answer important business or experience questions while improving your app.
+
+- Before starting to track events, ask yourself the questions that you want to get answers to. For instance, you might be interested in business, performance/quality or user experience aspects.
+- Name your events in a meaningful way and keep in mind that you will use these names when searching for events in the HockeyApp web portal. It is your reponsibility to not collect personal information as part of the events tracking.
+- Accepted characters for tracking events are: [a-zA-Z0-9_. -]. If you use other than the accepted characters, your events will not show up in the HockeyApp web portal.
+
+**Objective-C**
+
+```objectivec
+BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metricsManager;
+
+[metricsManager trackEventWithName:eventName]
+```
+
+**Swift**
+
+```swift
+let metricsManager = BITHockeyManager.sharedHockeyManager().metricsManager
+
+metricsManager.trackEventWithName(eventName)
+```
+
+
 <a name="betaupdates"></a>
-### 3.3 In-App-Update notifications (Beta & Enterprise only)
+### 3.4 In-App-Update notifications (Beta & Enterprise only)
 
 The following options only show some of possibilities to interact and fine-tune the update feature when using Ad-Hoc or Enterprise provisioning profiles. For more please check the full documentation of the `BITUpdateManager` class in our [documentation](#documentation).
 
@@ -217,7 +250,7 @@ In-App-Update notifications can be disabled manually as follows:
 ```
 
 <a id="debuginfo"></a>
-### 3.4 Debug Information
+### 3.5 Debug Information
 
 To check if data was sent properly to HockeyApp and also see some additional SDK debug loggging data in the console, add the following line before `startManager`:
 
@@ -240,23 +273,23 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.2.0-alpha.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
 
 1. iTunes Connect rejection
 
-    Make sure none of the following files are copied into your app bundle. This can be checked by examining the `Copy Bundle Resources` item in the `Build Phases` tab of your app target in the Xcode project, or by looking within the final `.app` bundle after making your build:
+  Make sure none of the following files are copied into your app bundle. This can be checked by examining the `Copy Bundle Resources` item in the `Build Phases` tab of your app target in the Xcode project, or by looking within the final `.app` bundle after making your build:
 
-        - `HockeySDK.framework` (unless you've built your own version of the SDK as a dynamic framework - if you don't know what this means, you don't have to worry about it)
-        - `de.bitstadium.HockeySDK-tvOS-1.0-Beta.2.docset`
+  - `HockeySDK.framework` (unless you've built your own version of the SDK as a dynamic framework - if you don't know what this means, you don't have to worry about it)
+  - `de.bitstadium.HockeySDK-tvOS-1.0-Beta.2.docset`
 
 2. Features not working as expected
 
-    Enable debug output to the console to see additional information from the SDK as it initializes modules, sends and receives network requests, and more, by adding the following code before calling `startManager`:
+  Enable debug output to the console to see additional information from the SDK as it initializes modules, sends and receives network requests, and more, by adding the following code before calling `startManager`:
 
-        [[BITHockeyManager sharedHockeyManager] setDebugLogEnabled: YES];
+  `[[BITHockeyManager sharedHockeyManager] setDebugLogEnabled: YES];`
 
 <a id="contributing"></a>
 ## 6. Contributing
