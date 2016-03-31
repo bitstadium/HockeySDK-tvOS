@@ -1,8 +1,8 @@
 # HockeySDK-tvOS
 
-## Version 1.1.0-alpha.1
+## Version 1.1.0-beta.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.1.0-beta.1/docs/docs/Changelog.html)
 
 ## Introduction
 
@@ -128,13 +128,13 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 
 ```ruby
 platform :tvos, '9.0'
-pod 'HockeySDK-tvOS', '~> 1.1.0-alpha.1' 
+pod 'HockeySDK-tvOS', '~> 1.1.0-beta.1' 
 ```
 
 <a id="crashreporting"></a> 
 ### 3.2 Crash Reporting Features
 
-As the current release we provide is an alpha version, crash reporting currently has limited confiuration and fine-tuning options.
+As the current release we provide is an beta version, crash reporting currently has limited confiuration and fine-tuning options.
 
 #### 3.2.1 Disable Crash Reporting
 The HockeySDK enables crash reporting **by default**. Crashes will be immediately sent to the server the next time the app is launched.
@@ -256,7 +256,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.1.0-beta.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
