@@ -27,6 +27,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIViewController.h>
 
 @class BITUpdateManager;
 

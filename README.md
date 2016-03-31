@@ -1,8 +1,8 @@
 # HockeySDK-tvOS
 
-## Version 1.1.0-alpha.1
+## Version 1.2.0-alpha.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.2.0-alpha.1/docs/docs/Changelog.html)
 
 ## Introduction
 
@@ -25,7 +25,7 @@ This document contains the following sections:
 3. [Advanced Setup](#advancedsetup)   
   1. [Setup with CocoaPods](#cocoapods)
   2. [Crash Reporting](#crashreporting)
-  3. [User Metrics](#usermetrics)
+  3. [Metrics](#metrics)
   4. [In-App-Updates (Beta & Enterprise only)](#betaupdates)
   5. [Debug information](#debuginfo)
 4. [Documentation](#documentation)  
@@ -128,7 +128,7 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 
 ```ruby
 platform :tvos, '9.0'
-pod 'HockeySDK-tvOS', '~> 1.1.0-alpha.1' 
+pod 'HockeySDK-tvOS', :podspec => 'https://download.hockeyapp.net/preseason/sdk/tvos/HockeySDK-tvOS.podspec'
 ```
 
 <a id="crashreporting"></a> 
@@ -200,8 +200,12 @@ and set the delegate:
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
-<a id="usermetrics"></a> 
-### 3.3 User Metrics
+<a name="metrics"></a>
+### 3.3 Metrics
+
+The metrics feature helps you understanding user behavior to improve your app. You can track usage through custom events or daily and monthly active users. Furthermore, the HockeyApp will monitor crash impacted users and customer engagement through session count.
+
+#### 3.3.1 User metrics
 
 HockeyApp automatically provides you with nice intelligible and informative metrics about how your app is used and by whom.
 
@@ -209,9 +213,36 @@ Just in case you want to opt-out of this feature, there is a way to turn this fu
 
 ```objectivec
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
+
 [BITHockeyManager sharedHockeyManager].disableMetricsManager = YES;
+
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
+
+#### 3.3.2 Custom metrics
+
+By tracking custom events, you can now get insights about how your customers use your app, understand their behavior and answer important business or experience questions while improving your app.
+
+- Before starting to track events, ask yourself the questions that you want to get answers to. For instance, you might be interested in business, performance/quality or user experience aspects.
+- Name your events in a meaningful way and keep in mind that you will use these names when searching for events in the HockeyApp web portal. It is your reponsibility to not collect personal information as part of the events tracking.
+- Accepted characters for tracking events are: [a-zA-Z0-9_. -]. If you use other than the accepted characters, your events will not show up in the HockeyApp web portal.
+
+**Objective-C**
+
+```objectivec
+BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metricsManager;
+
+[metricsManager trackEventWithName:eventName]
+```
+
+**Swift**
+
+```swift
+let metricsManager = BITHockeyManager.sharedHockeyManager().metricsManager
+
+metricsManager.trackEventWithName(eventName)
+```
+
 
 <a name="betaupdates"></a>
 ### 3.4 In-App-Update notifications (Beta & Enterprise only)
@@ -256,7 +287,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.1.0-alpha.1/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.2.0-alpha.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting

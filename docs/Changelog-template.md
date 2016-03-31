@@ -1,3 +1,23 @@
+## Version 1.2.0-alpha.1
+
+- [NEW] Add ability to track custom events
+- [BUGFIX] Server URL is now properly customizable
+- [BUGFIX] Fix memory leak in networking code
+- [BUGFIX] Fix different bugs in the events sending pipeline
+- [IMPROVEMENT] Events are always persisted, even if the app crashes
+- [IMPROVEMENT] Allow disabling `BITMetricsManager` at any time
+- [IMPROVEMENT] Reuse `NSURLSession` object
+- [IMPROVEMENT] Under the hood improvements and cleanup
+
+## Version 1.1.0-beta.1
+
+- [NEW] User Metrics including users and sessions data is now in public beta
+
+## Version 1.1.0-alpha.1
+
+- [NEW] Add User Metrics support
+- [UPDATE] Add improvements and fixes from 1.0.0-beta.2
+
 ## Version 1.0.0-beta.2
 
 - [FIX] Add userPath anonymization
