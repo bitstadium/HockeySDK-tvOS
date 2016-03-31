@@ -1,3 +1,12 @@
+## Version 1.1.0-beta.1
+
+- [NEW] User Metrics including users and sessions data is now in public beta
+
+## Version 1.1.0-alpha.1
+
+- [NEW] Add User Metrics support
+- [UPDATE] Add improvements and fixes from 1.0.0-beta.2
+
 ## Version 1.0.0-beta.2
 
 - [FIX] Add userPath anonymization
