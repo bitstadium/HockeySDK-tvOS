@@ -1,8 +1,8 @@
 # HockeySDK-tvOS
 
-## Version 1.0.0-Beta.2
+## Version 1.1.0-beta.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.0.0-beta.2/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.1.0-beta.1/docs/docs/Changelog.html)
 
 ## Introduction
 
@@ -12,9 +12,11 @@ The following features are currently supported:
 
 1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and letive apps, i.e. those submitted to the App Store.
 
-2. **Update notifications:** The app will check with HockeyApp if a new version for your Ad-Hoc or Enterprise build is available. If yes, it will show an alert view with informations to the moste recent version.
+2. **User Metrics:** Understand user behavior to improve your app. Track usage through daily and monthly active users. Monitor crash impacted users. Measure customer engagement through session count.
 
-3. **Authenticate:** Identify and authenticate users of Ad-Hoc or Enterprise builds
+3. **Update notifications:** The app will check with HockeyApp if a new version for your Ad-Hoc or Enterprise build is available. If yes, it will show an alert view with informations to the moste recent version.
+
+4. **Authenticate:** Identify and authenticate users of Ad-Hoc or Enterprise builds
 
 This document contains the following sections:
 
@@ -23,8 +25,9 @@ This document contains the following sections:
 3. [Advanced Setup](#advancedsetup)   
   1. [Setup with CocoaPods](#cocoapods)
   2. [Crash Reporting](#crashreporting)
-  3. [In-App-Updates (Beta & Enterprise only)](#betaupdates)
-  4. [Debug information](#debuginfo)
+  3. [User Metrics](#usermetrics)
+  4. [In-App-Updates (Beta & Enterprise only)](#betaupdates)
+  5. [Debug information](#debuginfo)
 4. [Documentation](#documentation)  
 5. [Troubleshooting](#troubleshooting)
 6. [Contributing](#contributing)
@@ -125,13 +128,13 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 
 ```ruby
 platform :tvos, '9.0'
-pod 'HockeySDK-tvOS', '~> 1.0.0-beta.2' 
+pod 'HockeySDK-tvOS', '~> 1.1.0-beta.1' 
 ```
 
 <a id="crashreporting"></a> 
 ### 3.2 Crash Reporting Features
 
-As the current release we provide is an alpha version, crash reporting currently has limited confiuration and fine-tuning options.
+As the current release we provide is an beta version, crash reporting currently has limited confiuration and fine-tuning options.
 
 #### 3.2.1 Disable Crash Reporting
 The HockeySDK enables crash reporting **by default**. Crashes will be immediately sent to the server the next time the app is launched.
@@ -197,8 +200,21 @@ and set the delegate:
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
+<a id="usermetrics"></a> 
+### 3.3 User Metrics
+
+HockeyApp automatically provides you with nice intelligible and informative metrics about how your app is used and by whom.
+
+Just in case you want to opt-out of this feature, there is a way to turn this functionality off:
+
+```objectivec
+[[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
+[BITHockeyManager sharedHockeyManager].disableMetricsManager = YES;
+[[BITHockeyManager sharedHockeyManager] startManager];
+```
+
 <a name="betaupdates"></a>
-### 3.3 In-App-Update notifications (Beta & Enterprise only)
+### 3.4 In-App-Update notifications (Beta & Enterprise only)
 
 The following options only show some of possibilities to interact and fine-tune the update feature when using Ad-Hoc or Enterprise provisioning profiles. For more please check the full documentation of the `BITUpdateManager` class in our [documentation](#documentation).
 
@@ -217,7 +233,7 @@ In-App-Update notifications can be disabled manually as follows:
 ```
 
 <a id="debuginfo"></a>
-### 3.4 Debug Information
+### 3.5 Debug Information
 
 To check if data was sent properly to HockeyApp and also see some additional SDK debug loggging data in the console, add the following line before `startManager`:
 
@@ -240,7 +256,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.0.0-beta.2/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.1.0-beta.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting

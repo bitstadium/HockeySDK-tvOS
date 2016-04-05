@@ -30,7 +30,7 @@
 #import "HockeySDK.h"
 #import "HockeySDKPrivate.h"
 
-#if HOCKEYSDK_FEATURE_CRASH_REPORTER || HOCKEYSDK_FEATURE_UPDATES
+#if HOCKEYSDK_FEATURE_CRASH_REPORTER || HOCKEYSDK_FEATURE_UPDATES || HOCKEYSDK_FEATURE_METRICS
 #import "BITHockeyBaseManagerPrivate.h"
 #endif
 
@@ -64,6 +64,10 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 #import "BITAuthenticator_Private.h"
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 
+#if HOCKEYSDK_FEATURE_METRICS
+#import "BITMetricsManagerPrivate.h"
+#import "BITCategoryContainer.h"
+#endif /* HOCKEYSDK_FEATURE_METRICS */
 @interface BITHockeyManager ()
 
 - (BOOL)shouldUseLiveIdentifier;
@@ -135,6 +139,9 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
     _disableCrashManager = NO;
+#endif
+#if HOCKEYSDK_FEATURE_METRICS
+    _disableMetricsManager = NO;
 #endif
 #if HOCKEYSDK_FEATURE_UPDATES
     _disableUpdateManager = NO;
@@ -268,6 +275,15 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     [self invokeStartUpdateManager];
   }
 #endif /* HOCKEYSDK_FEATURE_UPDATES */
+  
+#if HOCKEYSDK_FEATURE_METRICS
+  // start MetricsManager
+  if (!self.disableMetricsManager) {
+    BITHockeyLog(@"INFO: Start MetricsManager");
+    [_metricsManager startManager];
+    [BITCategoryContainer activateCategory];
+  }
+#endif /* HOCKEYSDK_FEATURE_METRICS */
 }
 
 #if HOCKEYSDK_FEATURE_UPDATES
@@ -585,6 +601,12 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     _authenticator.hockeyAppClient = [self hockeyAppClient];
     _authenticator.delegate = _delegate;
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
+    
+#if HOCKEYSDK_FEATURE_METRICS
+    BITHockeyLog(@"INFO: Setup MetricsManager");
+    NSString *iKey = bit_appIdentifierToGuid(_appIdentifier);
+    _metricsManager = [[BITMetricsManager alloc] initWithAppIdentifier:iKey appEnvironment:_appEnvironment];
+#endif /* HOCKEYSDK_FEATURE_METRICS */
     
     if (self.appEnvironment != BITEnvironmentAppStore) {
       NSString *integrationFlowTime = [self integrationFlowTimeString];
