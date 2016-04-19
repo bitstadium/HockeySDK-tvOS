@@ -1,3 +1,7 @@
+## Version 1.1.0
+
+- [IMPROVEMENT] Prefix GZIP category on NSData to prevent symbol collisions
+
 ## Version 1.1.0-beta.1
 
 - [NEW] User Metrics including users and sessions data is now in public beta
