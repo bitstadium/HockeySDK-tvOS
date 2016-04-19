@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                = 'HockeySDK-tvOS'
-  s.version             = '1.1.0-beta.1'
+  s.version             = '4.0.0'
 
   s.summary             = 'Collect live crash reports, provide update notifications, add authentication capabilities, and get usage data.'
   s.description         = <<-DESC
@@ -18,7 +18,6 @@ Pod::Spec.new do |s|
   s.author              = { 'Microsoft' => 'support@hockeyapp.net' }
 
   s.platform            = :tvos, '9.0'
-  s.tvos.deployment_target = '9.0'
   
   s.preserve_path       = 'HockeySDK-tvOS/README.md'
 

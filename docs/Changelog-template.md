@@ -1,4 +1,4 @@
-## Version 1.1.0
+## Version 4.0.0
 
 - [IMPROVEMENT] Prefix GZIP category on NSData to prevent symbol collisions
 - [BUGFIX] Exclude GZIP functionality from none metrics builds
