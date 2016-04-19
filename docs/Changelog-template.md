@@ -1,4 +1,8 @@
-## Version 1.1.0
+## Version 4.1.0-beta.1
+
+- [IMPROVEMENT] Prevent User Metrics from being sent if `BITMetricsManager` has been disabled.
+
+## Version 4.0.0
 
 - [IMPROVEMENT] Prefix GZIP category on NSData to prevent symbol collisions
 - [BUGFIX] Exclude GZIP functionality from none metrics builds
