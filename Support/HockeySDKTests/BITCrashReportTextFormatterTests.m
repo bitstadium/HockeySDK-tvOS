@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 
-#define MOCKITO_SHORTHAND
+#import <OCHamcrestIOS/OCHamcrestIOS.h>
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import <CrashReporter/CrashReporter.h>

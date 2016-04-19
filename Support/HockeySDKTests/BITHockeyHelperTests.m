@@ -8,10 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
-
-#define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import "HockeySDK.h"
@@ -55,24 +52,24 @@
   
   // valid email
   result = bit_validateEmail(@"mail@test.com");
-  assertThatBool(result, equalToBool(YES));
+  assertThatBool(result, isTrue());
   
   // invalid emails
   
   result = bit_validateEmail(@"mail@test");
-  assertThatBool(result, equalToBool(NO));
+  assertThatBool(result, isFalse());
 
   result = bit_validateEmail(@"mail@.com");
-  assertThatBool(result, equalToBool(NO));
+  assertThatBool(result, isFalse());
 
   result = bit_validateEmail(@"mail.com");
-  assertThatBool(result, equalToBool(NO));
+  assertThatBool(result, isFalse());
 
 }
 
 - (void)testAppName {
   NSString *resultString = bit_appName(@"Placeholder");
-  assertThatBool([resultString isEqualToString:@"Placeholder"], equalToBool(YES));
+  assertThatBool([resultString isEqualToString:@"Placeholder"], isTrue());
 }
 
 - (void)testUUID {

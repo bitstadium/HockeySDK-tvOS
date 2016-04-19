@@ -35,11 +35,11 @@
 #import "HockeySDKNullability.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSData (GZIP)
+@interface NSData (BITGZIP)
 
-- (nullable NSData *)gzippedDataWithCompressionLevel:(float)level;
-- (nullable NSData *)gzippedData;
-- (nullable NSData *)gunzippedData;
+- (NSData *)bit_gzippedDataWithCompressionLevel:(float)level;
+- (NSData *)bit_gzippedData;
+- (NSData *)bit_gunzippedData;
 
 @end
 

@@ -1,3 +1,4 @@
+#import "HockeySDK.h"
 #import "HockeySDKFeatureConfig.h"
 
 #if HOCKEYSDK_FEATURE_METRICS

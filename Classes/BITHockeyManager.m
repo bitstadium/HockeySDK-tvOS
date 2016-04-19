@@ -132,7 +132,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 - (id)init {
   if ((self = [super init])) {
-    _serverURL = nil;
+    _serverURL = BITHOCKEYSDK_URL;
     _delegate = nil;
     _managersInitialized = NO;
     
@@ -307,7 +307,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     _serverURL = [aServerURL copy];
     
     if (_hockeyAppClient) {
-      _hockeyAppClient.baseURL = [NSURL URLWithString:_serverURL ? _serverURL : BITHOCKEYSDK_URL];
+      _hockeyAppClient.baseURL = [NSURL URLWithString:_serverURL ?: BITHOCKEYSDK_URL];
     }
   }
 }
@@ -436,9 +436,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 - (BITHockeyAppClient *)hockeyAppClient {
   if (!_hockeyAppClient) {
-    _hockeyAppClient = [[BITHockeyAppClient alloc] initWithBaseURL:[NSURL URLWithString:_serverURL ? _serverURL : BITHOCKEYSDK_URL]];
-    
-    _hockeyAppClient.baseURL = [NSURL URLWithString:_serverURL ? _serverURL : BITHOCKEYSDK_URL];
+    _hockeyAppClient = [[BITHockeyAppClient alloc] initWithBaseURL:[NSURL URLWithString:self.serverURL]];
   }
   
   return _hockeyAppClient;

@@ -1,9 +1,5 @@
 ## Version 1.2.0-alpha.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/1.2.0-alpha.1/docs/docs/Changelog.html)
-
-## Introduction
-
 This document contains the following sections:
 
 1. [Requirements](#requirements)
@@ -114,13 +110,13 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 
 ```ruby
 platform :tvos, '9.0'
-pod 'HockeySDK-tvOS', :podspec => 'https://download.hockeyapp.net/preseason/sdk/tvos/HockeySDK-tvOS.podspec'
+pod 'HockeySDK-tvOS', '~> 1.1.0-beta.1' 
 ```
 
 <a id="crashreporting"></a> 
 ### 3.2 Crash Reporting Features
 
-As the current release we provide is an alpha version, crash reporting currently has limited confiuration and fine-tuning options.
+As the current release we provide is an beta version, crash reporting currently has limited confiuration and fine-tuning options.
 
 #### 3.2.1 Disable Crash Reporting
 The HockeySDK enables crash reporting **by default**. Crashes will be immediately sent to the server the next time the app is launched.

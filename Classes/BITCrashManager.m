@@ -115,7 +115,7 @@ static PLCrashReporterCallbacks plCrashCallbacks = {
 
 - (instancetype)initWithCXXExceptionInfo:(const BITCrashUncaughtCXXExceptionInfo *)info {
   extern char* __cxa_demangle(const char* mangled_name, char* output_buffer, size_t* length, int* status);
-  char *demangled_name = __cxa_demangle ? __cxa_demangle(info->exception_type_name ?: "", NULL, NULL, NULL) : NULL;
+  char *demangled_name = &__cxa_demangle ? __cxa_demangle(info->exception_type_name ?: "", NULL, NULL, NULL) : NULL;
 
   if ((self = [super
                 initWithName:[NSString stringWithUTF8String:demangled_name ?: info->exception_type_name ?: ""]
@@ -682,6 +682,9 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
  * @return `YES` if the debugger is attached to the current process, `NO` otherwise
  */
 - (BOOL)isDebuggerAttached {
+#if CI
+  return YES;
+#endif
   static BOOL debuggerIsAttached = NO;
   
   static dispatch_once_t debuggerPredicate;
