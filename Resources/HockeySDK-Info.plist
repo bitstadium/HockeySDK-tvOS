@@ -19,6 +19,6 @@
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © HockeyApp, Bit Stadium GmbH. All rights reserved.</string>
+	<string>Copyright © Microsoft Corporation. All rights reserved.</string>
 </dict>
 </plist>
