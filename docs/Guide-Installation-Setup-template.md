@@ -1,4 +1,4 @@
-# Version 1.1.0-beta.1
+# Version 4.0.0
 
 This document contains the following sections:
 
@@ -110,7 +110,7 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 
 ```ruby
 platform :tvos, '9.0'
-pod 'HockeySDK-tvOS', '~> 1.1.0-beta.1' 
+pod 'HockeySDK-tvOS'
 ```
 
 <a id="crashreporting"></a> 
@@ -185,7 +185,10 @@ and set the delegate:
 <a id="usermetrics"></a> 
 ### 3.3 User Metrics
 
-HockeyApp automatically provides you with nice intelligible and informative metrics about how your app is used and by whom.
+HockeyApp automatically provides you with nice, intelligible, and informative metrics about how your app is used and by whom. 
+
+- **Sessions**: A new session is tracked by the SDK whenever the containing app is restarted (this refers to a 'cold start', i.e. when the app has not already been in memory prior to being launched) or whenever it becomes active again after having been in the background for 20 seconds or more.
+- **Users**: The SDK anonymously tracks the users of your app by creating a random UUID that is then securely stored in the keychain. Because this anonymous ID is stored in the keychain it persists across reinstallations.
 
 Just in case you want to opt-out of this feature, there is a way to turn this functionality off:
 
@@ -238,7 +241,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/1.1.0-beta.1/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.0.0/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
