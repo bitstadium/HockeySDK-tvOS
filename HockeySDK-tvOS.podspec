@@ -17,11 +17,11 @@ Pod::Spec.new do |s|
   s.license           = { :type => 'MIT', :file => 'HockeySDK-tvOS/LICENSE' }
   s.author            = { 'Microsoft' => 'support@hockeyapp.net' }
 
-  s.platform          = :tvOS, '9.0'
+  s.platform          = :tvos, '9.0'
   
   s.preserve_path = 'HockeySDK-tvOS/README.md'
 
-  s.source = { :http => "https://download.hockeyapp.net/preseason/sdk/tvos/HockeySDK-tvOS-#{s.version}.zip" }
+  s.source = { :http => "https://github.com/bitstadium/HockeySDK-tvOS/releases/download/#{s.version}/HockeySDK-tvOS-#{s.version}.zip" }
 
   s.resource_bundle = { 'HockeySDKResources' => ['HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDK.framework/Versions/A/Resources/HockeySDKResources.bundle/*.png', 'HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDK.framework/Versions/A/Resources/HockeySDKResources.bundle/*.lproj'] }
 
