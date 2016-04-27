@@ -6,7 +6,6 @@ framework module HockeySDK {
   
   link framework "Foundation"
   link framework "Security"
-  link framework "SystemConfiguration"
   link framework "UIKit"
   link "c++"
   link "z"

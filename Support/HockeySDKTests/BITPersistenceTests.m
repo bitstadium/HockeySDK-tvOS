@@ -64,7 +64,4 @@
   XCTAssertFalse([path rangeOfString:@"com.microsoft.HockeyApp/MetaData/metadata"].location == NSNotFound);
 }
 
-
-
-
 @end

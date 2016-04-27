@@ -39,6 +39,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 #import "BITMetricsManagerPrivate.h"
 #import "BITCategoryContainer.h"
 #endif /* HOCKEYSDK_FEATURE_METRICS */
+
 @interface BITHockeyManager ()
 
 - (BOOL)shouldUseLiveIdentifier;
