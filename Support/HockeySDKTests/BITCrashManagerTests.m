@@ -24,6 +24,8 @@
 
 @interface BITCrashManagerTests : XCTestCase
 
+@property BITCrashManager *sut;
+
 @end
 
 
@@ -37,12 +39,7 @@
   [super setUp];
   
   _startManagerInitialized = NO;
-  _sut = [[BITCrashManager alloc] initWithAppIdentifier:nil appEnvironment:BITEnvironmentOther];
-
-  _hockeyAppClient = [[BITHockeyAppClient alloc] initWithBaseURL:[NSURL URLWithString: BITHOCKEYSDK_URL]];
-  _hockeyAppClient.baseURL = [NSURL URLWithString:BITHOCKEYSDK_URL];
-  
-  [_sut setHockeyAppClient:_hockeyAppClient];
+  _sut = [[BITCrashManager alloc] initWithAppIdentifier:nil appEnvironment:BITEnvironmentOther hockeyAppClient:[[BITHockeyAppClient alloc] initWithBaseURL:[NSURL URLWithString: BITHOCKEYSDK_URL]]];
 }
 
 - (void)tearDown {
@@ -76,6 +73,22 @@
   XCTAssertNotNil(_sut, @"Should be there");
 }
 
+#pragma mark - Getter/Setter tests
+
+- (void)testSetServerURL {
+  BITHockeyAppClient *client = self.sut.hockeyAppClient;
+  NSURL *hockeyDefaultURL = [NSURL URLWithString:BITHOCKEYSDK_URL];
+  XCTAssertEqualObjects(self.sut.hockeyAppClient.baseURL, hockeyDefaultURL);
+  
+  [self.sut setServerURL:BITHOCKEYSDK_URL];
+  XCTAssertEqual(self.sut.hockeyAppClient, client, @"HockeyAppClient should stay the same when setting same URL again");
+  XCTAssertEqualObjects(self.sut.hockeyAppClient.baseURL, hockeyDefaultURL);
+  
+  NSString *testURLString = @"http://example.com";
+  [self.sut setServerURL:testURLString];
+  XCTAssertNotEqual(self.sut.hockeyAppClient, client, @"Should have created a new instance of BITHockeyAppClient");
+  XCTAssertEqualObjects(self.sut.hockeyAppClient.baseURL, [NSURL URLWithString:testURLString]);
+}
 
 #pragma mark - Persistence tests
 
