@@ -206,8 +206,6 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   // start CrashManager
   if (![self isCrashManagerDisabled]) {
     BITHockeyLog(@"INFO: Start CrashManager");
-    [_crashManager setHockeyAppClient:[self hockeyAppClientWithServerURL:_crashManager.serverURL]];
-    
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
     if (_authenticator) {
       [_crashManager setInstallationIdentification:[self.authenticator publicInstallationIdentifier]];
@@ -412,13 +410,6 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   return _hockeyAppClient;
 }
 
-- (BITHockeyAppClient *)hockeyAppClientWithServerURL:(NSString *)serverURL {
-  if (!serverURL || [serverURL isEqualToString:self.serverURL]) {
-    return [self hockeyAppClient];
-  }
-  return [[BITHockeyAppClient alloc] initWithBaseURL:[NSURL URLWithString:serverURL]];
-}
-
 - (NSString *)integrationFlowTimeString {
   NSString *timeString = [[NSBundle mainBundle] objectForInfoDictionaryKey:BITHOCKEY_INTEGRATIONFLOW_TIMESTAMP];
   
@@ -560,7 +551,9 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   if (_validAppIdentifier) {
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
     BITHockeyLog(@"INFO: Setup CrashManager");
-    _crashManager = [[BITCrashManager alloc] initWithAppIdentifier:_appIdentifier appEnvironment:_appEnvironment];
+    _crashManager = [[BITCrashManager alloc] initWithAppIdentifier:_appIdentifier
+                                                    appEnvironment:_appEnvironment
+                                                   hockeyAppClient:[self hockeyAppClient]];
     _crashManager.delegate = _delegate;
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
     
