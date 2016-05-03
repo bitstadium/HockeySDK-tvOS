@@ -253,7 +253,7 @@ To check if data was sent properly to HockeyApp and also see some additional SDK
 
 ```objectivec
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
-[[BITHockeyManager sharedHockeyManager] setDebugLogEnabled:YES];
+[BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelDebug;
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
@@ -284,7 +284,7 @@ Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos
 
   Enable debug output to the console to see additional information from the SDK as it initializes modules, sends and receives network requests, and more, by adding the following code before calling `startManager`:
 
-  `[[BITHockeyManager sharedHockeyManager] setDebugLogEnabled: YES];`
+	`[BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelDebug;`
 
 <a id="contributing"></a>
 ## 6. Contributing
