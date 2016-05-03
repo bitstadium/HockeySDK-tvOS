@@ -239,8 +239,50 @@
 		6ED7E1C01CD91BF600DFB394 /* BITHockeyLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED7E1BB1CD91BF600DFB394 /* BITHockeyLogger.m */; };
 		6ED7E1C11CD91BF600DFB394 /* BITHockeyLoggerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ED7E1BC1CD91BF600DFB394 /* BITHockeyLoggerPrivate.h */; };
 		6ED7E1C21CD91BF600DFB394 /* BITHockeyLoggerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ED7E1BC1CD91BF600DFB394 /* BITHockeyLoggerPrivate.h */; };
-		6ED7E1C41CD9211A00DFB394 /* BITHockeyLoggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED7E1C31CD9211A00DFB394 /* BITHockeyLoggerTests.m */; };
-		6ED7E1C51CD9211A00DFB394 /* BITHockeyLoggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED7E1C31CD9211A00DFB394 /* BITHockeyLoggerTests.m */; };
+		6ED7E1C61CD9245A00DFB394 /* BITHockeyLoggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED7E1C31CD9211A00DFB394 /* BITHockeyLoggerTests.m */; };
+		6ED7E1C71CD9245D00DFB394 /* BITHockeyLoggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED7E1C31CD9211A00DFB394 /* BITHockeyLoggerTests.m */; };
+		6ED7E1C81CD924C600DFB394 /* BITApplicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D41C973AC300F59C46 /* BITApplicationTests.m */; };
+		6ED7E1C91CD924C600DFB394 /* BITAuthenticatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D51C973AC300F59C46 /* BITAuthenticatorTests.m */; };
+		6ED7E1CA1CD924C600DFB394 /* BITBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D61C973AC300F59C46 /* BITBaseTests.m */; };
+		6ED7E1CB1CD924C600DFB394 /* BITChannelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D71C973AC300F59C46 /* BITChannelTests.m */; };
+		6ED7E1CC1CD924C600DFB394 /* BITCrashManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D81C973AC300F59C46 /* BITCrashManagerTests.m */; };
+		6ED7E1CD1CD924C600DFB394 /* BITCrashReportTextFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D91C973AC300F59C46 /* BITCrashReportTextFormatterTests.m */; };
+		6ED7E1CE1CD924C600DFB394 /* BITDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DA1C973AC300F59C46 /* BITDataTests.m */; };
+		6ED7E1CF1CD924C600DFB394 /* BITDeviceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DB1C973AC300F59C46 /* BITDeviceTests.m */; };
+		6ED7E1D01CD924C600DFB394 /* BITDomainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DC1C973AC300F59C46 /* BITDomainTests.m */; };
+		6ED7E1D11CD924C600DFB394 /* BITEventDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DD1C973AC300F59C46 /* BITEventDataTests.m */; };
+		6ED7E1D21CD924C600DFB394 /* BITHockeyAppClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DE1C973AC300F59C46 /* BITHockeyAppClientTests.m */; };
+		6ED7E1D31CD924C600DFB394 /* BITHockeyHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DF1C973AC300F59C46 /* BITHockeyHelperTests.m */; };
+		6ED7E1D41CD924C600DFB394 /* BITInternalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E01C973AC300F59C46 /* BITInternalTests.m */; };
+		6ED7E1D51CD924C600DFB394 /* BITKeychainUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E11C973AC300F59C46 /* BITKeychainUtilsTests.m */; };
+		6ED7E1D61CD924C600DFB394 /* BITMetricsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E21C973AC300F59C46 /* BITMetricsManagerTests.m */; };
+		6ED7E1D71CD924C600DFB394 /* BITPersistenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E31C973AC300F59C46 /* BITPersistenceTests.m */; };
+		6ED7E1D81CD924C600DFB394 /* BITSenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E41C973AC300F59C46 /* BITSenderTests.m */; };
+		6ED7E1D91CD924C600DFB394 /* BITSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E51C973AC300F59C46 /* BITSessionTests.m */; };
+		6ED7E1DA1CD924C600DFB394 /* BITTelemetryContextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E61C973AC300F59C46 /* BITTelemetryContextTests.m */; };
+		6ED7E1DB1CD924C600DFB394 /* BITUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E91C973AC300F59C46 /* BITUserTests.m */; };
+		6ED7E1DC1CD924C700DFB394 /* BITApplicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D41C973AC300F59C46 /* BITApplicationTests.m */; };
+		6ED7E1DD1CD924C700DFB394 /* BITAuthenticatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D51C973AC300F59C46 /* BITAuthenticatorTests.m */; };
+		6ED7E1DE1CD924C700DFB394 /* BITBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D61C973AC300F59C46 /* BITBaseTests.m */; };
+		6ED7E1DF1CD924C700DFB394 /* BITChannelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D71C973AC300F59C46 /* BITChannelTests.m */; };
+		6ED7E1E01CD924C700DFB394 /* BITCrashManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D81C973AC300F59C46 /* BITCrashManagerTests.m */; };
+		6ED7E1E11CD924C700DFB394 /* BITCrashReportTextFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3D91C973AC300F59C46 /* BITCrashReportTextFormatterTests.m */; };
+		6ED7E1E21CD924C700DFB394 /* BITDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DA1C973AC300F59C46 /* BITDataTests.m */; };
+		6ED7E1E31CD924C700DFB394 /* BITDeviceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DB1C973AC300F59C46 /* BITDeviceTests.m */; };
+		6ED7E1E41CD924C700DFB394 /* BITDomainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DC1C973AC300F59C46 /* BITDomainTests.m */; };
+		6ED7E1E51CD924C700DFB394 /* BITEventDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DD1C973AC300F59C46 /* BITEventDataTests.m */; };
+		6ED7E1E61CD924C700DFB394 /* BITHockeyAppClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DE1C973AC300F59C46 /* BITHockeyAppClientTests.m */; };
+		6ED7E1E71CD924C700DFB394 /* BITHockeyHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3DF1C973AC300F59C46 /* BITHockeyHelperTests.m */; };
+		6ED7E1E81CD924C700DFB394 /* BITInternalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E01C973AC300F59C46 /* BITInternalTests.m */; };
+		6ED7E1E91CD924C700DFB394 /* BITKeychainUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E11C973AC300F59C46 /* BITKeychainUtilsTests.m */; };
+		6ED7E1EA1CD924C700DFB394 /* BITMetricsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E21C973AC300F59C46 /* BITMetricsManagerTests.m */; };
+		6ED7E1EB1CD924C700DFB394 /* BITPersistenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E31C973AC300F59C46 /* BITPersistenceTests.m */; };
+		6ED7E1EC1CD924C700DFB394 /* BITSenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E41C973AC300F59C46 /* BITSenderTests.m */; };
+		6ED7E1ED1CD924C700DFB394 /* BITSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E51C973AC300F59C46 /* BITSessionTests.m */; };
+		6ED7E1EE1CD924C700DFB394 /* BITTelemetryContextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E61C973AC300F59C46 /* BITTelemetryContextTests.m */; };
+		6ED7E1EF1CD924C700DFB394 /* BITUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E91C973AC300F59C46 /* BITUserTests.m */; };
+		6ED7E1F01CD924CE00DFB394 /* BITTestsDependencyInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E81C973AC300F59C46 /* BITTestsDependencyInjection.m */; };
+		6ED7E1F11CD924CF00DFB394 /* BITTestsDependencyInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B30B3E81C973AC300F59C46 /* BITTestsDependencyInjection.m */; };
 		802C45B31BD9629B000D043C /* HockeySDKNullability.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3A260E1B2B207900D59683 /* HockeySDKNullability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8057C49A1C8DA65100DC7BEC /* BITHockeyBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7839E1BFAC01E00535F7A /* BITHockeyBaseViewController.m */; };
 		8057C49D1C8DA6BE00DC7BEC /* BITCrashManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EFF03D717F20F8300A5F13C /* BITCrashManagerPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1470,14 +1512,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ED7E1D21CD924C600DFB394 /* BITHockeyAppClientTests.m in Sources */,
 				807840651CC6C120002DF3BD /* BITTestHelper.m in Sources */,
+				6ED7E1D31CD924C600DFB394 /* BITHockeyHelperTests.m in Sources */,
+				6ED7E1CA1CD924C600DFB394 /* BITBaseTests.m in Sources */,
 				8078405C1CC6C11B002DF3BD /* (null) in Sources */,
+				6ED7E1D81CD924C600DFB394 /* BITSenderTests.m in Sources */,
+				6ED7E1DB1CD924C600DFB394 /* BITUserTests.m in Sources */,
+				6ED7E1D51CD924C600DFB394 /* BITKeychainUtilsTests.m in Sources */,
+				6ED7E1D01CD924C600DFB394 /* BITDomainTests.m in Sources */,
+				6ED7E1CB1CD924C600DFB394 /* BITChannelTests.m in Sources */,
+				6ED7E1F01CD924CE00DFB394 /* BITTestsDependencyInjection.m in Sources */,
 				8078405D1CC6C11B002DF3BD /* (null) in Sources */,
 				8078405B1CC6C11B002DF3BD /* (null) in Sources */,
 				8078405A1CC6C11B002DF3BD /* (null) in Sources */,
 				807840591CC6C11B002DF3BD /* (null) in Sources */,
-				6ED7E1C41CD9211A00DFB394 /* BITHockeyLoggerTests.m in Sources */,
+				6ED7E1CE1CD924C600DFB394 /* BITDataTests.m in Sources */,
+				6ED7E1C81CD924C600DFB394 /* BITApplicationTests.m in Sources */,
+				6ED7E1CC1CD924C600DFB394 /* BITCrashManagerTests.m in Sources */,
+				6ED7E1DA1CD924C600DFB394 /* BITTelemetryContextTests.m in Sources */,
+				6ED7E1C91CD924C600DFB394 /* BITAuthenticatorTests.m in Sources */,
+				6ED7E1C61CD9245A00DFB394 /* BITHockeyLoggerTests.m in Sources */,
+				6ED7E1D91CD924C600DFB394 /* BITSessionTests.m in Sources */,
+				6ED7E1D11CD924C600DFB394 /* BITEventDataTests.m in Sources */,
+				6ED7E1D41CD924C600DFB394 /* BITInternalTests.m in Sources */,
+				6ED7E1CF1CD924C600DFB394 /* BITDeviceTests.m in Sources */,
+				6ED7E1D61CD924C600DFB394 /* BITMetricsManagerTests.m in Sources */,
 				8078405E1CC6C11B002DF3BD /* (null) in Sources */,
+				6ED7E1CD1CD924C600DFB394 /* BITCrashReportTextFormatterTests.m in Sources */,
+				6ED7E1D71CD924C600DFB394 /* BITPersistenceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1579,14 +1642,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ED7E1E61CD924C700DFB394 /* BITHockeyAppClientTests.m in Sources */,
 				807840661CC6C122002DF3BD /* BITTestHelper.m in Sources */,
+				6ED7E1E71CD924C700DFB394 /* BITHockeyHelperTests.m in Sources */,
+				6ED7E1DE1CD924C700DFB394 /* BITBaseTests.m in Sources */,
 				807840621CC6C11C002DF3BD /* (null) in Sources */,
+				6ED7E1EC1CD924C700DFB394 /* BITSenderTests.m in Sources */,
+				6ED7E1EF1CD924C700DFB394 /* BITUserTests.m in Sources */,
+				6ED7E1E91CD924C700DFB394 /* BITKeychainUtilsTests.m in Sources */,
+				6ED7E1E41CD924C700DFB394 /* BITDomainTests.m in Sources */,
+				6ED7E1DF1CD924C700DFB394 /* BITChannelTests.m in Sources */,
+				6ED7E1F11CD924CF00DFB394 /* BITTestsDependencyInjection.m in Sources */,
 				807840631CC6C11C002DF3BD /* (null) in Sources */,
 				807840611CC6C11C002DF3BD /* (null) in Sources */,
 				807840601CC6C11C002DF3BD /* (null) in Sources */,
 				8078405F1CC6C11C002DF3BD /* (null) in Sources */,
-				6ED7E1C51CD9211A00DFB394 /* BITHockeyLoggerTests.m in Sources */,
+				6ED7E1E21CD924C700DFB394 /* BITDataTests.m in Sources */,
+				6ED7E1DC1CD924C700DFB394 /* BITApplicationTests.m in Sources */,
+				6ED7E1E01CD924C700DFB394 /* BITCrashManagerTests.m in Sources */,
+				6ED7E1EE1CD924C700DFB394 /* BITTelemetryContextTests.m in Sources */,
+				6ED7E1DD1CD924C700DFB394 /* BITAuthenticatorTests.m in Sources */,
+				6ED7E1C71CD9245D00DFB394 /* BITHockeyLoggerTests.m in Sources */,
+				6ED7E1ED1CD924C700DFB394 /* BITSessionTests.m in Sources */,
+				6ED7E1E51CD924C700DFB394 /* BITEventDataTests.m in Sources */,
+				6ED7E1E81CD924C700DFB394 /* BITInternalTests.m in Sources */,
+				6ED7E1E31CD924C700DFB394 /* BITDeviceTests.m in Sources */,
+				6ED7E1EA1CD924C700DFB394 /* BITMetricsManagerTests.m in Sources */,
 				807840641CC6C11C002DF3BD /* (null) in Sources */,
+				6ED7E1E11CD924C700DFB394 /* BITCrashReportTextFormatterTests.m in Sources */,
+				6ED7E1EB1CD924C700DFB394 /* BITPersistenceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
