@@ -339,6 +339,27 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 }
 
+- (void)setDebugLogEnabled:(BOOL)debugLogEnabled {
+  _debugLogEnabled = debugLogEnabled;
+  if (debugLogEnabled) {
+    self.logLevel = BITLogLevelDebug;
+  } else {
+    self.logLevel = BITLogLevelWarning;
+  }
+}
+
+- (BITLogLevel)logLevel {
+  return BITHockeyLogger.currentLogLevel;
+}
+
+- (void)setLogLevel:(BITLogLevel)logLevel {
+  BITHockeyLogger.currentLogLevel = logLevel;
+}
+
+- (void)setLogHandler:(BITLogHandler)logHandler {
+  [BITHockeyLogger setLogHandler:logHandler];
+}
+
 - (void)modifyKeychainUserValue:(NSString *)value forKey:(NSString *)key {
   NSError *error = nil;
   BOOL success = YES;
