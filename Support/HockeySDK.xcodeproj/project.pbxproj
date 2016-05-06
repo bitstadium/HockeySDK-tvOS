@@ -1434,7 +1434,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/appledoc \\\n  --output \"${SOURCE_ROOT}/../documentation\" \\\n  --ignore Vendor \\\n  --ignore Products \\\n  --ignore Support \\\n  --ignore .m \\\n  --ignore *Private.h \\\n  --ignore BITAttributedLabel.h \\\n  --ignore BITStoreButton.h \\\n  --ignore BITFeedbackListViewCell.h \\\n  --ignore BITAppStoreHeader.h \\\n  --ignore BITFeedbackMessage.h \\\n  --ignore BITFeedbackMessageAttachment.h \\\n  --ignore BITAuthenticationViewController.h \\\n  --ignore BITHockeyAppClient.h \\\n  --create-html \\\n  --create-docset \\\n  --install-docset \\\n  --keep-intermediate-files \\\n  --project-name \"${HOCKEYSDK_DOCSET_NAME} ${VERSION_STRING}\" \\\n  --project-version \"${VERSION_STRING}\" \\\n  --project-company \"Bit Stadium GmbH\" \\\n  --company-id \"de.bitstadium\" \\\n  --docset-bundle-name \"${HOCKEYSDK_DOCSET_NAME} ${VERSION_STRING}\" \\\n  --docset-feed-name \"${HOCKEYSDK_DOCSET_NAME}\" \\\n  --docset-desc \"\" \\\n  --docset-platform-family \"iphoneos\" \\\n  --index-desc \"${SOURCE_ROOT}/../docs/index.md\" \\\n  --include \"${SOURCE_ROOT}/../docs/index.html\" \\\n  --include \"${SOURCE_ROOT}/../docs/\" \\\n  --merge-categories \\\n  --no-repeat-first-par \\\n  --warn-undocumented-object \\\n  --warn-undocumented-member \\\n  --warn-empty-description \\\n  --warn-unknown-directive \\\n  --warn-invalid-crossref \\\n  --warn-missing-arg \\\n  --logformat xcode \\\n  --exit-threshold 2 \\\n  \"${SOURCE_ROOT}/../\"\n";
+			shellScript = "${SRCROOT}/appledoc \\\n  --output \"${SOURCE_ROOT}/../documentation\" \\\n  --ignore Vendor \\\n  --ignore Products \\\n  --ignore Support \\\n  --ignore .m \\\n  --ignore *Private.h \\\n  --ignore BITAttributedLabel.h \\\n  --ignore BITStoreButton.h \\\n  --ignore BITFeedbackListViewCell.h \\\n  --ignore BITAppStoreHeader.h \\\n  --ignore BITFeedbackMessage.h \\\n  --ignore BITFeedbackMessageAttachment.h \\\n  --ignore BITAuthenticationViewController.h \\\n  --ignore BITHockeyAppClient.h \\\n  --create-html \\\n  --create-docset \\\n  --install-docset \\\n  --keep-intermediate-files \\\n  --project-name \"${HOCKEYSDK_DOCSET_NAME} ${VERSION_STRING}\" \\\n  --project-version \"${VERSION_STRING}\" \\\n  --project-company \"Bit Stadium GmbH\" \\\n  --company-id \"de.bitstadium\" \\\n  --docset-bundle-name \"${HOCKEYSDK_DOCSET_NAME} ${VERSION_STRING}\" \\\n  --docset-feed-name \"${HOCKEYSDK_DOCSET_NAME}\" \\\n  --docset-desc \"\" \\\n  --docset-platform-family \"appletvos\" \\\n  --index-desc \"${SOURCE_ROOT}/../docs/index.md\" \\\n  --include \"${SOURCE_ROOT}/../docs/index.html\" \\\n  --include \"${SOURCE_ROOT}/../docs/\" \\\n  --merge-categories \\\n  --no-repeat-first-par \\\n  --warn-undocumented-object \\\n  --warn-undocumented-member \\\n  --warn-empty-description \\\n  --warn-unknown-directive \\\n  --warn-invalid-crossref \\\n  --warn-missing-arg \\\n  --logformat xcode \\\n  --exit-threshold 2 \\\n  \"${SOURCE_ROOT}/../\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1631,6 +1631,7 @@
 		1E4F61EB1621AD970033EFC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_BITCODE = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.tvos;
 				PRODUCT_NAME = HockeySDK.framework;
 				SDKROOT = appletvos;
@@ -1640,6 +1641,7 @@
 		1E4F61EC1621AD970033EFC5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_BITCODE = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.tvos;
 				PRODUCT_NAME = HockeySDK.framework;
 				SDKROOT = appletvos;
@@ -1705,27 +1707,6 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-framework",
-					CoreText,
-					"-framework",
-					CoreGraphics,
-					"-framework",
-					Foundation,
-					"-framework",
-					QuartzCore,
-					"-framework",
-					SystemConfiguration,
-					"-framework",
-					UIKit,
-					"-framework",
-					Security,
-					"-framework",
-					AssetsLibrary,
-					"-framework",
-					MobileCoreServices,
-					"-framework",
-					QuickLook,
-					"-lc++",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.hockeyapp.${PRODUCT_NAME:rfc1034identifier}";
@@ -1761,27 +1742,6 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-framework",
-					CoreText,
-					"-framework",
-					CoreGraphics,
-					"-framework",
-					Foundation,
-					"-framework",
-					QuartzCore,
-					"-framework",
-					SystemConfiguration,
-					"-framework",
-					UIKit,
-					"-framework",
-					Security,
-					"-framework",
-					AssetsLibrary,
-					"-framework",
-					MobileCoreServices,
-					"-framework",
-					QuickLook,
-					"-lc++",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.hockeyapp.${PRODUCT_NAME:rfc1034identifier}";
@@ -1839,6 +1799,7 @@
 		1E8E66AE15BC3D7700632A2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_BITCODE = YES;
 				GCC_THUMB_SUPPORT = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.tvos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1849,6 +1810,7 @@
 		1E8E66AF15BC3D7700632A2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_BITCODE = YES;
 				GCC_THUMB_SUPPORT = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.hockeyapp.sdk.tvos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2004,27 +1966,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-framework",
-					CoreText,
-					"-framework",
-					CoreGraphics,
-					"-framework",
-					Foundation,
-					"-framework",
-					QuartzCore,
-					"-framework",
-					SystemConfiguration,
-					"-framework",
-					UIKit,
-					"-framework",
-					Security,
-					"-framework",
-					AssetsLibrary,
-					"-framework",
-					MobileCoreServices,
-					"-framework",
-					QuickLook,
-					"-lc++",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.hockeyapp.$(PRODUCT_NAME:rfc1034identifier)";
@@ -2076,27 +2017,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-framework",
-					CoreText,
-					"-framework",
-					CoreGraphics,
-					"-framework",
-					Foundation,
-					"-framework",
-					QuartzCore,
-					"-framework",
-					SystemConfiguration,
-					"-framework",
-					UIKit,
-					"-framework",
-					Security,
-					"-framework",
-					AssetsLibrary,
-					"-framework",
-					MobileCoreServices,
-					"-framework",
-					QuickLook,
-					"-lc++",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.hockeyapp.$(PRODUCT_NAME:rfc1034identifier)";
