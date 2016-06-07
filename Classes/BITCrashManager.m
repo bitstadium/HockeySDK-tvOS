@@ -16,6 +16,12 @@
 #import "BITCrashCXXExceptionHandler.h"
 #import "BITAlertController.h"
 
+#if HOCKEYSDK_FEATURE_METRICS
+#import "BITMetricsManagerPrivate.h"
+#import "BITChannel.h"
+#import "BITPersistencePrivate.h"
+#endif
+
 #include <sys/sysctl.h>
 
 // stores the set of crashreports that have been approved but aren't sent yet
@@ -52,15 +58,46 @@ NSString *const kBITFakeCrashAppBinaryUUID = @"BITFakeCrashAppBinaryUUID";
 NSString *const kBITFakeCrashReport = @"BITFakeCrashAppString";
 
 
+#if HOCKEYSDK_FEATURE_METRICS
+static char const *BITSaveEventsFilePath;
+#endif
+
 static BITCrashManagerCallbacks bitCrashCallbacks = {
   .context = NULL,
   .handleSignal = NULL
 };
 
-// proxy implementation for PLCrashReporter to keep our interface stable while this can change
+#if HOCKEYSDK_FEATURE_METRICS
+static void bit_save_events_callback(siginfo_t *info, ucontext_t *uap, void *context) {
+  
+  // Do not flush metrics queue if queue is empty (metrics module disabled) to not freeze the app
+  if (!BITSafeJsonEventsString) {
+    return;
+  }
+  
+  // Try to get a file descriptor with our pre-filled path
+  int fd = open(BITSaveEventsFilePath, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+  if (fd < 0) {
+    return;
+  }
+  
+  size_t len = strlen(BITSafeJsonEventsString);
+  if (len > 0) {
+    // Simply write the whole string to disk
+    write(fd, BITSafeJsonEventsString, len);
+  }
+  close(fd);
+}
+#endif
+
+// Proxy implementation for PLCrashReporter to keep our interface stable while this can change
 static void plcr_post_crash_callback (siginfo_t *info, ucontext_t *uap, void *context) {
-  if (bitCrashCallbacks.handleSignal != NULL)
+#if HOCKEYSDK_FEATURE_METRICS
+  bit_save_events_callback(info, uap, context);
+#endif
+  if (bitCrashCallbacks.handleSignal != NULL) {
     bitCrashCallbacks.handleSignal(context);
+  }
 }
 
 static PLCrashReporterCallbacks plCrashCallbacks = {
@@ -620,13 +657,12 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
 
 #pragma mark - Public
 
-
 /**
  *  Set the callback for PLCrashReporter
  *
  *  @param callbacks BITCrashManagerCallbacks instance
  */
-- (void)setCrashCallbacks: (BITCrashManagerCallbacks *) callbacks {
+- (void)setCrashCallbacks:(BITCrashManagerCallbacks *)callbacks {
   if (!callbacks) return;
   
   // set our proxy callback struct
@@ -635,9 +671,15 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   
   // set the PLCrashReporterCallbacks struct
   plCrashCallbacks.context = callbacks->context;
-  
-  _crashCallBacks = &plCrashCallbacks;
 }
+
+#if HOCKEYSDK_FEATURE_METRICS
+- (void)configDefaultCrashCallback {
+  BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metricsManager;
+  BITPersistence *persistence = metricsManager.persistence;
+  BITSaveEventsFilePath = strdup([persistence fileURLForType:BITPersistenceTypeTelemetry].UTF8String);
+}
+#endif
 
 
 - (void)setAlertViewHandler:(BITCustomAlertViewHandler)alertViewHandler{
@@ -1088,10 +1130,12 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
         // can't break this
         NSError *error = NULL;
         
-        // set any user defined callbacks, hopefully the users knows what they do
-        if (_crashCallBacks) {
-          [self.plCrashReporter setCrashCallbacks:_crashCallBacks];
-        }
+#if HOCKEYSDK_FEATURE_METRICS
+        [self configDefaultCrashCallback];
+#endif
+        
+        // Set plCrashReporter callback which contains our default callback and potentially user defined callbacks
+        [self.plCrashReporter setCrashCallbacks:&plCrashCallbacks];
         
         // Enable the Crash Reporter
         if (![self.plCrashReporter enableCrashReporterAndReturnError: &error])
