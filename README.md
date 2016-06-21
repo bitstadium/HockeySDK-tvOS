@@ -31,8 +31,9 @@ This document contains the following sections:
 4. [Documentation](#documentation)  
 5. [Troubleshooting](#troubleshooting)
 6. [Contributing](#contributing)
-7. [Contributor License](#contributorlicense)
-8. [Contact](#contact)
+  1. [Code of Conduct](#codeofconduct)
+  2. [Contributor License](#contributorlicense)
+7. [Contact](#contact)
 
 <a id="requirements"></a> 
 ## 1. Requirements
@@ -315,12 +316,17 @@ We're looking forward to your contributions via pull requests.
 * Get the latest Xcode (7.1 at the time of this writing) from the Mac App Store
 * [AppleDoc](https://github.com/tomaz/appledoc) 
 
+<a id="codeofconduct"></a>
+## 6.1 Code of Conduct
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
 <a id="contributorlicense"></a>
-## 7. Contributor License
+## 6.2 Contributor License
 
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before opening a pull request. To complete the Contributor License Agreement (CLA), you must submit a request via [this form](https://cla.microsoft.com/), then electronically sign the CLA once you receive the email containing the link to the document. Signing the CLA once, for any project, covers all submissions to all Microsoft OSS projects, unless otherwise noted.
 
 <a id="contact"></a>
-## 8. Contact
+## 7. Contact
 
 If you have further questions or run into trouble that cannot be resolved by any of the information here, feel free to open a Github issue, or contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net).
