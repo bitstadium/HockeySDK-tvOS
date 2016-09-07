@@ -4,7 +4,6 @@
 #if HOCKEYSDK_FEATURE_METRICS
 
 #import "HockeySDKNullability.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BITCategoryContainer : NSObject
