@@ -7,12 +7,14 @@
 @implementation BITCategoryContainer
 
 + (void)activateCategory {
-
+  
 }
 
 @end
 
+
 #pragma mark - GZIP library
+
 
 //
 //  GZIP.m

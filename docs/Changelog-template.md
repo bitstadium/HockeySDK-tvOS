@@ -1,3 +1,10 @@
+## Version 4.1.0
+
+- [NEW] Add ability to track custom events
+- [NEW] Additional API to track an event with properties and measurements.
+- [BUGFIX] Add Bitcode marker back to simulator slices. This is necessary because otherwise `lipo` apparently strips the Bitcode sections from the merged library completely. As a side effect, this unfortunately breaks compatibility with Xcode 6. [#310](https://github.com/bitstadium/HockeySDK-iOS/pull/310)
+- Minor fixes and refactorings
+
 ## Version 4.1.0-beta.1
 
 - [IMPROVEMENT] Prevent User Metrics from being sent if `BITMetricsManager` has been disabled.

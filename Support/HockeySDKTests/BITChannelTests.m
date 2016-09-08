@@ -1,9 +1,6 @@
 #import <XCTest/XCTest.h>
 
-#define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
-
-#define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import <OCMock/OCMock.h>
@@ -19,6 +16,7 @@
 
 @end
 
+
 @implementation BITChannelTests {
   BITChannel *_sut;
   BITPersistence *_mockPersistence;
@@ -26,7 +24,7 @@
 
 - (void)setUp {
   [super setUp];
-  _mockPersistence = mock(BITPersistence.class);
+  _mockPersistence = OCMPartialMock([[BITPersistence alloc] init]);
   BITTelemetryContext *mockContext = mock(BITTelemetryContext.class);
   
   _sut = [[BITChannel alloc]initWithTelemetryContext:mockContext persistence:_mockPersistence];
