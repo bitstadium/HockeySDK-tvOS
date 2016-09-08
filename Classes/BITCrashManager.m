@@ -143,10 +143,12 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
 }
 
 
-- (instancetype)init {
-  if ((self = [super init])) {
+- (instancetype)initWithAppIdentifier:(NSString *)appIdentifier appEnvironment:(BITEnvironment)environment hockeyAppClient:(BITHockeyAppClient *)hockeyAppClient {
+  if ((self = [super initWithAppIdentifier:appIdentifier appEnvironment:environment])) {
     _delegate = nil;
     _isSetup = NO;
+    
+    _hockeyAppClient = hockeyAppClient;
     
     _showAlwaysButton = YES;
     _alertViewHandler = nil;
@@ -203,6 +205,12 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   [[NSUserDefaults standardUserDefaults] setInteger:crashManagerStatus forKey:kBITCrashManagerStatus];
 }
 
+- (void)setServerURL:(NSString *)serverURL {
+  if ([serverURL isEqualToString:super.serverURL]) { return; }
+  
+  super.serverURL = serverURL;
+  self.hockeyAppClient = [[BITHockeyAppClient alloc] initWithBaseURL:[NSURL URLWithString:serverURL]];
+}
 
 #pragma mark - Private
 
