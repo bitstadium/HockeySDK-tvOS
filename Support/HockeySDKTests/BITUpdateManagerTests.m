@@ -66,6 +66,7 @@
   XCTAssertFalse([request.URL.query containsString:@"usage_time="]);
   XCTAssertFalse([request.URL.query containsString:identificationString]);
   
+  // Test URL encoding
   NSString *requestUrlString = request.URL.absoluteString;
   NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@" {}"];
   XCTAssertEqual([requestUrlString rangeOfCharacterFromSet:characterSet].location, NSNotFound, "URL should not contain unencoded characters");

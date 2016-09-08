@@ -60,18 +60,18 @@
 }
 
 - (void)testSerialize {
-  BITUser *item = [BITUser new];
-  item.accountAcquisitionDate = @"Test string";
-  item.accountId = @"Test string";
-  item.userAgent = @"Test string";
-  item.userId = @"Test string";
-  item.storeRegion = @"Test region";
-  item.authUserId = @"Test authUserId";
-  item.anonUserAcquisitionDate = @"Test anonUserAcquisitionDate";
-  item.authUserAcquisitionDate = @"Test authUserAcquisitionDate";
-  NSDictionary *actual = [item serializeToDictionary];
-  NSDictionary *expected = @{@"ai.user.accountAcquisitionDate":@"Test string", @"ai.user.accountId":@"Test string", @"ai.user.userAgent":@"Test string", @"ai.user.id":@"Test string", @"ai.user.storeRegion":@"Test region", @"ai.user.authUserId":@"Test authUserId", @"ai.user.anonUserAcquisitionDate":@"Test anonUserAcquisitionDate", @"ai.user.authUserAcquisitionDate":@"Test authUserAcquisitionDate"};
-  XCTAssertTrue([actual isEqualToDictionary:expected]);
+    BITUser *item = [BITUser new];
+    item.accountAcquisitionDate = @"Test string";
+    item.accountId = @"Test string";
+    item.userAgent = @"Test string";
+    item.userId = @"Test string";
+    item.storeRegion = @"Test region";
+    item.authUserId = @"Test authUserId";
+    item.anonUserAcquisitionDate = @"Test anonUserAcquisitionDate";
+    item.authUserAcquisitionDate = @"Test authUserAcquisitionDate";
+    NSDictionary *actual = [item serializeToDictionary];
+    NSDictionary *expected = @{@"ai.user.accountAcquisitionDate":@"Test string", @"ai.user.accountId":@"Test string", @"ai.user.userAgent":@"Test string", @"ai.user.id":@"Test string", @"ai.user.storeRegion":@"Test region", @"ai.user.authUserId":@"Test authUserId", @"ai.user.anonUserAcquisitionDate":@"Test anonUserAcquisitionDate", @"ai.user.authUserAcquisitionDate":@"Test authUserAcquisitionDate"};
+    XCTAssertTrue([actual isEqualToDictionary:expected]);
 }
 
 @end
