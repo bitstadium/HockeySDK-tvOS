@@ -97,7 +97,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
         [self dismissAuthenticationControllerAnimated:YES completion:nil];
       }
     } else {
-      BITHockeyLog(@"Failed to identify. Error: %@", error);
+      BITHockeyLogError(@"Failed to identify. Error: %@", error);
     }
   }];
 }
@@ -106,7 +106,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
 
 - (void)identifyWithCompletion:(void (^)(BOOL identified, NSError *))completion {
   if (_authenticationController) {
-    BITHockeyLog(@"Authentication controller already visible. Ignoring identify request");
+    BITHockeyLogDebug(@"Authentication controller already visible. Ignoring identify request");
     if (completion) { completion(NO, nil); }
     return;
   }
@@ -114,7 +114,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
   NSString *storedTypeString = [self stringValueFromKeychainForKey:kBITAuthenticatorIdentifierTypeKey];
   NSString *configuredTypeString = [self.class stringForIdentificationType:self.identificationType];
   if (storedTypeString && ![storedTypeString isEqualToString:configuredTypeString]) {
-    BITHockeyLog(@"Identification type mismatch for stored auth-token. Resetting.");
+    BITHockeyLogDebug(@"Identification type mismatch for stored auth-token. Resetting.");
     [self storeInstallationIdentifier:nil withType:BITAuthenticatorIdentificationTypeAnonymous];
   }
   
@@ -199,7 +199,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       if (validated) {
         [self dismissAuthenticationControllerAnimated:YES completion:nil];
       } else {
-        BITHockeyLog(@"Validation failed with error: %@", error);
+        BITHockeyLogError(@"Validation failed with error: %@", error);
         
          __weak typeof(self) weakSelf = self;
         BITAlertController *alertController = [BITAlertController alertControllerWithTitle:nil message:error.localizedDescription];
@@ -644,7 +644,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
     return;
   }
   
-  BITHockeyLog(@"Processing full size image for possible authentication");
+  BITHockeyLogDebug(@"Processing full size image for possible authentication");
   
   unsigned char *buffer, *source;
   source = (unsigned char *)malloc((unsigned long)fs.st_size);
@@ -709,10 +709,10 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
   free(source);
   
   if (result) {
-    BITHockeyLog(@"Authenticating using full size image information: %@", result);
+    BITHockeyLogDebug(@"Authenticating using full size image information: %@", result);
     [self handleOpenURL:[NSURL URLWithString:result] sourceApplication:nil annotation:nil];
   } else {
-    BITHockeyLog(@"No authentication information found");
+    BITHockeyLogDebug(@"No authentication information found");
   }
 }
 
