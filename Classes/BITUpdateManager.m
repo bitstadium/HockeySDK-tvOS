@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 #pragma mark - private
 
 - (void)reportError:(NSError *)error {
-  BITHockeyLog(@"ERROR: %@", [error localizedDescription]);
+  BITHockeyLogError(@"ERROR: %@", [error localizedDescription]);
   _lastCheckFailed = YES;
 }
 
@@ -603,7 +603,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   // do we need to update?
   if (![self shouldCheckForUpdates] && _updateSetting != BITUpdateCheckManually) {
-    BITHockeyLog(@"INFO: Update not needed right now");
+    BITHockeyLogDebug(@"INFO: Update not needed right now");
     self.checkInProgress = NO;
     return;
   }
@@ -657,7 +657,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   // build request & send
   NSString *url = [NSString stringWithFormat:@"%@%@%@", self.serverURL, urlEncodedPath, urlEncodedParameters];
-  BITHockeyLog(@"INFO: Sending api request to %@", url);
+  BITHockeyLogDebug(@"INFO: Sending api request to %@", url);
   
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                          cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
@@ -674,7 +674,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   if (self.appEnvironment == BITEnvironmentOther) {
     if ([self isUpdateManagerDisabled]) return;
     
-    BITHockeyLog(@"INFO: Starting UpdateManager");
+    BITHockeyLogWarning(@"INFO: Starting UpdateManager");
     
     if ([self.delegate respondsToSelector:@selector(updateManagerShouldSendUsageData:)]) {
       self.sendUsageData = [self.delegate updateManagerShouldSendUsageData:self];
@@ -713,7 +713,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     
     if ([self.receivedData length]) {
       NSString *responseString = [[NSString alloc] initWithBytes:[_receivedData bytes] length:[_receivedData length] encoding: NSUTF8StringEncoding];
-      BITHockeyLog(@"INFO: Received API response: %@", responseString);
+      BITHockeyLogDebug(@"INFO: Received API response: %@", responseString);
       
       if (!responseString || ![responseString dataUsingEncoding:NSUTF8StringEncoding]) {
         self.receivedData = nil;
@@ -734,7 +734,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
         
         // server returned empty response?
         if (![feedArray count]) {
-          BITHockeyLog(@"WARNING: No versions available for download on HockeyApp.");
+          BITHockeyLogDebug(@"WARNING: No versions available for download on HockeyApp.");
           self.receivedData = nil;
           self.urlConnection = nil;
           return;
