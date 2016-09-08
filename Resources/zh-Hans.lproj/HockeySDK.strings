@@ -89,7 +89,7 @@
 "HockeyAuthenticationViewControllerDataEmailAndPasswordDescription" = "请输入你的 HockeyApp 帐户的电子邮件和密码来授权访问这个 app。";
 "HockeyAuthenticationViewControllerDataEmailDescription" = "请输入你的 HockeyApp 帐户的电子邮件来授权访问这个 app。";
 "HockeyAuthenticationViewControllerEmailPlaceholder" = "email@example.com";
-"HockeyAuthenticationViewControllerPasswordPlaceholder" = "必需的";
+"HockeyAuthenticationViewControllerPasswordPlaceholder" = "必填";
 "HockeyAuthenticationViewControllerEmailDescription" = "邮件";
 "HockeyAuthenticationViewControllerPasswordDescription" = "密码";
 

@@ -8,10 +8,7 @@
 #import "BITTelemetryContext.h"
 #import "BITSessionStateData.h"
 
-#define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
-
-#define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 @interface BITMetricsManagerTests : BITTestsDependencyInjection
@@ -23,12 +20,12 @@
 @implementation BITMetricsManagerTests
 
 - (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+  [super setUp];
+  // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown {
-    [super tearDown];
+  [super tearDown];
 }
 
 - (void)testMetricsManagerGetsInstantiated {
@@ -88,9 +85,9 @@
   self.sut = [[BITMetricsManager alloc] initWithChannel:mockChannel telemetryContext:nil persistence:nil userDefaults:nil];
   
   OCMExpect([mockChannel enqueueTelemetryItem:[OCMArg checkWithBlock:^BOOL(NSObject *value)
-                                             {
-                                               return [value isKindOfClass:[BITSessionStateData class]];
-                                             }]]);
+                                               {
+                                                 return [value isKindOfClass:[BITSessionStateData class]];
+                                               }]]);
   [self.sut trackSessionWithState:BITSessionState_start];
   OCMVerifyAll(mockChannel);
 }

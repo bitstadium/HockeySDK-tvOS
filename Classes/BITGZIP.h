@@ -30,10 +30,8 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#import <Foundation/Foundation.h>
 
-#import "HockeySDKNullability.h"
-NS_ASSUME_NONNULL_BEGIN
+#import <Foundation/Foundation.h>
 
 @interface NSData (BITGZIP)
 
@@ -42,5 +40,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSData *)bit_gunzippedData;
 
 @end
-
-NS_ASSUME_NONNULL_END
