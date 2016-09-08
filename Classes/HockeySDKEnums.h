@@ -177,3 +177,4 @@ typedef NS_ENUM(NSInteger, BITHockeyErrorReason) {
 };
 
 #endif /* HockeySDK_HockeyEnums_h */
+
