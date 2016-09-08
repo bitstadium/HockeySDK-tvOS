@@ -38,6 +38,8 @@ FOUNDATION_EXPORT NSString *const BITPersistenceSuccessNotification;
  */
 @property (nonatomic, assign) NSUInteger maxFileCount;
 
+@property (nonatomic, strong) NSString *appHockeySDKDirectoryPath;
+
 /**
  *  An array with all file paths, that have been requested by the sender. If the sender
  *  triggers a delete, the appropriate path should also be removed here. We keep to
@@ -135,6 +137,7 @@ FOUNDATION_EXPORT NSString *const BITPersistenceSuccessNotification;
  */
 - (NSString *)fileURLForType:(BITPersistenceType)type;
 
+- (void)createDirectoryStructureIfNeeded;
 
 #endif /* HOCKEYSDK_FEATURE_METRICS */
 

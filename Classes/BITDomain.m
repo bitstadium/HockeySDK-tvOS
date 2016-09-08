@@ -3,14 +3,15 @@
 @implementation BITDomain
 @synthesize envelopeTypeName = _envelopeTypeName;
 @synthesize dataTypeName = _dataTypeName;
+@synthesize properties = _properties;
 
 /// Initializes a new instance of the class.
 - (instancetype)init {
-    if (self = [super init]) {
-        _envelopeTypeName = @"Microsoft.ApplicationInsights.Domain";
-        _dataTypeName = @"Domain";
-    }
-    return self;
+  if (self = [super init]) {
+    _envelopeTypeName = @"Microsoft.ApplicationInsights.Domain";
+    _dataTypeName = @"Domain";
+  }
+  return self;
 }
 
 ///
@@ -18,8 +19,8 @@
 /// @param dictionary to which the members of this class will be added.
 ///
 - (NSDictionary *)serializeToDictionary {
-    NSMutableDictionary *dict = [super serializeToDictionary].mutableCopy;
-    return dict;
+  NSMutableDictionary *dict = [super serializeToDictionary].mutableCopy;
+  return dict;
 }
 
 #pragma mark - NSCoding
@@ -30,7 +31,7 @@
     _envelopeTypeName = [coder decodeObjectForKey:@"_envelopeTypeName"];
     _dataTypeName = [coder decodeObjectForKey:@"_dataTypeName"];
   }
-
+  
   return self;
 }
 

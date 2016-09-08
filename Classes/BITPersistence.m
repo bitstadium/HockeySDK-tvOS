@@ -211,16 +211,6 @@ static NSUInteger const BITDefaultFileCount = 50;
     }
     
     _directorySetupComplete = YES;
-    
-    //Exclude from Backup
-    if (![appCachesURL setResourceValue:@YES
-                                  forKey:NSURLIsExcludedFromBackupKey
-                                   error:&error]) {
-      BITHockeyLogError(@"Error excluding %@ from backup %@", appCachesURL.lastPathComponent, error.localizedDescription);
-    }
-    else {
-      BITHockeyLogDebug(@"INFO: Excluding %@ from backup", appCachesURL);
-    }
   }
 }
 
