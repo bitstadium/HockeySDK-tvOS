@@ -1,4 +1,14 @@
-## Version 4.1.0-beta.1
+## Version 4.1.0
+
+The following features are currently supported:
+
+1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and letive apps, i.e. those submitted to the App Store.
+
+2. **User Metrics:** Understand user behavior to improve your app. Track usage through daily and monthly active users, monitor crash impacted users, as well as customer engagement through session count. You can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
+
+3. **Update notifications:** The app will check with HockeyApp if a new version for your Ad-Hoc or Enterprise build is available. If yes, it will show an alert view with informations to the moste recent version.
+
+4. **Authenticate:** Identify and authenticate users of Ad-Hoc or Enterprise builds
 
 This document contains the following sections:
 
@@ -110,7 +120,7 @@ Make sure to read the [article in our knowledgebase about Bitcode](http://suppor
 
 ```ruby
 platform :tvos, '9.0'
-pod 'HockeySDK-tvOS', '~> 4.1.0-beta.1' 
+pod 'HockeySDK-tvOS' 
 ```
 
 <a id="crashreporting"></a> 
@@ -183,12 +193,12 @@ and set the delegate:
 ```
 
 <a name="user-metrics"></a>
-### 3.3 Metrics
+### 3.3 User Metrics
 
 HockeyApp automatically provides you with nice, intelligible, and informative metrics about how your app is used and by whom. 
 - **Sessions**: A new session is tracked by the SDK whenever the containing app is restarted (this refers to a 'cold start', i.e. when the app has not already been in memory prior to being launched) or whenever it becomes active again after having been in the background for 20 seconds or more.
-- **Users**: The SDK anonymously tracks the users of your app by creating a random UUID that is then securely stored in the iOS keychain. Because this anonymous ID is stored in the keychain it persists across reinstallations.
-- **Custom Events**: If you are part of [Preseason](https://www.hockeyapp.net/preseason/), you can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
+- **Users**: The SDK anonymously tracks the users of your app by creating a random UUID that is then securely stored in the tvOS keychain. Because this anonymous ID is stored in the keychain it persists across reinstallations.
+- **Custom Events**: With HockeySDK 4.1.0 you can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
 
 Just in case you want to opt-out of the automatic collection of anonymous users and sessions statistics, there is a way to turn this functionality off at any time:
 
@@ -224,6 +234,38 @@ metricsManager.trackEventWithName(eventName)
 - Accepted characters for tracking events are: [a-zA-Z0-9_. -]. If you use other than the accepted characters, your events will not show up in the HockeyApp web portal.
 - There is currently a limit of 300 unique event names per app per week.
 - There is _no_ limit on the number of times an event can happen.
+
+#### 3.3.2 Attaching custom properties and measurements to a custom event
+
+It's possible to attach porperties and/or measurements to a custom event.
+
+- Properties have to be a string.
+- Measurements have to be of a numeric type.
+
+**Objective-C**
+
+```objectivec
+BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metricsManager;
+
+NSDictionary *myProperties = @{@"Property 1" : @"Something",
+                               @"Property 2" : @"Other thing",
+                               @"Property 3" : @"Totally different thing"};
+NSDictionary *myMeasurements = @{@"Measurement 1" : @1,
+                                 @"Measurement 2" : @2.34,
+                                 @"Measurement 3" : @2000000};
+
+[metricsManager trackEventWithName:eventName properties:myProperties measurements:myMeasurements]
+```
+
+**Swift**
+
+```swift
+let myProperties = ["Property 1": "Something", "Property 2": "Other thing", "Property 3" : "Totally different thing."]
+let myMeasurements = ["Measurement 1": 1, "Measurement 2": 2.3, "Measurement 3" : 30000]
+      
+let metricsManager = BITHockeyManager.sharedHockeyManager().metricsManager
+metricsManager.trackEventWithName(eventName, properties: myProperties, myMeasurements: measurements)
+```
 
 <a name="betaupdates"></a>
 ### 3.4 In-App-Update notifications (Beta & Enterprise only)
@@ -268,7 +310,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.0-beta.1/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.0/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
