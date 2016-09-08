@@ -8,7 +8,7 @@
     [dict setObject:self.version forKey:@"ver"];
   }
   
-  return dict;	
+  return dict;
 }
 
 #pragma mark - NSCoding
