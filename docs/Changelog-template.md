@@ -1,3 +1,7 @@
+## Version 4.1.1
+
+- [BUGFIX] Add check for `nil` in BITChannel.
+
 ## Version 4.1.0
 
 - [NEW] Add ability to track custom events
