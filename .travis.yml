@@ -10,7 +10,7 @@ env:
   matrix:
     - SCHEME="HockeySDK"              DESTINATION="OS=9.0,name=Apple TV 1080p"                   RUN_TESTS="YES"
     - SCHEME="HockeySDK"              DESTINATION="OS=9.1,name=Apple TV 1080p"                   RUN_TESTS="YES"
-    - SCHEME="HockeySDK Framework"    DESTINATION="platform=tvOS Simulator,name=Apple TV 1080p"  RUN_TESTS="YES"
+    - SCHEME="HockeySDK Framework"    DESTINATION="platform=tvOS Simulator,OS=9.1,name=Apple TV 1080p"  RUN_TESTS="YES"
     - SCHEME="HockeySDK Distribution"                                                            RUN_TESTS="NO" LINT="YES"
 
 before_install:
