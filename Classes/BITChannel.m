@@ -1,7 +1,8 @@
-#import "BITChannel.h"
+#import "HockeySDKFeatureConfig.h"
 
 #if HOCKEYSDK_FEATURE_METRICS
 
+#import "HockeySDKPrivate.h"
 #import "BITChannelPrivate.h"
 #import "BITHockeyHelper.h"
 #import "BITTelemetryContext.h"
@@ -234,17 +235,21 @@ void bit_resetSafeJsonStream(char **string) {
   
   self.timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.dataItemsOperations);
   dispatch_source_set_timer(self.timerSource, dispatch_walltime(NULL, NSEC_PER_SEC * self.batchInterval), 1ull * NSEC_PER_SEC, 1ull * NSEC_PER_SEC);
+  
   __weak typeof(self) weakSelf = self;
   dispatch_source_set_event_handler(self.timerSource, ^{
     typeof(self) strongSelf = weakSelf;
     
-    if (strongSelf->_dataItemCount > 0) {
-      [strongSelf persistDataItemQueue];
-    } else {
-      strongSelf.channelBlocked = NO;
+    if(strongSelf) {
+      if (strongSelf->_dataItemCount > 0) {
+        [strongSelf persistDataItemQueue];
+      } else {
+        strongSelf.channelBlocked = NO;
+      }
+      [strongSelf invalidateTimer];
     }
-    [strongSelf invalidateTimer];
   });
+  
   dispatch_resume(self.timerSource);
 }
 
