@@ -3,9 +3,9 @@
 
 # HockeySDK-tvOS
 
-## Version 4.1.0
+## Version 4.1.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/4.1.0/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/4.1.1/docs/docs/Changelog.html)
 
 ## Introduction
 
@@ -34,8 +34,9 @@ This document contains the following sections:
 4. [Documentation](#documentation)  
 5. [Troubleshooting](#troubleshooting)
 6. [Contributing](#contributing)
-7. [Contributor License](#contributorlicense)
-8. [Contact](#contact)
+  1. [Code of Conduct](#codeofconduct)
+  2. [Contributor License](#contributorlicense)
+7. [Contact](#contact)
 
 <a id="requirements"></a> 
 ## 1. Requirements
@@ -209,7 +210,7 @@ and set the delegate:
 HockeyApp automatically provides you with nice, intelligible, and informative metrics about how your app is used and by whom. 
 - **Sessions**: A new session is tracked by the SDK whenever the containing app is restarted (this refers to a 'cold start', i.e. when the app has not already been in memory prior to being launched) or whenever it becomes active again after having been in the background for 20 seconds or more.
 - **Users**: The SDK anonymously tracks the users of your app by creating a random UUID that is then securely stored in the tvOS keychain. Because this anonymous ID is stored in the keychain it persists across reinstallations.
-- **Custom Events**: With HockeySDK 4.1.0 you can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
+- **Custom Events**: With HockeySDK 4.1.0 and later you can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
 
 Just in case you want to opt-out of the automatic collection of anonymous users and sessions statistics, there is a way to turn this functionality off at any time:
 
@@ -321,7 +322,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.0/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
@@ -350,12 +351,17 @@ We're looking forward to your contributions via pull requests.
 * Get the latest Xcode (7.1 at the time of this writing) from the Mac App Store
 * [AppleDoc](https://github.com/tomaz/appledoc) 
 
+<a id="codeofconduct"></a>
+## 6.1 Code of Conduct
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
 <a id="contributorlicense"></a>
-## 7. Contributor License
+## 6.2 Contributor License
 
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before opening a pull request. To complete the Contributor License Agreement (CLA), you must submit a request via [this form](https://cla.microsoft.com/), then electronically sign the CLA once you receive the email containing the link to the document. Signing the CLA once, for any project, covers all submissions to all Microsoft OSS projects, unless otherwise noted.
 
 <a id="contact"></a>
-## 8. Contact
+## 7. Contact
 
 If you have further questions or run into trouble that cannot be resolved by any of the information here, feel free to open a Github issue, or contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net).
