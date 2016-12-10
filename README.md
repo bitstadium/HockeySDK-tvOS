@@ -3,9 +3,9 @@
 
 # HockeySDK-tvOS
 
-## Version 4.1.0
+## Version 4.1.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/4.1.0/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/4.1.1/docs/docs/Changelog.html)
 
 ## Introduction
 
@@ -210,7 +210,7 @@ and set the delegate:
 HockeyApp automatically provides you with nice, intelligible, and informative metrics about how your app is used and by whom. 
 - **Sessions**: A new session is tracked by the SDK whenever the containing app is restarted (this refers to a 'cold start', i.e. when the app has not already been in memory prior to being launched) or whenever it becomes active again after having been in the background for 20 seconds or more.
 - **Users**: The SDK anonymously tracks the users of your app by creating a random UUID that is then securely stored in the tvOS keychain. Because this anonymous ID is stored in the keychain it persists across reinstallations.
-- **Custom Events**: With HockeySDK 4.1.0 you can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
+- **Custom Events**: With HockeySDK 4.1.0 and later you can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
 
 Just in case you want to opt-out of the automatic collection of anonymous users and sessions statistics, there is a way to turn this functionality off at any time:
 
@@ -322,7 +322,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.0/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting

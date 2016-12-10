@@ -1,4 +1,4 @@
-## Version 4.1.0
+## Version 4.1.1
 
 The following features are currently supported:
 
@@ -310,7 +310,7 @@ BITHockeyManager.sharedHockeyManager().startManager()
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.0/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
