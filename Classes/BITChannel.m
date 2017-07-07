@@ -76,7 +76,11 @@ NS_ASSUME_NONNULL_BEGIN
   if(nil == _appDidEnterBackgroundObserver) {
     void (^notificationBlock)(NSNotification *note) = ^(NSNotification *note) {
       typeof(self) strongSelf = weakSelf;
+      BITHockeyLogDebug(@"Received background notification.");
+      
       if ([strongSelf timerIsRunning]) {
+        BITHockeyLogDebug(@"Timer running, which means we have unpersisted events. PERSISTING THEM.");
+        
         [strongSelf persistDataItemQueue];
         
         /**
@@ -90,6 +94,9 @@ NS_ASSUME_NONNULL_BEGIN
           [sharedApplication endBackgroundTask:_backgroundTask];
           _backgroundTask = UIBackgroundTaskInvalid;
         }];
+      }
+      else {
+        BITHockeyLogDebug(@"Timer is not running, no events in the queue. Not persisting stuff.");
       }
     };
     _appDidEnterBackgroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
