@@ -69,13 +69,13 @@ Move the unzipped `HockeySDK-tvOS` folder into your project directory. In our ex
 1. Open the file containing your app delegate (`AppDelegate.m` in a default project).
 2. Add the following line below your own `import` statements:
 
-  ```objectivec
+  ```objc
   @import HockeySDK;
   ```
 
 3. In the method `application:didFinishLaunchingWithOptions:`, add the following lines to initialize and start the HockeySDK:
 
-  ```objectivec
+  ```objc
   [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
   // Do additional configuration if needed here
   [[BITHockeyManager sharedHockeyManager] startManager];
@@ -137,7 +137,7 @@ This feature can be disabled with the following code:
 
 **Objective-C**
 
-```objectivec
+```objc
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
 [[BITHockeyManager sharedHockeyManager] setDisableCrashManager:YES]; //disable crash reporting
 [[BITHockeyManager sharedHockeyManager] startManager];
@@ -176,7 +176,7 @@ The `BITCrashManagerDelegate` protocol (which is automatically included in `BITH
 
 Make sure to implement the protocol
 
-```objectivec
+```objc
 @interface YourAppDelegate () <BITHockeyManagerDelegate> {}
 
 @end
@@ -184,7 +184,7 @@ Make sure to implement the protocol
 
 and set the delegate:
 
-```objectivec
+```objc
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
 
 [[BITHockeyManager sharedHockeyManager] setDelegate: self];
@@ -202,7 +202,7 @@ HockeyApp automatically provides you with nice, intelligible, and informative me
 
 Just in case you want to opt-out of the automatic collection of anonymous users and sessions statistics, there is a way to turn this functionality off at any time:
 
-```objectivec
+```objc
 [BITHockeyManager sharedHockeyManager].disableMetricsManager = YES;
 ```
 
@@ -215,7 +215,7 @@ By tracking custom events, you can now get insight into how your customers use y
 
 **Objective-C**
 
-```objectivec
+```objc
 BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metricsManager;
 
 [metricsManager trackEventWithName:eventName]
@@ -244,7 +244,7 @@ It's possible to attach porperties and/or measurements to a custom event.
 
 **Objective-C**
 
-```objectivec
+```objc
 BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metricsManager;
 
 NSDictionary *myProperties = @{@"Property 1" : @"Something",
@@ -278,7 +278,7 @@ This module automatically disables itself when running in an App Store build by 
 
 In-App-Update notifications can be disabled manually as follows:
 
-```objectivec
+```objc
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
 
 [[BITHockeyManager sharedHockeyManager] setDisableUpdateManager: YES]; //disable auto updating
@@ -293,7 +293,7 @@ To check if data was sent properly to HockeyApp and also see some additional SDK
 
 **Objective-C**
 
-```objectivec
+```objc
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
 [BITHockeyManager sharedHockeyManager].logLevel = BITLogLevelDebug;
 [[BITHockeyManager sharedHockeyManager] startManager];
