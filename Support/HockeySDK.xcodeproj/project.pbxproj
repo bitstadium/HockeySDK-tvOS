@@ -26,6 +26,7 @@
 				1E8E66B215BC3D8200632A2E /* ShellScript */,
 			);
 			dependencies = (
+				808A05CC1F18DC050049128B /* PBXTargetDependency */,
 			);
 			name = "HockeySDK Documentation";
 			productName = Documentation;
@@ -382,6 +383,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1E59550915B6F45800A03429;
 			remoteInfo = HockeySDKResources;
+		};
+		808A05CB1F18DC050049128B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4005611148D79B500EB22B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EB6173E1B0A30480035A986;
+			remoteInfo = "HockeySDK Framework";
 		};
 		80B8A97C1C8DAEEC003C2F9D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1667,6 +1675,11 @@
 			isa = PBXTargetDependency;
 			target = 1E59550915B6F45800A03429 /* HockeySDKResources */;
 			targetProxy = 806A2EDD1BFB8BB0009B2E18 /* PBXContainerItemProxy */;
+		};
+		808A05CC1F18DC050049128B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1EB6173E1B0A30480035A986 /* HockeySDK Framework */;
+			targetProxy = 808A05CB1F18DC050049128B /* PBXContainerItemProxy */;
 		};
 		80B8A97D1C8DAEEC003C2F9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
