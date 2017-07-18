@@ -27,11 +27,6 @@
 #define kBITUpdateUsageTimeForUUID           @"BITUpdateUsageTimeForUUID"
 #define kBITUpdateInstallationIdentification @"BITUpdateInstallationIdentification"
 
-#define kBITStoreUpdateDateOfLastCheck       @"BITStoreUpdateDateOfLastCheck"
-#define kBITStoreUpdateLastStoreVersion      @"BITStoreUpdateLastStoreVersion"
-#define kBITStoreUpdateLastUUID              @"BITStoreUpdateLastUUID"
-#define kBITStoreUpdateIgnoreVersion         @"BITStoreUpdateIgnoredVersion"
-
 #define BITHOCKEY_INTEGRATIONFLOW_TIMESTAMP  @"BITIntegrationFlowStartTimestamp"
 
 #define BITHOCKEYSDK_BUNDLE @"HockeySDKResources.bundle"
