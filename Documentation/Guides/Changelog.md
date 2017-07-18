@@ -1,6 +1,13 @@
+## Version 4.1.2
+
+- [IMPROVEMENT] The SDK documentation is now generated using jazzy.
+- [IMPROVEMENT] The SDK can be compiled using Xcode 9 beta 3.
+- [IMPROVEMENT] Events are now sent when the app goes into background. This behavior is now consistent across all native SDKs for HockeyApp.
+- [BUGFIX] Remove references to store updates from `BITHockeyManager.h`. This caused issues when integrating the SDK using Xcode 9 beta 3. 
+
 ## Version 4.1.1
 
-- [BUGFIX] Add check for `nil` in BITChannel.
+- [BUGFIX] Add a check for `nil` in BITChannel.
 
 ## Version 4.1.0
 
