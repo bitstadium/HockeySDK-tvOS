@@ -139,18 +139,18 @@ pod 'HockeySDK-tvOS'
 <a id="crashreporting"></a> 
 ### 3.2 Crash Reporting Features
 
-As the current release we provide is an beta version, crash reporting currently has limited confiuration and fine-tuning options.
+As the current release we provide is an beta version, crash reporting currently has limited configuration and fine-tuning options.
 
 #### 3.2.1 Disable Crash Reporting
 The HockeySDK enables crash reporting **by default**. Crashes will be immediately sent to the server the next time the app is launched.
 
-To provide you with the best crash reporting, we use a custom for of Plausible Labs' [PLCrashReporter]("https://github.com/bitstadium/PLCrashReporter") at [ Commit b1b94c016f9661af13bdf6295c3cd55cc7d6a56f]("https://github.com/bitstadium/PLCrashReporter/commit/b1b94c016f9661af13bdf6295c3cd55cc7d6a56f").
+To provide you with the best crash reporting, we use a custom fork of Plausible Labs' [PLCrashReporter]("https://github.com/bitstadium/PLCrashReporter") at [ Commit b1b94c016f9661af13bdf6295c3cd55cc7d6a56f]("https://github.com/bitstadium/PLCrashReporter/commit/b1b94c016f9661af13bdf6295c3cd55cc7d6a56f").
 
 This feature can be disabled with the following code:
 
 **Objective-C**
 
-```ovjc
+```objc
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
 [[BITHockeyManager sharedHockeyManager] setDisableCrashManager:YES]; //disable crash reporting
 [[BITHockeyManager sharedHockeyManager] startManager];
