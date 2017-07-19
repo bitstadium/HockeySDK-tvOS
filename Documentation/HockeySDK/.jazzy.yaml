@@ -3,7 +3,7 @@ clean: true
 sdk: appletvsimulator
 
 module: HockeySDK
-module_version: 4.1.1
+module_version: 4.1.2
 author: Microsoft Corp
 author_url: https://www.microsoft.com
 
