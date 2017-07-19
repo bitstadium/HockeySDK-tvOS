@@ -33,7 +33,7 @@
  The SDK is optimized to defer everything possible to a later time while making sure e.g. crashes on startup can also be caught and each module executes other code with a delay some seconds. This ensures that applicationDidFinishLaunching will process as fast as possible and the SDK will not block the startup sequence resulting in a possible kill by the watchdog process.
  
  All modules do **NOT** show any user interface if the module is not activated or not integrated.
- `BITCrashManager`: Shows an alert on startup asking the user if he/she agrees on sending the crash report, if `[BITCrashManager crashManagerStatus]` is set to `BITCrashManagerStatusAlwaysAsk` (default)
+ `BITCrashManager`: Shows an alert on startup asking the user if they agree on sending the crash report, if `[BITCrashManager crashManagerStatus]` is set to `BITCrashManagerStatusAlwaysAsk` (default)
  `BITUpdateManager`: Is automatically deactivated when the SDK detects it is running from a build distributed via the App Store. Otherwise if it is not deactivated manually, it will show an alert after startup informing the user about a pending update, if one is available. If the user then decides to view the update another screen is presented with further details and an option to install the update.
  `BITFeedbackManager`: If this module is deactivated or the user interface is nowhere added into the app, this module will not do anything. It will not fetch the server for data or show any user interface. If it is integrated, activated, and the user already used it to provide feedback, it will show an alert after startup if a new answer has been received from the server with the option to view it.
  
@@ -252,39 +252,6 @@ NS_ASSUME_NONNULL_BEGIN
  @see updateManager
  */
 @property (nonatomic, getter = isUpdateManagerDisabled) BOOL disableUpdateManager;
-
-#endif
-
-
-#if HOCKEYSDK_FEATURE_STORE_UPDATES
-
-/**
- Reference to the initialized BITStoreUpdateManager module
- 
- Returns the BITStoreUpdateManager instance initialized by BITHockeyManager
- 
- @see configureWithIdentifier:delegate:
- @see configureWithBetaIdentifier:liveIdentifier:delegate:
- @see startManager
- @see enableStoreUpdateManager
- */
-@property (nonatomic, strong, readonly) BITStoreUpdateManager *storeUpdateManager;
-
-
-/**
- Flag the determines whether the App Store Update Manager should be enabled
- 
- If this flag is enabled, then checking for updates when the app runs from the
- app store will be turned on!
- 
- Please note that the Store Update Manager instance will be initialized anyway!
- 
- @warning This property needs to be set before calling `startManager`
- 
- *Default*: _NO_
- @see storeUpdateManager
- */
-@property (nonatomic, getter = isStoreUpdateManagerEnabled) BOOL enableStoreUpdateManager;
 
 #endif
 
