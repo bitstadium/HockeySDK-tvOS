@@ -4,7 +4,7 @@
 
 # HockeySDK-tvOS
 
-## Version 4.1.1
+## Version 4.1.2
 
 HockeySDK-tvOS implements support for using HockeyApp in your tvOS applications.
 
