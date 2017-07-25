@@ -44,23 +44,25 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 - (BOOL)shouldUseLiveIdentifier;
 
+@property (nonatomic, strong) NSString *appIdentifier;
+@property (nonatomic, strong) NSString *liveIdentifier;
+@property (nonatomic) BOOL validAppIdentifier;
+@property (nonatomic) BOOL startManagerIsInvoked;
+@property (nonatomic) BOOL startUpdateManagerIsInvoked;
+@property (nonatomic) BOOL managersInitialized;
+@property (nonatomic, strong) BITHockeyAppClient *hockeyAppClient;
+
+// Redeclare BITHockeyManager properties with readwrite attribute.
+@property (nonatomic, readwrite) NSString *installString;
+@property (nonatomic, strong, readwrite) BITCrashManager *crashManager;
+@property (nonatomic, strong, readwrite) BITUpdateManager *updateManager;
+@property (nonatomic, strong, readwrite) BITAuthenticator *authenticator;
+@property (nonatomic, strong, readwrite) BITMetricsManager *metricsManager;
+
 @end
 
 
-@implementation BITHockeyManager {
-  NSString *_appIdentifier;
-  NSString *_liveIdentifier;
-  
-  BOOL _validAppIdentifier;
-  
-  BOOL _startManagerIsInvoked;
-  
-  BOOL _startUpdateManagerIsInvoked;
-  
-  BOOL _managersInitialized;
-  
-  BITHockeyAppClient *_hockeyAppClient;
-}
+@implementation BITHockeyManager
 
 #pragma mark - Private Class Methods
 
@@ -146,7 +148,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
   // start Authenticator
   if (self.appEnvironment != BITEnvironmentAppStore) {
-    [_authenticator removeObserver:self forKeyPath:@"identified"];
+    [self.authenticator removeObserver:self forKeyPath:@"identified"];
   }
 #endif
 }
@@ -154,32 +156,32 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 #pragma mark - Public Instance Methods (Configuration)
 
 - (void)configureWithIdentifier:(NSString *)appIdentifier {
-  _appIdentifier = [appIdentifier copy];
+  self.appIdentifier = [appIdentifier copy];
   
   [self initializeModules];
 }
 
 - (void)configureWithIdentifier:(NSString *)appIdentifier delegate:(id)delegate {
-  _delegate = delegate;
-  _appIdentifier = [appIdentifier copy];
+  self.delegate = delegate;
+  self.appIdentifier = [appIdentifier copy];
   
   [self initializeModules];
 }
 
 - (void)configureWithBetaIdentifier:(NSString *)betaIdentifier liveIdentifier:(NSString *)liveIdentifier delegate:(id)delegate {
-  _delegate = delegate;
+  self.delegate = delegate;
   
   // check the live identifier now, because otherwise invalid identifier would only be logged when the app is already in the store
   if (![self checkValidityOfAppIdentifier:liveIdentifier]) {
     [self logInvalidIdentifier:@"liveIdentifier"];
-    _liveIdentifier = [liveIdentifier copy];
+    self.liveIdentifier = [liveIdentifier copy];
   }
   
   if ([self shouldUseLiveIdentifier]) {
-    _appIdentifier = [liveIdentifier copy];
+    self.appIdentifier = [liveIdentifier copy];
   }
   else {
-    _appIdentifier = [betaIdentifier copy];
+    self.appIdentifier = [betaIdentifier copy];
   }
   
   [self initializeModules];
@@ -187,8 +189,8 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 
 - (void)startManager {
-  if (!_validAppIdentifier) return;
-  if (_startManagerIsInvoked) {
+  if (!self.validAppIdentifier) return;
+  if (self.startManagerIsInvoked) {
     NSLog(@"[HockeySDK] Warning: startManager should only be invoked once! This call is ignored.");
     return;
   }
@@ -196,24 +198,24 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   if (![self isSetUpOnMainThread]) return;
   
   if ((self.appEnvironment == BITEnvironmentAppStore) && [self isInstallTrackingDisabled]) {
-    _installString = bit_appAnonID(YES);
+    self.installString = bit_appAnonID(YES);
   }
   
   BITHockeyLogDebug(@"INFO: Starting HockeyManager");
-  _startManagerIsInvoked = YES;
+  self.startManagerIsInvoked = YES;
   
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
   // start CrashManager
   if (![self isCrashManagerDisabled]) {
     BITHockeyLogDebug(@"INFO: Start CrashManager");
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
-    if (_authenticator) {
-      [_crashManager setInstallationIdentification:[self.authenticator publicInstallationIdentifier]];
-      [_crashManager setInstallationIdentificationType:[self.authenticator identificationType]];
-      [_crashManager setInstallationIdentified:[self.authenticator isIdentified]];
+    if (self.authenticator) {
+      [self.crashManager setInstallationIdentification:[self.authenticator publicInstallationIdentifier]];
+      [self.crashManager setInstallationIdentificationType:[self.authenticator identificationType]];
+      [self.crashManager setInstallationIdentified:[self.authenticator isIdentified]];
     }
 #endif
-    [_crashManager startManager];
+    [self.crashManager startManager];
   }
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
   
@@ -221,13 +223,13 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   // start Authenticator
   if (self.appEnvironment != BITEnvironmentAppStore) {
     // hook into manager with kvo!
-    [_authenticator addObserver:self forKeyPath:@"identified" options:0 context:nil];
+    [self.authenticator addObserver:self forKeyPath:@"identified" options:0 context:nil];
     
     BITHockeyLogDebug(@"INFO: Start Authenticator");
-    if (_serverURL) {
-      [_authenticator setServerURL:_serverURL];
+    if (self.serverURL) {
+      [self.authenticator setServerURL:self.serverURL];
     }
-    [_authenticator performSelector:@selector(startManager) withObject:nil afterDelay:0.5f];
+    [self.authenticator performSelector:@selector(startManager) withObject:nil afterDelay:0.5f];
   }
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
   
@@ -249,7 +251,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   // start MetricsManager
   if (!self.disableMetricsManager) {
     BITHockeyLogDebug(@"INFO: Start MetricsManager");
-    [_metricsManager startManager];
+    [self.metricsManager startManager];
     [BITCategoryContainer activateCategory];
   }
 #endif /* HOCKEYSDK_FEATURE_METRICS */
@@ -257,8 +259,8 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 #if HOCKEYSDK_FEATURE_UPDATES
   - (void)setDisableUpdateManager:(BOOL)disableUpdateManager {
-    if (_updateManager) {
-      [_updateManager setDisableUpdateManager:disableUpdateManager];
+    if (self.updateManager) {
+      [self.updateManager setDisableUpdateManager:disableUpdateManager];
     }
     _disableUpdateManager = disableUpdateManager;
   }
@@ -271,11 +273,11 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     aServerURL = [NSString stringWithFormat:@"%@/", aServerURL];
   }
   
-  if (_serverURL != aServerURL) {
+  if (self.serverURL != aServerURL) {
     _serverURL = [aServerURL copy];
     
-    if (_hockeyAppClient) {
-      _hockeyAppClient.baseURL = [NSURL URLWithString:_serverURL ?: BITHOCKEYSDK_URL];
+    if (self.hockeyAppClient) {
+      self.hockeyAppClient.baseURL = [NSURL URLWithString:self.serverURL ?: BITHOCKEYSDK_URL];
     }
   }
 }
@@ -283,7 +285,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 - (void)setDelegate:(id<BITHockeyManagerDelegate>)delegate {
   if (self.appEnvironment != BITEnvironmentAppStore) {
-    if (_startManagerIsInvoked) {
+    if (self.startManagerIsInvoked) {
       NSLog(@"[HockeySDK] ERROR: The `delegate` property has to be set before calling [[BITHockeyManager sharedHockeyManager] startManager] !");
     }
   }
@@ -292,20 +294,20 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     _delegate = delegate;
     
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
-    if (_crashManager) {
-      _crashManager.delegate = _delegate;
+    if (self.crashManager) {
+      self.crashManager.delegate = _delegate;
     }
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
     
 #if HOCKEYSDK_FEATURE_UPDATES
-    if (_updateManager) {
-      _updateManager.delegate = _delegate;
+    if (self.updateManager) {
+      self.updateManager.delegate = _delegate;
     }
 #endif /* HOCKEYSDK_FEATURE_UPDATES */
   }
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
-  if (_authenticator) {
-    _authenticator.delegate = _delegate;
+  if (self.authenticator) {
+    self.authenticator.delegate = _delegate;
   }
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 }
@@ -382,16 +384,16 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 }
 
 - (void)testIdentifier {
-  if (!_appIdentifier || (self.appEnvironment == BITEnvironmentAppStore)) {
+  if (!self.appIdentifier || (self.appEnvironment == BITEnvironmentAppStore)) {
     return;
   }
   
   NSDate *now = [NSDate date];
   NSString *timeString = [NSString stringWithFormat:@"%.0f", [now timeIntervalSince1970]];
-  [self pingServerForIntegrationStartWorkflowWithTimeString:timeString appIdentifier:_appIdentifier];
+  [self pingServerForIntegrationStartWorkflowWithTimeString:timeString appIdentifier:self.appIdentifier];
   
-  if (_liveIdentifier) {
-    [self pingServerForIntegrationStartWorkflowWithTimeString:timeString appIdentifier:_liveIdentifier];
+  if (self.liveIdentifier) {
+    [self pingServerForIntegrationStartWorkflowWithTimeString:timeString appIdentifier:self.liveIdentifier];
   }
 }
 
@@ -502,8 +504,8 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 }
 
 - (void)validateStartManagerIsInvoked {
-  if (_validAppIdentifier && (self.appEnvironment != BITEnvironmentAppStore)) {
-    if (!_startManagerIsInvoked) {
+  if (self.validAppIdentifier && (self.appEnvironment != BITEnvironmentAppStore)) {
+    if (!self.startManagerIsInvoked) {
       NSLog(@"[HockeySDK] ERROR: You did not call [[BITHockeyManager sharedHockeyManager] startManager] to startup the HockeySDK! Please do so after setting up all properties. The SDK is NOT running.");
     }
   }
@@ -511,21 +513,21 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 #if HOCKEYSDK_FEATURE_UPDATES
 - (void)invokeStartUpdateManager {
-  if (_startUpdateManagerIsInvoked) return;
+  if (self.startUpdateManagerIsInvoked) return;
   
-  _startUpdateManagerIsInvoked = YES;
+  self.startUpdateManagerIsInvoked = YES;
   BITHockeyLogDebug(@"INFO: Start UpdateManager");
-  if (_serverURL) {
-    [_updateManager setServerURL:_serverURL];
+  if (self.serverURL) {
+    [self.updateManager setServerURL:self.serverURL];
   }
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
-  if (_authenticator) {
-    [_updateManager setInstallationIdentification:[self.authenticator installationIdentifier]];
-    [_updateManager setInstallationIdentificationType:[self.authenticator installationIdentifierParameterString]];
-    [_updateManager setInstallationIdentified:[self.authenticator isIdentified]];
+  if (self.authenticator) {
+    [self.updateManager setInstallationIdentification:[self.authenticator installationIdentifier]];
+    [self.updateManager setInstallationIdentificationType:[self.authenticator installationIdentifierParameterString]];
+    [self.updateManager setInstallationIdentified:[self.authenticator isIdentified]];
   }
 #endif
-  [_updateManager performSelector:@selector(startManager) withObject:nil afterDelay:0.5f];
+  [self.updateManager performSelector:@selector(startManager) withObject:nil afterDelay:0.5f];
 }
 #endif /* HOCKEYSDK_FEATURE_UPDATES */
 
@@ -550,60 +552,60 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 
 - (BOOL)shouldUseLiveIdentifier {
   BOOL delegateResult = NO;
-  if ([_delegate respondsToSelector:@selector(shouldUseLiveIdentifierForHockeyManager:)]) {
-    delegateResult = [(NSObject <BITHockeyManagerDelegate>*)_delegate shouldUseLiveIdentifierForHockeyManager:self];
+  if ([self.delegate respondsToSelector:@selector(shouldUseLiveIdentifierForHockeyManager:)]) {
+    delegateResult = [(NSObject <BITHockeyManagerDelegate>*)self.delegate shouldUseLiveIdentifierForHockeyManager:self];
   }
   
-  return (delegateResult) || (_appEnvironment == BITEnvironmentAppStore);
+  return (delegateResult) || (self.appEnvironment == BITEnvironmentAppStore);
 }
 
 - (void)initializeModules {
-  if (_managersInitialized) {
+  if (self.managersInitialized) {
     NSLog(@"[HockeySDK] Warning: The SDK should only be initialized once! This call is ignored.");
     return;
   }
   
-  _validAppIdentifier = [self checkValidityOfAppIdentifier:_appIdentifier];
+  self.validAppIdentifier = [self checkValidityOfAppIdentifier:self.appIdentifier];
   
   if (![self isSetUpOnMainThread]) return;
   
-  _startManagerIsInvoked = NO;
+  self.startManagerIsInvoked = NO;
   
-  if (_validAppIdentifier) {
+  if (self.validAppIdentifier) {
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
     BITHockeyLogDebug(@"INFO: Setup CrashManager");
-    _crashManager = [[BITCrashManager alloc] initWithAppIdentifier:_appIdentifier
-                                                    appEnvironment:_appEnvironment
+    self.crashManager = [[BITCrashManager alloc] initWithAppIdentifier:self.appIdentifier
+                                                    appEnvironment:self.appEnvironment
                                                    hockeyAppClient:[self hockeyAppClient]];
-    _crashManager.delegate = _delegate;
+    self.crashManager.delegate = self.delegate;
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
     
 #if HOCKEYSDK_FEATURE_UPDATES
     BITHockeyLogDebug(@"INFO: Setup UpdateManager");
-    _updateManager = [[BITUpdateManager alloc] initWithAppIdentifier:_appIdentifier appEnvironment:_appEnvironment];
-    _updateManager.delegate = _delegate;
+    self.updateManager = [[BITUpdateManager alloc] initWithAppIdentifier:self.appIdentifier appEnvironment:self.appEnvironment];
+    self.updateManager.delegate = self.delegate;
 #endif /* HOCKEYSDK_FEATURE_UPDATES */
     
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
     BITHockeyLogDebug(@"INFO: Setup Authenticator");
-    _authenticator = [[BITAuthenticator alloc] initWithAppIdentifier:_appIdentifier appEnvironment:_appEnvironment];
-    _authenticator.hockeyAppClient = [self hockeyAppClient];
-    _authenticator.delegate = _delegate;
+    self.authenticator = [[BITAuthenticator alloc] initWithAppIdentifier:self.appIdentifier appEnvironment:self.appEnvironment];
+    self.authenticator.hockeyAppClient = [self hockeyAppClient];
+    self.authenticator.delegate = self.delegate;
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
     
 #if HOCKEYSDK_FEATURE_METRICS
     BITHockeyLogDebug(@"INFO: Setup MetricsManager");
-    NSString *iKey = bit_appIdentifierToGuid(_appIdentifier);
-    _metricsManager = [[BITMetricsManager alloc] initWithAppIdentifier:iKey appEnvironment:_appEnvironment];
+    NSString *iKey = bit_appIdentifierToGuid(self.appIdentifier);
+    self.metricsManager = [[BITMetricsManager alloc] initWithAppIdentifier:iKey appEnvironment:self.appEnvironment];
 #endif /* HOCKEYSDK_FEATURE_METRICS */
     
     if (self.appEnvironment != BITEnvironmentAppStore) {
       NSString *integrationFlowTime = [self integrationFlowTimeString];
       if (integrationFlowTime && [self integrationFlowStartedWithTimeString:integrationFlowTime]) {
-        [self pingServerForIntegrationStartWorkflowWithTimeString:integrationFlowTime appIdentifier:_appIdentifier];
+        [self pingServerForIntegrationStartWorkflowWithTimeString:integrationFlowTime appIdentifier:self.appIdentifier];
       }
     }
-    _managersInitialized = YES;
+    self.managersInitialized = YES;
   } else {
     [self logInvalidIdentifier:@"app identifier"];
   }

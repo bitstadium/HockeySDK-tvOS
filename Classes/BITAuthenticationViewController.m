@@ -140,10 +140,10 @@
   self.title = BITHockeyLocalizedString(@"HockeyAuthenticatorViewControllerTitle");
   
   // Container View
-  _containerView = [UIView new];
+  self.containerView = [UIView new];
   
   // E-Mail Input
-  _emailTextField = [UITextField new];
+  self.emailTextField = [UITextField new];
   self.emailTextField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerEmailDescription");
   self.emailTextField.text = self.email;
   self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -154,7 +154,7 @@
   
   // Password Input
   if (self.requirePassword) {
-    _passwordTextField = [UITextField new];
+    self.passwordTextField = [UITextField new];
     self.passwordTextField.placeholder = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerPasswordDescription");
     self.passwordTextField.text = self.password;
     self.passwordTextField.keyboardType = UIKeyboardTypeAlphabet;
@@ -166,7 +166,7 @@
   }
   
   // Sign Button
-  _signInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  self.signInButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [self.signInButton setTitle:BITHockeyLocalizedString(@"HockeyOK") forState:UIControlStateNormal];
   [self.signInButton addTarget:self action:@selector(signInButtonTapped:) forControlEvents:UIControlEventPrimaryActionTriggered];
   [self.containerView addSubview:self.signInButton];

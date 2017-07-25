@@ -19,9 +19,13 @@ static NSString *const kBITMetaDataDirectoryPath = @"com.microsoft.HockeyApp/Met
 static char const *kBITPersistenceQueueString = "com.microsoft.HockeyApp.persistenceQueue";
 static NSUInteger const BITDefaultFileCount = 50;
 
-@implementation BITPersistence {
-  BOOL _directorySetupComplete;
-}
+@interface BITPersistence ()
+
+@property (nonatomic) BOOL directorySetupComplete;
+
+@end
+
+@implementation BITPersistence
 
 #pragma mark - Public
 
@@ -77,7 +81,7 @@ static NSUInteger const BITDefaultFileCount = 50;
 
 - (BOOL)isFreeSpaceAvailable {
   NSArray *files = [self persistedFilesForType:BITPersistenceTypeTelemetry];
-  return files.count < _maxFileCount;
+  return files.count < self.maxFileCount;
 }
 
 - (NSString *)requestNextFilePath {
@@ -210,7 +214,7 @@ static NSUInteger const BITDefaultFileCount = 50;
       return; //TODO we can't use persistence at all in this case, what do we want to do now? Notify the user?
     }
     
-    _directorySetupComplete = YES;
+    self.directorySetupComplete = YES;
   }
 }
 

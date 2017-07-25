@@ -124,7 +124,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 - (void)startNewSessionIfNeeded {
   if (self.appBackgroundTimeBeforeSessionExpires == 0) {
     __weak typeof(self) weakSelf = self;
-    dispatch_async(_metricsEventQueue, ^{
+    dispatch_async(self.metricsEventQueue, ^{
       typeof(self) strongSelf = weakSelf;
       [strongSelf startNewSessionWithId:bit_UUID()];
     });

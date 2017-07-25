@@ -4,8 +4,8 @@
 
 - (instancetype)init {
   if (self = [super init]) {
-    dictionary = [NSMutableDictionary new];
-    order = [NSMutableArray new];
+    _dictionary = [NSMutableDictionary new];
+    _order = [NSMutableArray new];
   }
   return self;
 }
@@ -14,29 +14,29 @@
   self = [super init];
   if ( self != nil )
   {
-    dictionary = [[NSMutableDictionary alloc] initWithCapacity:numItems];
-    order = [NSMutableArray new];
+    _dictionary = [[NSMutableDictionary alloc] initWithCapacity:numItems];
+    _order = [NSMutableArray new];
   }
   return self;
 }
 
 - (void)setObject:(id)anObject forKey:(id)aKey {
-  if(!dictionary[aKey]) {
-    [order addObject:aKey];
+  if(!self.dictionary[aKey]) {
+    [self.order addObject:aKey];
   }
-  dictionary[aKey] = anObject;
+  self.dictionary[aKey] = anObject;
 }
 
 - (NSEnumerator *)keyEnumerator {
-  return [order objectEnumerator];
+  return [self.order objectEnumerator];
 }
 
 - (id)objectForKey:(id)key {
-  return dictionary[key];
+  return self.dictionary[key];
 }
 
 - (NSUInteger)count {
-  return [dictionary count];
+  return [self.dictionary count];
 }
 
 @end
