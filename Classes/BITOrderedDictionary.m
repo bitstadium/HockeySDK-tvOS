@@ -3,7 +3,7 @@
 @implementation BITOrderedDictionary
 
 - (instancetype)init {
-  if (self = [super init]) {
+  if ((self = [super init])) {
     _dictionary = [NSMutableDictionary new];
     _order = [NSMutableArray new];
   }

@@ -221,7 +221,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     @try {
       unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
     }
-    @catch (NSException *exception) {
+    @catch (NSException __unused *exception) {
       return;
     }
     
@@ -278,7 +278,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   [formatter setDateFormat:@"MM/dd/yyyy"];
   double installationTimeStamp = [[NSUserDefaults standardUserDefaults] doubleForKey:kBITUpdateDateOfVersionInstallation];
-  if (installationTimeStamp == 0.0f) {
+  if (installationTimeStamp == 0.0) {
     return [formatter stringFromDate:[NSDate date]];
   } else {
     return [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:installationTimeStamp]];
@@ -491,7 +491,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   if (!self.disableUpdateCheckOptionWhenExpired) {
     UIButton *checkForUpdateButton = [UIButton buttonWithType:kBITButtonTypeSystem];
-    checkForUpdateButton.frame = CGRectMake((frame.size.width - 140) / 2.f, frame.size.height - 100, 140, 25);
+    checkForUpdateButton.frame = CGRectMake((frame.size.width - 140) / 2.0, frame.size.height - 100, 140, 25);
     [checkForUpdateButton setTitle:BITHockeyLocalizedString(@"UpdateButtonCheck") forState:UIControlStateNormal];
     [checkForUpdateButton addTarget:self
                              action:@selector(checkForUpdateForExpiredVersion)
@@ -681,7 +681,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
       if ([self isCheckForUpdateOnLaunch] && [self shouldCheckForUpdates]) {
         if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) return;
         
-        [self performSelector:@selector(checkForUpdate) withObject:nil afterDelay:1.0f];
+        [self performSelector:@selector(checkForUpdate) withObject:nil afterDelay:1.0];
       }
     }
   }

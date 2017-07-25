@@ -35,27 +35,27 @@
 #define kBITCrashMetaAttachment @"BITCrashMetaAttachment"
 
 // internal keys
-NSString *const KBITAttachmentDictIndex = @"index";
-NSString *const KBITAttachmentDictAttachment = @"attachment";
+static NSString *const KBITAttachmentDictIndex = @"index";
+static NSString *const KBITAttachmentDictAttachment = @"attachment";
 
-NSString *const kBITCrashManagerStatus = @"BITCrashManagerStatus";
+static NSString *const kBITCrashManagerStatus = @"BITCrashManagerStatus";
 
-NSString *const kBITAppWentIntoBackgroundSafely = @"BITAppWentIntoBackgroundSafely";
-NSString *const kBITAppDidReceiveLowMemoryNotification = @"BITAppDidReceiveLowMemoryNotification";
-NSString *const kBITAppMarketingVersion = @"BITAppMarketingVersion";
-NSString *const kBITAppVersion = @"BITAppVersion";
-NSString *const kBITAppOSVersion = @"BITAppOSVersion";
-NSString *const kBITAppOSBuild = @"BITAppOSBuild";
-NSString *const kBITAppUUIDs = @"BITAppUUIDs";
+static NSString *const kBITAppWentIntoBackgroundSafely = @"BITAppWentIntoBackgroundSafely";
+static NSString *const kBITAppDidReceiveLowMemoryNotification = @"BITAppDidReceiveLowMemoryNotification";
+static NSString *const kBITAppMarketingVersion = @"BITAppMarketingVersion";
+static NSString *const kBITAppVersion = @"BITAppVersion";
+static NSString *const kBITAppOSVersion = @"BITAppOSVersion";
+static NSString *const kBITAppOSBuild = @"BITAppOSBuild";
+static NSString *const kBITAppUUIDs = @"BITAppUUIDs";
 
-NSString *const kBITFakeCrashUUID = @"BITFakeCrashUUID";
-NSString *const kBITFakeCrashAppMarketingVersion = @"BITFakeCrashAppMarketingVersion";
-NSString *const kBITFakeCrashAppVersion = @"BITFakeCrashAppVersion";
-NSString *const kBITFakeCrashAppBundleIdentifier = @"BITFakeCrashAppBundleIdentifier";
-NSString *const kBITFakeCrashOSVersion = @"BITFakeCrashOSVersion";
-NSString *const kBITFakeCrashDeviceModel = @"BITFakeCrashDeviceModel";
-NSString *const kBITFakeCrashAppBinaryUUID = @"BITFakeCrashAppBinaryUUID";
-NSString *const kBITFakeCrashReport = @"BITFakeCrashAppString";
+static NSString *const kBITFakeCrashUUID = @"BITFakeCrashUUID";
+static NSString *const kBITFakeCrashAppMarketingVersion = @"BITFakeCrashAppMarketingVersion";
+static NSString *const kBITFakeCrashAppVersion = @"BITFakeCrashAppVersion";
+static NSString *const kBITFakeCrashAppBundleIdentifier = @"BITFakeCrashAppBundleIdentifier";
+static NSString *const kBITFakeCrashOSVersion = @"BITFakeCrashOSVersion";
+static NSString *const kBITFakeCrashDeviceModel = @"BITFakeCrashDeviceModel";
+static NSString *const kBITFakeCrashAppBinaryUUID = @"BITFakeCrashAppBinaryUUID";
+static NSString *const kBITFakeCrashReport = @"BITFakeCrashAppString";
 
 
 #if HOCKEYSDK_FEATURE_METRICS
@@ -145,7 +145,7 @@ static PLCrashReporterCallbacks plCrashCallbacks = {
 
 
 // C++ Exception Handler
-static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInfo *info) {
+__attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInfo *info) {
   // This relies on a LOT of sneaky internal knowledge of how PLCR works and should not be considered a long-term solution.
   NSGetUncaughtExceptionHandler()([[BITCrashCXXExceptionWrapperException alloc] initWithCXXExceptionInfo:info]);
   abort();
@@ -395,7 +395,7 @@ static void uncaught_cxx_exception_handler(const BITCrashUncaughtCXXExceptionInf
   @try {
     unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
   }
-  @catch (NSException *exception) {
+  @catch (NSException __unused *exception) {
     return nil;
   }
   

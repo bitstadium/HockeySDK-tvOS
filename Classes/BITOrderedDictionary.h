@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
   @property (nonatomic, strong) NSMutableArray *order;
 
 - (instancetype)initWithCapacity:(NSUInteger)numItems;
-- (void)setObject:(id)anObject forKey:(id)aKey;
+- (void)setObject:(id)anObject forKey:(id<NSCopying>)aKey;
 
 @end
 NS_ASSUME_NONNULL_END

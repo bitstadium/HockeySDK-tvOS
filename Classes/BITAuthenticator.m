@@ -140,7 +140,6 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       self.identified = YES;
       if (completion) { completion(YES, nil); }
       return;
-      break;
     case BITAuthenticatorIdentificationTypeHockeyAppUser:
       viewController = [[BITAuthenticationViewController alloc] initWithDelegate:self];
       viewController.requirePassword = YES;

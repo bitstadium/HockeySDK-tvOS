@@ -17,7 +17,7 @@ typedef struct {
   const char    hockey_build[16];
 } bitstadium_info_t;
 
-bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_hockey,regular,no_dead_strip"))) = {
+static bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_hockey,regular,no_dead_strip"))) = {
   .info_version = 1,
   .hockey_version = BITHOCKEY_C_VERSION,
   .hockey_build = BITHOCKEY_C_BUILD
@@ -139,7 +139,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     }
 #endif
     
-    [self performSelector:@selector(validateStartManagerIsInvoked) withObject:nil afterDelay:0.0f];
+    [self performSelector:@selector(validateStartManagerIsInvoked) withObject:nil afterDelay:0.0];
   }
   return self;
 }
@@ -161,14 +161,14 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   [self initializeModules];
 }
 
-- (void)configureWithIdentifier:(NSString *)appIdentifier delegate:(id)delegate {
+- (void)configureWithIdentifier:(NSString *)appIdentifier delegate:(id<BITHockeyManagerDelegate>)delegate {
   self.delegate = delegate;
   self.appIdentifier = [appIdentifier copy];
   
   [self initializeModules];
 }
 
-- (void)configureWithBetaIdentifier:(NSString *)betaIdentifier liveIdentifier:(NSString *)liveIdentifier delegate:(id)delegate {
+- (void)configureWithBetaIdentifier:(NSString *)betaIdentifier liveIdentifier:(NSString *)liveIdentifier delegate:(id<BITHockeyManagerDelegate>)delegate {
   self.delegate = delegate;
   
   // check the live identifier now, because otherwise invalid identifier would only be logged when the app is already in the store
@@ -229,7 +229,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     if (self.serverURL) {
       [self.authenticator setServerURL:self.serverURL];
     }
-    [self.authenticator performSelector:@selector(startManager) withObject:nil afterDelay:0.5f];
+    [self.authenticator performSelector:@selector(startManager) withObject:nil afterDelay:0.5];
   }
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
   
@@ -527,7 +527,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
     [self.updateManager setInstallationIdentified:[self.authenticator isIdentified]];
   }
 #endif
-  [self.updateManager performSelector:@selector(startManager) withObject:nil afterDelay:0.5f];
+  [self.updateManager performSelector:@selector(startManager) withObject:nil afterDelay:0.5];
 }
 #endif /* HOCKEYSDK_FEATURE_UPDATES */
 
