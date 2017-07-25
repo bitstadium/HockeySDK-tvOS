@@ -606,11 +606,9 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
   if (userIdFromKeychain) {
     userID = userIdFromKeychain;
   }
-  
-  if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(userIDForHockeyManager:componentManager:)]) {
-    userID = [[BITHockeyManager sharedHockeyManager].delegate
-                userIDForHockeyManager:[BITHockeyManager sharedHockeyManager]
-                componentManager:self];
+  id strongDelegate = [BITHockeyManager sharedHockeyManager].delegate;
+  if ([strongDelegate respondsToSelector:@selector(userIDForHockeyManager:componentManager:)]) {
+    userID = [strongDelegate userIDForHockeyManager:[BITHockeyManager sharedHockeyManager] componentManager:self];
   }
   
   return userID  ?: @"";
@@ -624,11 +622,9 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
 - (NSString *)userNameForCrashReport {
   // first check the global keychain storage
   NSString *username = [self stringValueFromKeychainForKey:kBITHockeyMetaUserName] ?: @"";
-  
-  if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(userNameForHockeyManager:componentManager:)]) {
-    username = [[BITHockeyManager sharedHockeyManager].delegate
-                userNameForHockeyManager:[BITHockeyManager sharedHockeyManager]
-                componentManager:self] ?: @"";
+  id strongDelegate = [BITHockeyManager sharedHockeyManager].delegate;
+  if ([strongDelegate respondsToSelector:@selector(userNameForHockeyManager:componentManager:)]) {
+    username = [strongDelegate userNameForHockeyManager:[BITHockeyManager sharedHockeyManager] componentManager:self] ?: @"";
   }
   
   return username;
@@ -651,11 +647,9 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
     useremail = self.installationIdentification;
   }
 #endif
-  
-  if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(userEmailForHockeyManager:componentManager:)]) {
-    useremail = [[BITHockeyManager sharedHockeyManager].delegate
-                 userEmailForHockeyManager:[BITHockeyManager sharedHockeyManager]
-                 componentManager:self] ?: @"";
+  id strongDelegate = [BITHockeyManager sharedHockeyManager].delegate;
+  if ([strongDelegate respondsToSelector:@selector(userEmailForHockeyManager:componentManager:)]) {
+    useremail = [strongDelegate userEmailForHockeyManager:[BITHockeyManager sharedHockeyManager] componentManager:self] ?: @"";
   }
   
   return useremail;
@@ -754,14 +748,15 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
   [self addStringValueToKeychain:[self userNameForCrashReport] forKey:[NSString stringWithFormat:@"%@.%@", filename, kBITCrashMetaUserName]];
   [self addStringValueToKeychain:[self userEmailForCrashReport] forKey:[NSString stringWithFormat:@"%@.%@", filename, kBITCrashMetaUserEmail]];
   [self addStringValueToKeychain:[self userIDForCrashReport] forKey:[NSString stringWithFormat:@"%@.%@", filename, kBITCrashMetaUserID]];
-  
-  if ([self.delegate respondsToSelector:@selector(applicationLogForCrashManager:)]) {
-    applicationLog = [self.delegate applicationLogForCrashManager:self] ?: @"";
+
+  id strongDelegate = self.delegate;
+  if ([strongDelegate respondsToSelector:@selector(applicationLogForCrashManager:)]) {
+    applicationLog = [strongDelegate applicationLogForCrashManager:self] ?: @"";
   }
   [metaDict setObject:applicationLog forKey:kBITCrashMetaApplicationLog];
   
-  if ([self.delegate respondsToSelector:@selector(attachmentForCrashManager:)]) {
-    BITHockeyAttachment *attachment = [self.delegate attachmentForCrashManager:self];
+  if ([strongDelegate respondsToSelector:@selector(attachmentForCrashManager:)]) {
+    BITHockeyAttachment *attachment = [strongDelegate attachmentForCrashManager:self];
     
     if (attachment && attachment.hockeyAttachmentData) {
       [self persistAttachment:attachment withFilename:[self.crashesDir stringByAppendingPathComponent: filename]];
@@ -780,10 +775,11 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
 }
 
 - (BOOL)handleUserInput:(BITCrashManagerUserInput)userInput withUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData {
+  id strongDelegate = self.delegate;
   switch (userInput) {
     case BITCrashManagerUserInputDontSend:
-      if ([self.delegate respondsToSelector:@selector(crashManagerWillCancelSendingCrashReport:)]) {
-        [self.delegate crashManagerWillCancelSendingCrashReport:self];
+      if ([strongDelegate respondsToSelector:@selector(crashManagerWillCancelSendingCrashReport:)]) {
+        [strongDelegate crashManagerWillCancelSendingCrashReport:self];
       }
       
       if (self.lastCrashFilename)
@@ -802,8 +798,8 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
     case BITCrashManagerUserInputAlwaysSend:
       self.crashManagerStatus = BITCrashManagerStatusAutoSend;
       [[NSUserDefaults standardUserDefaults] setInteger:self.crashManagerStatus forKey:kBITCrashManagerStatus];
-      if ([self.delegate respondsToSelector:@selector(crashManagerWillSendCrashReportsAlways:)]) {
-        [self.delegate crashManagerWillSendCrashReportsAlways:self];
+      if ([strongDelegate respondsToSelector:@selector(crashManagerWillSendCrashReportsAlways:)]) {
+        [strongDelegate crashManagerWillSendCrashReportsAlways:self];
       }
       
       if (userProvidedMetaData)
@@ -956,9 +952,10 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
     BITHockeyLogDebug(@"INFO: %lu pending crash reports found.", (unsigned long)[self.crashFiles count]);
     return YES;
   } else {
+    id strongDelegate = self.delegate;
     if (self.didCrashInLastSession) {
-      if ([self.delegate respondsToSelector:@selector(crashManagerWillCancelSendingCrashReport:)]) {
-        [self.delegate crashManagerWillCancelSendingCrashReport:self];
+      if ([strongDelegate respondsToSelector:@selector(crashManagerWillCancelSendingCrashReport:)]) {
+        [strongDelegate crashManagerWillCancelSendingCrashReport:self];
       }
 
       self.didCrashInLastSession = NO;
@@ -1018,9 +1015,9 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
       self.lastCrashFilename = [notApprovedReportFilename lastPathComponent];
     }
     if (self.crashManagerStatus != BITCrashManagerStatusAutoSend && notApprovedReportFilename) {
-      
-      if ([self.delegate respondsToSelector:@selector(crashManagerWillShowSubmitCrashReportAlert:)]) {
-        [self.delegate crashManagerWillShowSubmitCrashReportAlert:self];
+      id strongDelegate = self.delegate;
+      if ([strongDelegate respondsToSelector:@selector(crashManagerWillShowSubmitCrashReportAlert:)]) {
+        [strongDelegate crashManagerWillShowSubmitCrashReportAlert:self];
       }
       
       NSString *appName = bit_appName(BITHockeyLocalizedString(@"HockeyAppNamePlaceholder"));
@@ -1179,9 +1176,9 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
 
     if (!didAppSwitchToBackgroundSafely) {
       BOOL considerReport = YES;
-      
-      if ([self.delegate respondsToSelector:@selector(considerAppNotTerminatedCleanlyReportForCrashManager:)]) {
-        considerReport = [self.delegate considerAppNotTerminatedCleanlyReportForCrashManager:self];
+      id strongDelegate = self.delegate;
+      if ([strongDelegate respondsToSelector:@selector(considerAppNotTerminatedCleanlyReportForCrashManager:)]) {
+        considerReport = [strongDelegate considerAppNotTerminatedCleanlyReportForCrashManager:self];
       }
       
       if (considerReport) {
@@ -1523,7 +1520,7 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
   
   dispatch_async(dispatch_get_main_queue(), ^{
     self.sendingInProgress = NO;
-    
+    id strongDelegate = self.delegate;
     if (nil == theError) {
       if (nil == responseData || [responseData length] == 0) {
         theError = [NSError errorWithDomain:kBITCrashErrorDomain
@@ -1541,9 +1538,8 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
                                                                                    format:nil
                                                                                     error:&theError];
         BITHockeyLogDebug(@"INFO: Received API response: %@", response);
-        
-        if ([self.delegate respondsToSelector:@selector(crashManagerDidFinishSendingCrashReport:)]) {
-          [self.delegate crashManagerDidFinishSendingCrashReport:self];
+        if ([strongDelegate respondsToSelector:@selector(crashManagerDidFinishSendingCrashReport:)]) {
+          [strongDelegate crashManagerDidFinishSendingCrashReport:self];
         }
         
         // only if sending the crash report went successfully, continue with the next one (if there are more)
@@ -1568,8 +1564,8 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
     }
     
     if (theError) {
-      if ([self.delegate respondsToSelector:@selector(crashManager:didFailWithError:)]) {
-        [self.delegate crashManager:self didFailWithError:theError];
+      if ([strongDelegate respondsToSelector:@selector(crashManager:didFailWithError:)]) {
+        [strongDelegate crashManager:self didFailWithError:theError];
       }
       
       BITHockeyLogError(@"ERROR: %@", [theError localizedDescription]);
@@ -1606,9 +1602,9 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
                                                       }];
     
     [uploadTask resume];
-    
-    if ([self.delegate respondsToSelector:@selector(crashManagerWillSendCrashReport:)]) {
-      [self.delegate crashManagerWillSendCrashReport:self];
+    id strongDelegate = self.delegate;
+    if ([strongDelegate respondsToSelector:@selector(crashManagerWillSendCrashReport:)]) {
+      [strongDelegate crashManagerWillSendCrashReport:self];
     }
     BITHockeyLogDebug(@"INFO: Sending crash reports started.");
   }

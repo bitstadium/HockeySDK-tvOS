@@ -158,9 +158,9 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       viewController.viewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerDataEmailDescription");
       break;
   }
-  
-  if ([self.delegate respondsToSelector:@selector(authenticator:willShowAuthenticationController:)]) {
-    [self.delegate authenticator:self willShowAuthenticationController:viewController];
+  id strongDelegate = self.delegate;
+  if ([strongDelegate respondsToSelector:@selector(authenticator:willShowAuthenticationController:)]) {
+    [strongDelegate authenticator:self willShowAuthenticationController:viewController];
   }
   
   NSAssert(viewController, @"ViewController should've been created");
@@ -280,11 +280,11 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       dict[NSUnderlyingErrorKey] = error;
       userInfo = dict;
     }
-    NSError *error = [NSError errorWithDomain:kBITAuthenticatorErrorDomain
+    NSError *localError = [NSError errorWithDomain:kBITAuthenticatorErrorDomain
                                          code:BITAuthenticatorNetworkError
                                      userInfo:userInfo];
     self.validated = NO;
-    if (completion) { completion(NO, error); }
+    if (completion) { completion(NO, localError); }
   } else {
     NSError *validationParseError = nil;
     BOOL valid = [self.class isValidationResponseValid:responseData error:&validationParseError];
