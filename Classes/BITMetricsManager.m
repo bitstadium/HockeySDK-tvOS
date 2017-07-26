@@ -64,7 +64,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 }
 
 - (void)startManager {
-  self.sender = [[BITSender alloc] initWithPersistence:self.persistence serverURL:[NSURL URLWithString:self.serverURL]];
+  self.sender = [[BITSender alloc] initWithPersistence:self.persistence serverURL:(NSURL *)[NSURL URLWithString:self.serverURL]];
   [self.sender sendSavedDataAsync];
   [self startNewSessionWithId:bit_UUID()];
   [self registerObservers];
@@ -124,7 +124,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 - (void)startNewSessionIfNeeded {
   if (self.appBackgroundTimeBeforeSessionExpires == 0) {
     __weak typeof(self) weakSelf = self;
-    dispatch_async(_metricsEventQueue, ^{
+    dispatch_async(self.metricsEventQueue, ^{
       typeof(self) strongSelf = weakSelf;
       [strongSelf startNewSessionWithId:bit_UUID()];
     });
@@ -204,7 +204,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
     typeof(self) strongSelf = weakSelf;
     BITEventData *eventData = [BITEventData new];
     [eventData setName:eventName];
-    [eventData setProperties:properties];
+    [eventData setProperties:(NSDictionary *)properties];
     [eventData setMeasurements:measurements];
     [strongSelf trackDataItem:eventData];
   });

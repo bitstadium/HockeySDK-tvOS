@@ -71,7 +71,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
   if (self.appEnvironment != BITEnvironmentOther) { return; }
   
   // make sure this is called after startManager so all modules are fully setup
-  if (!_isSetup) {
+  if (!self.isSetup) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(authenticateInstallation) object:nil];
     [self performSelector:@selector(authenticateInstallation) withObject:nil afterDelay:0.1];
   } else {
@@ -105,7 +105,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
 #pragma mark - Identification
 
 - (void)identifyWithCompletion:(void (^)(BOOL identified, NSError *))completion {
-  if (_authenticationController) {
+  if (self.authenticationController) {
     BITHockeyLogDebug(@"Authentication controller already visible. Ignoring identify request");
     if (completion) { completion(NO, nil); }
     return;
@@ -140,7 +140,6 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       self.identified = YES;
       if (completion) { completion(YES, nil); }
       return;
-      break;
     case BITAuthenticatorIdentificationTypeHockeyAppUser:
       viewController = [[BITAuthenticationViewController alloc] initWithDelegate:self];
       viewController.requirePassword = YES;
@@ -159,9 +158,9 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       viewController.viewTitle = BITHockeyLocalizedString(@"HockeyAuthenticationViewControllerDataEmailDescription");
       break;
   }
-  
-  if ([self.delegate respondsToSelector:@selector(authenticator:willShowAuthenticationController:)]) {
-    [self.delegate authenticator:self willShowAuthenticationController:viewController];
+  id strongDelegate = self.delegate;
+  if ([strongDelegate respondsToSelector:@selector(authenticator:willShowAuthenticationController:)]) {
+    [strongDelegate authenticator:self willShowAuthenticationController:viewController];
   }
   
   NSAssert(viewController, @"ViewController should've been created");
@@ -281,11 +280,11 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
       dict[NSUnderlyingErrorKey] = error;
       userInfo = dict;
     }
-    NSError *error = [NSError errorWithDomain:kBITAuthenticatorErrorDomain
+    NSError *localError = [NSError errorWithDomain:kBITAuthenticatorErrorDomain
                                          code:BITAuthenticatorNetworkError
                                      userInfo:userInfo];
     self.validated = NO;
-    if (completion) { completion(NO, error); }
+    if (completion) { completion(NO, localError); }
   } else {
     NSError *validationParseError = nil;
     BOOL valid = [self.class isValidationResponseValid:responseData error:&validationParseError];
@@ -309,7 +308,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
   return @{self.installationIdentifierParameterString:self.installationIdentifier};
 }
 
-+ (BOOL)isValidationResponseValid:(id)response error:(NSError **)error {
++ (BOOL)isValidationResponseValid:(id)response error:(NSError *__autoreleasing *)error {
   NSParameterAssert(response);
   
   NSError *jsonParseError = nil;
@@ -366,14 +365,14 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
  * This method has to be called on the main queue
  */
 - (void)dismissAuthenticationControllerAnimated:(BOOL)animated completion:(void (^)(void))completion {
-  if (!_authenticationController) { return; }
-  UIViewController *presentingViewController = [_authenticationController presentingViewController];
+  if (!self.authenticationController) { return; }
+  UIViewController *presentingViewController = [self.authenticationController presentingViewController];
   
   // If there is no presenting view controller just remove view
   if (presentingViewController) {
-    [_authenticationController dismissViewControllerAnimated:animated completion:completion];
+    [self.authenticationController dismissViewControllerAnimated:animated completion:completion];
   } else {
-    [_authenticationController.navigationController.view removeFromSuperview];
+    [self.authenticationController.navigationController.view removeFromSuperview];
     if (completion) {
       completion();
     }
@@ -483,7 +482,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
   }
 }
 
-+ (NSString *)authenticationTokenFromURLResponse:(NSHTTPURLResponse *)urlResponse data:(NSData *)data error:(NSError **)error {
++ (NSString *)authenticationTokenFromURLResponse:(NSHTTPURLResponse *)urlResponse data:(NSData *)data error:(NSError *__autoreleasing *)error {
   if (nil == urlResponse) {
     if (error) {
       *error = [NSError errorWithDomain:kBITAuthenticatorErrorDomain
@@ -592,7 +591,7 @@ static unsigned char kBITPNGEndChunk[4] = {0x49, 0x45, 0x4e, 0x44};
   return udid;
 }
 
-+ (void)email:(NSString **)email andIUID:(NSString **)iuid fromOpenURL:(NSURL *)url {
++ (void)email:(NSString *__autoreleasing *)email andIUID:(NSString *__autoreleasing *)iuid fromOpenURL:(NSURL *)url {
   NSString *query = [url query];
   //there should actually only one
   static NSString *const EmailQuerySpecifier = @"email";
