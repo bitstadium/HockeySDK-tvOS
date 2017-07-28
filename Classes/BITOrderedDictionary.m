@@ -20,7 +20,7 @@
   return self;
 }
 
-- (void)setObject:(id)anObject forKey:(id)aKey {
+- (void)setObject:(id)anObject forKey:(id<NSCopying>)aKey {
   if(!self.dictionary[aKey]) {
     [self.order addObject:aKey];
   }
