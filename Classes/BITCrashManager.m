@@ -695,9 +695,14 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
  * @return `YES` if the debugger is attached to the current process, `NO` otherwise
  */
 - (BOOL)isDebuggerAttached {
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundef"
 #if CI
   return YES;
 #endif
+#pragma clang diagnostic pop
+  
   static BOOL debuggerIsAttached = NO;
   
   static dispatch_once_t debuggerPredicate;
