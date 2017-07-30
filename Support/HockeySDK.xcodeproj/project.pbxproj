@@ -35,7 +35,6 @@
 
 /* Begin PBXBuildFile section */
 		1B30B3D21C97392D00F59C46 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B30B3D11C97392D00F59C46 /* OCMock.framework */; };
-		1B30B3D31C97392D00F59C46 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B30B3D11C97392D00F59C46 /* OCMock.framework */; };
 		1B3EAC731BFA8F4D00BE3CC7 /* BITAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3EAC711BFA8F4D00BE3CC7 /* BITAlertController.h */; };
 		1B3EAC741BFA8F4D00BE3CC7 /* BITAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EAC721BFA8F4D00BE3CC7 /* BITAlertController.m */; };
 		1B3EAC751BFA8F5F00BE3CC7 /* BITAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3EAC711BFA8F4D00BE3CC7 /* BITAlertController.h */; };
@@ -344,6 +343,8 @@
 		80B8A9E41C8DC27C003C2F9D /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */; };
 		80FA847E1F2E7D11000F4061 /* OCHamcrestTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80FA847D1F2E7D11000F4061 /* OCHamcrestTVOS.framework */; };
 		80FA84801F2E93A9000F4061 /* OCMockitoTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80FA847F1F2E93A9000F4061 /* OCMockitoTVOS.framework */; };
+		80FA84811F2E951C000F4061 /* OCHamcrestTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80FA847D1F2E7D11000F4061 /* OCHamcrestTVOS.framework */; };
+		80FA84821F2E9534000F4061 /* OCMockitoTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80FA847F1F2E93A9000F4061 /* OCMockitoTVOS.framework */; };
 		846A90201B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 846A901D1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h */; };
 		846A90221B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846A901E1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm */; };
 		9782023218F81BFC00A98D8B /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9782022818F81BFC00A98D8B /* Arrow.png */; };
@@ -687,9 +688,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80FA84821F2E9534000F4061 /* OCMockitoTVOS.framework in Frameworks */,
+				80FA84811F2E951C000F4061 /* OCHamcrestTVOS.framework in Frameworks */,
 				8078403D1CC6B70B002DF3BD /* OCMock.framework in Frameworks */,
 				1EB6174A1B0A30480035A986 /* HockeySDK.framework in Frameworks */,
-				1B30B3D31C97392D00F59C46 /* OCMock.framework in Frameworks */,
 				1EB617CC1B0A34040035A986 /* CrashReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
