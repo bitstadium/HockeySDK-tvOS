@@ -323,12 +323,8 @@
 		8057C51B1C8DA9BB00DC7BEC /* BITGZIP.h in Headers */ = {isa = PBXBuildFile; fileRef = 8057C51A1C8DA9BB00DC7BEC /* BITGZIP.h */; };
 		8057C51C1C8DA9BB00DC7BEC /* BITGZIP.h in Headers */ = {isa = PBXBuildFile; fileRef = 8057C51A1C8DA9BB00DC7BEC /* BITGZIP.h */; };
 		807756411BC6B6050037C3DA /* HockeySDKEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = 8077563F1BC6A44D0037C3DA /* HockeySDKEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8078403A1CC6B70B002DF3BD /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807840371CC6B70B002DF3BD /* OCHamcrestIOS.framework */; };
-		8078403B1CC6B70B002DF3BD /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807840371CC6B70B002DF3BD /* OCHamcrestIOS.framework */; };
 		8078403C1CC6B70B002DF3BD /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807840381CC6B70B002DF3BD /* OCMock.framework */; };
 		8078403D1CC6B70B002DF3BD /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807840381CC6B70B002DF3BD /* OCMock.framework */; };
-		8078403E1CC6B70B002DF3BD /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807840391CC6B70B002DF3BD /* OCMockitoIOS.framework */; };
-		8078403F1CC6B70B002DF3BD /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807840391CC6B70B002DF3BD /* OCMockitoIOS.framework */; };
 		807840651CC6C120002DF3BD /* BITTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA1170616F53B91001C015C /* BITTestHelper.m */; };
 		807840661CC6C122002DF3BD /* BITTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA1170616F53B91001C015C /* BITTestHelper.m */; };
 		807840821CC6C4A2002DF3BD /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 807840381CC6B70B002DF3BD /* OCMock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -346,6 +342,8 @@
 		80B8A9E01C8DC217003C2F9D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B8A9DF1C8DC217003C2F9D /* libz.tbd */; };
 		80B8A9E21C8DC220003C2F9D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B8A9E11C8DC220003C2F9D /* libc++.tbd */; };
 		80B8A9E41C8DC27C003C2F9D /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */; };
+		80FA847E1F2E7D11000F4061 /* OCHamcrestTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80FA847D1F2E7D11000F4061 /* OCHamcrestTVOS.framework */; };
+		80FA84801F2E93A9000F4061 /* OCMockitoTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80FA847F1F2E93A9000F4061 /* OCMockitoTVOS.framework */; };
 		846A90201B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 846A901D1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h */; };
 		846A90221B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 846A901E1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm */; };
 		9782023218F81BFC00A98D8B /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9782022818F81BFC00A98D8B /* Arrow.png */; };
@@ -612,14 +610,14 @@
 		8057C5011C8DA98100DC7BEC /* BITSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITSender.m; sourceTree = "<group>"; };
 		8057C51A1C8DA9BB00DC7BEC /* BITGZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITGZIP.h; sourceTree = "<group>"; };
 		8077563F1BC6A44D0037C3DA /* HockeySDKEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HockeySDKEnums.h; sourceTree = "<group>"; };
-		807840371CC6B70B002DF3BD /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Vendor/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		807840381CC6B70B002DF3BD /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Vendor/OCMock.framework; sourceTree = "<group>"; };
-		807840391CC6B70B002DF3BD /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Vendor/OCMockitoIOS.framework; sourceTree = "<group>"; };
 		80B8A9D61C8DC1DD003C2F9D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		80B8A9D81C8DC1E1003C2F9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		80B8A9DA1C8DC1EC003C2F9D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		80B8A9DF1C8DC217003C2F9D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		80B8A9E11C8DC220003C2F9D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		80FA847D1F2E7D11000F4061 /* OCHamcrestTVOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestTVOS.framework; path = Vendor/OCHamcrestTVOS.framework; sourceTree = "<group>"; };
+		80FA847F1F2E93A9000F4061 /* OCMockitoTVOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoTVOS.framework; path = Vendor/OCMockitoTVOS.framework; sourceTree = "<group>"; };
 		846A901D1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITCrashCXXExceptionHandler.h; sourceTree = "<group>"; };
 		846A901E1B20B0EB0076BB80 /* BITCrashCXXExceptionHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BITCrashCXXExceptionHandler.mm; sourceTree = "<group>"; };
 		9782022818F81BFC00A98D8B /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
@@ -653,11 +651,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8078403C1CC6B70B002DF3BD /* OCMock.framework in Frameworks */,
-				8078403A1CC6B70B002DF3BD /* OCHamcrestIOS.framework in Frameworks */,
+				80FA847E1F2E7D11000F4061 /* OCHamcrestTVOS.framework in Frameworks */,
 				80B8A97E1C8DAF03003C2F9D /* libHockeySDK.a in Frameworks */,
 				1B30B3D21C97392D00F59C46 /* OCMock.framework in Frameworks */,
 				1EA1170116F4D354001C015C /* CrashReporter.framework in Frameworks */,
-				8078403E1CC6B70B002DF3BD /* OCMockitoIOS.framework in Frameworks */,
+				80FA84801F2E93A9000F4061 /* OCMockitoTVOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,11 +688,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8078403D1CC6B70B002DF3BD /* OCMock.framework in Frameworks */,
-				8078403B1CC6B70B002DF3BD /* OCHamcrestIOS.framework in Frameworks */,
 				1EB6174A1B0A30480035A986 /* HockeySDK.framework in Frameworks */,
 				1B30B3D31C97392D00F59C46 /* OCMock.framework in Frameworks */,
 				1EB617CC1B0A34040035A986 /* CrashReporter.framework in Frameworks */,
-				8078403F1CC6B70B002DF3BD /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,9 +982,9 @@
 		807840361CC6B6D6002DF3BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				807840371CC6B70B002DF3BD /* OCHamcrestIOS.framework */,
+				80FA847F1F2E93A9000F4061 /* OCMockitoTVOS.framework */,
+				80FA847D1F2E7D11000F4061 /* OCHamcrestTVOS.framework */,
 				807840381CC6B70B002DF3BD /* OCMock.framework */,
-				807840391CC6B70B002DF3BD /* OCMockitoIOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
