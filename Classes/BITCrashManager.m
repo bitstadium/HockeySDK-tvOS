@@ -695,9 +695,14 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
  * @return `YES` if the debugger is attached to the current process, `NO` otherwise
  */
 - (BOOL)isDebuggerAttached {
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundef"
 #if CI
   return YES;
 #endif
+#pragma clang diagnostic pop
+  
   static BOOL debuggerIsAttached = NO;
   
   static dispatch_once_t debuggerPredicate;
@@ -1033,9 +1038,11 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
           (useremail && [useremail length] > 0)) {
         alertDescription = [NSString stringWithFormat:BITHockeyLocalizedString(@"CrashDataFoundDescription"), appName];
       }
-      
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
       if (_alertViewHandler) {
         _alertViewHandler();
+#pragma clang diagnostic pop
       } else {
         __weak typeof(self) weakSelf = self;
         

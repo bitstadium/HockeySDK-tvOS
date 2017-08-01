@@ -12,7 +12,7 @@
 #import <pthread.h>
 #import <dlfcn.h>
 #import <execinfo.h>
-#import <libkern/OSAtomic.h>
+#import <os/lock.h>
 
 typedef std::vector<BITCrashUncaughtCXXExceptionHandler> BITCrashUncaughtCXXExceptionHandlerList;
 typedef struct
@@ -25,7 +25,7 @@ typedef struct
 static bool _BITCrashIsOurTerminateHandlerInstalled = false;
 static std::terminate_handler _BITCrashOriginalTerminateHandler = nullptr;
 static BITCrashUncaughtCXXExceptionHandlerList _BITCrashUncaughtExceptionHandlerList;
-static OSSpinLock _BITCrashCXXExceptionHandlingLock = OS_SPINLOCK_INIT;
+static os_unfair_lock _BITCrashCXXExceptionHandlingLock = OS_UNFAIR_LOCK_INIT;
 static pthread_key_t _BITCrashCXXExceptionInfoTSDKey = 0;
 
 @implementation BITCrashUncaughtCXXExceptionHandlerManager
@@ -107,8 +107,8 @@ static void BITCrashUncaughtCXXTerminateHandler(void)
     .exception_frames = nullptr,
   };
   auto p = std::current_exception();
-  
-  OSSpinLockLock(&_BITCrashCXXExceptionHandlingLock); {
+
+  os_unfair_lock_lock(&_BITCrashCXXExceptionHandlingLock);{
     if (p) { // explicit operator bool
       info.exception = reinterpret_cast<const void *>(&p);
       info.exception_type_name = __cxxabiv1::__cxa_current_exception_type()->name();
@@ -145,7 +145,7 @@ static void BITCrashUncaughtCXXTerminateHandler(void)
         info.exception_message = e;
         BITCrashIterateExceptionHandlers_unlocked(info);
       } catch (id __unused e) { // Objective-C exception. Pass it on to Foundation.
-        OSSpinLockUnlock(&_BITCrashCXXExceptionHandlingLock);
+        os_unfair_lock_unlock(&_BITCrashCXXExceptionHandlingLock);
         if (_BITCrashOriginalTerminateHandler != nullptr) {
           _BITCrashOriginalTerminateHandler();
         }
@@ -154,7 +154,7 @@ static void BITCrashUncaughtCXXTerminateHandler(void)
         BITCrashIterateExceptionHandlers_unlocked(info);
       }
     }
-  } OSSpinLockUnlock(&_BITCrashCXXExceptionHandlingLock); // In case terminate is called reentrantly by pasing it on
+  } os_unfair_lock_unlock(&_BITCrashCXXExceptionHandlingLock); // In case terminate is called reentrantly by pasing it on
 
   if (_BITCrashOriginalTerminateHandler != nullptr) {
     _BITCrashOriginalTerminateHandler();
@@ -173,18 +173,18 @@ static void BITCrashUncaughtCXXTerminateHandler(void)
     pthread_key_create(&_BITCrashCXXExceptionInfoTSDKey, free);
   });
 
-  OSSpinLockLock(&_BITCrashCXXExceptionHandlingLock); {
+  os_unfair_lock_lock(&_BITCrashCXXExceptionHandlingLock); {
     if (!_BITCrashIsOurTerminateHandlerInstalled) {
       _BITCrashOriginalTerminateHandler = std::set_terminate(BITCrashUncaughtCXXTerminateHandler);
       _BITCrashIsOurTerminateHandlerInstalled = true;
     }
     _BITCrashUncaughtExceptionHandlerList.push_back(handler);
-  } OSSpinLockUnlock(&_BITCrashCXXExceptionHandlingLock);
+  } os_unfair_lock_unlock(&_BITCrashCXXExceptionHandlingLock);
 }
 
 + (void)removeCXXExceptionHandler:(BITCrashUncaughtCXXExceptionHandler)handler
 {
-  OSSpinLockLock(&_BITCrashCXXExceptionHandlingLock); {
+  os_unfair_lock_lock(&_BITCrashCXXExceptionHandlingLock); {
     auto i = std::find(_BITCrashUncaughtExceptionHandlerList.begin(), _BITCrashUncaughtExceptionHandlerList.end(), handler);
   
     if (i != _BITCrashUncaughtExceptionHandlerList.end()) {
@@ -203,7 +203,7 @@ static void BITCrashUncaughtCXXTerminateHandler(void)
         }
       }
     }
-  } OSSpinLockUnlock(&_BITCrashCXXExceptionHandlingLock);
+  } os_unfair_lock_unlock(&_BITCrashCXXExceptionHandlingLock);
 }
 
 @end

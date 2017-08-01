@@ -9,8 +9,8 @@
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrestTVOS/OCHamcrestTVOS.h>
+#import <OCMockitoTVOS/OCMockitoTVOS.h>
 
 #import <CrashReporter/CrashReporter.h>
 
