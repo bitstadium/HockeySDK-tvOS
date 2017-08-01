@@ -8,8 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrestTVOS/OCHamcrestTVOS.h>
+#import <OCMockitoTVOS/OCMockitoTVOS.h>
 
 #import "HockeySDK.h"
 #import "HockeySDKPrivate.h"
