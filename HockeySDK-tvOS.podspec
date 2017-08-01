@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.license           = { :type => 'MIT', :file => 'HockeySDK-tvOS/LICENSE' }
   s.author            = { 'Microsoft' => 'support@hockeyapp.net' }
 
-  s.platform          = :tvos, '9.0'
+  s.platform          = :tvos, '10.0'
   
   s.preserve_path = 'HockeySDK-tvOS/README.md'
 
