@@ -158,7 +158,7 @@ This feature can be disabled with the following code:
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
 BITHockeyManager.shared().configureWithIdentifier("APP_IDENTIFIER")
@@ -218,7 +218,7 @@ and set the delegate:
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
 BITHockeyManager.shared().configure(withIdentifier: "APP_IDENTIFIER")
@@ -261,7 +261,7 @@ BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metri
 [metricsManager trackEventWithName:eventName]
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
 let metricsManager = BITHockeyManager.shared().metricsManager
@@ -276,7 +276,7 @@ metricsManager.trackEvent(withName:eventName)
 
 #### 3.3.2 Attaching custom properties and measurements to a custom event
 
-It's possible to attach porperties and/or measurements to a custom event.
+It's possible to attach properties and/or measurements to a custom event.
 
 - Properties have to be a string.
 - Measurements have to be of a numeric type.
@@ -296,7 +296,7 @@ NSDictionary *myMeasurements = @{@"Measurement 1" : @1,
 [metricsManager trackEventWithName:eventName properties:myProperties measurements:myMeasurements]
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
 let myProperties = ["Property 1": "Something", "Property 2": "Other thing", "Property 3" : "Totally different thing."]
