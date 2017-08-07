@@ -4,7 +4,7 @@
 
 # HockeySDK-tvOS
 
-## Version 4.1.2
+## Version 5.0.0-beta.1
 
 HockeySDK-tvOS implements support for using HockeyApp in your tvOS applications.
 
@@ -19,9 +19,7 @@ The following features are currently supported:
 4. **Authenticate:** Identify and authenticate users of Ad-Hoc or Enterprise builds.
 
 ## 1. Setup
-
-It is super easy to use HockeyApp in your iOS app. Have a look at our [documentation](https://www.hockeyapp.net/help/sdk/tvos/4.1.2/docs/docs/Guide-Installation-Setup.html) and onboard your app within minutes.
-
+It is super easy to use HockeyApp in your tvOS app. Have a look at our [documentation](https://www.hockeyapp.net/help/sdk/tvos/5.0.0-beta.1/index.html) and onboard your app within minutes.
 
 <a id="requirements"></a> 
 ## 1. Requirements
@@ -34,9 +32,9 @@ Be aware that tvOS requires Bitcode.
 
 ## 2. Documentation
 
-Please visit [our landing page](https://www.hockeyapp.net/help/sdk/tvos/4.1.2/index.html) as a starting point for all of our documentation.
+Please visit [our landing page](https://www.hockeyapp.net/help/sdk/tvos/5.0.0-beta.1/index.html) as a starting point for all of our documentation.
 
-Please check out our [getting started documentation](https://www.hockeyapp.net/help/sdk/tvos/4.1.2/docs/docs/Guide-Installation-Setup.html), [changelog](http://www.hockeyapp.net/help/sdk/tvos/4.1.2/docs/docs/Changelog.html), [header docs](https://www.hockeyapp.net/help/sdk/tvos/4.1.2/index.html) as well as our [troubleshooting section](https://www.hockeyapp.net/help/sdk/tvos/4.1.2/docs/docs/Guide-Installation-Setup.html#troubleshooting).
+Please check out our [changelog](http://www.hockeyapp.net/help/sdk/tvos/5.0.0-beta.1/changelog.html), as well as our [troubleshooting section](https://www.hockeyapp.net/help/sdk/tvos/5.0.0-beta.1/installation--setup.html#troubleshooting).
 
 ## 3. Contributing
 
@@ -46,9 +44,9 @@ We're looking forward to your contributions via pull requests.
 
 * A Mac running the latest version of macOS.
 * Get the latest Xcode from the Mac App Store.
-* [Jazzy](https://github.com/realm/jazzy) 
-* [CocoaPods](https://cocoapods.org/)
-* [Carthage](https://github.com/Carthage/Carthage)
+* [Jazzy](https://github.com/realm/jazzy) to generate documentation.
+* [CocoaPods](https://cocoapods.org/) to test integration with CocoaPods.
+* [Carthage](https://github.com/Carthage/Carthage) to test integration with Carthage.
 
 ### 3.2 Code of Conduct
 
@@ -60,4 +58,4 @@ You must sign a [Contributor License Agreement](https://cla.microsoft.com/) befo
 
 ## 4. Contact
 
-If you have further questions or are running into trouble that cannot be resolved by any of the steps [in our troubleshooting section](https://www.hockeyapp.net/help/sdk/tvos/4.1.2/docs/docs/Guide-Installation-Setup.html#troubleshooting), feel free to open an issue here, contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net) or join our [Slack](https://slack.hockeyapp.net).
+If you have further questions or are running into trouble that cannot be resolved by any of the steps [in our troubleshooting section](https://www.hockeyapp.net/help/sdk/tvos/5.0.0-beta.1/installation--setup.html#troubleshooting), feel free to open an issue here, contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net) or join our [Slack](https://slack.hockeyapp.net).

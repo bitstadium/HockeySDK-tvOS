@@ -1,3 +1,9 @@
+## Version 5.0.0-beta.1
+
+This version contains one major breaking change. HockeySDK-tvOS now requires tvOS 10.0 or up.
+
+- [IMPROVEMENT] The SDK now uses the same structure for the "fat framework" as the iOS SDK.
+
 ## Version 4.1.2
 
 - [IMPROVEMENT] The SDK documentation is now generated using jazzy.
