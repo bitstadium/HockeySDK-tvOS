@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = 'HockeySDK-tvOS'
-  s.version           = '4.1.2'
+  s.version           = '5.0.0-beta.1'
 
   s.summary           = 'Collect live crash reports, provide update notifications, add authentication capabilities, and get usage data.'
   s.description       = <<-DESC
