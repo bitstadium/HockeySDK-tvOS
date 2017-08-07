@@ -26,8 +26,8 @@ It is super easy to use HockeyApp in your iOS app. Have a look at our [documenta
 <a id="requirements"></a> 
 ## 1. Requirements
 
-1. We assume that you already have a project in Xcode, and that this project is opened in Xcode 7 or later.
-2. The SDK supports tvOS 9.0 and later.
+1. We assume that you already have a project in Xcode, and that this project is opened in Xcode 8 or later.
+2. The SDK supports tvOS 10.0 and later.
 
 **[NOTE]** 
 Be aware that tvOS requires Bitcode.
