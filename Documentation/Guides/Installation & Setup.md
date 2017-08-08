@@ -4,9 +4,9 @@
 
 # HockeySDK-tvOS
 
-## Version 4.1.2
+## Version 5.0.0-beta.1
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/tvos/4.1.2/docs/docs/Changelog.html)
+- [Changelog](https://www.hockeyapp.net/help/sdk/tvos/5.0.0-beta.1/changelog.html)
 
 ## Introduction
 
@@ -14,7 +14,7 @@ HockeySDK-tvOS implements support for using HockeyApp in your tvOS applications.
 
 The following features are currently supported:
 
-1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and letive apps, i.e. those submitted to the App Store.
+1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and live apps, i.e. those submitted to the App Store.
 
 2. **User Metrics:** Understand user behavior to improve your app. Track usage through daily and monthly active users, monitor crash impacted users, as well as customer engagement through session count. You can now track Custom Events in your app, understand user actions and see the aggregates on the HockeyApp portal.
 
@@ -35,8 +35,9 @@ This document contains the following sections:
 4. [Documentation](#documentation)  
 5. [Troubleshooting](#troubleshooting)
 6. [Contributing](#contributing)
-  1. [Code of Conduct](#codeofconduct)
-  2. [Contributor License](#contributorlicense)
+  1. [Development Environment](#developmentenvironment)
+  2. [Code of Conduct](#codeofconduct)
+  3. [Contributor License](#contributorlicense)
 7. [Contact](#contact)
 
 <a id="requirements"></a> 
@@ -95,7 +96,7 @@ Move the unzipped `HockeySDK-tvOS` folder into your project directory. In our ex
   [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
   ```
 
-**Swift**
+**Swift 3**
 
 1. Open the file containing your app delegate (`AppDelegate.swift` in a default project).
 2. Add the following line below your own `import` statements:
@@ -104,13 +105,14 @@ Move the unzipped `HockeySDK-tvOS` folder into your project directory. In our ex
   import HockeySDK
   ```
 
-3. In the method `application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:[NSObject: AnyObject]?) -> Bool`, add the following lines to initialize and start the HockeySDK:
+3. In the method
+  `application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool`,
+  add the following lines to initialize and start the HockeySDK:
 
   ```swift
-  BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
-  // Do additional configuration if needed here
-  BITHockeyManager.sharedHockeyManager().startManager()
-  BITHockeyManager.sharedHockeyManager().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
+ BITHockeyManager.shared().configure(withIdentifier: appId)
+ BITHockeyManager.shared().start()
+ BITHockeyManager.shared().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
   ```
 
 *Note:* The SDK has been optimized to defer as much initialization as it can until needed,  while still making sure that crashes on startup can be caught. Each module executes other code with a delay of up to several seconds. This ensures that your startup method will execute as fast as possible and that the SDK will not block the launch process (which would be a poor user experience and potentially result in your app being killed by the system watchdog process).
@@ -156,19 +158,19 @@ This feature can be disabled with the following code:
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
-BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
-BITHockeyManager.sharedHockeyManager().disableCrashManager = true
-BITHockeyManager.sharedHockeyManager().startManager()
+BITHockeyManager.shared().configureWithIdentifier("APP_IDENTIFIER")
+BITHockeyManager.shared().isCrashManagerDisabled = true
+BITHockeyManager.shared().startManager()
 ```
 
 #### 3.2.2 How are crash reports sent to HockeyApp?
 
 Crashes are sent the next time the app starts, without any user interaction.
 
-The SDK deliverably avoids sending the reports at the time of the crash, as it is not possible to implement such a mechanism safely. In particular, there is no way to do network access in an async-safe fashion without causing a severe drain on the device's resources, and any error whatsoever creates the danger of a double-fault or deadlock, resulting in losing the crash report entirely. We have found that users do relaunch the app, because most don't know what happened, and you will receive the vast majority of crash reports.
+The SDK avoids sending the reports at the time of the crash, as it is not possible to implement such a mechanism safely. In particular, there is no way to do network access in an async-safe fashion without causing a severe drain on the device's resources, and any error whatsoever creates the danger of a double-fault or deadlock, resulting in losing the crash report entirely. We have found that users do relaunch the app, because most don't know what happened, and you will receive the vast majority of crash reports.
 
 Sending pending crash reports on startup is done asynchronously, using `NSURLSession`. This avoids any issues with slow startup and is resilient against poor network connectivity.
 
@@ -189,13 +191,24 @@ The `BITCrashManagerDelegate` protocol (which is automatically included in `BITH
 
 Make sure to implement the protocol
 
+**Objective-C**
+
 ```objc
 @interface YourAppDelegate () <BITHockeyManagerDelegate> {}
 
 @end
 ```
 
+**Swift 3**
+
+```swift
+class ViewController: UIViewController, BITHockeyManagerDelegate { .... }
+```
+
+
 and set the delegate:
+
+**Objective-C**
 
 ```objc
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
@@ -203,6 +216,14 @@ and set the delegate:
 [[BITHockeyManager sharedHockeyManager] setDelegate: self];
 
 [[BITHockeyManager sharedHockeyManager] startManager];
+```
+
+**Swift 3**
+
+```swift
+BITHockeyManager.shared().configure(withIdentifier: "APP_IDENTIFIER")
+BITHockeyManager.shared().delegate = self
+BITHockeyManager.shared().start()
 ```
 
 <a name="user-metrics"></a>
@@ -215,8 +236,15 @@ HockeyApp automatically provides you with nice, intelligible, and informative me
 
 Just in case you want to opt-out of the automatic collection of anonymous users and sessions statistics, there is a way to turn this functionality off at any time:
 
+**Objective-C**
+
 ```objc
 [BITHockeyManager sharedHockeyManager].disableMetricsManager = YES;
+```
+
+**Swift 3**
+```swift
+BITHockeyManager.shared().isMetricsManagerDisabled = true
 ```
 
 #### 3.3.1 Custom Events
@@ -230,16 +258,14 @@ By tracking custom events, you can now get insight into how your customers use y
 
 ```objc
 BITMetricsManager *metricsManager = [BITHockeyManager sharedHockeyManager].metricsManager;
-
 [metricsManager trackEventWithName:eventName]
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
-let metricsManager = BITHockeyManager.sharedHockeyManager().metricsManager
-
-metricsManager.trackEventWithName(eventName)
+let metricsManager = BITHockeyManager.shared().metricsManager
+metricsManager.trackEvent(withName:eventName)
 ```
 
 **Limitations**
@@ -250,7 +276,7 @@ metricsManager.trackEventWithName(eventName)
 
 #### 3.3.2 Attaching custom properties and measurements to a custom event
 
-It's possible to attach porperties and/or measurements to a custom event.
+It's possible to attach properties and/or measurements to a custom event.
 
 - Properties have to be a string.
 - Measurements have to be of a numeric type.
@@ -270,14 +296,14 @@ NSDictionary *myMeasurements = @{@"Measurement 1" : @1,
 [metricsManager trackEventWithName:eventName properties:myProperties measurements:myMeasurements]
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
 let myProperties = ["Property 1": "Something", "Property 2": "Other thing", "Property 3" : "Totally different thing."]
 let myMeasurements = ["Measurement 1": 1, "Measurement 2": 2.3, "Measurement 3" : 30000]
       
-let metricsManager = BITHockeyManager.sharedHockeyManager().metricsManager
-metricsManager.trackEventWithName(eventName, properties: myProperties, myMeasurements: measurements)
+let metricsManager = BITHockeyManager.shared().metricsManager
+metricsManager.trackEvent(withName: eventName, properties: myProperties, myMeasurements: measurements)
 ```
 
 <a name="betaupdates"></a>
@@ -291,12 +317,20 @@ This module automatically disables itself when running in an App Store build by 
 
 In-App-Update notifications can be disabled manually as follows:
 
+**Objective-C**
+
 ```objc
 [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"APP_IDENTIFIER"];
-
 [[BITHockeyManager sharedHockeyManager] setDisableUpdateManager: YES]; //disable auto updating
-
 [[BITHockeyManager sharedHockeyManager] startManager];
+```
+
+**Swift 3**
+
+```swift
+BITHockeyManager.shared().configure(withIdentifier: "APP_IDENTIFIER")
+BITHockeyManager.shared().isUpdateManagerDisabled = true //disable auto updating
+BITHockeyManager.shared().start() 
 ```
 
 <a id="debuginfo"></a>
@@ -312,18 +346,18 @@ To check if data was sent properly to HockeyApp and also see some additional SDK
 [[BITHockeyManager sharedHockeyManager] startManager];
 ```
 
-**Swift**
+**Swift 3**
 
 ```swift
-BITHockeyManager.sharedHockeyManager().configureWithIdentifier("APP_IDENTIFIER")
-BITHockeyManager.sharedHockeyManager().debugLogEnabled = true
-BITHockeyManager.sharedHockeyManager().startManager()
+BITHockeyManager.shared().configure(withIdentifier: appId)
+BITHockeyManager.shared().logLevel = .verbose
+BITHockeyManager.shared().start()
 ```
 
 <a id="documentation"></a>
 ## 4. Documentation
 
-Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/4.1.2/index.html).
+Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos/5.0.0-beta.1/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
@@ -333,7 +367,7 @@ Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos
   Make sure none of the following files are copied into your app bundle. This can be checked by examining the `Copy Bundle Resources` item in the `Build Phases` tab of your app target in the Xcode project, or by looking within the final `.app` bundle after making your build:
 
   - `HockeySDK.framework` (unless you've built your own version of the SDK as a dynamic framework - if you don't know what this means, you don't have to worry about it)
-  - `de.bitstadium.HockeySDK-tvOS-4.1.2.docset`
+  - `de.bitstadium.HockeySDK-tvOS-5.0.0-beta.1.docset`
 
 2. Features not working as expected
 
@@ -346,19 +380,20 @@ Our documentation can be found at [HockeyApp](http://hockeyapp.net/help/sdk/tvos
 
 We're looking forward to your contributions via pull requests.
 
-**Development environment**
+<a id="developmentenvironment"></a>
+### 6.1 Development environment
 
-* Any Mac running the latest version of OS X (10.11 El Capitan at the time of this writing)
-* Get the latest Xcode (7.1 at the time of this writing) from the Mac App Store
+* Any Mac running the latest version of macOS.
+* Get the latest Xcode from the Mac App Store
 * [AppleDoc](https://github.com/tomaz/appledoc) 
 
 <a id="codeofconduct"></a>
-### 6.1 Code of Conduct
+### 6.2 Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 <a id="contributorlicense"></a>
-### 6.2 Contributor License
+### 6.3 Contributor License
 
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before opening a pull request. To complete the Contributor License Agreement (CLA), you must submit a request via [this form](https://cla.microsoft.com/), then electronically sign the CLA once you receive the email containing the link to the document. Signing the CLA once, for any project, covers all submissions to all Microsoft OSS projects, unless otherwise noted.
 
