@@ -313,6 +313,15 @@ static bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 }
 
+#if HOCKEYSDK_FEATURE_METRICS
+- (void)setDisableMetricsManager:(BOOL)disableMetricsManager {
+  if (self.metricsManager) {
+    self.metricsManager.disabled = disableMetricsManager;
+  }
+  _disableMetricsManager = disableMetricsManager;
+}
+#endif /* HOCKEYSDK_FEATURE_METRICS */
+
 - (void)setDebugLogEnabled:(BOOL)debugLogEnabled {
   _debugLogEnabled = debugLogEnabled;
   if (debugLogEnabled) {
