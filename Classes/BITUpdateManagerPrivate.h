@@ -38,8 +38,6 @@
 
 @property (nonatomic, strong) NSNumber *currentAppVersionUsageTime;
 
-@property (nonatomic, strong) NSURLConnection *urlConnection;
-
 @property (nonatomic, copy) NSDate *usageStartTimestamp;
 
 @property (nonatomic, strong) UIView *blockingView;
