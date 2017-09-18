@@ -3,9 +3,9 @@
 
 #if HOCKEYSDK_FEATURE_METRICS
 
-#import "HockeySDKNullability.h"
 @class BITPersistence;
 
+#import "HockeySDKNullability.h"
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) dispatch_queue_t requestsCountQueue;
 
 /**
- *  A queue which is used to handle BITHTTPOperation completion blocks.
+ *  A queue which is used to handle completion blocks.
  */
 @property (nonatomic, strong) dispatch_queue_t senderTasksQueue;
 
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger runningRequestsCount;
 
 /**
- *	BaseURL to which relative paths are appended.
+ *  BaseURL to which relative paths are appended.
  */
 @property (nonatomic, strong, readonly) NSURL *serverURL;
 
@@ -95,6 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param path path to the file which should be sent
  */
 - (void)sendRequest:(NSURLRequest *)request filePath:(NSString *)path;
+
+- (void)sendUsingURLSessionWithRequest:(NSURLRequest *)request filePath:(NSString *)filePath;
 
 /**
  *  Resumes the given NSURLSessionDataTask instance.
