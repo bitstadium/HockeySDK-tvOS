@@ -24,13 +24,13 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 
 @interface BITUpdateManager ()
 
-@property (nonatomic, strong) NSString *currentAppVersion;
+@property (nonatomic, copy) NSString *currentAppVersion;
 @property (nonatomic) BOOL dataFound;
 @property (nonatomic) BOOL updateAlertShowing;
 @property (nonatomic) BOOL lastCheckFailed;
 @property (nonatomic, strong) NSFileManager *fileManager;
-@property (nonatomic, strong) NSString *updateDir;
-@property (nonatomic, strong) NSString *usageDataFile;
+@property (nonatomic, copy) NSString *updateDir;
+@property (nonatomic, copy) NSString *usageDataFile;
 @property (nonatomic, weak) id appDidBecomeActiveObserver;
 @property (nonatomic, weak) id appDidEnterBackgroundObserver;
 @property (nonatomic, weak) id networkDidBecomeReachableObserver;
@@ -38,9 +38,9 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 @property (nonatomic) BOOL didEnterBackgroundState;
 @property (nonatomic) BOOL firstStartAfterInstall;
 @property (nonatomic, strong) NSNumber *versionID;
-@property (nonatomic, strong) NSString *versionUUID;
-@property (nonatomic, strong) NSString *uuid;
-@property (nonatomic, strong) NSString *blockingScreenMessage;
+@property (nonatomic, copy) NSString *versionUUID;
+@property (nonatomic, copy) NSString *uuid;
+@property (nonatomic, copy) NSString *blockingScreenMessage;
 @property (nonatomic, strong) NSDate *lastUpdateCheckFromBlockingScreen;
 
 @end
@@ -107,51 +107,50 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   __weak typeof(self) weakSelf = self;
   if(nil == self.appDidEnterBackgroundObserver) {
     self.appDidEnterBackgroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                                                                       object:nil
-                                                                                        queue:NSOperationQueue.mainQueue
-                                                                                   usingBlock:^(NSNotification *note) {
-                                                                                     typeof(self) strongSelf = weakSelf;
-                                                                                     [strongSelf didEnterBackgroundActions];
-                                                                                   }];
+                                                                                           object:nil
+                                                                                            queue:NSOperationQueue.mainQueue
+                                                                                       usingBlock:^(NSNotification __unused *note) {
+                                                                                         typeof(self) strongSelf = weakSelf;
+                                                                                         [strongSelf didEnterBackgroundActions];
+                                                                                       }];
   }
   if(nil == self.appDidBecomeActiveObserver) {
     self.appDidBecomeActiveObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                                                    object:nil
-                                                                                     queue:NSOperationQueue.mainQueue
-                                                                                usingBlock:^(NSNotification *note) {
-                                                                                  typeof(self) strongSelf = weakSelf;
-                                                                                  [strongSelf didBecomeActiveActions];
-                                                                                }];
+                                                                                        object:nil
+                                                                                         queue:NSOperationQueue.mainQueue
+                                                                                    usingBlock:^(NSNotification __unused *note) {
+                                                                                      typeof(self) strongSelf = weakSelf;
+                                                                                      [strongSelf didBecomeActiveActions];
+                                                                                    }];
   }
   if(nil == self.networkDidBecomeReachableObserver) {
     self.networkDidBecomeReachableObserver = [[NSNotificationCenter defaultCenter] addObserverForName:BITHockeyNetworkDidBecomeReachableNotification
-                                                                                           object:nil
-                                                                                            queue:NSOperationQueue.mainQueue
-                                                                                       usingBlock:^(NSNotification *note) {
-                                                                                         typeof(self) strongSelf = weakSelf;
-                                                                                         [strongSelf didBecomeActiveActions];
-                                                                                       }];
+                                                                                               object:nil
+                                                                                                queue:NSOperationQueue.mainQueue
+                                                                                           usingBlock:^(NSNotification __unused *note) {
+                                                                                             typeof(self) strongSelf = weakSelf;
+                                                                                             [strongSelf didBecomeActiveActions];
+                                                                                           }];
   }
 }
 
 - (void) unregisterObservers {
-  id strongAppDidEnterBackgroundObserver = self.appDidEnterBackgroundObserver;
-  if(strongAppDidEnterBackgroundObserver) {
-    [[NSNotificationCenter defaultCenter] removeObserver:strongAppDidEnterBackgroundObserver];
+  id strongDidEnterBackgroundObserver = self.appDidEnterBackgroundObserver;
+  id strongDidBecomeActiveObserver = self.appDidBecomeActiveObserver;
+  id strongNetworkDidBecomeReachableObserver = self.networkDidBecomeReachableObserver;
+  if(strongDidEnterBackgroundObserver) {
+    [[NSNotificationCenter defaultCenter] removeObserver:strongDidEnterBackgroundObserver];
     self.appDidEnterBackgroundObserver = nil;
   }
-  id strongAppDidBecomeActiveObserver = self.appDidBecomeActiveObserver;
-  if(strongAppDidBecomeActiveObserver) {
-    [[NSNotificationCenter defaultCenter] removeObserver:strongAppDidBecomeActiveObserver];
+  if(strongDidBecomeActiveObserver) {
+    [[NSNotificationCenter defaultCenter] removeObserver:strongDidBecomeActiveObserver];
     self.appDidBecomeActiveObserver = nil;
   }
-  id strongNetworkDidBecomeReachableObserver = self.networkDidBecomeReachableObserver;
   if(strongNetworkDidBecomeReachableObserver) {
     [[NSNotificationCenter defaultCenter] removeObserver:strongNetworkDidBecomeReachableObserver];
     self.networkDidBecomeReachableObserver = nil;
   }
 }
-
 
 #pragma mark - Expiry
 
@@ -380,19 +379,19 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     _expiryDate = nil;
     _checkInProgress = NO;
     _dataFound = NO;
-    _updateAvailable = NO;
+    self.updateAvailable = NO;
     _lastCheckFailed = NO;
-    _currentAppVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    self.currentAppVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     _blockingView = nil;
     _lastCheck = nil;
     _uuid = [[self executableUUID] copy];
     _versionUUID = nil;
     _versionID = nil;
-    _sendUsageData = YES;
+    self.sendUsageData = YES;
     _disableUpdateManager = NO;
     _firstStartAfterInstall = NO;
     _companyName = nil;
-    _currentAppVersionUsageTime = @0;
+    self.currentAppVersionUsageTime = @0;
     
     // set defaults
     self.alwaysShowUpdateReminder = YES;
@@ -408,16 +407,16 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     }
     
     if (!_lastCheck) {
-      _lastCheck = [NSDate distantPast];
+      self.lastCheck = [NSDate distantPast];
     }
     
     if (!BITHockeyBundle()) {
-      NSLog(@"[HockeySDK] WARNING: %@ is missing, make sure it is added!", BITHOCKEYSDK_BUNDLE);
+      BITHockeyLogWarning(@"[HockeySDK] WARNING: %@ is missing, make sure it is added!", BITHOCKEYSDK_BUNDLE);
     }
     
-    _fileManager = [[NSFileManager alloc] init];
+    self.fileManager = [[NSFileManager alloc] init];
     
-    _usageDataFile = [bit_settingsDir() stringByAppendingPathComponent:BITHOCKEY_USAGE_DATA];
+    self.usageDataFile = [bit_settingsDir() stringByAppendingPathComponent:BITHOCKEY_USAGE_DATA];
     
     [self loadAppCache];
     
@@ -437,8 +436,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   [self unregisterObservers];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
-  
-  [_urlConnection cancel];
 }
 
 - (void)showCheckForUpdateAlert {
@@ -494,7 +491,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   if (!self.disableUpdateCheckOptionWhenExpired) {
     UIButton *checkForUpdateButton = [UIButton buttonWithType:kBITButtonTypeSystem];
-    checkForUpdateButton.frame = CGRectMake((frame.size.width - 140) / 2.0, frame.size.height - 100, 140, 25);
+    checkForUpdateButton.frame = CGRectMake((frame.size.width - 140) / (CGFloat)2.0, frame.size.height - 100, 140, 25);
     [checkForUpdateButton setTitle:BITHockeyLocalizedString(@"UpdateButtonCheck") forState:UIControlStateNormal];
     [checkForUpdateButton addTarget:self
                              action:@selector(checkForUpdateForExpiredVersion)
@@ -544,14 +541,13 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
                                      }];
   
   if (!self.disableUpdateCheckOptionWhenExpired && [message isEqualToString:self.blockingScreenMessage]) {
-    
     [alertController addDefaultActionWithTitle:BITHockeyLocalizedString(@"UpdateButtonCheck")
                                        handler:^(UIAlertAction * action) {
                                          typeof(self) strongSelf = weakSelf;
                                          [strongSelf checkForUpdateForExpiredVersion];
                                        }];
   }
-  
+
   [alertController show];
 }
 
@@ -574,8 +570,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     }
     case BITUpdateCheckManually:
       checkForUpdate = NO;
-      break;
-    default:
       break;
   }
   
@@ -608,8 +602,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   }
   
   NSURLRequest *request = [self requestForUpdateCheck];
-  
-  
   NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
   NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id<NSURLSessionDelegate>)self delegateQueue:nil];
   
@@ -618,8 +610,8 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     self.checkInProgress = NO;
     [self reportError:[NSError errorWithDomain:kBITUpdateErrorDomain
                                           code:BITUpdateAPIClientCannotCreateConnection
-                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Url Connection could not be created.", NSLocalizedDescriptionKey, nil]]];
-  }else{
+                                      userInfo:@{NSLocalizedDescriptionKey : @"Url Connection could not be created."}]];
+  } else {
     [sessionTask resume];
   }
 }
@@ -673,7 +665,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   if (self.appEnvironment == BITEnvironmentOther) {
     if ([self isUpdateManagerDisabled]) return;
     
-    BITHockeyLogWarning(@"INFO: Starting UpdateManager");
+    BITHockeyLogDebug(@"INFO: Starting UpdateManager");
     id strongDelegate = self.delegate;
     if ([strongDelegate respondsToSelector:@selector(updateManagerShouldSendUsageData:)]) {
       self.sendUsageData = [strongDelegate updateManagerShouldSendUsageData:self];
@@ -695,7 +687,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
 
 - (void)handleError:(NSError *)error {
   self.receivedData = nil;
-  self.urlConnection = nil;
   self.checkInProgress = NO;
   if ([self expiryDateReached]) {
     if (!self.blockingView) {
@@ -716,7 +707,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
       
       if (!responseString || ![responseString dataUsingEncoding:NSUTF8StringEncoding]) {
         self.receivedData = nil;
-        self.urlConnection = nil;
         return;
       }
       
@@ -735,7 +725,6 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
         if (![feedArray count]) {
           BITHockeyLogDebug(@"WARNING: No versions available for download on HockeyApp.");
           self.receivedData = nil;
-          self.urlConnection = nil;
           return;
         } else {
           self.lastCheckFailed = NO;
@@ -792,13 +781,12 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     }
     
     self.receivedData = nil;
-    self.urlConnection = nil;
   }
 }
 
 #pragma mark - NSURLSession
 
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *) __unused task didCompleteWithError:(NSError *)error {
   
   dispatch_async(dispatch_get_main_queue(), ^{
     [session finishTasksAndInvalidate];
@@ -810,11 +798,11 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   });
 }
 
-- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+- (void)URLSession:(NSURLSession *) __unused session dataTask:(NSURLSessionDataTask *) __unused dataTask didReceiveData:(NSData *)data {
   [self.receivedData appendData:data];
 }
 
-- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
+- (void)URLSession:(NSURLSession *) __unused session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
   
   if ([response respondsToSelector:@selector(statusCode)]) {
     NSInteger statusCode = [((NSHTTPURLResponse *)response) statusCode];
@@ -834,7 +822,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   [self.receivedData setLength:0];
 }
 
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler {
+- (void)URLSession:(NSURLSession *) __unused session task:(NSURLSessionTask *) __unused task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *))completionHandler {
   NSURLRequest *newRequest = request;
   if (response) {
     newRequest = nil;
