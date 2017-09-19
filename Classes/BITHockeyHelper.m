@@ -9,16 +9,6 @@ NSString *bit_URLEncodedString(NSString *inputString) {
   return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[] {}"].invertedSet];
 }
 
-NSString *bit_base64String(NSData * data, unsigned long length) {
-  return [data base64EncodedStringWithOptions:0];
-}
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
-@interface NSData (BITHockeySDKiOS7)
-- (NSString *)base64Encoding;
-@end
-#endif
-
 typedef struct {
   uint8_t       info_version;
   const char    bit_version[16];
