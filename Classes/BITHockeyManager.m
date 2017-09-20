@@ -44,8 +44,8 @@ static bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,
 
 - (BOOL)shouldUseLiveIdentifier;
 
-@property (nonatomic, strong) NSString *appIdentifier;
-@property (nonatomic, strong) NSString *liveIdentifier;
+@property (nonatomic, copy) NSString *appIdentifier;
+@property (nonatomic, copy) NSString *liveIdentifier;
 @property (nonatomic) BOOL validAppIdentifier;
 @property (nonatomic) BOOL startManagerIsInvoked;
 @property (nonatomic) BOOL startUpdateManagerIsInvoked;
@@ -53,7 +53,7 @@ static bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,
 @property (nonatomic, strong) BITHockeyAppClient *hockeyAppClient;
 
 // Redeclare BITHockeyManager properties with readwrite attribute.
-@property (nonatomic, readwrite) NSString *installString;
+@property (nonatomic, readwrite, copy) NSString *installString;
 @property (nonatomic, strong, readwrite) BITCrashManager *crashManager;
 @property (nonatomic, strong, readwrite) BITUpdateManager *updateManager;
 @property (nonatomic, strong, readwrite) BITAuthenticator *authenticator;
@@ -479,15 +479,14 @@ static bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,
   NSDictionary *params = @{@"timestamp": timeString,
                            @"sdk": BITHOCKEY_NAME,
                            @"sdk_version": BITHOCKEY_VERSION,
-                           @"bundle_version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+                           @"bundle_version": (id)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
                            };
   
   NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
   __block NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
   NSURLRequest *request = [[self hockeyAppClient] requestWithMethod:@"POST" path:integrationPath parameters:params];
-  
   NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                          completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          completionHandler: ^(NSData * __unused data, NSURLResponse *response, NSError * __unused error) {
                                             [session finishTasksAndInvalidate];
                                             
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;

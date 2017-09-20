@@ -155,8 +155,8 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
 
 @property (nonatomic, strong) NSMutableDictionary *approvedCrashReports;
 @property (nonatomic, strong) NSMutableArray *crashFiles;
-@property (nonatomic, strong) NSString *settingsFile;
-@property (nonatomic, strong) NSString *analyzerInProgressFile;
+@property (nonatomic, copy) NSString *settingsFile;
+@property (nonatomic, copy) NSString *analyzerInProgressFile;
 @property (nonatomic) BOOL crashIdenticalCurrentVersion;
 @property (nonatomic) BOOL sendingInProgress;
 @property (nonatomic) BOOL isSetup;
@@ -337,7 +337,7 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
   }
 }
 
-- (void)persistAttachment:(BITHockeyAttachment *)attachment withFilename:(NSString *)filename {
+- (BOOL)persistAttachment:(BITHockeyAttachment *)attachment withFilename:(NSString *)filename {
   NSString *attachmentFilename = [filename stringByAppendingString:@".data"];
   NSMutableData *data = [[NSMutableData alloc] init];
   NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -346,7 +346,7 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
   
   [archiver finishEncoding];
   
-  [data writeToFile:attachmentFilename atomically:YES];
+  return [data writeToFile:attachmentFilename atomically:YES];
 }
 
 - (void)persistUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData {

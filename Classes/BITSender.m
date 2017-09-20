@@ -46,7 +46,7 @@ static NSUInteger const BITDefaultRequestLimit = 10;
   [center addObserverForName:BITPersistenceSuccessNotification
                       object:nil
                        queue:nil
-                  usingBlock:^(NSNotification *notification) {
+                  usingBlock:^(NSNotification __unused *notification) {
                     typeof(self) strongSelf = weakSelf;
                     [strongSelf sendSavedDataAsync];
                   }];
@@ -54,7 +54,7 @@ static NSUInteger const BITDefaultRequestLimit = 10;
   [center addObserverForName:BITChannelBlockedNotification
                       object:nil
                        queue:nil
-                  usingBlock:^(NSNotification *notification) {
+                  usingBlock:^(NSNotification __unused *notification) {
                     typeof(self) strongSelf = weakSelf;
                     [strongSelf sendSavedDataAsync];
                   }];
@@ -99,14 +99,16 @@ static NSUInteger const BITDefaultRequestLimit = 10;
 
 - (void)sendRequest:(nonnull NSURLRequest *) request filePath:(nonnull NSString *) path {
   if (!path || !request) {return;}
-  
-  
+  [self sendUsingURLSessionWithRequest:request filePath:path];
+}
+
+- (void)sendUsingURLSessionWithRequest:(nonnull NSURLRequest *)request filePath:(nonnull NSString *)filePath {
   NSURLSession *session = self.session;
   NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                                             NSInteger statusCode = httpResponse.statusCode;
-                                            [self handleResponseWithStatusCode:statusCode responseData:data filePath:path error:error];
+                                            [self handleResponseWithStatusCode:statusCode responseData:data filePath:filePath error:error];
                                           }];
   [self resumeSessionDataTask:task];
 }

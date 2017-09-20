@@ -35,16 +35,16 @@
 
 @property (nonatomic, strong) BITPLCrashReporter *plCrashReporter;
 
-@property (nonatomic) NSString *lastCrashFilename;
+@property (nonatomic, copy) NSString *lastCrashFilename;
 
 @property (nonatomic, copy, setter = setAlertViewHandler:) BITCustomAlertViewHandler alertViewHandler __TVOS_PROHIBITED;
 
-@property (nonatomic, strong) NSString *crashesDir;
+@property (nonatomic, copy) NSString *crashesDir;
 
 #if HOCKEYSDK_FEATURE_AUTHENTICATOR
 
 // Only set via BITAuthenticator
-@property (nonatomic, strong) NSString *installationIdentification;
+@property (nonatomic, copy) NSString *installationIdentification;
 
 // Only set via BITAuthenticator
 @property (nonatomic) BITAuthenticatorIdentificationType installationIdentificationType;
@@ -67,7 +67,7 @@
 - (NSString *)firstNotApprovedCrashReport;
 
 - (void)persistUserProvidedMetaData:(BITCrashMetaData *)userProvidedMetaData;
-- (void)persistAttachment:(BITHockeyAttachment *)attachment withFilename:(NSString *)filename;
+- (BOOL)persistAttachment:(BITHockeyAttachment *)attachment withFilename:(NSString *)filename;
 
 - (BITHockeyAttachment *)attachmentForCrashReport:(NSString *)filename;
 
