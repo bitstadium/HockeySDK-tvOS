@@ -492,7 +492,7 @@ static bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
                                             [self logPingMessageForStatusCode:httpResponse.statusCode];
                                           }];
-  [task resume];  
+  [task resume];
 }
 
 - (void)logPingMessageForStatusCode:(NSInteger)statusCode {
