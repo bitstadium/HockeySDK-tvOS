@@ -38,17 +38,15 @@
 
 @property (nonatomic, strong) NSNumber *currentAppVersionUsageTime;
 
-@property (nonatomic, strong) NSURLConnection *urlConnection;
-
 @property (nonatomic, copy) NSDate *usageStartTimestamp;
 
 @property (nonatomic, strong) UIView *blockingView;
 
-@property (nonatomic, strong) NSString *companyName;
+@property (nonatomic, copy) NSString *companyName;
 
-@property (nonatomic, strong) NSString *installationIdentification;
+@property (nonatomic, copy) NSString *installationIdentification;
 
-@property (nonatomic, strong) NSString *installationIdentificationType;
+@property (nonatomic, copy) NSString *installationIdentificationType;
 
 @property (nonatomic) BOOL installationIdentified;
 

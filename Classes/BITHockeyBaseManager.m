@@ -16,12 +16,14 @@
 #import <mach-o/dyld.h>
 #import <mach-o/loader.h>
 
-@implementation BITHockeyBaseManager {
-  UINavigationController *_navController;
-  
-  NSDateFormatter *_rfc3339Formatter;
-}
+@interface BITHockeyBaseManager ()
 
+@property (nonatomic, strong) UINavigationController *navController;
+@property (nonatomic, strong) NSDateFormatter *rfc3339Formatter;
+
+@end
+
+@implementation BITHockeyBaseManager
 
 - (instancetype)init {
   if ((self = [super init])) {
@@ -52,7 +54,7 @@
 }
 
 - (NSString *)encodedAppIdentifier {
-  return bit_encodeAppIdentifier(_appIdentifier);
+  return bit_encodeAppIdentifier(self.appIdentifier);
 }
 
 - (NSString *)getDevicePlatform {
@@ -102,9 +104,10 @@
 
 - (UIViewController *)visibleWindowRootViewController {
   UIViewController *parentViewController = nil;
-  
-  if ([[BITHockeyManager sharedHockeyManager].delegate respondsToSelector:@selector(viewControllerForHockeyManager:componentManager:)]) {
-    parentViewController = [[BITHockeyManager sharedHockeyManager].delegate viewControllerForHockeyManager:[BITHockeyManager sharedHockeyManager] componentManager:self];
+
+  id strongDelegate = [BITHockeyManager sharedHockeyManager].delegate;
+  if ([strongDelegate respondsToSelector:@selector(viewControllerForHockeyManager:componentManager:)]) {
+    parentViewController = [strongDelegate viewControllerForHockeyManager:[BITHockeyManager sharedHockeyManager] componentManager:self];
   }
   
   UIWindow *visibleWindow = [self findVisibleWindow];
@@ -190,17 +193,17 @@
     return;
   }
   
-  if (_navController != nil) _navController = nil;
+  if (self.navController != nil) self.navController = nil;
   
-  _navController = [self customNavigationControllerWithRootViewController:viewController presentationStyle:_modalPresentationStyle];
+  self.navController = [self customNavigationControllerWithRootViewController:viewController presentationStyle:self.modalPresentationStyle];
   
   if (parentViewController) {
-    _navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    self.navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     
     if ([viewController isKindOfClass:[BITHockeyBaseViewController class]])
       [(BITHockeyBaseViewController *)viewController setModalAnimated:YES];
     
-    [parentViewController presentViewController:_navController animated:YES completion:nil];
+    [parentViewController presentViewController:self.navController animated:YES completion:nil];
   } else {
     // if not, we add a subview to the window. A bit hacky but should work in most circumstances.
     // Also, we don't get a nice animation for free, but hey, this is for beta not production users ;)
@@ -209,7 +212,7 @@
     BITHockeyLogDebug(@"INFO: No rootViewController found, using UIWindow-approach: %@", visibleWindow);
     if ([viewController isKindOfClass:[BITHockeyBaseViewController class]])
       [(BITHockeyBaseViewController *)viewController setModalAnimated:NO];
-    [visibleWindow addSubview:_navController.view];
+    [visibleWindow addSubview:self.navController.view];
   }
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 }
@@ -267,7 +270,7 @@
 - (NSDate *)parseRFC3339Date:(NSString *)dateString {
   NSDate *date = nil;
   NSError *error = nil;
-  if (![_rfc3339Formatter getObjectValue:&date forString:dateString range:nil error:&error]) {
+  if (![self.rfc3339Formatter getObjectValue:&date forString:dateString range:nil error:&error]) {
     BITHockeyLogWarning(@"INFO: Invalid date '%@' string: %@", dateString, error);
   }
   

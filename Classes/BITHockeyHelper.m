@@ -9,23 +9,13 @@ NSString *bit_URLEncodedString(NSString *inputString) {
   return [inputString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[] {}"].invertedSet];
 }
 
-NSString *bit_base64String(NSData * data, unsigned long length) {
-  return [data base64EncodedStringWithOptions:0];
-}
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
-@interface NSData (BITHockeySDKiOS7)
-- (NSString *)base64Encoding;
-@end
-#endif
-
 typedef struct {
   uint8_t       info_version;
   const char    bit_version[16];
   const char    bit_build[16];
 } bit_info_t;
 
-bit_info_t hockeyapp_library_info __attribute__((section("__TEXT,__bit_tvOS,regular,no_dead_strip"))) = {
+static bit_info_t hockeyapp_library_info __attribute__((section("__TEXT,__bit_tvOS,regular,no_dead_strip"))) = {
   .info_version = 1,
   .bit_version = BITHOCKEY_C_VERSION,
   .bit_build = BITHOCKEY_C_BUILD
@@ -313,7 +303,6 @@ NSString *bit_devicePlatform(void) {
   NSString *platform = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
   free(answer);
   return platform;
-  return @"";
 }
 
 NSString *bit_deviceType(void){
@@ -369,7 +358,6 @@ NSString *bit_osVersionBuild(void) {
   NSString *osVersion = [[UIDevice currentDevice] systemVersion];
   
   return [NSString stringWithFormat:@"%@ (%@)", osVersion, osBuild];
-  return @"";
 }
 
 NSString *bit_osName(void){

@@ -146,8 +146,8 @@
 }
 
 - (NSString *)sizeInMB {
-  if ([_size isKindOfClass: [NSNumber class]] && [_size doubleValue] > 0) {
-    double appSizeInMB = [_size doubleValue]/(1024*1024);
+  if ([self.size isKindOfClass: [NSNumber class]] && [self.size doubleValue] > 0) {
+    double appSizeInMB = [self.size doubleValue]/(1024*1024);
     NSString *appSizeString = [NSString stringWithFormat:@"%.1f MB", appSizeInMB];
     return appSizeString;
   }
@@ -156,7 +156,7 @@
 }
 
 - (void)setDateWithTimestamp:(NSTimeInterval)timestamp {
-  if (timestamp) {
+  if (timestamp != 0) {
     NSDate *appDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
     self.date = appDate;
   } else {

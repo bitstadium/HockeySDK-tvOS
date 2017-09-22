@@ -1,3 +1,14 @@
+## Version 5.0.0
+
+- [IMPROVEMENT] Metrics can be enabled after it was disabled without relaunching the app. [#28](https://github.com/bitstadium/HockeySDK-tvOS/pull/28)
+- [BUGFIX] Fix an issue with `BITAuthenticator`. [#27](https://github.com/bitstadium/HockeySDK-tvOS/pull/27)
+
+## Version 5.0.0-beta.1
+
+This version contains one major breaking change. HockeySDK-tvOS now requires tvOS 10.0 or up.
+
+- [IMPROVEMENT] The SDK now uses the same structure for the "fat framework" as the iOS SDK.
+
 ## Version 4.1.2
 
 - [IMPROVEMENT] The SDK documentation is now generated using jazzy.

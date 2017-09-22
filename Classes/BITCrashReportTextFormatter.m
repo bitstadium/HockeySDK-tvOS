@@ -169,7 +169,7 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
  * the formatted result as a string.
  *
  * @param report The report to format.
- * @param textFormat The text format to use.
+ * @param crashReporterKey The crash reporter key.
  *
  * @return Returns the formatted result on success, or nil if an error occurs.
  */
@@ -570,13 +570,13 @@ static const char *findSEL (const char *imageName, NSString *imageUUID, uint64_t
 }
 
 /**
- *  Return the selector string of a given register name
+ *  Return the selector string of a given register name.
  *
- *  @param regName The name of the register to use for getting the address
- *  @param thread  The crashed thread
- *  @param images  NSArray of binary images
+ *  @param regName The name of the register to use for getting the address.
+ *  @param thread  The crashed thread.
+ *  @param report  The report to use.
  *
- *  @return The selector as a C string or NULL if no selector was found
+ *  @return The selector as a C string or NULL if no selector was found.
  */
 + (NSString *)selectorForRegisterWithName:(NSString *)regName ofThread:(BITPLCrashReportThreadInfo *)thread report:(BITPLCrashReport *)report {
   // get the address for the register

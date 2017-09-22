@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = 'HockeySDK-tvOS'
-  s.version           = '4.1.2'
+  s.version           = '5.0.0'
 
   s.summary           = 'Collect live crash reports, provide update notifications, add authentication capabilities, and get usage data.'
   s.description       = <<-DESC
@@ -17,13 +17,13 @@ Pod::Spec.new do |s|
   s.license           = { :type => 'MIT', :file => 'HockeySDK-tvOS/LICENSE' }
   s.author            = { 'Microsoft' => 'support@hockeyapp.net' }
 
-  s.platform          = :tvos, '9.0'
+  s.platform          = :tvos, '10.0'
   
   s.preserve_path = 'HockeySDK-tvOS/README.md'
 
   s.source = { :http => "https://github.com/bitstadium/HockeySDK-tvOS/releases/download/#{s.version}/HockeySDK-tvOS-#{s.version}.zip" }
 
-  s.resource_bundle = { 'HockeySDKResources' => ['HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDK.framework/Versions/A/Resources/HockeySDKResources.bundle/*.png', 'HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDK.framework/Versions/A/Resources/HockeySDKResources.bundle/*.lproj'] }
+  s.resource_bundle = { 'HockeySDKResources' => ['HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDKResources.bundle/*.png', 'HockeySDK-tvOS/HockeySDK.embeddedframework/HockeySDKResources.bundle/*.lproj'] }
 
   s.frameworks = 'Foundation', 'Security', 'SystemConfiguration', 'UIKit'
   s.libraries = 'c++', 'z'
