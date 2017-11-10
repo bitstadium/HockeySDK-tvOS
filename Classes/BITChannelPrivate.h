@@ -73,6 +73,11 @@ FOUNDATION_EXPORT NSString *const BITChannelBlockedNotification;
 - (void)persistDataItemQueue;
 
 /**
+ *  Create background task for queues and group.
+ */
+- (void)createBackgroundTask:(UIApplication *)application withWaitingGroup:(nullable dispatch_group_t)group;
+
+/**
  *  Adds the specified dictionary to the JSON Stream string.
  *
  *  @param dictionary the dictionary object which is to be added to the JSON Stream queue string.
