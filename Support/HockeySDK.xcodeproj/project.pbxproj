@@ -637,6 +637,7 @@
 		E40E0B0A17DA1AFF005E38C1 /* BITHockeyAppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITHockeyAppClient.h; sourceTree = "<group>"; };
 		E40E0B0B17DA1AFF005E38C1 /* BITHockeyAppClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITHockeyAppClient.m; sourceTree = "<group>"; };
 		E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = ../Vendor/CrashReporter.framework; sourceTree = "<group>"; };
+		F822A3ED1FDFEC7E0049B8A1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/HockeySDK.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1708,6 +1709,7 @@
 				1EA512DF167F7EF000FC9FBA /* zh-Hans */,
 				BEE0207C16C5107E004426EA /* hu */,
 				1E20A57F181E9D4600D5B770 /* nl */,
+				F822A3ED1FDFEC7E0049B8A1 /* tr */,
 			);
 			name = HockeySDK.strings;
 			sourceTree = "<group>";
