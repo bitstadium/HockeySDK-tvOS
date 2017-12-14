@@ -359,6 +359,9 @@
 		9782023B18F81BFC00A98D8B /* Rectangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9782023118F81BFC00A98D8B /* Rectangle@2x.png */; };
 		97F0F9FD18ABAECD00EF50AA /* iconCamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F0F9FB18ABAECD00EF50AA /* iconCamera.png */; };
 		97F0F9FE18ABAECD00EF50AA /* iconCamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F0F9FC18ABAECD00EF50AA /* iconCamera@2x.png */; };
+		F84E43C51FE1317900CBED7E /* BITHockeyHelper+Application.h in Headers */ = {isa = PBXBuildFile; fileRef = F84E43C31FE1317900CBED7E /* BITHockeyHelper+Application.h */; };
+		F84E43C61FE1317900CBED7E /* BITHockeyHelper+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = F84E43C41FE1317900CBED7E /* BITHockeyHelper+Application.m */; };
+		F8EC2B1C1FE134D2001A18CD /* BITHockeyHelper+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = F84E43C41FE1317900CBED7E /* BITHockeyHelper+Application.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -638,6 +641,8 @@
 		E40E0B0B17DA1AFF005E38C1 /* BITHockeyAppClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITHockeyAppClient.m; sourceTree = "<group>"; };
 		E41EB48B148D7C4E0015DEDC /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = ../Vendor/CrashReporter.framework; sourceTree = "<group>"; };
 		F822A3ED1FDFEC7E0049B8A1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/HockeySDK.strings; sourceTree = "<group>"; };
+		F84E43C31FE1317900CBED7E /* BITHockeyHelper+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BITHockeyHelper+Application.h"; sourceTree = "<group>"; };
+		F84E43C41FE1317900CBED7E /* BITHockeyHelper+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BITHockeyHelper+Application.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -898,6 +903,8 @@
 				1BA7839E1BFAC01E00535F7A /* BITHockeyBaseViewController.m */,
 				1E49A4A5161222B900463151 /* BITHockeyHelper.h */,
 				1E49A4A6161222B900463151 /* BITHockeyHelper.m */,
+				F84E43C31FE1317900CBED7E /* BITHockeyHelper+Application.h */,
+				F84E43C41FE1317900CBED7E /* BITHockeyHelper+Application.m */,
 				1E0FEE26173BDB260061331F /* BITKeychainUtils.h */,
 				1E0FEE27173BDB260061331F /* BITKeychainUtils.m */,
 				6ED7E1BA1CD91BF600DFB394 /* BITHockeyLogger.h */,
@@ -1003,6 +1010,7 @@
 				E4005648148D7A3000EB22B9 /* Resources */,
 				1E66CA8F15D40FF600F35BED /* Support */,
 				E400561B148D79B500EB22B9 /* Products */,
+				F84E43C21FE12A2A00CBED7E /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -1089,6 +1097,14 @@
 			name = Private;
 			sourceTree = "<group>";
 		};
+		F84E43C21FE12A2A00CBED7E /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				1B30B3D11C97392D00F59C46 /* OCMock.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1138,6 +1154,7 @@
 				1E8040AE1BDE322F007F8794 /* BITHockeyHelper.h in Headers */,
 				1B81A9FD1C97745200CD0346 /* BITEnvelope.h in Headers */,
 				6ED7E1C11CD91BF600DFB394 /* BITHockeyLoggerPrivate.h in Headers */,
+				F84E43C51FE1317900CBED7E /* BITHockeyHelper+Application.h in Headers */,
 				8057C5021C8DA98100DC7BEC /* BITChannel.h in Headers */,
 				1B81A9F11C97745200CD0346 /* BITData.h in Headers */,
 				1E8040B21BDE322F007F8794 /* HockeySDKEnums.h in Headers */,
@@ -1544,6 +1561,7 @@
 				1B81A9FF1C97745200CD0346 /* BITEnvelope.m in Sources */,
 				1B81AA071C97745200CD0346 /* BITInternal.m in Sources */,
 				6ED7E1BF1CD91BF600DFB394 /* BITHockeyLogger.m in Sources */,
+				F84E43C61FE1317900CBED7E /* BITHockeyHelper+Application.m in Sources */,
 				1B81A9FB1C97745200CD0346 /* BITDomain.m in Sources */,
 				1B81AA151C97745200CD0346 /* BITTelemetryData.m in Sources */,
 				1E8040681BDE322F007F8794 /* BITHockeyHelper.m in Sources */,
@@ -1591,6 +1609,7 @@
 				1EB6175F1B0A309F0035A986 /* BITHockeyBaseManager.m in Sources */,
 				1B81AA001C97745200CD0346 /* BITEnvelope.m in Sources */,
 				6ED7E1C01CD91BF600DFB394 /* BITHockeyLogger.m in Sources */,
+				F8EC2B1C1FE134D2001A18CD /* BITHockeyHelper+Application.m in Sources */,
 				1B81AA081C97745200CD0346 /* BITInternal.m in Sources */,
 				1B81A9FC1C97745200CD0346 /* BITDomain.m in Sources */,
 				1B81AA161C97745200CD0346 /* BITTelemetryData.m in Sources */,

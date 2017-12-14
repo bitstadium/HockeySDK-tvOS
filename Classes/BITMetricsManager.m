@@ -6,6 +6,7 @@
 #import "BITTelemetryContext.h"
 #import "BITMetricsManagerPrivate.h"
 #import "BITHockeyHelper.h"
+#import "BITHockeyHelper+Application.h"
 #import "HockeySDKPrivate.h"
 #import "BITChannelPrivate.h"
 #import "BITEventData.h"
@@ -185,7 +186,9 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 #pragma mark Events
 
 - (void)trackEventWithName:(nonnull NSString *)eventName {
-  if (!eventName) { return; }
+  if (!eventName) {
+    return;
+  }
   if (self.disabled) {
     BITHockeyLogDebug(@"INFO: BITMetricsManager is disabled, therefore this tracking call was ignored.");
     return;
@@ -202,13 +205,18 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 
   // If the app is running in the background.
   UIApplication *application = [UIApplication sharedApplication];
-  if (application && application.applicationState == UIApplicationStateBackground) {
+  BOOL applicationIsInBackground = ([BITHockeyHelper applicationState] == BITApplicationStateBackground);
+  if (applicationIsInBackground) {
     [self.channel createBackgroundTaskWhileDataIsSending:application withWaitingGroup:group];
   }
 }
 
-- (void)trackEventWithName:(nonnull NSString *)eventName properties:(nullable NSDictionary<NSString *, NSString *> *)properties measurements:(nullable NSDictionary<NSString *, NSNumber *> *)measurements {
-  if (!eventName) { return; }
+- (void)trackEventWithName:(nonnull NSString *)eventName
+                properties:(nullable NSDictionary<NSString *, NSString *> *)properties
+              measurements:(nullable NSDictionary<NSString *, NSNumber *> *)measurements {
+  if (!eventName) {
+    return;
+  }
   if (self.disabled) {
     BITHockeyLogDebug(@"INFO: BITMetricsManager is disabled, therefore this tracking call was ignored.");
     return;
@@ -227,7 +235,8 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 
   // If the app is running in the background.
   UIApplication *application = [UIApplication sharedApplication];
-  if (application && application.applicationState == UIApplicationStateBackground) {
+  BOOL applicationIsInBackground = ([BITHockeyHelper applicationState] == BITApplicationStateBackground);
+  if (applicationIsInBackground) {
     [self.channel createBackgroundTaskWhileDataIsSending:application withWaitingGroup:group];
   }
 }

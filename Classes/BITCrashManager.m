@@ -7,6 +7,7 @@
 
 #import "HockeySDKPrivate.h"
 #import "BITHockeyHelper.h"
+#import "BITHockeyHelper+Application.h"
 #import "BITHockeyAppClient.h"
 
 #import "BITHockeyBaseManagerPrivate.h"
@@ -1021,7 +1022,7 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
  * - Send pending approved crash reports
  */
 - (void)invokeDelayedProcessing {
-  if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
+  if ([BITHockeyHelper applicationState] != BITApplicationStateActive) {
     return;
   }
   
@@ -1225,7 +1226,7 @@ __attribute__((noreturn)) static void uncaught_cxx_exception_handler(const BITCr
     }
   }
   
-  if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+  if ([BITHockeyHelper applicationState] != BITApplicationStateActive) {
     [self appEnteredForeground];
   }
   

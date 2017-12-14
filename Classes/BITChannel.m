@@ -5,6 +5,7 @@
 #import "HockeySDKPrivate.h"
 #import "BITChannelPrivate.h"
 #import "BITHockeyHelper.h"
+#import "BITHockeyHelper+Application.h"
 #import "BITTelemetryContext.h"
 #import "BITTelemetryData.h"
 #import "BITEnvelope.h"
@@ -302,7 +303,7 @@ NS_ASSUME_NONNULL_BEGIN
       NSDictionary *dict = [strongSelf dictionaryForTelemetryData:item];
       [strongSelf appendDictionaryToEventBuffer:dict];
       // If the app is running in the background.
-      BOOL applicationIsInBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
+      BOOL applicationIsInBackground = ([BITHockeyHelper applicationState] == BITApplicationStateBackground);
       if (strongSelf.dataItemCount >= strongSelf.maxBatchSize || applicationIsInBackground) {
         
         // Case 2: Max batch count has been reached or the app is running in the background, so write queue to disk and delete all items.
