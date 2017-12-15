@@ -1,6 +1,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@interface BITHockeyHelper : NSObject
+
+@end
+
 /* NSString helpers */
 NSString *bit_URLEncodedString(NSString *inputString);
 

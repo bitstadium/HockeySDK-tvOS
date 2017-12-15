@@ -4,7 +4,7 @@
 
 # HockeySDK-tvOS
 
-## Version 5.0.0
+## Version 5.1.0
 
 HockeySDK-tvOS implements support for using HockeyApp in your tvOS applications.
 
@@ -32,9 +32,9 @@ Be aware that tvOS requires Bitcode.
 
 ## 2. Documentation
 
-Please visit [our landing page](https://www.hockeyapp.net/help/sdk/tvos/5.0.0/index.html) as a starting point for all of our documentation.
+Please visit [our landing page](https://www.hockeyapp.net/help/sdk/tvos/5.1.0/index.html) as a starting point for all of our documentation.
 
-Please check out our [changelog](http://www.hockeyapp.net/help/sdk/tvos/5.0.0/changelog.html), as well as our [troubleshooting section](https://www.hockeyapp.net/help/sdk/tvos/5.0.0/installation--setup.html#troubleshooting).
+Please check out our [changelog](http://www.hockeyapp.net/help/sdk/tvos/5.1.0/changelog.html), as well as our [troubleshooting section](https://www.hockeyapp.net/help/sdk/tvos/5.1.0/installation--setup.html#troubleshooting).
 
 ## 3. Contributing
 
