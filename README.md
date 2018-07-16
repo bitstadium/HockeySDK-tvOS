@@ -1,4 +1,4 @@
-[![Build Status](https://www.bitrise.io/app/15b9a1dcfda1cf1b/status.svg?token=n9IZGTdsHL_AsoavGsz1kw&branch=develop)](https://www.bitrise.io/app/15b9a1dcfda1cf1b)
+[![Build Status](https://app.bitrise.io/app/15b9a1dcfda1cf1b/status.svg?token=n9IZGTdsHL_AsoavGsz1kw&branch=develop)](https://app.bitrise.io/app/15b9a1dcfda1cf1b)
 [![Version](http://cocoapod-badges.herokuapp.com/v/HockeySDK-tvOS/badge.png)](http://cocoadocs.org/docsets/HockeySDK-tvOS)
 [![Slack Status](https://slack.hockeyapp.net/badge.svg)](https://slack.hockeyapp.net)
 
