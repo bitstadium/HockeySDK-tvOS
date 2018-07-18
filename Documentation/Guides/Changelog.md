@@ -1,3 +1,11 @@
+## Version 5.1.0
+
+This release contains improvements and fixes that were ported from out iOS SDK.
+
+- [IMPROVEMENT] Support tracking events in the background. [#35](https://github.com/bitstadium/HockeySDK-tvOS/pull/35)
+- [FIX] Improvements around thread-safety and concurrency for Metrics.[#35](https://github.com/bitstadium/HockeySDK-tvOS/pull/35)
+- [FIX] Fix runtime warnings of Xcode 9's main thread checker tool. [#36](https://github.com/bitstadium/HockeySDK-tvOS/pull/36) [#37]([#36](https://github.com/bitstadium/HockeySDK-tvOS/pull/36))
+
 ## Version 5.0.0
 
 - [IMPROVEMENT] Metrics can be enabled after it was disabled without relaunching the app. [#28](https://github.com/bitstadium/HockeySDK-tvOS/pull/28)

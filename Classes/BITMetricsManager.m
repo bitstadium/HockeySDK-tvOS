@@ -6,13 +6,14 @@
 #import "BITTelemetryContext.h"
 #import "BITMetricsManagerPrivate.h"
 #import "BITHockeyHelper.h"
+#import "BITHockeyHelper+Application.h"
 #import "HockeySDKPrivate.h"
-#import "BITChannel.h"
+#import "BITChannelPrivate.h"
 #import "BITEventData.h"
 #import "BITSession.h"
 #import "BITSessionState.h"
 #import "BITSessionStateData.h"
-#import "BITPersistence.h"
+#import "BITPersistencePrivate.h"
 #import "BITHockeyBaseManagerPrivate.h"
 #import "BITSender.h"
 
@@ -85,34 +86,43 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 #pragma mark - Sessions
 
 - (void)registerObservers {
-  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-  
+  NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
   __weak typeof(self) weakSelf = self;
-  
+
   if (nil == self.appDidEnterBackgroundObserver) {
-    self.appDidEnterBackgroundObserver = [nc addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                                         object:nil
-                                                          queue:NSOperationQueue.mainQueue
-                                                     usingBlock:^(NSNotification *note) {
-                                                       typeof(self) strongSelf = weakSelf;
-                                                       [strongSelf updateDidEnterBackgroundTime];
-                                                     }];
+    self.appDidEnterBackgroundObserver =
+    [center addObserverForName:UIApplicationDidEnterBackgroundNotification
+                        object:nil
+                         queue:NSOperationQueue.mainQueue
+                    usingBlock:^(NSNotification __unused *note) {
+                      typeof(self) strongSelf = weakSelf;
+                      [strongSelf updateDidEnterBackgroundTime];
+                    }];
   }
   if (nil == self.appWillEnterForegroundObserver) {
-    self.appWillEnterForegroundObserver = [nc addObserverForName:UIApplicationWillEnterForegroundNotification
-                                                          object:nil
-                                                           queue:NSOperationQueue.mainQueue
-                                                      usingBlock:^(NSNotification *note) {
-                                                        typeof(self) strongSelf = weakSelf;
-                                                        [strongSelf startNewSessionIfNeeded];
-                                                      }];
+    self.appWillEnterForegroundObserver =
+    [center addObserverForName:UIApplicationWillEnterForegroundNotification
+                        object:nil
+                         queue:NSOperationQueue.mainQueue
+                    usingBlock:^(NSNotification __unused *note) {
+                      typeof(self) strongSelf = weakSelf;
+                      [strongSelf startNewSessionIfNeeded];
+                    }];
   }
 }
 
 - (void)unregisterObservers {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-  self.appDidEnterBackgroundObserver = nil;
-  self.appWillEnterForegroundObserver = nil;
+  NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+  id appDidEnterBackgroundObserver = self.appDidEnterBackgroundObserver;
+  if(appDidEnterBackgroundObserver) {
+    [center removeObserver:appDidEnterBackgroundObserver];
+    self.appDidEnterBackgroundObserver = nil;
+  }
+  id appWillEnterForegroundObserver = self.appWillEnterForegroundObserver;
+  if(appWillEnterForegroundObserver) {
+    [center removeObserver:appWillEnterForegroundObserver];
+    self.appWillEnterForegroundObserver = nil;
+  }
 }
 
 - (void)updateDidEnterBackgroundTime {
@@ -176,30 +186,45 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 #pragma mark Events
 
 - (void)trackEventWithName:(nonnull NSString *)eventName {
-  if (!eventName) { return; }
+  if (!eventName) {
+    return;
+  }
   if (self.disabled) {
     BITHockeyLogDebug(@"INFO: BITMetricsManager is disabled, therefore this tracking call was ignored.");
     return;
   }
   
   __weak typeof(self) weakSelf = self;
-  dispatch_async(self.metricsEventQueue, ^{
+  dispatch_group_t group = dispatch_group_create();
+  dispatch_group_async(group, self.metricsEventQueue, ^{
     typeof(self) strongSelf = weakSelf;
     BITEventData *eventData = [BITEventData new];
     [eventData setName:eventName];
     [strongSelf trackDataItem:eventData];
   });
+
+  // If the app is running in the background.
+  UIApplication *application = [UIApplication sharedApplication];
+  BOOL applicationIsInBackground = ([BITHockeyHelper applicationState] == BITApplicationStateBackground);
+  if (applicationIsInBackground) {
+    [self.channel createBackgroundTaskWhileDataIsSending:application withWaitingGroup:group];
+  }
 }
 
-- (void)trackEventWithName:(nonnull NSString *)eventName properties:(nullable NSDictionary<NSString *, NSString *> *)properties measurements:(nullable NSDictionary<NSString *, NSNumber *> *)measurements {
-  if (!eventName) { return; }
+- (void)trackEventWithName:(nonnull NSString *)eventName
+                properties:(nullable NSDictionary<NSString *, NSString *> *)properties
+              measurements:(nullable NSDictionary<NSString *, NSNumber *> *)measurements {
+  if (!eventName) {
+    return;
+  }
   if (self.disabled) {
     BITHockeyLogDebug(@"INFO: BITMetricsManager is disabled, therefore this tracking call was ignored.");
     return;
   }
   
   __weak typeof(self) weakSelf = self;
-  dispatch_async(self.metricsEventQueue, ^{
+  dispatch_group_t group = dispatch_group_create();
+  dispatch_group_async(group, self.metricsEventQueue, ^{
     typeof(self) strongSelf = weakSelf;
     BITEventData *eventData = [BITEventData new];
     [eventData setName:eventName];
@@ -207,6 +232,13 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
     [eventData setMeasurements:measurements];
     [strongSelf trackDataItem:eventData];
   });
+
+  // If the app is running in the background.
+  UIApplication *application = [UIApplication sharedApplication];
+  BOOL applicationIsInBackground = ([BITHockeyHelper applicationState] == BITApplicationStateBackground);
+  if (applicationIsInBackground) {
+    [self.channel createBackgroundTaskWhileDataIsSending:application withWaitingGroup:group];
+  }
 }
 
 #pragma mark Track DataItem
@@ -217,37 +249,46 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
     return;
   }
   
+  BITHockeyLogDebug(@"INFO: Enqueue telemetry item: %@", dataItem.name);
   [self.channel enqueueTelemetryItem:dataItem];
 }
 
 #pragma mark - Custom getter
 
 - (BITChannel *)channel {
-  if (!_channel) {
-    _channel = [[BITChannel alloc] initWithTelemetryContext:self.telemetryContext persistence:self.persistence];
+  @synchronized(self) {
+    if (!_channel) {
+      _channel = [[BITChannel alloc] initWithTelemetryContext:self.telemetryContext persistence:self.persistence];
+    }
+    return _channel;
   }
-  return _channel;
 }
 
 - (BITTelemetryContext *)telemetryContext {
-  if (!_telemetryContext) {
-    _telemetryContext = [[BITTelemetryContext alloc] initWithAppIdentifier:self.appIdentifier persistence:self.persistence];
+  @synchronized(self) {
+    if (!_telemetryContext) {
+      _telemetryContext = [[BITTelemetryContext alloc] initWithAppIdentifier:self.appIdentifier persistence:self.persistence];
+    }
+    return _telemetryContext;
   }
-  return _telemetryContext;
 }
 
 - (BITPersistence *)persistence {
-  if (!_persistence) {
-    _persistence = [BITPersistence new];
+  @synchronized(self) {
+    if (!_persistence) {
+      _persistence = [BITPersistence new];
+    }
+    return _persistence;
   }
-  return _persistence;
 }
 
 - (NSUserDefaults *)userDefaults {
-  if (!_userDefaults) {
-    _userDefaults = [NSUserDefaults standardUserDefaults];
+  @synchronized(self) {
+    if (!_userDefaults) {
+      _userDefaults = [NSUserDefaults standardUserDefaults];
+    }
+    return _userDefaults;
   }
-  return _userDefaults;
 }
 
 @end
