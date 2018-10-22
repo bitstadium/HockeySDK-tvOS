@@ -11,7 +11,8 @@
 		B77FAEBA217DF1B400E8A947 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FAEB9217DF1B400E8A947 /* ViewController.swift */; };
 		B77FAEBD217DF1B400E8A947 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B77FAEBB217DF1B400E8A947 /* Main.storyboard */; };
 		B77FAEBF217DF1B500E8A947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B77FAEBE217DF1B500E8A947 /* Assets.xcassets */; };
-		B77FAF80217DFAFD00E8A947 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77FAF76217DFA6100E8A947 /* HockeySDK.framework */; };
+		B77FAF91217E076000E8A947 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77FAF76217DFA6100E8A947 /* HockeySDK.framework */; };
+		B77FAF92217E076000E8A947 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B77FAF76217DFA6100E8A947 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,14 @@
 			remoteGlobalIDString = 1E59550915B6F45800A03429;
 			remoteInfo = HockeySDKResources;
 		};
-		B77FAF7D217DFA8C00E8A947 /* PBXContainerItemProxy */ = {
+		B77FAF8E217E06CD00E8A947 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B77FAF52217DFA3E00E8A947 /* HockeySDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EB6173E1B0A30480035A986;
+			remoteInfo = "HockeySDK Framework";
+		};
+		B77FAF93217E076000E8A947 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B77FAF52217DFA3E00E8A947 /* HockeySDK.xcodeproj */;
 			proxyType = 1;
@@ -65,6 +73,20 @@
 			remoteInfo = "HockeySDK Framework";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B77FAF95217E076000E8A947 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B77FAF92217E076000E8A947 /* HockeySDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B77FAEB4217DF1B400E8A947 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B77FAF80217DFAFD00E8A947 /* HockeySDK.framework in Frameworks */,
+				B77FAF91217E076000E8A947 /* HockeySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,12 +169,14 @@
 				B77FAEB0217DF1B400E8A947 /* Sources */,
 				B77FAEB1217DF1B400E8A947 /* Frameworks */,
 				B77FAEB2217DF1B400E8A947 /* Resources */,
+				B77FAF95217E076000E8A947 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				B77FAF7C217DFA8C00E8A947 /* PBXTargetDependency */,
-				B77FAF7E217DFA8C00E8A947 /* PBXTargetDependency */,
+				B77FAF8F217E06CD00E8A947 /* PBXTargetDependency */,
+				B77FAF94217E076000E8A947 /* PBXTargetDependency */,
 			);
 			name = Sample;
 			productName = Sample;
@@ -266,10 +290,15 @@
 			name = HockeySDKResources;
 			targetProxy = B77FAF7B217DFA8C00E8A947 /* PBXContainerItemProxy */;
 		};
-		B77FAF7E217DFA8C00E8A947 /* PBXTargetDependency */ = {
+		B77FAF8F217E06CD00E8A947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "HockeySDK Framework";
-			targetProxy = B77FAF7D217DFA8C00E8A947 /* PBXContainerItemProxy */;
+			targetProxy = B77FAF8E217E06CD00E8A947 /* PBXContainerItemProxy */;
+		};
+		B77FAF94217E076000E8A947 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "HockeySDK Framework";
+			targetProxy = B77FAF93217E076000E8A947 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -415,6 +444,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10;
 			};
 			name = Debug;
 		};
@@ -434,6 +464,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10;
 			};
 			name = Release;
 		};

@@ -18,13 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        BITHockeyManager.shared().configure(withIdentifier: "9c3ae61617974feca0eb4ad7705a5352")
+        BITHockeyManager.shared().configure(withIdentifier: "App ID")
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
-        
-        let metricsManager = BITHockeyManager.shared().metricsManager
-        
-        metricsManager.trackEvent(withName: "SDK Sample start")
         
         return true
     }
