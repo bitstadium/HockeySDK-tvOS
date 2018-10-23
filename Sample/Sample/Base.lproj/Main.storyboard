@@ -254,13 +254,40 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDr-eM-jYx">
+                                <rect key="frame" x="663" y="189" width="596" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="HockeySDKCrash"/>
+                                <connections>
+                                    <action selector="hockeySDKCrashAction:" destination="Fw9-Tf-06e" eventType="primaryActionTriggered" id="4fP-G5-oAZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYv-kh-3DO">
+                                <rect key="frame" x="663" y="369" width="596" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="IndexOutOfRangeCrashAction"/>
+                                <connections>
+                                    <action selector="indexOutOfRangeCrashAction:" destination="Fw9-Tf-06e" eventType="primaryActionTriggered" id="eaQ-hF-siY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R10-0X-zmc">
+                                <rect key="frame" x="663" y="553" width="596" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="CustomException"/>
+                                <connections>
+                                    <action selector="customExceptionAction:" destination="Fw9-Tf-06e" eventType="primaryActionTriggered" id="l37-Hd-3vQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yHg-FO-QJo"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhZ-F6-AIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1186" y="981"/>
+            <point key="canvasLocation" x="1408" y="905"/>
         </scene>
     </scenes>
 </document>
