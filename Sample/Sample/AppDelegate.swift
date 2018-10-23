@@ -14,12 +14,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static var manager: BITHockeyManager = BITHockeyManager.shared()
-
+    
+    static var appId: String = "YourAppID"
+    static var secret: String = "YourSecretKey"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        AppDelegate.manager.configure(withIdentifier: "App ID")
+        AppDelegate.manager.configure(withIdentifier: AppDelegate.appId)
         AppDelegate.manager.start()
         AppDelegate.manager.authenticator.authenticateInstallation()
         
