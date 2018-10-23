@@ -13,14 +13,15 @@ import HockeySDK
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    static var manager: BITHockeyManager = BITHockeyManager.shared()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        BITHockeyManager.shared().configure(withIdentifier: "App ID")
-        BITHockeyManager.shared().start()
-        BITHockeyManager.shared().authenticator.authenticateInstallation()
+        AppDelegate.manager.configure(withIdentifier: "App ID")
+        AppDelegate.manager.start()
+        AppDelegate.manager.authenticator.authenticateInstallation()
         
         return true
     }

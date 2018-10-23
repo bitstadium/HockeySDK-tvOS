@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Main View Controller" customClass="MainViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -74,7 +74,7 @@
         <!--Authentication Controller-->
         <scene sceneID="DYG-C7-3eN">
             <objects>
-                <viewController id="7Ve-Sa-Md0" userLabel="Authentication Controller" sceneMemberID="viewController">
+                <viewController id="7Ve-Sa-Md0" userLabel="Authentication Controller" customClass="AuthenticationViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AbS-6z-w9a"/>
                         <viewControllerLayoutGuide type="bottom" id="hkx-DB-gt5"/>
@@ -90,6 +90,39 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2U-pa-tFQ">
+                                <rect key="frame" x="750" y="152" width="421" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="No Authentication"/>
+                                <connections>
+                                    <action selector="anonymAuth:" destination="7Ve-Sa-Md0" eventType="primaryActionTriggered" id="IXc-K2-xla"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfL-eN-CPG">
+                                <rect key="frame" x="750" y="262" width="421" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="UDID"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMa-fR-6M2">
+                                <rect key="frame" x="750" y="372" width="421" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="Email"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ra-8w-N1e">
+                                <rect key="frame" x="750" y="482" width="421" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="Email and Password"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8O2-gS-Gj5">
+                                <rect key="frame" x="750" y="592" width="421" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="WebAuth"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LCI-Wh-J8i"/>
                     </view>
@@ -101,7 +134,7 @@
         <!--Metrics Controller-->
         <scene sceneID="5gh-PC-axA">
             <objects>
-                <viewController id="U7q-lB-Ccr" userLabel="Metrics Controller" sceneMemberID="viewController">
+                <viewController id="U7q-lB-Ccr" userLabel="Metrics Controller" customClass="MetricsViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IHT-NG-pEr"/>
                         <viewControllerLayoutGuide type="bottom" id="JEn-RI-wv8"/>
@@ -128,7 +161,7 @@
         <!--Crashes Controller-->
         <scene sceneID="f64-dR-VA8">
             <objects>
-                <viewController id="Fw9-Tf-06e" userLabel="Crashes Controller" sceneMemberID="viewController">
+                <viewController id="Fw9-Tf-06e" userLabel="Crashes Controller" customClass="CrashesViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QPI-Wp-cz9"/>
                         <viewControllerLayoutGuide type="bottom" id="wXE-wx-Jh3"/>

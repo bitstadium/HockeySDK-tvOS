@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		B77FAEB8217DF1B400E8A947 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FAEB7217DF1B400E8A947 /* AppDelegate.swift */; };
-		B77FAEBA217DF1B400E8A947 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FAEB9217DF1B400E8A947 /* ViewController.swift */; };
 		B77FAEBD217DF1B400E8A947 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B77FAEBB217DF1B400E8A947 /* Main.storyboard */; };
 		B77FAEBF217DF1B500E8A947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B77FAEBE217DF1B500E8A947 /* Assets.xcassets */; };
 		B77FAF91217E076000E8A947 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77FAF76217DFA6100E8A947 /* HockeySDK.framework */; };
 		B77FAF92217E076000E8A947 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B77FAF76217DFA6100E8A947 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B77FAF9D217EFD3700E8A947 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FAF9C217EFD3700E8A947 /* AuthenticationViewController.swift */; };
+		B77FAFA1217F009200E8A947 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FAF9E217F009200E8A947 /* MetricsViewController.swift */; };
+		B77FAFA2217F009200E8A947 /* CrashesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FAF9F217F009200E8A947 /* CrashesViewController.swift */; };
+		B77FAFA3217F009200E8A947 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FAFA0217F009200E8A947 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,11 +94,14 @@
 /* Begin PBXFileReference section */
 		B77FAEB4217DF1B400E8A947 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B77FAEB7217DF1B400E8A947 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B77FAEB9217DF1B400E8A947 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B77FAEBC217DF1B400E8A947 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B77FAEBE217DF1B500E8A947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B77FAEC0217DF1B500E8A947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B77FAF52217DFA3E00E8A947 /* HockeySDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HockeySDK.xcodeproj; path = ../Support/HockeySDK.xcodeproj; sourceTree = "<group>"; };
+		B77FAF9C217EFD3700E8A947 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		B77FAF9E217F009200E8A947 /* MetricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
+		B77FAF9F217F009200E8A947 /* CrashesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashesViewController.swift; sourceTree = "<group>"; };
+		B77FAFA0217F009200E8A947 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				B77FAEB7217DF1B400E8A947 /* AppDelegate.swift */,
-				B77FAEB9217DF1B400E8A947 /* ViewController.swift */,
 				B77FAEBB217DF1B400E8A947 /* Main.storyboard */,
+				B77FAF9B217EFBE100E8A947 /* ViewControllers */,
 				B77FAEBE217DF1B500E8A947 /* Assets.xcassets */,
 				B77FAEC0217DF1B500E8A947 /* Info.plist */,
 			);
@@ -157,6 +163,17 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B77FAF9B217EFBE100E8A947 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B77FAF9F217F009200E8A947 /* CrashesViewController.swift */,
+				B77FAFA0217F009200E8A947 /* MainViewController.swift */,
+				B77FAF9E217F009200E8A947 /* MetricsViewController.swift */,
+				B77FAF9C217EFD3700E8A947 /* AuthenticationViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,7 +294,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B77FAEBA217DF1B400E8A947 /* ViewController.swift in Sources */,
+				B77FAFA2217F009200E8A947 /* CrashesViewController.swift in Sources */,
+				B77FAFA1217F009200E8A947 /* MetricsViewController.swift in Sources */,
+				B77FAFA3217F009200E8A947 /* MainViewController.swift in Sources */,
+				B77FAF9D217EFD3700E8A947 /* AuthenticationViewController.swift in Sources */,
 				B77FAEB8217DF1B400E8A947 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
