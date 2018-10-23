@@ -29,6 +29,11 @@ class MetricsViewController: UIViewController {
             return;
         }
         
-        manager.trackEvent(withName: eventName);
+        let properties: [String: String] = [
+            "key1": "value1",
+            "key2": "value2"
+        ];
+        
+        manager.trackEvent(withName: eventName, properties: properties, measurements: nil);
     }
 }
