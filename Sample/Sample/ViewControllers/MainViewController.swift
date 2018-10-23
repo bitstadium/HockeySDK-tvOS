@@ -6,4 +6,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    @IBAction func checkUpdate(_ sender: Any) {
+        AppDelegate.manager.updateManager.checkForUpdate()
+    }
 }
