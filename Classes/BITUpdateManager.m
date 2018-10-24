@@ -493,17 +493,18 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   if (!self.disableUpdateCheckOptionWhenExpired) {
     UIButton *checkForUpdateButton = [UIButton buttonWithType:kBITButtonTypeSystem];
-    checkForUpdateButton.frame = CGRectMake((frame.size.width - 140) / (CGFloat)2.0, frame.size.height - 100, 140, 25);
+    checkForUpdateButton.frame = CGRectMake((frame.size.width - 240) / (CGFloat)2.0, frame.size.height - 150, 240, 75);
     [checkForUpdateButton setTitle:BITHockeyLocalizedString(@"UpdateButtonCheck") forState:UIControlStateNormal];
     [checkForUpdateButton addTarget:self
                              action:@selector(checkForUpdateForExpiredVersion)
-                   forControlEvents:UIControlEventTouchUpInside];
+                   forControlEvents:UIControlEventPrimaryActionTriggered];
+
     [self.blockingView addSubview:checkForUpdateButton];
   }
   
   if (message != nil) {
     frame.origin.x = 20;
-    frame.origin.y = frame.size.height - 180;
+    frame.origin.y = frame.size.height - 250;
     frame.size.width -= 40;
     frame.size.height = 70;
     
