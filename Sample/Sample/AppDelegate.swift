@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Sample
-//
-//  Created by Denis on 22/10/2018.
-//  Copyright © 2018 HockeyApp. All rights reserved.
-//
-
 import UIKit
 import HockeySDK
 
