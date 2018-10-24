@@ -100,7 +100,7 @@
                                 <rect key="frame" x="750" y="144" width="421" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                <state key="normal" title="No Authentication"/>
+                                <state key="normal" title="Anonymous"/>
                                 <connections>
                                     <action selector="anonymAuth:" destination="7Ve-Sa-Md0" eventType="primaryActionTriggered" id="IXc-K2-xla"/>
                                 </connections>
