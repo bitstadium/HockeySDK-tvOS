@@ -119,7 +119,7 @@ Move the unzipped `HockeySDK-tvOS` folder into your project directory. In our ex
 
 ### 2.6 Bitcode
 
-Make sure to read the [article in our knowledgebase about Bitcode](http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/how-to-solve-symbolication-problems#bitcode) to make sure your crashes are symbolicated correctly.
+Make sure to read the [article in our knowledgebase about Bitcode](https://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/how-to-solve-symbolication-problems#bitcode) to make sure your crashes are symbolicated correctly.
 
 **Congratulations, you're all set to use HockeySDK!**
 
@@ -186,7 +186,7 @@ The `BITCrashManagerDelegate` protocol (which is automatically included in `BITH
 
 1. Text attachments: `-(NSString *)applicationLogForCrashManager:(BITCrashManager *)crashManager`
 
-  Check the following tutorial for an example on how to add CocoaLumberjack log data: [How to Add Application Specific Log Data on iOS or OS X](http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/how-to-add-application-specific-log-data-on-ios-or-os-x)
+  Check the following tutorial for an example on how to add CocoaLumberjack log data: [How to Add Application Specific Log Data on iOS or OS X](https://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/how-to-add-application-specific-log-data-on-ios-or-os-x)
 2. Binary attachments: `-(BITHockeyAttachment *)attachmentForCrashManager:(BITCrashManager *)crashManager`
 
 Make sure to implement the protocol
